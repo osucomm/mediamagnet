@@ -143,6 +143,7 @@ GEM
     jbuilder (2.2.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery (0.0.1)
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -344,6 +345,7 @@ DEPENDENCIES
   guard-spring
   jasmine (~> 2.0.2)
   jbuilder (~> 2.0)
+  jquery
   launchy
   mailcatcher
   meta_request
