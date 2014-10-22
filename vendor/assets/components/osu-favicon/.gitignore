@@ -1,0 +1,44 @@
+# Editor backup files
+*~
+.*.~*~
+.\#*
+*.~*~
+
+# OSX hidden files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows hidden files
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+
+# Metadata and lock
+.project
+.idea
+*.lock
+*.swp
+
+# Archives and packages
+*.7z
+*.jar
+*.rar
+*.zip
+*.gz
+*.bzip
+*.bz2
+*.xz
+*.lzma
+*.iso
+*.tar
+*.dmg
+*.xpi
+*.gem
+*.egg
+*.deb
+*.rpm

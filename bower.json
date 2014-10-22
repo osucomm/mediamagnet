@@ -1,0 +1,8 @@
+{
+  "name": "mediamagnet",
+  "version": "0.0.1",
+  "dependencies": {
+    "osu-favicon":"https://code.osu.edu/ucom/favicon.git",
+    "navbar":"https://code.osu.edu/ucom/navbar.git"
+  }
+}

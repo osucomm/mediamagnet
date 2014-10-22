@@ -8,7 +8,7 @@ gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 
 # Use jquery as the JavaScript library
-gem 'jquery'
+gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc

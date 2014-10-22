@@ -1,0 +1,20 @@
+{
+  "name": "osu-favicon",
+  "version": "1.1.0",
+  "authors": [
+    "University Communications"
+  ],
+  "description": "The OSU favicon",
+  "main": "favicon.ico",
+  "ignore": [
+    "README.md"
+  ],
+  "keywords": [
+    "OSU",
+    "logo",
+    "icon",
+    "web"
+  ],
+  "homepage": "http://ucom.osu.edu",
+  "private": true
+}

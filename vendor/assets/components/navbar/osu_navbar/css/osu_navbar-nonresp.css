@@ -1,0 +1,45 @@
+/* CSS reset - uncomment if not already using a reset
+html, body, div, span, p, a, img, ul, li {margin:0;padding:0;border:0;} */
+
+#osu_navbar .container {width:960px; margin: 0 auto;}
+
+/* OSU Navbar styles (non-responsive)*/
+
+.osu-semantic {position: absolute; left: 0; top: -500px; width: 1px; height: 1px; overflow: hidden;}
+a.osu-semantic:active, a.osu-semantic:focus {position: absolute; left:0; top:0; overflow:visible; font-family:'proximanova',Arial,sans-serif;}
+a#skip:active, a#skip:focus
+{position:absolute; top:0; left:25%; width:50%; text-align:center; padding:0.5em 0 1.5em 0; display:block; color:#fff; z-index:999999999999999999; text-decoration:none; background:#666; background:rgba(0,0,0,0.8); border:1px dotted #ccc; border-top:none; border-radius:0 0 6px 6px;}
+a#skip:active:hover, a#skip:focus:hover {background:#b00; background:rgba(187,0,0,0.8);}
+
+#osu_navbar {clear:both; margin:0; padding:0; background: #eaeaea url(../images/bg-navbar_red.jpg) left bottom repeat-x; overflow:hidden;}
+#osu_navbar * {font-family:'proximanova','Helvetica Neue', Helvetica, Arial, sans-serif; font-size:13px;line-height:1.5;font-weight:400;}
+/* University info */
+#osu_navbar p {margin:0; padding:0;}
+#osu_navbar .univ_info {float:left; padding: 1em 0 ;}
+#osu_navbar .univ_links {float:right; clear:none; padding: 1em 0 0; margin-top:-2px; *margin-left:370px;}
+#osu_navbar .univ_name a {height:16px; width:80px; display:block; text-indent:-9999px; background: url(../images/osu_name.png) 0 0 no-repeat;/*  margin-left:20px; */}
+
+/* Links */
+#osu_navbar div.links {float:left;}
+#osu_navbar div.links ul {margin:0;}
+#osu_navbar div.links ul li {list-style:none; float:left; margin-right:1em;}
+#osu_navbar div.links ul li a {color:#333; text-decoration: none;}
+#osu_navbar div.links ul li a:hover {text-decoration: underline;}
+
+/* Search form */
+#osu_navbar div.search {display:inline-block;}
+#osu_navbar div.search form {float:right; clear:none; margin-top:-.4em;}
+#osu_navbar div.search input[type="text"] {color:#999; font-style:italic; padding-left:3px; border:1px solid #aaa;
+    /* For modern browsers */
+    -webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px;}
+#osu_navbar div.search input[type="text"]:focus {}
+#osu_navbar div.search button[type="submit"] {width:23px; height:18px; border: none; cursor:pointer; text-indent:-9999px; background: transparent url(../images/button-search.png) no-repeat top left; margin:2px 0 0; *font-size:0px; padding:0;}
+#osu_navbar div.search button[type="submit"]:hover {background: transparent url(../images/button-search.png) no-repeat 0 -18px;}
+
+/* Retina icons */
+@media only screen and (max-width: 600px) and (-webkit-min-device-pixel-ratio: 2),
+only screen and (max-width: 600px) and (min--moz-device-pixel-ratio: 2),
+only screen and (max-width: 600px) and (-o-min-device-pixel-ratio: 2/1),
+only screen and (max-width: 600px) and (min-device-pixel-ratio: 2) {
+    #osu_navbar .univ_name a {background-image: url(../images/osu_name@2x.png) !important;
+}
