@@ -46,8 +46,9 @@ group :development do
   #gem 'capistrano-bundler'
 
   gem 'meta_request'
-  gem 'pry-doc'
-  gem 'pry-rescue'
+  gem 'pry'
+  #gem 'pry-doc'
+  #gem 'pry-rescue'
   gem 'pry-stack_explorer'
   gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
   gem 'quiet_assets'
