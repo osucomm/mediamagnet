@@ -1,5 +1,6 @@
 class Entity < ActiveRecord::Base
   # Associations
+  has_one :contact, as: :contactable
   has_one :manifest
   has_many :channels
   has_many :items, through: :channels

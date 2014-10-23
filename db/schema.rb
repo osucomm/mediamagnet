@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023203611) do
+ActiveRecord::Schema.define(version: 20141023203935) do
 
   create_table "channels", force: true do |t|
     t.string   "type"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(version: 20141023203611) do
     t.boolean  "primary"
     t.string   "service_identifier"
     t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", force: true do |t|
+    t.string   "name"
+    t.string   "organization"
+    t.string   "url"
+    t.string   "phone"
+    t.string   "email"
+    t.integer  "contactable_id"
+    t.string   "contactable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
