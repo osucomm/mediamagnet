@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023204644) do
+ActiveRecord::Schema.define(version: 20141023204829) do
 
   create_table "channels", force: true do |t|
     t.string   "type"
@@ -80,6 +80,12 @@ ActiveRecord::Schema.define(version: 20141023204644) do
     t.text     "last_response"
     t.datetime "succeded_at"
     t.datetime "fetched_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
