@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023202514) do
+ActiveRecord::Schema.define(version: 20141023203611) do
 
   create_table "channels", force: true do |t|
     t.string   "type"
@@ -29,6 +29,13 @@ ActiveRecord::Schema.define(version: 20141023202514) do
     t.string   "name"
     t.text     "description"
     t.string   "link"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "entities_users", force: true do |t|
+    t.integer  "entity_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -52,6 +59,15 @@ ActiveRecord::Schema.define(version: 20141023202514) do
     t.text     "last_response"
     t.datetime "succeded_at"
     t.datetime "fetched_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.string   "fullname"
+    t.datetime "last_sign_in_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
