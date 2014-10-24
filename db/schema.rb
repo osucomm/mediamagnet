@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024201433) do
+ActiveRecord::Schema.define(version: 20141024201957) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 20141024201433) do
   create_table "channels_keywords", force: true do |t|
     t.integer "channel_id"
     t.integer "keyword_id"
+  end
+
+  create_table "channels_tags", force: true do |t|
+    t.integer "channel_id"
+    t.integer "tag_id"
   end
 
   create_table "contacts", force: true do |t|
@@ -91,6 +96,11 @@ ActiveRecord::Schema.define(version: 20141024201433) do
   create_table "items_keywords", force: true do |t|
     t.integer "item_id"
     t.integer "keyword_id"
+  end
+
+  create_table "items_tags", force: true do |t|
+    t.integer "item_id"
+    t.integer "tag_id"
   end
 
   create_table "keywords", force: true do |t|

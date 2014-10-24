@@ -3,4 +3,5 @@ class Item < ActiveRecord::Base
   has_one :entity, through: :channel
   has_many :assets
   has_and_belongs_to_many :keywords
+  has_and_belongs_to_many :tags
 end
