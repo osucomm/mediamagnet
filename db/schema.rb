@@ -35,6 +35,16 @@ ActiveRecord::Schema.define(version: 20141024204415) do
     t.datetime "updated_at"
   end
 
+  create_table "channels_keywords", force: true do |t|
+    t.integer "channel_id"
+    t.integer "keyword_id"
+  end
+
+  create_table "channels_tags", force: true do |t|
+    t.integer "channel_id"
+    t.integer "tag_id"
+  end
+
   create_table "contacts", force: true do |t|
     t.string   "name"
     t.string   "organization"
@@ -53,6 +63,14 @@ ActiveRecord::Schema.define(version: 20141024204415) do
     t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_id"
+  end
+
+  add_index "entities", ["parent_id"], name: "index_entities_on_parent_id"
+
+  create_table "entities_keywords", force: true do |t|
+    t.integer "entity_id"
+    t.integer "keyword_id"
   end
 
   create_table "entities_users", force: true do |t|
@@ -73,6 +91,16 @@ ActiveRecord::Schema.define(version: 20141024204415) do
     t.text     "raw"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "items_keywords", force: true do |t|
+    t.integer "item_id"
+    t.integer "keyword_id"
+  end
+
+  create_table "items_tags", force: true do |t|
+    t.integer "item_id"
+    t.integer "tag_id"
   end
 
   create_table "keywords", force: true do |t|
