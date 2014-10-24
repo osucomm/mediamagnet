@@ -5,3 +5,17 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+puts 'Creating entites...'
+
+Entity.create([
+  {
+    name: 'University Communications',
+    description: 'Central communications office',
+    link: 'http://ucom.osu.edu',
+  },{
+    name: 'Arts and Sciences Communications',
+    description: 'College comm office',
+    link: 'http://asccomm.osu.edu'
+  }
+])
