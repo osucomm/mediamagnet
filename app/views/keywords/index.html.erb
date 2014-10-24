@@ -1,0 +1,23 @@
+<h1>Keywords</h1>
+
+<p>
+  A list of keyword terms which may be applied ("tagged") as meta-data to content channels and content items published on behalf of the university. Additional formats: JSON, XML
+</p>
+
+<table class="table table-striped">
+  <tr>
+    <th>Display Name</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th>Machine Name</th>
+  </tr>
+
+  <%- @keywords.each do |keyword| %>
+    <tr>
+      <td><%= link_to keyword.display_name, keyword %></td>
+      <td><%= keyword.description %></td>
+      <td><%= keyword.category %></td>
+      <td><%= keyword.name %></td>
+    </tr>
+  <%- end %>
+</table>

@@ -20,6 +20,7 @@ gem 'simple_form', '~> 3.0.1'
 
 # Auth
 gem 'pundit', '~> 0.2.3'
+gem 'devise'
 
 #Soft Deletion
 gem 'paranoia', github: 'radar/paranoia', branch: 'rails4'
