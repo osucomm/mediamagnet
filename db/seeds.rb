@@ -6,9 +6,24 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+puts 'Creating entites...'
+
+Entity.create([
+  {
+    name: 'University Communications',
+    description: 'Central communications office',
+    link: 'http://ucom.osu.edu',
+  },{
+    name: 'Arts and Sciences Communications',
+    description: 'College comm office',
+    link: 'http://asccomm.osu.edu',
+  }
+])
+
+puts 'Creating keywords...'
+
 Keyword.first_or_create(
   name: 'department',
   display_name: 'Department',
   description: 'Content pertaining to departments, offices, or business units. Add "-DEPARTMENTNUMBER" to refer to a specific department. Ex: department-34100',
 )
-
