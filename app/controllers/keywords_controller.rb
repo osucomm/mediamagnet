@@ -7,6 +7,8 @@ class KeywordsController < ApplicationController
   end
 
   def show
+    @keyword = Keyword.find(params[:id])
+    respond_with @keyword
   end
 
   def new
