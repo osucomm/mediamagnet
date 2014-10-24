@@ -5,6 +5,9 @@ class Entity < ActiveRecord::Base
   has_many :channels
   has_many :items, through: :channels
   has_and_belongs_to_many :users
+  belongs_to :parent, class_name: "Entity"
+  has_many :children, class_name: "Entity", foreign_key: "parent_id"
+
 
   # Validations
   validates :name, presence: true

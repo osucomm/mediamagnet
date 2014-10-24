@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141023205222) do
+ActiveRecord::Schema.define(version: 20141024191247) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -53,7 +53,10 @@ ActiveRecord::Schema.define(version: 20141023205222) do
     t.string   "link"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_id"
   end
+
+  add_index "entities", ["parent_id"], name: "index_entities_on_parent_id"
 
   create_table "entities_users", force: true do |t|
     t.integer  "entity_id"
