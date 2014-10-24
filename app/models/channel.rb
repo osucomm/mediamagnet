@@ -3,6 +3,7 @@ class Channel < ActiveRecord::Base
   belongs_to :entity
   has_one :contact, as: :contactable
   has_many :items
+  has_and_belongs_to_many :keywords
 
   # Validations
   validates :name, presence: true

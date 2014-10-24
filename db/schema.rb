@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141024191247) do
+ActiveRecord::Schema.define(version: 20141024201433) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(version: 20141024191247) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "channels_keywords", force: true do |t|
+    t.integer "channel_id"
+    t.integer "keyword_id"
   end
 
   create_table "contacts", force: true do |t|
@@ -58,6 +63,11 @@ ActiveRecord::Schema.define(version: 20141024191247) do
 
   add_index "entities", ["parent_id"], name: "index_entities_on_parent_id"
 
+  create_table "entities_keywords", force: true do |t|
+    t.integer "entity_id"
+    t.integer "keyword_id"
+  end
+
   create_table "entities_users", force: true do |t|
     t.integer  "entity_id"
     t.integer  "user_id"
@@ -76,6 +86,11 @@ ActiveRecord::Schema.define(version: 20141024191247) do
     t.text     "raw"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "items_keywords", force: true do |t|
+    t.integer "item_id"
+    t.integer "keyword_id"
   end
 
   create_table "keywords", force: true do |t|
