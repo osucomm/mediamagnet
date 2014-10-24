@@ -32,6 +32,10 @@
     </div><!-- /container -->
   </div><!-- /osu_navbar -->
 
+  <%- if current_user %>
+    <%= render 'shared/navbar' %>
+  <%- end %>
+
   <div class="container">
 
     <%= yield %>
