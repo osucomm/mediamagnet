@@ -1,5 +1,14 @@
 class EntityPolicy < ApplicationPolicy
+
+  def new?
+    true
+  end
+
+  def create?
+    new?
+  end
+ 
   def update?
-    user.admin? or not record.published?
+    true
   end
 end
