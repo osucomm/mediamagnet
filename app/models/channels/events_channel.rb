@@ -1,2 +1,0 @@
-class EventsChannel < Channel
-end
