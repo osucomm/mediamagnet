@@ -8,22 +8,21 @@
 
 puts 'Creating entites...'
 
-Entity.create([
-  {
+Entity.where(
     name: 'University Communications',
     description: 'Central communications office',
     link: 'http://ucom.osu.edu',
-  },{
+).first_or_create
+Entity.where(
     name: 'Arts and Sciences Communications',
     description: 'College comm office',
     link: 'http://asccomm.osu.edu',
-  }
-])
+).first_or_create
 
 puts 'Creating keywords...'
 
-Keyword.first_or_create(
+Keyword.where(
   name: 'department',
   display_name: 'Department',
   description: 'Content pertaining to departments, offices, or business units. Add "-DEPARTMENTNUMBER" to refer to a specific department. Ex: department-34100',
-)
+).first_or_create
