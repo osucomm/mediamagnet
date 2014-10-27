@@ -10,6 +10,7 @@ class EntitiesController < ApplicationController
   end
 
   def show
+    @entity = Entity.includes(:channels, :users).find(params[:id])
   end
 
   def new

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :keywords, only: [:index, :show]
   resources :entities
+  resources :channels
 
   root 'welcome#show'
 end

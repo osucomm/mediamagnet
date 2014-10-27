@@ -1,2 +1,18 @@
-<h1>Entities#show</h1>
-<p>Find me in app/views/entities/show.html.erb</p>
+<h1><%= @entity.name %></h1>
+<div class="col-sm-8">
+  <h2>Channels</h2>
+  <%= link_to 'Register New Channel', new_channel_path(entity_id: @entity.id)  %>
+  <ul>
+    <%- @entity.channels.each do |channel| %>
+      <li><%= link_to entity.name, entity %></li>
+    <%- end %>
+  </ul>
+</div>
+<div class="col-sm-4">
+  <h2>Users</h2>
+  <ul>
+    <%- @entity.users.each do |user| %>
+      <li><%= user.fullname %></li>
+    <%- end %>
+  </ul>
+</div>
