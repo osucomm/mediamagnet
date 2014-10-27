@@ -1,0 +1,2 @@
+class YoutubeChannel < Channel
+end

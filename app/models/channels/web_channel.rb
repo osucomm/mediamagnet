@@ -1,0 +1,2 @@
+class WebChannel < Channel
+end

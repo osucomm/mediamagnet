@@ -1,0 +1,2 @@
+class EventsChannel < Channel
+end
