@@ -1,0 +1,20 @@
+<h1>Media Magnet Entities</h1>
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Descripton</th>
+    <th>Actions</th>
+  </tr>
+
+  <%- @entities.each do |entity| %>
+    <tr>
+      <td><%= link_to entity.name, entity %></td>
+      <td><%= entity.description %></td>
+      <td>
+        <%= action_links(entity) %>
+      </td>
+    </tr>
+  <%- end %>
+</table>
+

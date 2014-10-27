@@ -32,7 +32,14 @@
     </div><!-- /container -->
   </div><!-- /osu_navbar -->
 
+  <%- if current_user %>
+    <%= render 'shared/navbar' %>
+  <%- end %>
+
   <div class="container">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
 
     <%= yield %>
 

@@ -5,19 +5,53 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+#
+puts 'Creating admins, needed for entites'
+
+users = []
+%w(butsko.7 hinshaw.25 burgoon.5).each do |name_n|
+
+  u = User.where(
+    email: "#{name_n}@osu.edu",
+    username: "#{name_n}@osu.edu",
+  ).first_or_initialize
+
+  if u.new_record?
+    u.password = 'password'
+    u.password_confirmation = 'password'
+    u.save!
+    puts "Created user #{u.email}"
+  end
+
+  users.push u
+end
 
 puts 'Creating entites...'
 
-entity1 = Entity.create({
-  name: 'University Communications',
-  description: 'Central communications office',
-  link: 'http://ucom.osu.edu',
-})
-entity2 = Entity.create({
-  name: 'Arts and Sciences Communications',
-  description: 'College comm office',
-  link: 'http://asccomm.osu.edu',
-})
+e = Entity.where(
+    name: 'University Communications',
+    description: 'Central communications office',
+    link: 'http://ucom.osu.edu',
+).first_or_create
+
+e2 = Entity.where(
+    name: 'Arts and Sciences Communications',
+    description: 'College comm office',
+    link: 'http://asccomm.osu.edu',
+).first_or_create
+
+e.users.push users
+e2.users.push users
+
+
+puts 'Creating keywords...'
+
+Keyword.where(
+  name: 'department',
+  display_name: 'Department',
+  description: 'Content pertaining to departments, offices, or business units. Add "-DEPARTMENTNUMBER" to refer to a specific department. Ex: department-34100',
+).first_or_create
+
 
 
 puts 'Creating contacts...'
@@ -27,7 +61,7 @@ Contact.create({
   url: 'http://ucom.osu.edu',
   phone: '614-555-5555',
   email: 'comments@osu.edu',
-  contactable: entity1,
+  contactable: e,
 })
 
 
@@ -37,47 +71,16 @@ TwitterChannel.create([
   {
     name: '@OhioState',
     description: 'Main OSU twitter account',
-    entity: entity1,
+    entity: e,
     primary: true,
     service_identifier: 'OhioState',
     url: 'https://twitter.com/OhioState',
   },{
     name: '@OhioStateLive',
     description: 'Ohio State live events',
-    entity: entity1,
+    entity: e,
     primary: false,
     service_identifier: 'OhioStateLive',
     url: 'https://twitter.com/OhioStateLive',
   }
 ])
-
-
-puts 'Creating keywords...'
-
-Keyword.first_or_create(
-  name: 'department',
-  display_name: 'Department',
-  description: 'Content pertaining to departments, offices, or business units. Add "-DEPARTMENTNUMBER" to refer to a specific department. Ex: department-34100',
-)
-
-
-puts 'Creating users...'
-
-user1 = User.create({
-  username: 'brutus.1@osu.edu',
-  fullname: 'Brutus Buckeye',
-  email: 'buckeye.1@osu.edu',
-  password: 'password',
-  password_confirmation: 'password',
-})
-
-user2 = User.create({
-  username: 'fake.999999@osu.edu',
-  fullname: 'Jake Fake',
-  email: 'fake.999999@osu.edu',
-  password: 'password',
-  password_confirmation: 'password',
-})
-
-entity1.users.push [ user1, user2 ]
-entity2.users.push user1
