@@ -1,6 +1,12 @@
 <h1>Dashboard</h1>
 <div class="col-sm-4">
   <h2>Entities</h2>
+  <%= link_to 'Register New Entity', new_entity_path %>
+  <h3>Your Entities</h3>
+  <ul>
+  <%- current_user.entities.each do |entity| %>
+    <li><%= link_to entity.name, entity %></li>
+  <%- end %>
 </div>
 <div class="col-sm-4">
   <h2>Items</h2>

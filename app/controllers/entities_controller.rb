@@ -5,6 +5,8 @@ class EntitiesController < ApplicationController
   respond_to :html, :js
 
   def index
+    @entities = Entity.all
+    authorize @entities
   end
 
   def show
@@ -18,6 +20,8 @@ class EntitiesController < ApplicationController
   def create
     @entity = Entity.new(entity_params)
     authorize @entity
+
+    @entity.users << current_user
 
     if @entity.save
       respond_with @entity
@@ -35,6 +39,16 @@ class EntitiesController < ApplicationController
   end
 
   def destroy
+    @entity = Entity.find(params[:id])
+    authorize @entity
+
+    if @entity.destroy
+      flash[:success] = "Entity #{@entity.name} destroyed."
+      redirect_to entities_path
+    else
+      flash[:error] = "Entity #{@entity.name} could not be destroyed."
+      redirect_to entities_path
+    end
   end
 
   private

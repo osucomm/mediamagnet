@@ -11,4 +11,8 @@ class EntityPolicy < ApplicationPolicy
   def update?
     true
   end
+
+  def destroy?
+    user.admin?
+  end
 end
