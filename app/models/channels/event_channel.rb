@@ -1,6 +1,6 @@
 class EventChannel < Channel
   class << self
-    def display_name
+    def type_name
       'Events feed'
     end
   end

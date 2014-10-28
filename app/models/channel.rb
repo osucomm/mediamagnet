@@ -1,6 +1,6 @@
 class Channel < ActiveRecord::Base
   # STI types
-  TYPES = ['TwitterChannel','InstagramChannel','WebChannel','EventChannel','FacebookChannel','YoutubeChannel']
+  TYPES = [TwitterChannel,InstagramChannel,WebChannel,EventChannel,FacebookChannel,YoutubeChannel]
 
   # Associations
   belongs_to :entity
@@ -14,7 +14,7 @@ class Channel < ActiveRecord::Base
   validates :service_identifier, presence: true
 
   class << self
-    def display_name
+    def type_name
       self.name.sub('Channel', '')
     end
 
@@ -23,8 +23,8 @@ class Channel < ActiveRecord::Base
     end
   end
 
-  def display_type
-    self.class.display_name
+  def type_name
+    self.class.type_name
   end
 
   def service_id_name

@@ -11,7 +11,7 @@
   <%- @channels.each do |channel| %>
     <tr>
       <td><%= link_to channel.name, channel %></td>
-      <td><%= channel.display_type %></td>
+      <td><%= channel.type_name %></td>
       <td><%= link_to channel.entity.name, channel.entity %></td>
       <td></td>
     </tr>

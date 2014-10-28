@@ -50,7 +50,7 @@ class ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.require(:channel).permit(:name, :description, :service_identifier, :url, :primary, :entity_id)
+    params.require(:channel).permit(:name, :description, :service_identifier, :url, :primary)
   end
 
 end

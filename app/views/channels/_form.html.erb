@@ -1,4 +1,4 @@
-<%= simple_form_for @channel, as: :channel, html: { class: 'form-horizontal' },
+<%= simple_form_for [@channel.entity, @channel], as: :channel, html: { class: 'form-horizontal' },
   wrapper: :horizontal_form,
   wrapper_mappings: {
     boolean: :horizontal_boolean
@@ -8,10 +8,11 @@
 
   <%= f.input :name %>
   <%= f.input :description %>
-  <%= f.input :service_identifier %>
-  <%= f.input :url %>
+  <%= f.input :service_identifier, label: @channel.service_id_name %>
+  <%- if @channel.instance_of? WebChannel %>
+    <%= f.input :url, label: 'Home page' %>
+  <%- end %>
   <%= f.input :primary %>
-  <%= f.hidden_field :entity_id, :value => @channel.entity.id %>
 
   <%= f.button :submit %>
 

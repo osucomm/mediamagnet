@@ -1,6 +1,6 @@
 class WebChannel < Channel
   class << self
-    def display_name
+    def type_name
       'Website'
     end
   end

@@ -1,6 +1,6 @@
 <h1><%= @channel.name %></h1>
 <ul>
-  <li>Type: <%= @channel.display_type %></li>
+  <li>Type: <%= @channel.type_name %></li>
   <li>Description: <%= @channel.description %></li>
   <li>Entity: <%= link_to @channel.entity.name, @channel.entity %></li>
   <li><%= @channel.service_id_name %>: <%= @channel.service_identifier %></li>

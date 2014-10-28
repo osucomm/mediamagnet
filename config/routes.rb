@@ -3,11 +3,12 @@ Rails.application.routes.draw do
   get 'dashboard' => 'dashboard#show'
 
   resources :keywords, only: [:index, :show]
-  resources :entities
-  resources :channels
+  resources :channels, only: [:index, :show, :destroy]
 
-  Channel::TYPES.each do |type|
-    resources type.constantize.model_name.plural, controller: 'channels', type: type
+  resources :entities, shallow: true do
+    Channel::TYPES.each do |type|
+      resources type.model_name.plural, controller: 'channels', type: type.to_s
+    end
   end
 
   root 'welcome#show'
