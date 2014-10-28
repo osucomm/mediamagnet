@@ -3,7 +3,7 @@ class ChannelPolicy < ApplicationPolicy
   def create?
     record.entity.has_user? user
   end
- 
+
   def update?
     create?
   end
