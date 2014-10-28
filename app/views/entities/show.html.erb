@@ -24,7 +24,7 @@
   <h2>Users</h2>
   <ul>
     <%- @entity.users.each do |user| %>
-      <li><%= user.fullname %></li>
+      <li><%= user.display_name %></li>
     <%- end %>
   </ul>
 </div>

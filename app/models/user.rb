@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
     admin
   end
 
+  def display_name
+    fullname || username
+  end
+
 end
