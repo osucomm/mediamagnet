@@ -1,2 +1,3 @@
-<h1>Channels#new</h1>
-<p>Find me in app/views/channels/new.html.erb</p>
+<h1>Add <%= @channel.class.display_name %></h1>
+
+<%= render 'form', channel: @channel %>
