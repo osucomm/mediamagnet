@@ -1,0 +1,3 @@
+class ChannelPolicy < ApplicationPolicy
+
+end
