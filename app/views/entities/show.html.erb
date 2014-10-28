@@ -1,16 +1,18 @@
 <h1><%= @entity.name %></h1>
 <div class="col-sm-8">
   <h2>Channels</h2>
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-      Register new channel <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <%- Channel::TYPES.each do |type| %>
-        <li><%= link_to type.type_name, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
-      <%- end %>
-    </ul>
-  </div>
+  <%- if @entity.has_user? current_user %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        Register new channel <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <%- Channel::TYPES.each do |type| %>
+          <li><%= link_to type.type_name, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
+        <%- end %>
+      </ul>
+    </div>
+  <%- end %>
   <ul>
     <%- @entity.channels.each do |channel| %>
       <li><%= link_to channel.name, channel %></li>

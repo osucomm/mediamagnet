@@ -13,7 +13,7 @@
       <td><%= link_to channel.name, channel %></td>
       <td><%= channel.type_name %></td>
       <td><%= link_to channel.entity.name, channel.entity %></td>
-      <td></td>
+      <td><%= channel_action_links channel %></td>
     </tr>
   <%- end %>
 </table>

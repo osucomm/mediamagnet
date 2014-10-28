@@ -1,26 +1,28 @@
 class ChannelsController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :find_channel, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :js
+  respond_to :html, :xml, :json, :js
 
   def index
-    @channels = channel_type.all
+    respond_with @channels = channel_type.all
   end
 
   def show
-    @channel = channel_type.includes(:entity).find(params[:id])
+    respond_with @channel
   end
 
   def new
     @channel = channel_type.new
-    @channel.entity = Entity.find(params[:entity_id])
+    @entity = Entity.find(params[:entity_id])
+    @channel.entity = @entity
     authorize @channel
   end
 
   def create
-    puts params.to_yaml
     @channel = channel_type.new(channel_params)
+    @channel.entity = Entity.find(params[:entity_id])
     authorize @channel
 
     if @channel.save
@@ -38,19 +40,36 @@ class ChannelsController < ApplicationController
 
   def update
     authorize @channel
+
+    if @channel.update channel_params
+      respond_with @channel
+    else
+      response_with @channel do |format|
+        format.html { render :edit }
+      end
+    end
   end
 
   def destroy
-    authorize @channel
+    @entity = @channel.entity
+    @channel.destroy
+    flash[:notice] = "Channel was successfully destroyed."
+    respond_with @channel, location: @entity
   end
 
 
-  def channel_type
-    params[:type] ? params[:type].constantize : Channel
-  end
+  private
 
-  def channel_params
-    params.require(:channel).permit(:name, :description, :service_identifier, :url, :primary)
-  end
+    def channel_params
+      params.require(:channel).permit(:name, :description, :service_identifier, :url, :primary)
+    end
+
+    def channel_type
+      params[:type] ? params[:type].constantize : Channel
+    end
+
+    def find_channel
+      @channel = channel_type.includes(:entity).find(params[:id])
+    end
 
 end
