@@ -6,7 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
-puts 'Creating admins, needed for entites'
+
+puts 'Creating users...'
 
 users = []
 %w(butsko.7 hinshaw.25 burgoon.5).each do |name_n|
@@ -14,6 +15,7 @@ users = []
   u = User.where(
     email: "#{name_n}@osu.edu",
     username: "#{name_n}@osu.edu",
+    admin: true,
   ).first_or_initialize
 
   if u.new_record?
