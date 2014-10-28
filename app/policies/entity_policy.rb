@@ -13,6 +13,6 @@ class EntityPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin?
+    user.is_admin?
   end
 end

@@ -19,7 +19,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 #Frontend
 gem 'bootstrap-sass', '~> 3.2.0.1'
 gem 'sass-rails', '~> 4.0.3'
-gem 'simple_form', '~> 3.0.1'
+gem 'simple_form', '~> 3.1.0.rc2'
 
 # Auth
 gem 'pundit', '~> 0.2.3'

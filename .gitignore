@@ -15,3 +15,18 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+
+
+# OSX hidden files
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows hidden files
+Thumbs.db
+ehthumbs.db

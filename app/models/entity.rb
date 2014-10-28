@@ -13,4 +13,8 @@ class Entity < ActiveRecord::Base
   # Validations
   validates :name, presence: true
 
+  def has_user? user
+    users.exists? user
+  end
+
 end
