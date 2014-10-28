@@ -1,9 +1,11 @@
 source 'https://rubygems.org'
 
+gem 'pg'
+gem 'rails_12factor', group: :production
+
 gem 'coffee-rails', '~> 4.0.0'
 gem 'rails', '4.1.6'
 gem 'spring',        group: :development
-gem 'sqlite3'
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 
@@ -25,39 +27,35 @@ gem 'devise'
 #Soft Deletion
 gem 'paranoia', github: 'radar/paranoia', branch: 'rails4'
 
-
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 #
 #
 group :development do
-  gem 'better_errors'
-  gem 'binding_of_caller'
-
   #gem 'capistrano', '~> 3.2.0'
-  #gem 'capistrano-sidekiq'
+  #gem 'capistrano-bundler'
   #gem 'capistrano-rails'
   #gem 'capistrano-rvm'
-  #gem 'capistrano-bundler'
-
-  gem 'meta_request'
-  gem 'pry'
+  #gem 'capistrano-sidekiq'
   #gem 'pry-doc'
   #gem 'pry-rescue'
-  gem 'pry-stack_explorer'
-  gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
-  gem 'quiet_assets'
-  gem 'guard-livereload', require: false
-  gem 'rack-livereload'
-
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'bullet', '~> 4.13.2'
+  gem 'guard-livereload', require: false
+  gem 'meta_request'
+  gem 'pry'
+  gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
+  gem 'pry-stack_explorer'
+  gem 'quiet_assets'
+  gem 'rack-livereload'
+  gem 'sqlite3'
 end
 
 group :test do
