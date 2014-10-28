@@ -27,4 +27,8 @@ class Channel < ActiveRecord::Base
     self.class.display_name
   end
 
+  def service_id_name
+    'Service Identifier'
+  end
+
 end
