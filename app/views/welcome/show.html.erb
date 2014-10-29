@@ -1,9 +1,14 @@
 <div id="masthead">
-  <div class="container">
-    <div class="sm-col-12">
-      <h1>Media Magnet</h1>
-      <%= link_to('Login', '/dashboard')  %>
-      <%= image_tag 'media-magnet.png' %>
+  <div class="sm-col-12">
+    <%= link_to 'Login', dashboard_path, class: 'login_link' %>
+
+    <div class="osu_logo">
+      <a class="center-block" href="http://www.osu.edu">The Ohio State University</a>
     </div>
+    <h1>Media Magnet</h1>
+    <h4>Keywords: <%= link_to 'HTML', keywords_path %>, <%= link_to 'JSON', keywords_path(:format => :json) %>, <%= link_to 'XML', keywords_path(:format => :xml) %></h4>
+    <h5>MORE SERVICES COMING SOON</h5>
+    <p><%= image_tag 'media-magnet.png', id: 'mm_image' %></p>
+
   </div>
 </div>
