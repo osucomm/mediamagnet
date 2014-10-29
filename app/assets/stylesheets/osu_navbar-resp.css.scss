@@ -11,13 +11,13 @@ a#skip:active, a#skip:focus
 {position:absolute; top:0; left:25%; width:50%; text-align:center; padding:0.5em 0 1.5em 0; display:block; color:#fff; z-index:999999999999999999; text-decoration:none; background:#666; background:rgba(0,0,0,0.8); border:1px dotted #ccc; border-top:none; border-radius:0 0 6px 6px;}
 a#skip:active:hover, a#skip:focus:hover {background:#b00; background:rgba(187,0,0,0.8);}
 
-#osu_navbar {clear:both; margin:0; padding:0; background: #eaeaea url(osu_navbar/bg-navbar_red.jpg) left bottom repeat-x; overflow:hidden;}
+#osu_navbar {clear:both; margin:0; padding:0; background: #eaeaea image-url('osu_navbar/bg-navbar_red.jpg') left bottom repeat-x; overflow:hidden;}
 #osu_navbar * {font-family:'proximanova','Helvetica Neue', Helvetica, Arial, sans-serif; font-size:13px;line-height:1.5; font-weight:normal;}
 /* University info */
 #osu_navbar p {margin:0; padding:0;}
 #osu_navbar .univ_info {float:left; padding: 1em 0 ;}
 #osu_navbar .univ_links {float:right; clear:none; padding: 1em 0 0; margin-top:-2px;}
-#osu_navbar .univ_name a {height:16px; width:80px; display:block; text-indent:-9999px; background: url(osu_navbar/osu_name.png) 0 0 no-repeat; margin-left:20px;}
+#osu_navbar .univ_name a {height:16px; width:80px; display:block; text-indent:-9999px; background: image-url('osu_navbar/osu_name.png') 0 0 no-repeat; margin-left:20px;}
 
 
 /* Links */
@@ -46,12 +46,12 @@ a#skip:active:hover, a#skip:focus:hover {background:#b00; background:rgba(187,0,
     #osu_navbar div.links ul li {list-style:none; float:left; margin-right:.5em;}
     #osu_navbar div.links ul li a {height:23px; width:23px; display:block; overflow:hidden; text-indent:-999px;}
     #osu_navbar div.links ul li a:hover {text-decoration: none;}
-    #osu_navbar div.links ul li a.help {background:url(osu_navbar/resp-help.png) 0 0 no-repeat;}
-    #osu_navbar div.links ul li a.buckeyelink {background:url(osu_navbar/resp-buckeyelink.png) 0 0 no-repeat;}
-    #osu_navbar div.links ul li a.map {background:url(osu_navbar/resp-map.png) 0 0 no-repeat;}
-    #osu_navbar div.links ul li a.findpeople {background:url(osu_navbar/resp-findpeople.png) 0 0 no-repeat;}
-    #osu_navbar div.links ul li a.webmail {background:url(osu_navbar/resp-webmail.png) 0 0 no-repeat;}
-    #osu_navbar div.links ul li a.search {background:url(osu_navbar/resp-search.png) 0 0 no-repeat;}
+    #osu_navbar div.links ul li a.help {background: image-url('osu_navbar/resp-help.png') 0 0 no-repeat;}
+    #osu_navbar div.links ul li a.buckeyelink {background: image-url('osu_navbar/resp-buckeyelink.png') 0 0 no-repeat;}
+    #osu_navbar div.links ul li a.map {background: image-url('osu_navbar/resp-map.png') 0 0 no-repeat;}
+    #osu_navbar div.links ul li a.findpeople {background: image-url('osu_navbar/resp-findpeople.png') 0 0 no-repeat;}
+    #osu_navbar div.links ul li a.webmail {background: image-url('osu_navbar/resp-webmail.png') 0 0 no-repeat;}
+    #osu_navbar div.links ul li a.search {background: image-url('osu_navbar/resp-search.png') 0 0 no-repeat;}
     /* Hide search box */
     #osu_navbar div.search {display:none;}
 }
@@ -61,13 +61,13 @@ a#skip:active:hover, a#skip:focus:hover {background:#b00; background:rgba(187,0,
 only screen and (max-width: 600px) and (min--moz-device-pixel-ratio: 2),
 only screen and (max-width: 600px) and (-o-min-device-pixel-ratio: 2/1),
 only screen and (max-width: 600px) and (min-device-pixel-ratio: 2) {
-  #osu_navbar .univ_name a {background-image: url(osu_navbar/osu_name@2x.png) !important; background-size: contain;}
-  #osu_navbar div.links ul li a.help {background-image:url(osu_navbar/resp-help@2x.png) !important;}
-  #osu_navbar div.links ul li a.buckeyelink {background-image:url(osu_navbar/resp-buckeyelink@2x.png) !important;}
-  #osu_navbar div.links ul li a.map {background-image:url(osu_navbar/resp-map@2x.png) !important;}
-  #osu_navbar div.links ul li a.findpeople {background-image:url(osu_navbar/resp-findpeople@2x.png) !important;}
-  #osu_navbar div.links ul li a.webmail {background-image:url(osu_navbar/resp-webmail@2x.png) !important;}
-  #osu_navbar div.links ul li a.search {background-image:url(osu_navbar/resp-search@2x.png) !important;}
+  #osu_navbar .univ_name a {background-image: image-url('osu_navbar/osu_name@2x.png') !important; background-size: contain;}
+  #osu_navbar div.links ul li a.help {background-image: image-url('osu_navbar/resp-help@2x.png') !important;}
+  #osu_navbar div.links ul li a.buckeyelink {background-image: image-url('osu_navbar/resp-buckeyelink@2x.png') !important;}
+  #osu_navbar div.links ul li a.map {background-image: image-url('osu_navbar/resp-map@2x.png') !important;}
+  #osu_navbar div.links ul li a.findpeople {background-image: image-url('osu_navbar/resp-findpeople@2x.png') !important;}
+  #osu_navbar div.links ul li a.webmail {background-image: image-url('osu_navbar/resp-webmail@2x.png') !important;}
+  #osu_navbar div.links ul li a.search {background-image: image-url('osu_navbar/resp-search@2x.png') !important;}
   /* scale icon background size */
     #osu_navbar div.links ul li a.help,
     #osu_navbar div.links ul li a.buckeyelink,
