@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141028011753) do
+ActiveRecord::Schema.define(version: 20141029182853) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20141028011753) do
     t.string   "url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_polled_at"
   end
 
   create_table "channels_keywords", force: true do |t|

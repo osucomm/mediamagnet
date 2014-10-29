@@ -15,6 +15,9 @@ class Channel < ActiveRecord::Base
 
   accepts_nested_attributes_for :contact
 
+  # Callbacks
+  after_create :run
+
   class << self
     def type_name
       self.name.sub('Channel', '')
@@ -31,6 +34,15 @@ class Channel < ActiveRecord::Base
 
   def service_id_name
     'Service Identifier'
+  end
+
+  def item_count
+    items.count
+  end
+
+  def run
+    logger.info "Channel #{name} polled."
+    update_attribute(:last_polled_at, Time.now)
   end
 
 end
