@@ -15,7 +15,16 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Entities<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Explore<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><%= link_to 'Entities', entities_path %></li>
+            <li><%= link_to 'Channels', channels_path %></li>
+            <li><%= link_to 'Keywords', keywords_path %></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">My entities<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <%- current_user.entities.each do |entity| %>
               <li><%= link_to entity.name, entity %></li>
