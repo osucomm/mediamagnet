@@ -34,6 +34,9 @@ gem 'paranoia', github: 'radar/paranoia', branch: 'rails4'
 # Use unicorn as the app server
 gem 'unicorn'
 
+# Channel Clients
+gem 'twitter'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 #
@@ -49,6 +52,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet', '~> 4.13.2'
+  gem 'dotenv-rails'
   gem 'guard-livereload', require: false
   gem 'meta_request'
   gem 'pry'
