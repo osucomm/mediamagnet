@@ -1,14 +1,23 @@
 <div id="masthead">
-  <div class="sm-col-12">
+  <div id="page-content" class="container">
     <%= link_to 'Login', dashboard_path, class: 'login_link' %>
 
-    <div class="osu_logo">
-      <a class="center-block" href="http://www.osu.edu">The Ohio State University</a>
-    </div>
-    <h1>Media Magnet</h1>
-    <h4>Keywords: <%= link_to 'HTML', keywords_path %>, <%= link_to 'JSON', keywords_path(:format => :json) %>, <%= link_to 'XML', keywords_path(:format => :xml) %></h4>
-    <h5>MORE SERVICES COMING SOON</h5>
-    <p><%= image_tag 'media-magnet.png', id: 'mm_image' %></p>
+    <div class="sm-col-12">
+      <% flash.each do |key, value| %>
+        <div class="alert <%= flash_class key %> alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <%= value %>
+        </div>
+      <% end %>
 
+      <div class="osu_logo">
+        <a class="center-block" href="http://www.osu.edu">The Ohio State University</a>
+      </div>
+      <h1>Media Magnet</h1>
+      <h4>Keywords: <%= link_to 'HTML', keywords_path %>, <%= link_to 'JSON', keywords_path(:format => :json) %>, <%= link_to 'XML', keywords_path(:format => :xml) %></h4>
+      <h5>MORE SERVICES COMING SOON</h5>
+      <p><%= image_tag 'media-magnet.png', id: 'mm_image' %></p>
+
+    </div>
   </div>
 </div>

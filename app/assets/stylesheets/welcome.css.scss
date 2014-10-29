@@ -3,17 +3,21 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-#masthead {clear:both; background:#fff image-url('bg_leaves.jpg') top center no-repeat; background-size:cover; overflow:hidden; text-align:center; position:relative;}
+#masthead {clear:both; background:#fff image-url('bg_leaves.jpg') top center no-repeat; background-size:cover; overflow:hidden; text-align:center;}
+#masthead #page-content {position:relative;}
 #masthead h1 {font-family:'proximanova',Arial,sans-serif; font-weight:600; font-size:60px; color:#111; line-height:1.0; margin-bottom:30px;}
 #masthead h4 {color:#666666; font-size:22px; line-height:30px; margin-bottom:8px; margin-top:0;}
 #masthead h4 a {text-decoration:underline;}
 #masthead h5 {color:#666666; font-size:18px; line-height:24px; margin-top:0;}
 
+#masthead div.alert {text-align:left;}
+#masthead div.alert:first-child {margin-top:50px;}
+
 div.osu_logo a {display:block; overflow:hidden; width:167px; height:180px; text-indent:-9999px; background:transparent image-url('osu-web-header-vert2.png') 0 0 no-repeat; }
 
 #mm_image {width: 350px;}
 
-.login_link {display:block; position:absolute; top:15px; right:15px;}
+.login_link {display:block; position:absolute; top:15px; right:28px;}
 
 
 /* #Media Queries
