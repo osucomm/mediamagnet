@@ -16,6 +16,8 @@
 /log/*.log
 /tmp
 
+# Ignore local environment configuration
+.env
 
 
 # OSX hidden files
