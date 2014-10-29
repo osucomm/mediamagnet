@@ -17,6 +17,7 @@ class ChannelsController < ApplicationController
     @channel = channel_type.new
     @entity = Entity.find(params[:entity_id])
     @channel.entity = @entity
+    @channel.build_contact
     authorize @channel
   end
 
@@ -36,6 +37,7 @@ class ChannelsController < ApplicationController
 
   def edit
     authorize @channel
+    @channel.build_contact unless @channel.contact
   end
 
   def update
@@ -61,7 +63,8 @@ class ChannelsController < ApplicationController
   private
 
     def channel_params
-      params.require(:channel).permit(:name, :description, :service_identifier, :url, :primary)
+      params.require(:channel).permit(:name, :description, :service_identifier, :url, :primary,
+        contact_attributes: [:id, :name, :organization, :url, :phone, :email])
     end
 
     def channel_type
