@@ -20,7 +20,7 @@ class TwitterChannel < Channel
 
     #Check tweet identifiers against 
     tweets.each do |tweet|
-      unless items.where(guid: tweet.id).exists?
+      unless items.where(guid: tweet.id.to_s).exists?
         items.create(
           guid: tweet.id,
           description: tweet.text,
