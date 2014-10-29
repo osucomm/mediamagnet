@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+
+  resources :users
+
+  devise_for :users, path: 'user'
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
   resources :keywords, only: [:index, :show]
