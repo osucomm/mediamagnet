@@ -31,4 +31,13 @@ class Channel < ActiveRecord::Base
     'Service Identifier'
   end
 
+  def item_count
+    items.count
+  end
+
+  def run
+    logger.info "Channel #{name} polled."
+    update_attribute(:last_polled_at, Time.now)
+  end
+
 end

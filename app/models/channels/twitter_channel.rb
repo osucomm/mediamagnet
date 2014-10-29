@@ -13,7 +13,7 @@ class TwitterChannel < Channel
   end
 
   def run
-    new_count = 0
+    @new_count = 0
 
     # Get tweets from our user.
     tweets = client.user_timeline(name)
@@ -24,11 +24,12 @@ class TwitterChannel < Channel
         items.create(
           guid: tweet.id,
           description: tweet.text,
-          published_at: created_at
+          published_at: tweet.created_at
         )
       end
     end
-    logger.info "Channel #{name} updated with #{new_count} new items."
+    true
+    super
   end
 
 end
