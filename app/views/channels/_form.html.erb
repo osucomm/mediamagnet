@@ -14,6 +14,16 @@
   <%- end %>
   <%= f.input :primary %>
 
+  <%= field_set_tag 'Contact' do %>
+    <%= f.simple_fields_for :contact do |c| %>
+      <%= c.input :name %>
+      <%= c.input :organization %>
+      <%= c.input :url, label: 'URL' %>
+      <%= c.input :phone %>
+      <%= c.input :email %>
+    <% end %>
+  <% end %>
+
   <%= f.button :submit %>
 
 <%- end %>
