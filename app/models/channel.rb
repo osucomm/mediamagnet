@@ -13,6 +13,9 @@ class Channel < ActiveRecord::Base
   validates :name, presence: true
   validates :service_identifier, presence: true
 
+  # Callbacks
+  after_create :run
+
   class << self
     def type_name
       self.name.sub('Channel', '')
