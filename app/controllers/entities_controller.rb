@@ -30,7 +30,7 @@ class EntitiesController < ApplicationController
     if @entity.save
       respond_with @entity
     else
-      response_with @entity do |format|
+      respond_with @entity do |format|
         format.html { render :new }
       end
     end
@@ -47,7 +47,7 @@ class EntitiesController < ApplicationController
     if @entity.update entity_params
       respond_with @entity
     else
-      response_with @entity do |format|
+      respond_with @entity do |format|
         format.html { render :edit }
       end
     end

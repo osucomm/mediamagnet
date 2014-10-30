@@ -31,7 +31,7 @@ class ChannelsController < ApplicationController
     if @channel.save
       respond_with @channel
     else
-      response_with @channel do |format|
+      respond_with @channel do |format|
         format.html { render :new }
       end
     end
@@ -48,7 +48,7 @@ class ChannelsController < ApplicationController
     if @channel.update channel_params
       respond_with @channel
     else
-      response_with @channel do |format|
+      respond_with @channel do |format|
         format.html { render :edit }
       end
     end
