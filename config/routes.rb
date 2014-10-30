@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
-  resources :keywords, only: [:index, :show]
+  resources :keywords
 
   resources :channels, only: [:index, :show, :destroy]
   Channel::TYPES.each do |type|

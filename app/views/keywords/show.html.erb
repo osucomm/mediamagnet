@@ -1,7 +1,14 @@
 <h1><%= @keyword.display_name %></h1>
+<% if current_user %>
+  <p><%= keyword_action_links @keyword %></p>
+<% end %>
 
-ID: <%= @keyword.id %><br>
-Machine Name: <%= @keyword.name %>
+<p>
+  Machine Name: <%= @keyword.name %>
+  <% if @keyword.category %>
+    <br>Category: <%= @keyword.category %>
+  <% end %>
+</p>
 <p>
   <%= @keyword.description %>
 </p>

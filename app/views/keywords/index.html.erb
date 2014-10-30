@@ -1,4 +1,7 @@
 <h1>Keywords</h1>
+<% if current_user.try(:is_admin?) %>
+  <p><%= link_to 'New', new_keyword_path %></p>
+<% end %>
 
 <p>
   A list of keyword terms which may be applied ("tagged") as meta-data to content channels and content items published on behalf of the university. Additional formats: JSON, XML
@@ -7,17 +10,23 @@
 <table class="table table-striped">
   <tr>
     <th>Display Name</th>
+    <th>Machine Name</th>
     <th>Description</th>
     <th>Category</th>
-    <th>Machine Name</th>
+    <% if current_user %>
+      <th>Actions</th>
+    <% end %>
   </tr>
 
   <%- @keywords.each do |keyword| %>
     <tr>
       <td><%= link_to keyword.display_name, keyword %></td>
+      <td><%= keyword.name %></td>
       <td><%= keyword.description %></td>
       <td><%= keyword.category %></td>
-      <td><%= keyword.name %></td>
+      <% if current_user %>
+        <td><%= keyword_action_links keyword %></td>
+      <% end %>
     </tr>
   <%- end %>
 </table>
