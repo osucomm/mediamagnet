@@ -1,6 +1,6 @@
 class ChannelsController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :find_channel, only: [:show, :edit, :update, :destroy]
 
   respond_to :html, :xml, :json, :js
