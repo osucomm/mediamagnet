@@ -9,9 +9,13 @@ class Entity < ActiveRecord::Base
   has_many :children, class_name: "Entity", foreign_key: "parent_id"
   has_and_belongs_to_many :keywords
 
-
   # Validations
   validates :name, presence: true
+
+  # Scopes
+  default_scope -> {
+    order('name ASC')
+  }
 
   accepts_nested_attributes_for :contact
 
