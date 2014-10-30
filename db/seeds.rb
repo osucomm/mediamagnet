@@ -9,12 +9,14 @@
 
 puts 'Creating users...'
 
-users = []
-%w(butsko.7 hinshaw.25 burgoon.5).each do |name_n|
+users = [ { name: 'Mike Butsko', name_n: 'butsko.7' },
+          { name: 'Corey Hinshaw', name_n: 'hinshaw.25'},
+          { name: 'Jim Burgoon', name_n: 'burgoon.5'} ].map do |hash|
 
   u = User.where(
-    email: "#{name_n}@osu.edu",
-    username: "#{name_n}@osu.edu",
+    fullname: hash[:name],
+    email: "#{hash[:name_n]}@osu.edu",
+    username: "#{hash[:name_n]}@osu.edu",
     admin: true,
   ).first_or_initialize
 
@@ -24,8 +26,7 @@ users = []
     u.save!
     puts "Created user #{u.email}"
   end
-
-  users.push u
+  u
 end
 
 puts 'Creating entites...'
@@ -44,7 +45,6 @@ e2 = Entity.where(
 
 e.users.push users
 e2.users.push users
-
 
 puts 'Creating keywords...'
 
