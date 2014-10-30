@@ -13,4 +13,12 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def add_keywords(new_keywords)
+    new_keywords.each do |keyword_text|
+      if keyword = Keyword.where(name: keyword_text).first
+        keywords << keyword
+      end
+    end
+  end
+
 end
