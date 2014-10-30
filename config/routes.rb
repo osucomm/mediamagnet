@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
   resources :keywords
+  resources :items, only: [:index, :show]
   resources :users, only: [:index, :update]
 
   resources :channels, only: [:index, :show, :destroy]

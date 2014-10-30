@@ -6,6 +6,7 @@ class Item < ActiveRecord::Base
   has_and_belongs_to_many :tags
 
   validates :guid, presence: :true
+  validates :channel_id, presence: :true
 
   def to_s
     [:title, :description, :guid].each do |field|
@@ -19,6 +20,15 @@ class Item < ActiveRecord::Base
         keywords << keyword
       end
     end
+  end
+
+  def link
+    if attributes['link'].blank?
+      channel.link_for(self)
+    else
+      attributes['link']
+    end
+
   end
 
 end

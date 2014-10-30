@@ -32,4 +32,8 @@ class TwitterChannel < Channel
     super
   end
 
+  def link_for(item)
+    "https://twitter.com/#{service_identifier}/status/#{item.guid}"
+  end
+
 end

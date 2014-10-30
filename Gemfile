@@ -1,11 +1,12 @@
 ruby '2.1.4'
 source 'https://rubygems.org'
 
-gem 'pg'
-gem 'rails_12factor', group: :production
 
 gem 'coffee-rails', '~> 4.0.0'
+gem 'jbuilder', '~> 2.0'
+gem 'pg'
 gem 'rails', '4.1.6'
+gem 'rails_12factor', group: :production
 gem 'spring',        group: :development
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
@@ -13,7 +14,6 @@ gem 'uglifier', '>= 1.3.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 #Frontend
