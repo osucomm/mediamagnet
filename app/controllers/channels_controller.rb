@@ -6,7 +6,8 @@ class ChannelsController < ApplicationController
   respond_to :html, :xml, :json, :js
 
   def index
-    respond_with @channels = channel_type.all
+    respond_with @channels = channel_type.all.page(params[:page])
+                                             .per(params[:per_page])
   end
 
   def show

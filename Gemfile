@@ -25,8 +25,7 @@ gem 'simple_form', '~> 3.1.0.rc2'
 gem 'pundit', '~> 0.2.3'
 gem 'devise'
 
-#Soft Deletion
-gem 'paranoia', github: 'radar/paranoia', branch: 'rails4'
+gem 'kaminari'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -35,6 +34,8 @@ gem 'paranoia', github: 'radar/paranoia', branch: 'rails4'
 gem 'unicorn'
 
 # Channel Clients
+gem 'instagram'
+gem 'koala', '~> 1.10.1' # Facebook
 gem 'twitter'
 
 # Use Capistrano for deployment
