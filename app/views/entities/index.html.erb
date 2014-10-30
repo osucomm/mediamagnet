@@ -4,16 +4,18 @@
   <tr>
     <th>Name</th>
     <th>Descripton</th>
-    <th>Actions</th>
+    <% if current_user %>
+      <th>Actions</th>
+    <% end %>
   </tr>
 
   <%- @entities.each do |entity| %>
     <tr>
       <td><%= link_to entity.name, entity %></td>
       <td><%= entity.description %></td>
-      <td>
-        <%= action_links(entity) %>
-      </td>
+      <% if current_user %>
+        <td><%= entity_action_links(entity) %></td>
+      <% end %>
     </tr>
   <%- end %>
 </table>

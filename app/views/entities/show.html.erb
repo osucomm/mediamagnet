@@ -1,4 +1,8 @@
 <h1><%= @entity.name %></h1>
+<% if current_user %>
+  <p><%= entity_action_links @entity %></p>
+<% end %>
+
 <div class="col-sm-8">
   <h2>Channels</h2>
   <%- if @entity.has_user? current_user %>
@@ -26,4 +30,16 @@
       <li><%= user.display_name %></li>
     <%- end %>
   </ul>
+
+  <%- if @entity.contact %>
+    <h2>Contact</h2>
+    <ul>
+      <%- [:name, :organization, :url, :phone, :email].each do |attr|
+        value = @entity.contact.send(attr)
+        if value %>
+          <li><%= attr.capitalize %>: <%= value %></li>
+        <%- end
+      end %>
+    </ul>
+  <%- end %>
 </div>

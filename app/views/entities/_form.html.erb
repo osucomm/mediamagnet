@@ -1,16 +1,22 @@
-<%= simple_form_for entity, html: { class: 'form-horizontal' } do |f| %>
+<%= simple_form_for @entity, html: { class: 'form-horizontal' },
+  wrapper: :horizontal_form do |f| %>
 
-  <div class="form-inputs">
-    <div class="col-sm-6">
-      <%= f.input :name, input_html: { class: 'form-control' } %>
-    </div>
-    <div class="col-sm-6">
-      <%= f.input :description %>
-    </div>
-    <div class="col-sm-12">
-      <%= f.input :link %>
-      <%= f.button :submit %>
-  </div>
+  <%= f.error_notification %>
 
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :link %>
+
+  <%= field_set_tag 'Contact' do %>
+    <%= f.simple_fields_for :contact do |c| %>
+      <%= c.input :name %>
+      <%= c.input :organization %>
+      <%= c.input :url, label: 'URL' %>
+      <%= c.input :phone %>
+      <%= c.input :email %>
+    <% end %>
+  <% end %>
+
+  <%= f.button :submit %>
 
 <%- end %>

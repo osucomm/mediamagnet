@@ -13,6 +13,8 @@ class Entity < ActiveRecord::Base
   # Validations
   validates :name, presence: true
 
+  accepts_nested_attributes_for :contact
+
   def has_user? user
     users.exists? user
   end
