@@ -15,6 +15,10 @@ class Entity < ActiveRecord::Base
 
   accepts_nested_attributes_for :contact
 
+  def to_s
+    name
+  end
+
   def has_user? user
     users.exists? user
   end
