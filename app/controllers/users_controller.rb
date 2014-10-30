@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  respond_to :html, :js
+
   def index
     @users = User.all
     authorize @users
@@ -7,18 +10,26 @@ class UsersController < ApplicationController
   def show
   end
 
-  def new
-  end
-
-  def create
-  end
-
-  def edit
-  end
-
   def update
+    @user = User.find(params[:id])
+    authorize @user
+
+    if @user.update(user_params)
+      respond_with @user do |format|
+        format.html do
+          flash[:success] = "User updated"
+          redirect_to users_path
+        end
+        format.js { }
+      end
+    else
+      respond_with @user
+    end
   end
 
-  def desroy
+  private
+
+  def user_params
+    params.require(:user).permit(:admin, :blocked)
   end
 end

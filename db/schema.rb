@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141029182853) do
+ActiveRecord::Schema.define(version: 20141030135524) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20141029182853) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.boolean  "admin",                  default: false
+    t.boolean  "blocked"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

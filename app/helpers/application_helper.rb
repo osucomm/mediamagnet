@@ -9,4 +9,10 @@ module ApplicationHelper
     end
   end
 
+  def comma_list_links(objects)
+    objects.map do |object|
+      link_to object.name, object
+    end.join(', ').html_safe
+  end
+
 end

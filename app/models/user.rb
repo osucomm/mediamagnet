@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   has_and_belongs_to_many :entities
 
+  default_scope -> {
+    order('email ASC')
+  }
+
   def is_admin?
     admin
   end

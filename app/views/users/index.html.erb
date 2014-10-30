@@ -3,13 +3,17 @@
   <tr>
     <th>Name</th>
     <th>Email</th>
+    <th>Entities</th>
     <th>Actions</th>
   </tr>
   <%- @users.each do |user| %>
-    <tr>
+    <tr id="user-<%= user.id %>">
       <td><%= user.fullname %></td>
       <td><%= user.email %></td>
-      <td></td>
+      <td><%= comma_list_links(user.entities) %></td>
+      <td>
+        <%= render 'actions', user: user %>
+      </td>
     </tr>
   <%- end %>
 </table>

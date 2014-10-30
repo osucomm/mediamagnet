@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :users
 
   devise_for :users, path: 'user'
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
   resources :keywords
+  resources :users, only: [:index, :update]
 
   resources :channels, only: [:index, :show, :destroy]
   Channel::TYPES.each do |type|
