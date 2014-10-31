@@ -50,43 +50,43 @@ group :development do
   #gem 'capistrano-sidekiq'
   #gem 'pry-doc'
   #gem 'pry-rescue'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'bullet', '~> 4.13.2'
-  gem 'dotenv-rails'
-  gem 'guard-livereload', require: false
-  gem 'meta_request'
-  gem 'pry'
+  #gem 'better_errors'
+  #gem 'binding_of_caller'
+  #gem 'bullet', '~> 4.13.2'
+  #gem 'dotenv-rails'
+  #gem 'guard-livereload', require: false
+  #gem 'meta_request'
+  #gem 'pry'
   #gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
-  gem 'pry-stack_explorer'
-  gem 'quiet_assets'
-  gem 'rack-livereload'
-  gem 'sqlite3'
+ # gem 'pry-stack_explorer'
+  #gem 'quiet_assets'
+  #gem 'rack-livereload'
+  #gem 'sqlite3'
 end
 
 group :test do
-  gem 'capybara'
-  gem 'database_cleaner', '~> 1.3'
-  gem 'launchy'
-  gem 'poltergeist'
-  gem 'rspec', '~> 3.0.0'
-  gem 'rspec-rails','~> 3.0.0'
-  gem 'shoulda-matchers'
-  gem 'simplecov', require: false
-  gem 'rspec-given'
-  gem 'rubocop', require: false
+  #gem 'capybara'
+  #gem 'database_cleaner', '~> 1.3'
+  #gem 'launchy'
+  #gem 'poltergeist'
+  #gem 'rspec', '~> 3.0.0'
+  #gem 'rspec-rails','~> 3.0.0'
+  #gem 'shoulda-matchers'
+  #gem 'simplecov', require: false
+  #gem 'rspec-given'
+  #gem 'rubocop', require: false
 end
 
 group :development, :test do
-  gem 'childprocess'
-  gem 'factory_girl_rails'
-  gem 'guard'
-  gem 'guard-rspec'
-  gem 'guard-spring'
-  gem 'railroady', git: 'https://github.com/preston/railroady.git'
-  gem 'spring-commands-rspec'
-  gem 'jasmine', '~> 2.0.2' # js testing framework
-  gem 'mailcatcher'
+  #gem 'childprocess'
+  #gem 'factory_girl_rails'
+  #gem 'guard'
+  #gem 'guard-rspec'
+  #gem 'guard-spring'
+  #gem 'railroady', git: 'https://github.com/preston/railroady.git'
+  #gem 'spring-commands-rspec'
+  #gem 'jasmine', '~> 2.0.2' # js testing framework
+  #gem 'mailcatcher'
 end
 
 
