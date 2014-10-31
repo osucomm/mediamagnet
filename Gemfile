@@ -61,7 +61,7 @@ group :development do
  # gem 'pry-stack_explorer'
   #gem 'quiet_assets'
   #gem 'rack-livereload'
-  #gem 'sqlite3'
+  gem 'sqlite3'
 end
 
 group :test do
