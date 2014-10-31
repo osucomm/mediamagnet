@@ -57,7 +57,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'meta_request'
   gem 'pry'
-  gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
+  #gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
   gem 'pry-stack_explorer'
   gem 'quiet_assets'
   gem 'rack-livereload'
