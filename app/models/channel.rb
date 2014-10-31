@@ -18,6 +18,11 @@ class Channel < ActiveRecord::Base
   # Callbacks
   after_create :run
 
+  # Scopes
+  scope :needs_update, -> {
+    where('last_polled_at < ?', 1.hour.ago)
+  }
+
   class << self
     def type_name
       self.name.sub('Channel', '')
@@ -40,7 +45,7 @@ class Channel < ActiveRecord::Base
     items.count
   end
 
-  def run
+  def refresh_items
     logger.info "Channel #{name} polled."
     update_attribute(:last_polled_at, Time.now)
   end

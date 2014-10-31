@@ -12,11 +12,11 @@ class TwitterChannel < Channel
     end
   end
 
-  def run
+  def refresh_items
     @new_count = 0
 
-    # Get tweets from our user.
-    tweets = client.user_timeline(name)
+    # Get tweets from our user, starting with the one after the last one we have.
+    tweets = client.user_timeline(name, since_id: items.most_recent.guid)
 
     #Check tweet identifiers against 
     tweets.each do |tweet|

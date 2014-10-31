@@ -8,6 +8,10 @@ class Item < ActiveRecord::Base
   validates :guid, presence: :true
   validates :channel_id, presence: :true
 
+  scope :most_recent, -> {
+    order('published_at DESC').limit(1)
+  }
+
   def to_s
     [:title, :description, :guid].each do |field|
       return self.send(field) unless self.send(field).blank?

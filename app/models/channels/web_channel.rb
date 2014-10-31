@@ -9,7 +9,7 @@ class WebChannel < Channel
     'Feed URL'
   end
 
-  def run
+  def refresh_items
     web_items = RSS::Parser.parse(service_identifier).items
 
     web_items.each do |web_item|

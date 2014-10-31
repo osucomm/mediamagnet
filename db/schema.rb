@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141030135524) do
+ActiveRecord::Schema.define(version: 20141031130822) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 20141030135524) do
     t.string   "link"
     t.string   "guid"
     t.datetime "published_at"
-    t.datetime "fetched_at"
     t.text     "raw"
     t.datetime "created_at"
     t.datetime "updated_at"
