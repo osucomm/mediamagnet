@@ -1,12 +1,4 @@
 GIT
-  remote: https://github.com/deivid-rodriguez/pry-byebug
-  revision: babf5ecab820017cb9d526acbdcc2b70335034cb
-  specs:
-    pry-byebug (2.0.0)
-      byebug (~> 3.4)
-      pry (~> 0.10)
-
-GIT
   remote: https://github.com/preston/railroady.git
   revision: 551de88e6cffeee6e894e3637cad18c4bc556c2b
   specs:
@@ -60,10 +52,6 @@ GEM
     bullet (4.13.2)
       activesupport (>= 3.0.0)
       uniform_notifier (>= 1.6.0)
-    byebug (3.5.1)
-      columnize (~> 0.8)
-      debugger-linecache (~> 1.2)
-      slop (~> 3.6)
     callsite (0.0.11)
     capybara (2.4.4)
       mime-types (>= 1.16)
@@ -84,11 +72,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    columnize (0.8.9)
     daemons (1.1.9)
     database_cleaner (1.3.0)
     debug_inspector (0.0.2)
-    debugger-linecache (1.2.0)
     devise (3.4.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -416,7 +402,6 @@ DEPENDENCIES
   pg
   poltergeist
   pry
-  pry-byebug!
   pry-stack_explorer
   pundit (~> 0.2.3)
   quiet_assets
