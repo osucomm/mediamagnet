@@ -19,7 +19,7 @@ class Channel < ActiveRecord::Base
   after_create :run
 
   # Scopes
-  scope :needs_update, -> {
+  scope :needs_refresh, -> {
     where('last_polled_at < ?', 1.hour.ago)
   }
 
