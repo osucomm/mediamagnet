@@ -1,4 +1,3 @@
-ruby '2.0.0'
 source 'https://rubygems.org'
 
 
@@ -49,7 +48,7 @@ group :development do
   #gem 'capistrano-rvm'
   #gem 'capistrano-sidekiq'
   #gem 'pry-doc'
-  gem 'pry-rescue'
+  #gem 'pry-rescue'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet', '~> 4.13.2'
@@ -57,7 +56,7 @@ group :development do
   gem 'guard-livereload', require: false
   gem 'meta_request'
   gem 'pry'
-  #gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
+  gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
   gem 'pry-stack_explorer'
   gem 'quiet_assets'
   gem 'rack-livereload'
