@@ -16,7 +16,7 @@ class Channel < ActiveRecord::Base
   accepts_nested_attributes_for :contact
 
   # Callbacks
-  after_create :run
+  after_create :refresh_items
 
   # Scopes
   scope :needs_refresh, -> {
