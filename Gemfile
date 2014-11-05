@@ -37,6 +37,7 @@ gem 'unicorn'
 gem 'instagram'
 gem 'koala', '~> 1.10.1' # Facebook
 gem 'twitter'
+gem 'youtube_it'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
