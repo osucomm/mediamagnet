@@ -46,7 +46,7 @@ class Channel < ActiveRecord::Base
   end
 
   def refresh_items
-    logger.info "Channel #{name} polled."
+    logger.info {"Channel #{name} refreshed."}
     update_attribute(:last_polled_at, Time.now)
   end
 
