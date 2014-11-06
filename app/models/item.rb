@@ -8,6 +8,10 @@ class Item < ActiveRecord::Base
   validates :guid, presence: :true
   validates :channel_id, presence: :true
 
+  default_scope -> {
+    order('published_at DESC')
+  }
+
   scope :most_recent, -> {
     order('published_at DESC').limit(1)
   }
