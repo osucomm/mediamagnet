@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106155358) do
+ActiveRecord::Schema.define(version: 20141106172341) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -111,6 +111,13 @@ ActiveRecord::Schema.define(version: 20141106155358) do
     t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "taggings", force: true do |t|
+    t.integer "taggable_id"
+    t.string  "taggable_type"
+    t.integer "tag_id"
+    t.integer "keyword_id"
   end
 
   create_table "tags", force: true do |t|
