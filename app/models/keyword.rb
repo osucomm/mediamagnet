@@ -1,5 +1,5 @@
 class Keyword < ActiveRecord::Base
-  has_and_belongs_to_many :items
+  has_many :items
   has_and_belongs_to_many :channels
   has_and_belongs_to_many :entities
 
