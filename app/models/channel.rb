@@ -6,8 +6,13 @@ class Channel < ActiveRecord::Base
   belongs_to :entity
   has_one :contact, as: :contactable, dependent: :destroy
   has_many :items
+  has_many :mappings, as: :mappable
   has_and_belongs_to_many :keywords
   has_and_belongs_to_many :tags
+
+  has_many :taggings, as: :taggable
+  has_many :tags, through: :taggings
+  has_many :keywords, through: :taggings
 
   # Validations
   validates :name, presence: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106172341) do
+ActiveRecord::Schema.define(version: 20141107194108) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -109,6 +109,15 @@ ActiveRecord::Schema.define(version: 20141106172341) do
     t.text     "last_response"
     t.datetime "succeded_at"
     t.datetime "fetched_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mappings", force: true do |t|
+    t.integer  "mappable_id"
+    t.string   "mappable_type"
+    t.integer  "tag_id"
+    t.integer  "keyword_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
