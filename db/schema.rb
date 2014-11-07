@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141031144434) do
+ActiveRecord::Schema.define(version: 20141107194108) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -94,16 +94,6 @@ ActiveRecord::Schema.define(version: 20141031144434) do
     t.datetime "updated_at"
   end
 
-  create_table "items_keywords", force: true do |t|
-    t.integer "item_id"
-    t.integer "keyword_id"
-  end
-
-  create_table "items_tags", force: true do |t|
-    t.integer "item_id"
-    t.integer "tag_id"
-  end
-
   create_table "keywords", force: true do |t|
     t.string   "name"
     t.string   "display_name"
@@ -121,6 +111,22 @@ ActiveRecord::Schema.define(version: 20141031144434) do
     t.datetime "fetched_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "mappings", force: true do |t|
+    t.integer  "mappable_id"
+    t.string   "mappable_type"
+    t.integer  "tag_id"
+    t.integer  "keyword_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "taggings", force: true do |t|
+    t.integer "taggable_id"
+    t.string  "taggable_type"
+    t.integer "tag_id"
+    t.integer "keyword_id"
   end
 
   create_table "tags", force: true do |t|
