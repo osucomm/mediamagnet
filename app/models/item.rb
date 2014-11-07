@@ -9,6 +9,8 @@ class Item < ActiveRecord::Base
   validates :guid, presence: :true
   validates :channel_id, presence: :true
 
+  delegate :mappings, to: :channel
+
   default_scope -> {
     order('published_at DESC')
   }
@@ -25,9 +27,7 @@ class Item < ActiveRecord::Base
 
   def tags=(tags)
     tags.each do |tag_text|
-      tag = Tag.where(name: tag_text.downcase).first_or_create
-      # TODO: Go Look for mapping of tag to keyword, get keyword.
-      taggings.build(tag_id: tag.id, keyword_id: nil)
+      taggings.build(tag_text: tag_text)
     end
   end
 
