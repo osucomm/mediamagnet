@@ -27,7 +27,7 @@ class Item < ActiveRecord::Base
 
   def tags=(tags)
     tags.each do |tag_text|
-      taggings.create(tag_text: tag_text)
+      taggings.build(tag_text: tag_text)
     end
   end
 
