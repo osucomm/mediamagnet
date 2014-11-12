@@ -5,6 +5,7 @@ xml.channel do
       xml.cdata! @channel.description
     end
     xml.link channel_url(@channel)
+    xml.dc :type, @channel.type
   else
     xml.title "Media Magnet"
     xml.description do

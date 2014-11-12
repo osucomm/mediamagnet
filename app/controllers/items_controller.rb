@@ -3,8 +3,7 @@ class ItemsController < ApplicationController
   respond_to :rss, only: :index
 
   def index
-    @items = Item
-      .includes(:channel)
+    @items = Item.with_channel
       .page(params[:page])
       .per(params[:per])
 

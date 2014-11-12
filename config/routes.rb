@@ -17,9 +17,7 @@ Rails.application.routes.draw do
   end
 
   Channel::TYPES.each do |type|
-    resources type.model_name.plural, only: :index, controller: 'channels', type: type.to_s do
-      resources :items, only: [:index, :show]
-    end
+    resources type.model_name.plural, only: :index, controller: 'channels', type: type.to_s
   end
 
   resources :entities, shallow: true do
