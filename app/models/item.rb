@@ -15,9 +15,8 @@ class Item < ActiveRecord::Base
     order('published_at DESC')
   }
 
-  scope :most_recent, -> {
-    order('published_at DESC').limit(1)
-  }
+  scope :most_recent, -> { order('published_at DESC').limit(1) }
+  scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
 
   def to_s
     [:title, :description, :guid].each do |field|
