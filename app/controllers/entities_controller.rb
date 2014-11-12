@@ -11,6 +11,7 @@ class EntitiesController < ApplicationController
   end
 
   def show
+    @contact = @entity.contact
     respond_with @entity
   end
 

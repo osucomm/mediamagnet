@@ -19,7 +19,7 @@
   <%- end %>
   <ul>
     <%- @entity.channels.each do |channel| %>
-      <li><%= link_to channel.name, channel %></li>
+      <li><%= link_to channel.name, channel_path(channel) %></li>
     <%- end %>
   </ul>
 </div>
@@ -27,19 +27,12 @@
   <h2>Users</h2>
   <ul>
     <%- @entity.users.each do |user| %>
-      <li><%= user.display_name %></li>
+      <li><%= mail_to user.email, user.display_name %></li>
     <%- end %>
   </ul>
 
   <%- if @entity.contact %>
     <h2>Contact</h2>
-    <ul>
-      <%- [:name, :organization, :url, :phone, :email].each do |attr|
-        value = @entity.contact.send(attr)
-        if value %>
-          <li><%= attr.capitalize %>: <%= value %></li>
-        <%- end
-      end %>
-    </ul>
+    <%= render "contacts/contact" %>
   <%- end %>
 </div>

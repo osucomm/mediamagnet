@@ -13,19 +13,19 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show]
   resources :users, only: [:index, :update]
 
-  resources :channels, only: [:index, :show, :destroy] do
+  resources :channels, except: [:new, :create] do
     resources :items, only: [:index, :show]
   end
 
   Channel::TYPES.each do |type|
-    resources type.model_name.plural, only: :index, controller: 'channels', type: type.to_s
+    resources type.model_name.plural, except: [:new, :create], controller: 'channels', path: 'channels', type: type.to_s
   end
 
-  resources :entities, shallow: true do
-    resources :channels, only: [:index, :show]
+  resources :entities do
+    resources :channels, only: [:index]
 
     Channel::TYPES.each do |type|
-      resources type.model_name.plural, controller: 'channels', type: type.to_s
+      resources type.model_name.plural, only: [:new, :create], controller: 'channels', type: type.to_s
     end
   end
 

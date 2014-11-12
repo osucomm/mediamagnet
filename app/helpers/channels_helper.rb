@@ -3,10 +3,10 @@ module ChannelsHelper
     links = []
     type = channel.class.model_name.singular
     if channel.entity.has_user? current_user
-      links << (link_to 'Edit', send('edit_'+type+'_path', channel))
+      links << (link_to 'Edit', edit_channel_path(channel))
     end
     if current_user.admin?
-      links << (link_to 'Delete', send(type+'_path', channel), method: :delete)
+      links << (link_to 'Delete', channel, method: :delete)
     end
     links.join(' | ').html_safe
   end
