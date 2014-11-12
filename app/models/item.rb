@@ -2,11 +2,14 @@ class Item < ActiveRecord::Base
   belongs_to :channel
   has_one :entity, through: :channel
   has_many :assets
-  has_and_belongs_to_many :keywords
-  has_and_belongs_to_many :tags
+  has_many :taggings, as: :taggable
+  has_many :tags, through: :taggings
+  has_many :keywords, through: :taggings
 
   validates :guid, presence: :true
   validates :channel_id, presence: :true
+
+  delegate :mappings, to: :channel
 
   default_scope -> {
     order('published_at DESC')
@@ -22,11 +25,9 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def add_keywords(new_keywords)
-    new_keywords.each do |keyword_text|
-      if keyword = Keyword.where(name: keyword_text).first
-        keywords << keyword
-      end
+  def tags=(tags)
+    tags.each do |tag_text|
+      taggings.build(tag_text: tag_text)
     end
   end
 

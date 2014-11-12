@@ -1,7 +1,8 @@
 class Keyword < ActiveRecord::Base
-  has_and_belongs_to_many :items
-  has_and_belongs_to_many :channels
-  has_and_belongs_to_many :entities
+  include LowercaseName
+  has_many :taggings
+  has_many :channels, through: :taggings, source: :taggable, source_type: "Channel"
+  has_many :items, through: :taggings, source: :taggable, source_type: "Item"
 
   enum category: { audience: 0, college: 1, location: 2 }
 

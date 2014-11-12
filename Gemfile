@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 
 gem 'coffee-rails', '~> 4.0.0'
+gem 'daemons'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
 gem 'jbuilder', '~> 2.0'
 gem 'mysql2'
 gem 'rails', '4.1.6'
