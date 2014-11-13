@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
 
-  devise_for :users, path: 'user', :skip => [:registrations] 
+  namespace :admin do
+  get 'delayed_jobs/index'
+  end
+
+  devise_for :users, :skip => [:registrations]
   as :user do
     get 'user/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
     put 'user' => 'devise/registrations#update', :as => 'user_registration'
@@ -11,7 +15,11 @@ Rails.application.routes.draw do
 
   resources :keywords
   resources :items, only: [:index, :show]
-  resources :users, only: [:index, :update]
+
+  namespace :admin do
+    resources :users, only: [:index, :update]
+    resources :delayed_jobs, only: [:index, :destroy]
+  end
 
   resources :channels, except: [:new, :create] do
     resources :items, only: [:index, :show]
