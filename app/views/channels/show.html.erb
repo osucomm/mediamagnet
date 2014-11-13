@@ -10,7 +10,7 @@
       <li>URL: <%= @channel.url %></li>
     <%- end %>
     <li>Item Count: <%= @channel.item_count %></li>
-    <li>Last Item Refresh: <%= @channel.last_polled_at %></li>
+    <li>Last Item Refresh: <%= time_or_dash(@channel.last_polled_at) %></li>
   </ul>
 </div>
 
