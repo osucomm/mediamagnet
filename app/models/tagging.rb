@@ -13,7 +13,7 @@ class Tagging < ActiveRecord::Base
 
   def get_tag_from_tag_text
     unless tag
-      self.tag = Tag.where(name: tag_text.downcase).first_or_initialize
+      self.tag = Tag.where(name: tag_text.downcase).first_or_create
     end
   end
 

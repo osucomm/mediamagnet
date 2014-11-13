@@ -12,11 +12,13 @@ module Taggable
       existing_tags = tags.map(&:name)
 
       (new_tags - existing_tags).each do |tag_text|
-        taggings.create(tag_text: tag_text)
+        taggings.build(tag_text: tag_text)
       end
 
+      save!
+
       taggings.joins(:tag).where("tags.name IN (?)", (existing_tags - new_tags)).destroy_all
-      
+
       reload
       return (new_tags - existing_tags)
     end
