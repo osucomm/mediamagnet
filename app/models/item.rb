@@ -1,10 +1,9 @@
 class Item < ActiveRecord::Base
+  include Taggable
+
   belongs_to :channel
   has_one :entity, through: :channel
   has_many :assets
-  has_many :taggings, as: :taggable
-  has_many :tags, through: :taggings
-  has_many :keywords, through: :taggings
 
   validates :guid, presence: :true
   validates :channel_id, presence: :true
@@ -22,12 +21,6 @@ class Item < ActiveRecord::Base
   def to_s
     [:title, :description, :guid].each do |field|
       return self.send(field) unless self.send(field).blank?
-    end
-  end
-
-  def tags=(tags)
-    tags.each do |tag_text|
-      taggings.build(tag_text: tag_text)
     end
   end
 
