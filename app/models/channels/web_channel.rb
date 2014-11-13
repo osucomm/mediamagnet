@@ -21,7 +21,7 @@ class WebChannel < Channel
           link: web_item.link,
           published_at: web_item.pubDate
         )
-        item.tags = (web_item.categories.map(&:content))
+        item.tag_names = (web_item.categories.map(&:content)) if web_item.categories
       end
     end
     super
