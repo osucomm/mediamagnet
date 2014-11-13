@@ -147,6 +147,7 @@ GEM
       spring
     haml (4.0.5)
       tilt
+    has_scope (0.5.1)
     hashie (3.3.1)
     hike (1.2.3)
     hitimes (1.2.2)
@@ -434,6 +435,7 @@ DEPENDENCIES
   guard-livereload
   guard-rspec
   guard-spring
+  has_scope
   instagram
   jasmine (~> 2.0.2)
   jbuilder (~> 2.0)

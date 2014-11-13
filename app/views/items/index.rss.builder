@@ -6,6 +6,10 @@ xml.channel do
     end
     xml.link channel_url(@channel)
     xml.dc :type, @channel.type
+    @channel.keywords.each do |keyword|
+      xml.category keyword.name, domain: 'mm-keyword'
+    end
+
   else
     xml.title "Media Magnet"
     xml.description do
@@ -13,6 +17,7 @@ xml.channel do
     end
     xml.link items_url
   end
+
   xml.atom :link, href: request.original_url, rel: "self", type: "application/rss+xml"
   xml.copyright "Copyright #{Time.now.year}, The Ohio State University"
 
@@ -29,6 +34,10 @@ xml.channel do
       xml.guid item.guid, isPermaLink: 'false'
       xml.source item.channel.name, url: channel_items_url(item.channel.id, format: :rss)
       xml.dc :type, item.channel.type
+
+      item.keywords.each do |keyword|
+        xml.category keyword.name, domain: 'mm-keyword'
+      end
     end
   end
 end
