@@ -1,2 +1,23 @@
-<h1>Items#show</h1>
-<p>Find me in app/views/items/show.html.erb</p>
+<h1><%= @item.type_name %> Item #<%= @item.id %></h1>
+<h2>Title: <%= @item.title %></h2>
+<h2>Description</h2>
+<%= @item.description.html_safe %>
+<p>
+  <%= link_to @item.link, @item.link %>
+</p>
+<h2>Tags</h2>
+<p>
+  <%- @item.tags.map do |t| %>
+    <span class="label label-default"><%= t.name %></span>
+  <%- end %>
+</p>
+<h2>Keywords</h2>
+<p>
+  <%= comma_list_links(@item.keywords) %>
+</p>
+<h2>Meta</h2>
+<p>
+  Published: <%= @item.published_at %> ||
+  Imported into MM: <%= @item.created_at %> ||
+  Updated: <%= @item.updated_at %>
+</p>
