@@ -21,7 +21,7 @@ class WebChannel < Channel
           link: web_item.link,
           published_at: web_item.pubDate
         )
-        item.add_keywords(web_item.categories.map(&:content))
+        item.tags = (web_item.categories.map(&:content))
       end
     end
     super
