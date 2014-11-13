@@ -86,6 +86,7 @@ end
 group :development, :test do
   gem 'childprocess'
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spring'
@@ -93,6 +94,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'jasmine', '~> 2.0.2' # js testing framework
   gem 'mailcatcher'
+  gem 'terminal-notifier-guard'
 end
 
 group :production do
