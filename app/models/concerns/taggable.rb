@@ -6,8 +6,9 @@ module Taggable
     has_many :tags, through: :taggings
     has_many :keywords, through: :taggings
 
-    def tags=(new_tags)
+    def tag_names=(new_tags)
       new_tags = [] if new_tags.nil?
+      new_tags.map!(&:downcase)
       existing_tags = tags.map(&:name)
 
       (new_tags - existing_tags).each do |tag_text|
