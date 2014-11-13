@@ -18,7 +18,7 @@ class Admin::UsersController < ApplicationController
       respond_with @user do |format|
         format.html do
           flash[:success] = "User updated"
-          redirect_to users_path
+          redirect_to admin_users_path
         end
         format.js { }
       end
