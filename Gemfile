@@ -95,6 +95,9 @@ group :development, :test do
   gem 'mailcatcher'
 end
 
+group :production do
+  gem 'figaro'
+end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
