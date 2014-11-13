@@ -20,7 +20,7 @@ class Tagging < ActiveRecord::Base
   # Update keyword to reflect what the mapping says it should be.
   def assign_keyword_from_mapping
     self.keyword = Keyword.where(name: tag.name).first
-    unless keyword
+    unless keyword || mappings.nil?
       self.keyword = mappings.where(tag_id: tag.id).first.try(:keyword)
     end
   end
