@@ -14,7 +14,7 @@
       <td><%= link_to channel.name, channel %></td>
       <td><%= channel.type_name %></td>
       <td><%= link_to channel.entity.name, channel.entity %></td>
-      <td><%= channel.last_polled_at %></td>
+      <td><%= time_or_dash(channel.last_polled_at) %></td>
       <td><%= channel_action_links channel %></td>
     </tr>
   <%- end %>

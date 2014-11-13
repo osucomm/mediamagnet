@@ -10,6 +10,8 @@ class Item < ActiveRecord::Base
   validates :channel_id, presence: :true
 
   delegate :mappings, to: :channel
+  delegate :type_name, to: :channel
+  delegate :name, :id, to: :channel, prefix: :channel
 
   default_scope -> {
     order('published_at DESC')
