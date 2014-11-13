@@ -12,6 +12,7 @@ gem 'rails_12factor', group: :production
 gem 'spring',        group: :development
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
+gem 'whenever'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

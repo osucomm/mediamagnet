@@ -75,6 +75,7 @@ GEM
       timers (~> 4.0.0)
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
+    chronic (0.10.2)
     cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -400,6 +401,8 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     websocket-driver (0.3.5)
+    whenever (0.9.4)
+      chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     youtube_it (2.4.2)
@@ -473,4 +476,5 @@ DEPENDENCIES
   twitter
   uglifier (>= 1.3.0)
   unicorn
+  whenever
   youtube_it
