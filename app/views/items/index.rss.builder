@@ -32,8 +32,8 @@ xml.channel do
       xml.pubDate item.published_at.to_s(:rfc822)
       xml.link item.link
       xml.guid item.guid, isPermaLink: 'false'
-      xml.source item.channel.name, url: channel_items_url(item.channel.id, format: :rss)
-      xml.dc :type, item.channel.type
+      xml.source item.channel_name, url: channel_items_url(item.channel_id, format: :rss)
+      xml.dc :type, item.type_name
 
       item.keywords.each do |keyword|
         xml.category keyword.name, domain: 'mm-keyword'

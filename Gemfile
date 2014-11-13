@@ -26,7 +26,7 @@ gem 'sass-rails', '~> 4.0.3'
 gem 'simple_form', '~> 3.1.0.rc2'
 
 # Auth
-gem 'pundit', '~> 0.2.3'
+gem 'pundit', '~> 0.3'
 gem 'devise'
 
 gem 'kaminari'

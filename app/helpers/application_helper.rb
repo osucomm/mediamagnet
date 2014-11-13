@@ -15,4 +15,8 @@ module ApplicationHelper
     end.join(', ').html_safe
   end
 
+  def time_or_dash(time, format = :rfc822)
+    time.nil? ? '-' : time.to_formatted_s(:rfc822)
+  end
+
 end
