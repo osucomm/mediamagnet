@@ -27,12 +27,12 @@ class TwitterChannel < Channel
     #Check tweet identifiers against 
     tweets.each do |tweet|
       unless items.where(guid: tweet.id.to_s).exists?
-        items.build(
+        i = items.build(
           guid: tweet.id,
-          tags: tweet.hashtags.map(&:text),
           description: tweet.text,
           published_at: tweet.created_at
         )
+        i.tag_names = tweet.hashtags.map(&:text)
       end
     end
     true
