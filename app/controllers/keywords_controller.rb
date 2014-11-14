@@ -4,7 +4,7 @@ class KeywordsController < ApplicationController
   before_action :find_keyword, only: [:show, :edit, :update, :destroy]
   before_action :set_categories, only: [:new, :edit]
 
-  respond_to :html, :js, :json, :xml
+  respond_to :html, :js, :json
 
   def index
     @keywords = Keyword.all
