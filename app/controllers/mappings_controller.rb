@@ -23,6 +23,10 @@ class MappingsController < ApplicationController
   end
 
   def destroy
+    @mapping = Mapping.find(params[:id])
+    @mapping.destroy
+    flash[:success] = "Mapping was deleted."
+    respond_with @mapping
   end
 
   private

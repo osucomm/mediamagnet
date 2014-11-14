@@ -4,7 +4,7 @@ class Entity < ActiveRecord::Base
   has_one :manifest
   has_many :channels
   has_many :items, through: :channels
-  has_many :mappings
+  has_many :mappings, as: :mappable
   has_and_belongs_to_many :users
 
   has_many :taggings, as: :taggable
@@ -13,6 +13,8 @@ class Entity < ActiveRecord::Base
 
   belongs_to :parent, class_name: "Entity"
   has_many :children, class_name: "Entity", foreign_key: "parent_id"
+
+  alias_method :all_mappings, :mappings
 
   # Validations
   validates :name, presence: true

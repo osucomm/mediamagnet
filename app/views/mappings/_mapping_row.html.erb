@@ -1,0 +1,13 @@
+  <tr id="mapping-<%= mapping.id %>">
+    <td><%= mapping.tag.name %></td>
+    <td><%= mapping.keyword.name %></td>
+    <td>
+      <%- if defined? mappable && mapping.mappable == mappable %>
+        <%= link_to 'Destroy', mapping, method: :delete, data: { remote: true } %>
+      <%- else %>
+        <em>On Parent Entity</em>
+      <%- end %>
+    </td>
+
+  </tr>
+
