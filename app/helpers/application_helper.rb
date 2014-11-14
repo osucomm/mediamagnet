@@ -19,4 +19,8 @@ module ApplicationHelper
     time.nil? ? '-' : time.to_formatted_s(:rfc822)
   end
 
+  def new_mapping
+    Mapping.new
+  end
+
 end

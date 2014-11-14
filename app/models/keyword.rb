@@ -9,4 +9,8 @@ class Keyword < ActiveRecord::Base
   # Validations
   validates :name, presence: true
   validates :display_name, presence: true
+
+  default_scope -> {
+    order('display_name ASC')
+  }
 end
