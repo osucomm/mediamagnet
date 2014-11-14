@@ -1,0 +1,4 @@
+<%= f.association :keywords,
+  include_blank: true,
+  label_method: :display_name,
+  input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>

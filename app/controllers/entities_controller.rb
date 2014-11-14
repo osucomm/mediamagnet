@@ -11,7 +11,6 @@ class EntitiesController < ApplicationController
   end
 
   def show
-    @contact = @entity.contact
     respond_with @entity
   end
 
@@ -63,7 +62,7 @@ class EntitiesController < ApplicationController
   private
 
     def entity_params
-      params.require(:entity).permit(:name, :description, :link,
+      params.require(:entity).permit(:name, :description, :link, :keyword_ids => [],
         contact_attributes: [:id, :name, :organization, :url, :phone, :email])
     end
 

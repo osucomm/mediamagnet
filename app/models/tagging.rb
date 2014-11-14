@@ -7,13 +7,20 @@ class Tagging < ActiveRecord::Base
   attr_accessor :tag_text
 
   after_initialize :get_tag_from_tag_text
+  before_save :assign_tag_from_keyword
   before_save :assign_keyword_from_mapping
 
   private
 
   def get_tag_from_tag_text
     unless tag
-      self.tag = Tag.where(name: tag_text.downcase).first_or_create
+      self.tag = Tag.from_text(tag_text) if tag_text.present?
+    end
+  end
+
+  def assign_tag_from_keyword
+    if tag.nil? && keyword.present?
+      self.tag = Tag.from_text(keyword.name)
     end
   end
 

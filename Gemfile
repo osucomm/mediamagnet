@@ -31,6 +31,8 @@ gem 'devise'
 
 gem 'kaminari'
 gem 'has_scope'
+gem 'chosen-rails'
+gem 'chosen-sass-bootstrap-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

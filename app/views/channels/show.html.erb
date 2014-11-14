@@ -11,7 +11,15 @@
     <%- end %>
     <li>Item Count: <%= @channel.item_count %></li>
     <li>Last Item Refresh: <%= time_or_dash(@channel.last_polled_at) %></li>
+    <%- if @channel.keywords.present? %>
+      <li>Keywords: <%= comma_list_links(@channel.keywords) %>
+    <%- end %>
   </ul>
+
+  <%- if @channel.display_contact %>
+    <h2>Contact</h2>
+    <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
+  <%- end %>
 </div>
 
 <div class="col-sm-6">

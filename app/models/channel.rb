@@ -42,6 +42,10 @@ class Channel < ActiveRecord::Base
     'Service Identifier'
   end
 
+  def display_contact
+    contact || entity.contact
+  end
+
   def item_count
     items.count
   end

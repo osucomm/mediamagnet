@@ -31,8 +31,11 @@
     <%- end %>
   </ul>
 
+  <h2>Keywords</h2>
+  <p><%= comma_list_links(@entity.keywords) %></p>
+
   <%- if @entity.contact %>
     <h2>Contact</h2>
-    <%= render "contacts/contact" %>
+    <%= render partial: "contacts/contact", locals: { contact: @entity.contact } %>
   <%- end %>
 </div>

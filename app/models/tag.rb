@@ -5,4 +5,11 @@ class Tag < ActiveRecord::Base
   has_many :items, through: :taggings, source: :taggable, source_type: "Item"
 
   validate :name, unique: true
+
+  class << self
+    def from_text(text)
+      self.where(name: text.downcase).first_or_create
+    end
+  end
+
 end
