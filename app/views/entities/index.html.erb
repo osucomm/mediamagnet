@@ -1,22 +1,26 @@
 <h1>Entities</h1>
 
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Descripton</th>
-    <% if current_user %>
-      <th>Actions</th>
-    <% end %>
-  </tr>
-
-  <%- @entities.each do |entity| %>
+<table class="table table-striped footable">
+  <thead>
     <tr>
-      <td><%= link_to entity.name, entity %></td>
-      <td><%= entity.description %></td>
+      <th>Name</th>
+      <th data-hide="phone">Descripton</th>
       <% if current_user %>
-        <td><%= entity_action_links(entity) %></td>
+        <th data-hide="phone">Actions</th>
       <% end %>
     </tr>
-  <%- end %>
+  </thead>
+
+  <tbody>
+    <%- @entities.each do |entity| %>
+      <tr>
+        <td><%= link_to entity.name, entity %></td>
+        <td><%= entity.description %></td>
+        <% if current_user %>
+          <td><%= entity_action_links entity %></td>
+        <% end %>
+      </tr>
+    <%- end %>
+  </tbody>
 </table>
 

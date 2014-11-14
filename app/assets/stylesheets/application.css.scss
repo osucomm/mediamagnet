@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  *= require chosen_bootstrap
+ *= require footable/footable.core
  */
 
 @import "bootstrap-sprockets";
@@ -24,3 +25,5 @@ body {background:#fff; font: 16px/21px 'proximanova', Arial, sans-serif;font-wei
 h1, h2, h3, h4, h5, h6, p, li, a {font-weight:normal;}
 h1, h2, h3 {font-family:'proximanova',Arial,sans-serif; font-weight:600;}
 h4, h5, h6 {font-family: 'proximanova',Arial,sans-serif; font-weight:600;}
+
+.nowrap {white-space:nowrap;}
