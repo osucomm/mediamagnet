@@ -1,0 +1,19 @@
+
+<table class="table">
+  <tr>
+    <th>Tag</th>
+    <th>Keyword</th>
+    <th>Actions</th>
+  </tr>
+
+  <%- @channel.mappings.each do |mapping| %>
+    <tr>
+      <td><%= mapping.tag.name %></td>
+      <td><%= mapping.keyword.name %></td>
+      <td><%= link_to 'Destroy', mapping, method: :delete, data: { remote: true } %></td>
+    </tr>
+  <%- end %>
+</table>
+
+<%= link_to 'Add Mapping', new_mapping_path(mappable_id: mappable.id, mappable_type: mappable.type), remote: true %>
+<div id="add-mappings"></div>

@@ -16,6 +16,9 @@ class Channel < ActiveRecord::Base
 
   accepts_nested_attributes_for :contact
 
+  #
+  delegate :users, to: :entity
+
   # Callbacks
   after_create :refresh_items
 

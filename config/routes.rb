@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
   resources :keywords
+  resources :mappings
   resources :items, only: [:index, :show]
 
   namespace :admin do
