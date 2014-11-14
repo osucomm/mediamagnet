@@ -1,16 +1,17 @@
-<%= simple_form_for @mapping, data: { remote: true } do |f| %>
+<%= simple_form_for @mapping, 
+  html: { class: 'form-inline' }, data: { remote: true } do |f| %>
   <%= f.input :mappable_id, as: :hidden  %>
   <%= f.input :mappable_type, as: :hidden  %>
   <div class="col-md-4">
-    <%= f.input :tag_text, input_html: { class: 'col-sm-6' } %>
+    <%= f.input :tag_text %>
   </div>
-  <div class="col-md-4 col-md-offset-1">
+  <div class="col-md-6">
     <%= f.association :keyword,
       include_blank: true,
       label_method: :display_name,
       input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
   </div>
-  <div class="col-md-2 col-md-offset-1">
+  <div class="col-md-2">
     <%= f.button :submit %>
   </div>
 
