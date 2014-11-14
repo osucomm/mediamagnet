@@ -1,36 +1,40 @@
-<table class="table table-striped">
-  <tr>
-    <th>actions</th>
-    <th>run_at</th>
-    <th>attempts</th>
-    <th>created_at</th>
-    <th> failed_at</th>
-    <th>locked_at</th>
-    <th>handler</th>
-    <th>last error</th>
-  </tr>
-
-  <%- @delayed_jobs.each do |job| %>
+<table class="table table-striped footable">
+  <thead>
     <tr>
-      <td>
-        <%= link_to 'destroy', admin_delayed_job_path(job), method: :delete %>
-      </td>
-      <td><%= job.run_at %></td>
-      <td><%= job.attempts %></td>
-      <td><%= job.created_at %></td>
-      <td><%= job.failed_at %></td>
-      <td><%= job.locked_at %></td>
-      <td>
-        <pre><%= job.handler.sub(/\A--- !/, '') %></pre>
-      </td>
-      <td>
-        <%- error = job.last_error %>
-        <%- if error %>
-          <%- regex = Regexp.new("\n.*", Regexp::MULTILINE) %>
-          <pre><%= error.sub(regex, '') %></pre>
-        <% end %>
-      </td>
+      <th>Run at</th>
+      <th>Attempts</th>
+      <th data-hide="phone">Created at</th>
+      <th data-hide="phone">Failed at</th>
+      <th data-hide="phone,tablet">Locked at</th>
+      <th data-hide="phone,tablet">Handler</th>
+      <th data-hide="phone,tablet">Last error</th>
+      <th>Actions</th>
     </tr>
-  <% end %>
+  </thead>
+
+  <tbody>
+    <%- @delayed_jobs.each do |job| %>
+      <tr>
+        <td><%= job.run_at %></td>
+        <td><%= job.attempts %></td>
+        <td><%= job.created_at %></td>
+        <td><%= job.failed_at %></td>
+        <td><%= job.locked_at %></td>
+        <td>
+          <pre><%= job.handler.sub(/\A--- !/, '') %></pre>
+        </td>
+        <td>
+          <%- error = job.last_error %>
+          <%- if error %>
+            <%- regex = Regexp.new("\n.*", Regexp::MULTILINE) %>
+            <pre><%= error.sub(regex, '') %></pre>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'destroy', admin_delayed_job_path(job), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 <table>
 

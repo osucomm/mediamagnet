@@ -1,23 +1,31 @@
 <h1>Channels</h1>
 
-<table class="table">
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Entity</th>
-    <th>Last Updated</th>
-    <th>Actions</th>
-  </tr>
-
-  <%- @channels.each do |channel| %>
+<table class="table table-striped footable">
+  <thead>
     <tr>
-      <td><%= link_to channel.name, channel %></td>
-      <td><%= channel.type_name %></td>
-      <td><%= link_to channel.entity.name, channel.entity %></td>
-      <td><%= time_or_dash(channel.last_polled_at) %></td>
-      <td><%= channel_action_links channel %></td>
+      <th>Name</th>
+      <th>Type</th>
+      <th data-hide="phone">Entity</th>
+      <th data-hide="phone,tablet">Last Updated</th>
+      <% if current_user %>
+        <th data-hide="phone">Actions</th>
+      <% end %>
     </tr>
-  <%- end %>
+  </thead>
+
+  <tbody>
+    <%- @channels.each do |channel| %>
+      <tr>
+        <td><%= link_to channel.name, channel %></td>
+        <td><%= channel.type_name %></td>
+        <td><%= link_to channel.entity.name, channel.entity %></td>
+        <td><%= time_or_dash(channel.last_polled_at) %></td>
+        <% if current_user %>
+          <td class="nowrap"><%= channel_action_links channel %></td>
+        <% end %>
+      </tr>
+    <%- end %>
+  </tbody>
 </table>
 
 <%= paginate @channels %>

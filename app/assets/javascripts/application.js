@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require chosen-jquery
+//= require footable/footable
 //= require_tree .

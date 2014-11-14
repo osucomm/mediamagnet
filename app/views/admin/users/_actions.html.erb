@@ -3,14 +3,14 @@
     <div class="col-md-6">
       <%= simple_form_for [:admin, user] do |f| %>
         <%= f.hidden_field :admin, value: false %>
-        <%= f.button :submit, 'Remove Admin', class: 'btn-danger' %>
+        <%= f.button :submit, 'Remove Admin', class: 'btn-danger btn-xs' %>
       <%- end %>
     </div>
   <%- else %>
     <div class="col-md-6">
       <%= simple_form_for [:admin, user] do |f| %>
         <%= f.hidden_field :admin, value: true %>
-        <%= f.button :submit, 'Make Admin', class: 'btn-success' %>
+        <%= f.button :submit, 'Make Admin', class: 'btn-success btn-xs' %>
       <%- end %>
     </div>
   <%- end %>
@@ -18,14 +18,14 @@
     <div class="col-md-6">
       <%= simple_form_for [:admin, user] do |f| %>
         <%= f.hidden_field :blocked, value: false %>
-        <%= f.button :submit, 'Unblock', class: 'btn-success' %>
+        <%= f.button :submit, 'Unblock', class: 'btn-success btn-xs' %>
       <%- end %>
     </div>
   <%- else %>
     <div class="col-md-6">
       <%= simple_form_for [:admin, user] do |f| %>
         <%= f.hidden_field :blocked, value: true %>
-        <%= f.button :submit, 'Block', class: 'btn-danger' %>
+        <%= f.button :submit, 'Block', class: 'btn-danger btn-xs' %>
       <%- end %>
     </div>
   <%- end %>

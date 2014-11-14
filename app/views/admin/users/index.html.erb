@@ -1,21 +1,26 @@
 <h1>Users</h1>
-<table class="table">
+<table class="table table-striped footable">
+  <thead>
   <tr>
     <th>Name</th>
     <th>Email</th>
-    <th>Entities</th>
-    <th>Actions</th>
+    <th data-hide="phone,tablet">Entities</th>
+    <th data-hide="phone">Actions</th>
   </tr>
-  <%- @users.each do |user| %>
-    <tr id="user-<%= user.id %>">
-      <td><%= user.fullname %></td>
-      <td><%= user.email %></td>
-      <td><%= comma_list_links(user.entities) %></td>
-      <td>
-        <%= render 'actions', user: user %>
-      </td>
-    </tr>
-  <%- end %>
+  </thead>
+
+  <tbody>
+    <%- @users.each do |user| %>
+      <tr id="user-<%= user.id %>">
+        <td><%= user.fullname %></td>
+        <td><%= mail_to user.email %></td>
+        <td><%= comma_list_links(user.entities) %></td>
+        <td>
+          <%= render 'actions', user: user %>
+        </td>
+      </tr>
+    <%- end %>
+  </tbody>
 </table>
 
 <%= paginate @users %>

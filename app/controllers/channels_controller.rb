@@ -3,7 +3,7 @@ class ChannelsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_channel, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :xml, :json, :js
+  respond_to :html, :json, :js
 
   def index
     respond_with @channels = channel_type.all.page(params[:page])
