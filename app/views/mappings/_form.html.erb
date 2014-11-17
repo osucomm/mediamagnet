@@ -1,5 +1,5 @@
 <%= simple_form_for @mapping, 
-  html: { class: 'form-inline' }, data: { remote: true } do |f| %>
+  html: { class: 'form-inline' }, as: :mapping, data: { remote: true } do |f| %>
   <%= f.input :mappable_id, as: :hidden  %>
   <%= f.input :mappable_type, as: :hidden  %>
   <div class="col-md-4">

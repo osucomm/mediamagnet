@@ -16,5 +16,5 @@ entities, which will provide a default map for all channels in that entity.</p>
   <%- end %>
 </table>
 
-<%= link_to 'Add Mapping', new_mapping_path(mappable_id: mappable.id, mappable_type: mappable.class.base_class), remote: true %>
+<%= link_to 'Add Mapping', new_mapping_path(mappable), remote: true %>
 <div id="add-mappings"></div>
