@@ -24,6 +24,8 @@ class Entity < ActiveRecord::Base
 
   accepts_nested_attributes_for :contact
 
+  alias_method :mappings, :entity_mappings
+
   def to_s
     name
   end

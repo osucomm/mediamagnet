@@ -32,11 +32,17 @@ class Tagging < ActiveRecord::Base
     end
   end
 
+  def get_keyword_from_mappings
+    mappings.to_a.keep_if do |mapping|
+      mapping.tag_id == tag.id
+    end.first.try(:keyword)
+  end
+
   # Update keyword to reflect what the mapping says it should be.
   def assign_keyword_from_mapping
     self.keyword = Keyword.where(name: tag.name).first
     unless keyword || mappings.nil?
-      self.keyword = mappings.where(tag_id: tag.id).first.try(:keyword)
+      self.keyword = get_keyword_from_mappings
     end
   end
 

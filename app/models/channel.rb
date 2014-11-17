@@ -41,9 +41,12 @@ class Channel < ActiveRecord::Base
   end
 
   def mappings
-    out = channel_mappings
+    out = []
     entity_mappings.select do |mapping|
       out << mapping unless out.map(&:tag).include?(mapping.tag)
+    end
+    out.sort_by! do |a|
+      a.tag.name
     end
   end
 
