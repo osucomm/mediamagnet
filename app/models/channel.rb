@@ -18,6 +18,7 @@ class Channel < ActiveRecord::Base
 
   #
   delegate :users, to: :entity
+  delegate :has_user?, to: :entity
 
   delegate :entity_mappings, to: :entity
 
@@ -40,7 +41,10 @@ class Channel < ActiveRecord::Base
   end
 
   def mappings
-    (channel_mappings + entity_mappings).flatten
+    out = channel_mappings
+    entity_mappings.select do |mapping|
+      out << mapping unless out.map(&:tag).include?(mapping.tag)
+    end
   end
 
   def type_name
