@@ -7,7 +7,7 @@ class Tag < ActiveRecord::Base
   validate :name, unique: true
 
   class << self
-    def from_text(text)
+    def create_from_text(text)
       self.where(name: text.downcase).first_or_create
     end
   end

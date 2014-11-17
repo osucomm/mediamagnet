@@ -10,6 +10,14 @@ class Tagging < ActiveRecord::Base
   before_save :assign_tag_from_keyword
   before_save :assign_keyword_from_mapping
 
+  scope :by_mappable, ->(mappable) {
+    where(taggable_id: mappable.items.map(&:id)).where(taggable_type: 'Item')
+  }
+
+  scope :by_tag, ->(tag) {
+    where(tag_id: tag.id)
+  }
+
   private
 
   def get_tag_from_tag_text

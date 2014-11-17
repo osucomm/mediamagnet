@@ -1,7 +1,7 @@
 class MappingPolicy < ApplicationPolicy
 
   def create?
-    record.mappable.users.include?(user) || user.admin?
+    record.mappable.has_user? user
   end
 
   def update?
