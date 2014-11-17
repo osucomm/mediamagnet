@@ -8,7 +8,7 @@ class Channel < ActiveRecord::Base
   belongs_to :entity
   has_one :contact, as: :contactable, dependent: :destroy
   has_many :items
-  has_many :mappings, as: :mappable
+  has_many :channel_mappings, as: :mappable
 
   # Validations
   validates :name, presence: true
@@ -18,6 +18,8 @@ class Channel < ActiveRecord::Base
 
   #
   delegate :users, to: :entity
+
+  delegate :entity_mappings, to: :entity
 
   # Callbacks
   after_create :refresh_items
@@ -37,8 +39,8 @@ class Channel < ActiveRecord::Base
     end
   end
 
-  def all_mappings
-    self.mappings + entity.mappings
+  def mappings
+    (channel_mappings + entity_mappings).flatten
   end
 
   def type_name

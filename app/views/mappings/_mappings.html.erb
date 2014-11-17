@@ -11,7 +11,7 @@ entities, which will provide a default map for all channels in that entity.</p>
     <th>Actions</th>
   </tr>
 
-  <%- mappable.all_mappings.each do |mapping| %>
+  <%- mappable.mappings.each do |mapping| %>
     <%= render 'mappings/mapping_row', mapping: mapping, mappable: mappable %>
   <%- end %>
 </table>
