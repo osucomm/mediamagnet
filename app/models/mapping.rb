@@ -1,4 +1,8 @@
 class Mapping < ActiveRecord::Base
+
+  # STI types
+  TYPES = [ChannelMapping,EntityMapping]
+
   belongs_to :mappable, polymorphic: true
   belongs_to :tag
   belongs_to :keyword
@@ -10,9 +14,15 @@ class Mapping < ActiveRecord::Base
 
   before_validation :get_tag_from_tag_text
 
-  after_create :update_taggings_for_mappable
+  class << self
+    def type_name
+      self.name.sub('Mapping', '')
+    end
+  end
 
-  before_destroy :remove_keyword_taggings_for_mappable
+  def policy_class
+    MappingPolicy
+  end
 
   private
 
@@ -22,26 +32,5 @@ class Mapping < ActiveRecord::Base
     end
   end
 
- def update_taggings_for_mappable
-    # TODO: Make this not update taggings when an entity mapping is created
-    # and there is a corresponding (i.e., same tag) mapping on the channels.
-    # if it's a new tag, don't do anything
-    #
-    # Get all items that are tagged with our new tag_id
-    # 
-
-    unless entity_channels_mappings.map(&:tag).include?(tag)
-      Tagging.by_mappable(mappable).by_tag(tag).
-        update_all(keyword_id: keyword.id)
-    end
-  end
-
-  def remove_keyword_taggings_for_mappable
-    if mappable_type == 'Channel' && 
-        new_keyword_id = mappable.parent_mappings.where(tag_id: tag.id).first.try(:keyword_id)
-      Tagging.by_mappable(mappable).by_tag(tag).
-        update_all(keyword_id: new_keyword_id)
-    end
-  end
 
 end

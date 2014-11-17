@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :mapping do
+  factory :channel_mapping do
     tag
     keyword
     mappable { |a| a.association(:channel) }

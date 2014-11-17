@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
   resources :keywords
-  resources :mappings
+
+  Mapping::TYPES.each do |type|
+    resources type.model_name.plural, only: [:new, :create, :destroy], controller: 'mappings', type: type.to_s
+  end
+
   resources :items, only: [:index, :show]
 
   namespace :admin do
