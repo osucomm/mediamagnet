@@ -8,7 +8,14 @@ class Contact < ActiveRecord::Base
     self.attributes.all?{ |k, v| v.blank? || ignored_attrs.include?(k) }
   end
 
-  def destroy_if_empty!
-    self.destroy if empty?
+  def display_name
+    organization || name
   end
+
+
+  private
+
+    def destroy_if_empty!
+      self.destroy if empty?
+    end
 end
