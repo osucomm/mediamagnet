@@ -1,0 +1,3 @@
+class ChannelMapping < Mapping
+
+end
