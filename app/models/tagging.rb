@@ -22,7 +22,7 @@ class Tagging < ActiveRecord::Base
 
   def get_tag_from_tag_text
     unless tag
-      self.tag = Tag.from_text(tag_text) if tag_text.present?
+      self.tag = Tag.create_from_text(tag_text) if tag_text.present?
     end
   end
 
