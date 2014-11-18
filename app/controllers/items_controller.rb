@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   before_action :normalize_params
 
   has_scope :by_channel, as: :channel_id
+  has_scope :by_keyword_ids, as: :keyword_id
 
   def index
     @channel = Channel.find(params[:channel_id]) if params[:channel_id]

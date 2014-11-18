@@ -17,9 +17,9 @@
       </ul>
     </div>
   <%- end %>
-  <ul>
+  <ul class="channel-list pane">
     <%- @entity.channels.each do |channel| %>
-      <li><%= link_to channel.name, channel_path(channel) %></li>
+      <li><%= link_to_channel(channel) %></li>
     <%- end %>
   </ul>
 </div>

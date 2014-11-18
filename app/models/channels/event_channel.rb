@@ -5,6 +5,10 @@ class EventChannel < Channel
     end
   end
 
+  def icon
+    'calendar'
+  end
+
   def service_id_name
     'Feed URL'
   end

@@ -13,4 +13,8 @@ class Keyword < ActiveRecord::Base
   default_scope -> {
     order('display_name ASC')
   }
+
+  def item_count
+    items.count
+  end
 end

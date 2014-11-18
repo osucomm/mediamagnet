@@ -3,6 +3,10 @@ class YoutubeChannel < Channel
     'Channel name'
   end
 
+  def icon
+    'youtube-play'
+  end
+
   def client
     @client ||= YouTubeIt::Client.new(:dev_key => ENV['YOUTUBE_API_KEY'])
   end

@@ -11,6 +11,10 @@ class InstagramChannel < Channel
     'Account name'
   end
 
+  def icon
+    'instagram'
+  end
+
   def client
     @client ||=
       begin

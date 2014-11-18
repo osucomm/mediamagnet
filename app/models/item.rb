@@ -19,6 +19,9 @@ class Item < ActiveRecord::Base
   scope :most_recent, -> { order('published_at DESC').limit(1) }
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :by_channel, -> channel_id { where(:channel_id => channel_id) }
+  scope :by_keyword_ids, -> keyword_ids { 
+    joins(:taggings).where('taggings.keyword_id IN (?)', keyword_ids).distinct 
+  }
 
   def to_s
     [:title, :description, :guid].each do |field|

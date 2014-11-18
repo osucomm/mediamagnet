@@ -38,6 +38,14 @@ class Channel < ActiveRecord::Base
     def policy_class
       ChannelPolicy
     end
+
+    def icon
+      'rss'
+    end
+  end
+
+  def icon
+    self.class.icon
   end
 
   def mappings
