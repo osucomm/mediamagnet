@@ -36,6 +36,7 @@ class TwitterChannel < Channel
       unless items.where(guid: tweet.id.to_s).exists?
         i = items.build(
           guid: tweet.id,
+          title: "Tweet from @#{service_identifier} on #{tweet.created_at}"
           description: tweet.text,
           published_at: tweet.created_at
         )
