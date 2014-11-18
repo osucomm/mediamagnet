@@ -29,7 +29,7 @@ class TwitterChannel < Channel
     end
 
     # Get tweets from our user, starting with the one after the last one we have.
-    tweets = client.user_timeline(name, options)
+    tweets = client.user_timeline(service_identifier, options)
 
     #Check tweet identifiers against 
     tweets.each do |tweet|
@@ -39,6 +39,9 @@ class TwitterChannel < Channel
           description: tweet.text,
           published_at: tweet.created_at
         )
+        tweet.media.each do |media|
+          i.assets.build(url: media.media_url_https.to_s)
+        end
         i.tag_names = tweet.hashtags.map(&:text)
       end
     end

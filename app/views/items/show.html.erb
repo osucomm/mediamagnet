@@ -15,6 +15,12 @@
 <p>
   <%= comma_list_links(@item.keywords) %>
 </p>
+<h2>Assets</h2>
+<p>
+<%- @item.assets.each do |asset| %>
+  <%= render_asset(asset) %>
+<%- end %>
+</p>
 <h2>Meta</h2>
 <p>
   Published: <%= @item.published_at %> ||

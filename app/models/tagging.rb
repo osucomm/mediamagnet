@@ -28,7 +28,7 @@ class Tagging < ActiveRecord::Base
 
   def assign_tag_from_keyword
     if tag.nil? && keyword.present?
-      self.tag = Tag.from_text(keyword.name)
+      self.tag = Tag.create_from_text(keyword.name)
     end
   end
 

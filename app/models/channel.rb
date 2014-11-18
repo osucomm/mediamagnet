@@ -78,6 +78,6 @@ class Channel < ActiveRecord::Base
     logger.info {"Channel #{name} refreshed."}
     update_attribute(:last_polled_at, Time.now)
   end
-  handle_asynchronously :refresh_items
+  #handle_asynchronously :refresh_items
 
 end

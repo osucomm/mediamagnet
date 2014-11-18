@@ -35,12 +35,14 @@ class InstagramChannel < Channel
   def refresh_items
     new_media.each do |media|
       unless items.where(guid: media.id.to_s).exists?
-        items.create(
+        i = items.build(
           guid: media.id,
           link: media.link,
           description: (media.caption? ? media.caption.text : ''),
           published_at: Date.strptime(media.created_time, '%s')
         )
+        i.assets.build(url: media.images.standard_resolution.url)
+        i.tag_names = media.tags.map(&:text)
       end
     end
     super
