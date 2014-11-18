@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141117144808) do
+ActiveRecord::Schema.define(version: 20141118153111) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20141117144808) do
     t.text     "raw"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "content"
   end
 
   create_table "keywords", force: true do |t|
