@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   end
 
   get 'dashboard' => 'dashboard#show', as: :dashboard
+  get 'google/oauth2authorize' => 'google#auth'
+  get 'google/oauth2callback' => 'google#callback'
 
   resources :keywords
 
