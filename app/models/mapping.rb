@@ -18,6 +18,17 @@ class Mapping < ActiveRecord::Base
     def type_name
       self.name.sub('Mapping', '')
     end
+    def help_text
+      <<-EOT
+        Mappings allow you to translate hastags, categories and tags from your 
+        site into Media Magnet keywords. Mappings may be applied to channels, or 
+        to their entities, which will provide a default map for all channels in 
+        that entity.
+
+        For social media hastags (Twitter, Instagram, etc.) you should not 
+        include the leading '#'.
+      EOT
+    end
   end
 
   def policy_class

@@ -14,6 +14,12 @@ class Keyword < ActiveRecord::Base
     order('display_name ASC')
   }
 
+  class << self
+    def help_text
+      'Keywords are important.'
+    end
+  end
+
   def item_count
     items.count
   end
