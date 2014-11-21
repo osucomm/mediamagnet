@@ -23,4 +23,20 @@ module ApplicationHelper
     Mapping.new
   end
 
+  def help_icon_for(klass)
+    fa_icon('question-circle',
+            data: { toggle: 'tooltip', placement: 'bottom'},
+            title: klass.constantize.help_text)
+  end
+
+  def help_icon(text)
+    fa_icon('question-circle',
+            data: { toggle: 'tooltip', placement: 'bottom'},
+            title: text)
+  end
+
+  def bootstrap_label(text, type='primary')
+    content_tag(:span, text, class: "label label-#{type}")
+  end
+
 end
