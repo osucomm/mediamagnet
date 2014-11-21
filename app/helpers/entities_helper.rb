@@ -9,7 +9,7 @@ module EntitiesHelper
       links << (link_to 'Edit', edit_entity_path(entity))
     end
     if current_user.admin?
-      links << (link_to 'Destroy', entity_path(entity), method: :delete, 
+      links << (link_to 'Delete', entity_path(entity), method: :delete, 
                 data: { confirm: 'Are you sure?' })
     end
     links.join(' | ').html_safe
