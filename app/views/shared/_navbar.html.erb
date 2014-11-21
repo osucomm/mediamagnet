@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to 'Media Magnet', dashboard_path, class: 'navbar-brand' %>
+      <%= link_to fa_icon(:magnet, text: 'Media Magnet'), root_url, class: 'navbar-brand' %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -32,14 +32,19 @@
           </ul>
         </li>
 
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">My entities<span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <%- current_user.entities.each do |entity| %>
-              <li><%= link_to entity.name, entity %></li>
-            <%- end %>
-          </ul>
-        </li>
+        <%- if current_user.entities.any? %>
+
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            My Entities<span class="caret"></span></a>
+            <ul class="dropdown-menu" role="menu">
+              <%- current_user.entities.each do |entity| %>
+                <li><%= link_to entity.name, entity %></li>
+              <%- end %>
+            </ul>
+          </li>
+
+        <%- end %>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.display_name %><span class="caret"></span></a>
