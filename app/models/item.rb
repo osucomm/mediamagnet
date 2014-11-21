@@ -18,17 +18,20 @@ class Item < ActiveRecord::Base
     order('published_at DESC')
   }
 
-  scope :has_keyword_id, -> keyword_id {
-    with_tagging.joins(channel: [:taggings, entity: [:taggings]]).where('taggings.keyword_id = ? OR taggings_channels.keyword_id = ? OR taggings_entities.keyword_id = ?', keyword_id, keyword_id, keyword_id).distinct
-  }
-
   scope :most_recent, -> { order('published_at DESC').limit(1) }
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords, :channel_inherited_keywords, :entity_inherited_keywords) }
-  scope :by_channel, -> channel_id { where(:channel_id => channel_id) }
-  scope :by_keyword_ids, -> keyword_ids { 
-    joins(:taggings).where('taggings.keyword_id IN (?)', keyword_ids).distinct 
-  }
+  scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
+
+  class << self 
+    def by_keywords(keyword_ids)
+      # Item ids
+      items = Tagging.on_items.by_keywords(keyword_ids).map(&:taggable)
+      channel_entity_items = Tagging.not_on_items.by_keywords(keyword_ids).map(&:taggable).map(&:items)
+
+      (items + channel_entity_items).first
+    end
+  end
 
   def to_s
     [:title, :description, :guid].each do |field|

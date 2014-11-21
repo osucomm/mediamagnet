@@ -18,6 +18,18 @@ class Tagging < ActiveRecord::Base
     where(tag_id: tag.id)
   }
 
+  scope :by_keywords, ->(keyword_ids) {
+    where(keyword_id: keyword_ids)
+  }
+
+  scope :on_items, -> {
+    where(taggable_type: 'Item')
+  }
+
+  scope :not_on_items, -> {
+    where("taggable_type == 'Channel' OR taggable_type == 'Entity'")
+  }
+
   private
 
   def get_tag_from_tag_text
