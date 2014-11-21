@@ -1,10 +1,16 @@
 <h1><%= @entity.name %></h1>
+<p><%= @entity.description %></p>
 <% if current_user %>
   <p><%= entity_action_links @entity %></p>
 <% end %>
 
-<div class="col-sm-8">
-  <h2>Channels</h2>
+<div class="col-sm-4">
+  <h2>Channels <%= help_icon_for('Channel') %></h2>
+  <div class="list-group">
+    <%- @entity.channels.each do |channel| %>
+      <%= link_to_channel(channel, class: 'list-group-item') %>
+    <%- end %>
+  </div>
   <%- if @entity.has_user? current_user %>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -17,25 +23,22 @@
       </ul>
     </div>
   <%- end %>
-  <ul class="channel-list pane">
-    <%- @entity.channels.each do |channel| %>
-      <li><%= link_to_channel(channel) %></li>
-    <%- end %>
-  </ul>
 </div>
 <div class="col-sm-4">
   <h2>Users</h2>
-  <ul>
+  <ul class="list-group">
     <%- @entity.users.each do |user| %>
-      <li><%= mail_to user.email, user.display_name %></li>
+      <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: 'list-group-item' %></li>
     <%- end %>
   </ul>
-
-  <h2>Keywords</h2>
-  <p><%= comma_list_links(@entity.keywords) %></p>
 
   <%- if @entity.contact %>
     <h2>Contact</h2>
     <%= render partial: "contacts/contact", locals: { contact: @entity.contact } %>
   <%- end %>
+</div>
+<div class="col-sm-4">
+  <h2>Keywords <%= help_icon_for('Keyword') %></h2>
+  <p><%= keyword_labels(@entity.keywords) %></p>
+  <%= render 'mappings/mappings', mappable: @entity %>
 </div>
