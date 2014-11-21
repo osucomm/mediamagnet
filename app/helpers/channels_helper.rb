@@ -11,7 +11,7 @@ module ChannelsHelper
     links.join(' | ').html_safe
   end
 
-  def link_to_channel(channel, options)
+  def link_to_channel(channel, options={})
     link_to (fa_icon channel.icon, text: channel.name, right: true), channel_path(channel), options
   end
 
