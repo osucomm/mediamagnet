@@ -4,14 +4,14 @@ class ItemsController < ApplicationController
 
   before_action :normalize_params
 
-  has_scope :by_channel, as: :channel_id
-  has_scope :by_keyword_ids, as: :keyword_id
+  has_scope :by_channels, as: :channel_id
+  has_scope :by_keywords, as: :keyword_id
 
   def index
     @channel = Channel.find(params[:channel_id]) if params[:channel_id]
     @items = apply_scopes(Item)
       .with_channel
-      .includes(:keywords)
+      .with_all_keywords
       .page(params[:page])
       .per(params[:per_page])
 
