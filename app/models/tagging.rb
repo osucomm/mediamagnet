@@ -1,6 +1,6 @@
 class Tagging < ActiveRecord::Base
-  belongs_to :tag
   belongs_to :keyword
+  belongs_to :tag
   belongs_to :taggable, polymorphic: true
   delegate :mappings, to: :taggable
 
@@ -21,7 +21,8 @@ class Tagging < ActiveRecord::Base
   private
 
   def get_tag_from_tag_text
-    unless tag
+    # TODO Make better.
+    if tag_id.nil?
       self.tag = Tag.create_from_text(tag_text) if tag_text.present?
     end
   end
