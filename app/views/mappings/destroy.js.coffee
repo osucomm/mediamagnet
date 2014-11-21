@@ -1,1 +1,1 @@
-$('#mapping-'+<%= @mapping.id%>).fadeOut()
+$('#mapping-'+<%= @mapping.id %>).fadeOut()
