@@ -64,7 +64,8 @@ class EntitiesController < ApplicationController
 
     def entity_params
       params.require(:entity).permit(:name, :description, :link, :keyword_ids => [],
-        contact_attributes: [:id, :name, :organization, :url, :phone, :email])
+        contact_attributes: [:id, :name, :organization, :url, :phone, :email],
+        user_ids: [])
     end
 
     def find_entity

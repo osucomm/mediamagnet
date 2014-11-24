@@ -6,6 +6,10 @@
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :link %>
+  <%= f.association :users,
+    include_blank: true,
+    label_method: :fullname,
+    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add users..." } %>
   <%= render partial: 'keywords/tag_field', locals: {f: f} %>
 
   <%= field_set_tag 'Contact' do %>
