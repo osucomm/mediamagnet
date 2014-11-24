@@ -7,8 +7,8 @@ class Channel < ActiveRecord::Base
   # Associations
   belongs_to :entity
   has_one :contact, as: :contactable, dependent: :destroy
-  has_many :items
-  has_many :channel_mappings, as: :mappable
+  has_many :items, dependent: :destroy
+  has_many :channel_mappings, as: :mappable, dependent: :destroy
 
   # Validations
   validates :name, presence: true

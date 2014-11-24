@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
 
   belongs_to :channel
   has_one :entity, through: :channel
-  has_many :assets
+  has_many :assets, dependent: :destroy
 
   validates :guid, presence: :true
   validates :channel_id, presence: :true
@@ -29,7 +29,7 @@ class Item < ActiveRecord::Base
       items = Tagging.on_items.by_keywords(keyword_ids).map(&:taggable)
       channel_entity_items = Tagging.not_on_items.by_keywords(keyword_ids).map(&:taggable).map(&:items)
 
-      (items + channel_entity_items).first
+      (items + channel_entity_items).first || Item.none
     end
   end
 
