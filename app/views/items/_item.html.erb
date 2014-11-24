@@ -1,3 +1,7 @@
+<%- item.assets.each do |asset| %>
+  <%= render asset %>
+<%- end %>
+
 <span class="channel">
   [<%= link_to_channel(item.channel) %>]
 </span>

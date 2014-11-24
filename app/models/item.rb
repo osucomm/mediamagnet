@@ -31,6 +31,10 @@ class Item < ActiveRecord::Base
 
       (items + channel_entity_items).first || Item.none
     end
+
+    def all_keywords
+      with_all_keywords.map(&:all_keywords).flatten.uniq
+    end
   end
 
   def to_s
