@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="col-sm-4">
-  <h2>Channels <%= help_icon_for('Channel') %></h2>
+  <h2>Channels <small><%= help_icon_for('Channel') %></small></h2>
   <div class="list-group">
     <%- @entity.channels.each do |channel| %>
       <%= link_to_channel(channel, class: 'list-group-item') %>
@@ -38,7 +38,7 @@
   <%- end %>
 </div>
 <div class="col-sm-4">
-  <h2>Keywords <%= help_icon_for('Keyword') %></h2>
+  <h2>Keywords <small><%= help_icon_for('Keyword') %></small></h2>
   <p><%= keyword_labels(@entity.keywords) %></p>
   <%= render 'mappings/mappings', mappable: @entity %>
 </div>

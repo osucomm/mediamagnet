@@ -44,5 +44,11 @@ Rails.application.routes.draw do
     end
   end
 
+
+  # Help
+  get 'help'                  => 'help#index', as: :help
+  get 'help/:category'        => 'help#category',  as: :help_category
+  get 'help/:category/:file'  => 'help#show',  as: :help_page
+
   root 'welcome#show'
 end
