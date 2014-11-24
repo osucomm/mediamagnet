@@ -43,7 +43,7 @@ class InstagramChannel < Channel
           published_at: Date.strptime(media.created_time, '%s')
         )
         i.assets.build(url: media.images.standard_resolution.url)
-        i.tag_names = media.tags.map(&:text)
+        i.tag_names = media.tags
       end
     end
     super
