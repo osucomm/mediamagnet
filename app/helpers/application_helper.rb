@@ -31,6 +31,7 @@ module ApplicationHelper
     end
 
     output_class
+  end
 
   def help_icon_for(klass)
     fa_icon('question-circle',
