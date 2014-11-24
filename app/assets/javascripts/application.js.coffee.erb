@@ -19,8 +19,11 @@
 #= require_tree .
 #
 #
-$ ->
+ready = ->
   $('[data-toggle="tooltip"]').tooltip()
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
 
 $(document).on "ajax:error", "form", (evt, xhr, status, error) ->
   console.log(xhr)
