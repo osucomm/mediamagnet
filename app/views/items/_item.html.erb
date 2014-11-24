@@ -1,9 +1,12 @@
-<%- item.assets.each do |asset| %>
-  <%= render asset %>
+<%- if item.assets.any? %>
+  <%= link_to (render item.assets.first), item, class: "media-left pull-right thumbnail col-sm-2" %>
 <%- end %>
 
-<span class="channel">
-  [<%= link_to_channel(item.channel) %>]
-</span>
+<div class="media-body">
+  <h4 class="media-heading"><%= link_to item, item %></h4>
+  <p>
+    <%= truncate(strip_tags(item.description.html_safe).html_safe, length: 150) %>
+  </p>
+  <%= link_to_channel(item.channel) %>
+</div>
 
-<%= link_to item, item.link %>
