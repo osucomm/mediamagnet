@@ -11,6 +11,10 @@ class InstagramChannel < Channel
     'Account name'
   end
 
+  def icon
+    'instagram'
+  end
+
   def client
     @client ||=
       begin
@@ -31,12 +35,15 @@ class InstagramChannel < Channel
   def refresh_items
     new_media.each do |media|
       unless items.where(guid: media.id.to_s).exists?
-        items.create(
+        i = items.build(
           guid: media.id,
+          title: "Instagram from @#{service_identifier} on #{media.created_time}",
           link: media.link,
           description: (media.caption? ? media.caption.text : ''),
           published_at: Date.strptime(media.created_time, '%s')
         )
+        i.assets.build(url: media.images.standard_resolution.url)
+        i.tag_names = media.tags
       end
     end
     super

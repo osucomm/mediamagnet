@@ -14,6 +14,9 @@
   <%- end %>
   <%= f.input :primary %>
   <%= render partial: 'keywords/tag_field', locals: {f: f} %>
+  <div class="well well-lg">
+    Entity Keywords: <%= keyword_labels(@channel.entity.keywords) %>
+  </div>
 
   <%= field_set_tag 'Contact' do %>
     <%= render partial: 'contacts/form', locals: {f: f} %>

@@ -1,7 +1,7 @@
 <h1>Recent Items</h1>
-<ul>
+<ul class="list-group">
 <%- @items.each do |item| %>
-  <li><%= render item %></li>
+  <li class="list-group-item"><%= render item %></li>
 <%- end %>
 </ul>
 

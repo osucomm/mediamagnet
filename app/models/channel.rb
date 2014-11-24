@@ -7,8 +7,8 @@ class Channel < ActiveRecord::Base
   # Associations
   belongs_to :entity
   has_one :contact, as: :contactable, dependent: :destroy
-  has_many :items
-  has_many :channel_mappings, as: :mappable
+  has_many :items, dependent: :destroy
+  has_many :channel_mappings, as: :mappable, dependent: :destroy
 
   # Validations
   validates :name, presence: true
@@ -38,12 +38,30 @@ class Channel < ActiveRecord::Base
     def policy_class
       ChannelPolicy
     end
+
+    def help_text
+      <<-EOT
+        Each channel represents a way of getting content to Media Magnet. Simply
+        tell us how to find your content, and we'll take care of the rest.
+      EOT
+    end
+
+    def icon
+      'rss'
+    end
+  end
+
+  def icon
+    self.class.icon
   end
 
   def mappings
-    out = channel_mappings
+    out = []
     entity_mappings.select do |mapping|
       out << mapping unless out.map(&:tag).include?(mapping.tag)
+    end
+    out.sort_by! do |a|
+      a.tag.name
     end
   end
 

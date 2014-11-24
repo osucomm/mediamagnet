@@ -1,6 +1,6 @@
 class Tagging < ActiveRecord::Base
-  belongs_to :tag
   belongs_to :keyword
+  belongs_to :tag
   belongs_to :taggable, polymorphic: true
   delegate :mappings, to: :taggable
 
@@ -18,25 +18,44 @@ class Tagging < ActiveRecord::Base
     where(tag_id: tag.id)
   }
 
+  scope :by_keywords, ->(keyword_ids) {
+    where(keyword_id: keyword_ids)
+  }
+
+  scope :on_items, -> {
+    where(taggable_type: 'Item')
+  }
+
+  scope :not_on_items, -> {
+    where("taggable_type == 'Channel' OR taggable_type == 'Entity'")
+  }
+
   private
 
   def get_tag_from_tag_text
-    unless tag
-      self.tag = Tag.from_text(tag_text) if tag_text.present?
+    # TODO Make better.
+    if tag_id.nil?
+      self.tag = Tag.create_from_text(tag_text) if tag_text.present?
     end
   end
 
   def assign_tag_from_keyword
     if tag.nil? && keyword.present?
-      self.tag = Tag.from_text(keyword.name)
+      self.tag = Tag.create_from_text(keyword.name)
     end
+  end
+
+  def get_keyword_from_mappings
+    mappings.to_a.keep_if do |mapping|
+      mapping.tag_id == tag.id
+    end.first.try(:keyword)
   end
 
   # Update keyword to reflect what the mapping says it should be.
   def assign_keyword_from_mapping
     self.keyword = Keyword.where(name: tag.name).first
     unless keyword || mappings.nil?
-      self.keyword = mappings.where(tag_id: tag.id).first.try(:keyword)
+      self.keyword = get_keyword_from_mappings
     end
   end
 

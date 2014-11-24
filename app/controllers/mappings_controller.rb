@@ -11,10 +11,12 @@ class MappingsController < ApplicationController
     @mapping = mapping_type.new(mapping_params)
     authorize @mapping
 
-    if @mapping.save!
+    if @mapping.save
       respond_with @mapping
     else
-      redirect_to '/'
+      respond_to do |format|
+        format.json { render :json => { :error => @mapping.errors.full_messages }, :status => 422 }
+      end
     end
   end
 

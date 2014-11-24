@@ -1,15 +1,13 @@
 class Entity < ActiveRecord::Base
+  include Taggable
+
   # Associations
   has_one :contact, as: :contactable, dependent: :destroy
   has_one :manifest
-  has_many :channels
+  has_many :channels, dependent: :destroy
   has_many :items, through: :channels
-  has_many :entity_mappings, as: :mappable
+  has_many :entity_mappings, as: :mappable, dependent: :destroy
   has_and_belongs_to_many :users
-
-  has_many :taggings, as: :taggable
-  has_many :tags, through: :taggings
-  has_many :keywords, through: :taggings
 
   belongs_to :parent, class_name: "Entity"
   has_many :children, class_name: "Entity", foreign_key: "parent_id"
@@ -23,6 +21,8 @@ class Entity < ActiveRecord::Base
   }
 
   accepts_nested_attributes_for :contact
+
+  alias_method :mappings, :entity_mappings
 
   def to_s
     name

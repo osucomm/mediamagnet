@@ -1,6 +1,13 @@
 class TwitterChannel < Channel
+
   def service_id_name
     'Handle'
+  end
+
+  class << self
+    def icon
+      'twitter'
+    end
   end
 
   def client
@@ -15,23 +22,29 @@ class TwitterChannel < Channel
   def refresh_items
     @new_count = 0
 
-    options = {}
+    options = { 
+      exclude_replies: true
+    }
 
     if items.most_recent.any?
       options[:since_id] = items.most_recent.first.guid
     end
 
     # Get tweets from our user, starting with the one after the last one we have.
-    tweets = client.user_timeline(name, options)
+    tweets = client.user_timeline(service_identifier, options)
 
     #Check tweet identifiers against 
     tweets.each do |tweet|
       unless items.where(guid: tweet.id.to_s).exists?
         i = items.build(
           guid: tweet.id,
+          title: "Tweet from @#{service_identifier} on #{tweet.created_at}",
           description: tweet.text,
           published_at: tweet.created_at
         )
+        tweet.media.each do |media|
+          i.assets.build(url: media.media_url_https.to_s)
+        end
         i.tag_names = tweet.hashtags.map(&:text)
       end
     end

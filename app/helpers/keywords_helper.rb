@@ -7,4 +7,11 @@ module KeywordsHelper
     end
     links.join(' | ').html_safe
   end
+
+  def keyword_labels(keywords, type='primary')
+    keywords.map do |keyword|
+      bootstrap_label(keyword.display_name, type)
+    end.join(' ').html_safe
+  end
+
 end

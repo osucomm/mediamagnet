@@ -1,23 +1,58 @@
-<h1><%= @item.type_name %> Item #<%= @item.id %></h1>
-<h2>Title: <%= @item.title %></h2>
-<h2>Description</h2>
-<%= @item.description.html_safe %>
-<p>
-  <%= link_to @item.link, @item.link %>
-</p>
-<h2>Tags</h2>
-<p>
-  <%- @item.tags.map do |t| %>
-    <span class="label label-default"><%= t.name %></span>
+<h1><%= @item.title %></h1>
+      <p>
+        <%= link_to @item.link, @item.link %><br>
+        Published: <%= @item.published_at %>, 
+        Imported into MM: <%= @item.created_at %>
+      </p>
+<div class="col-sm-7">
+  <%- if @item.description.present? %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Description</h2>
+    </div>
+    <div class="panel-body">
+      <p><%= @item.description.html_safe %></p>
+    </div>
+  </div>
   <%- end %>
-</p>
-<h2>Keywords</h2>
-<p>
-  <%= comma_list_links(@item.keywords) %>
-</p>
-<h2>Meta</h2>
-<p>
-  Published: <%= @item.published_at %> ||
-  Imported into MM: <%= @item.created_at %> ||
-  Updated: <%= @item.updated_at %>
-</p>
+  <%- if @item.content.present? %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Content</h2>
+      </div>
+      <div class="panel-body">
+        <p><%= @item.content.html_safe %></p>
+      </div>
+    </div>
+  <%- end %>
+  <%- if @item.assets.present? %>
+   <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Assets <%= help_icon_for('Asset') %></h2>
+    </div>
+    <div class="panel-body">
+      <%- @item.assets.each do |asset| %>
+        <%= render_asset(asset) %>
+      <%- end %>
+    </div>
+  </div>
+  <%- end %>
+</div>
+<div class="col-sm-5">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Tags <%= help_icon_for('Tag') %></h2>
+    </div>
+    <div class="panel-body">
+      <%= keyword_labels(@item.tags, :default) %>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Keywords <%= help_icon_for('Keyword') %></h2>
+    </div>
+    <div class="panel-body">
+      <%= keyword_labels(@item.all_keywords) %>
+    </div>
+  </div>
+</div>

@@ -26,3 +26,18 @@ h1, h2, h3 {font-family:'proximanova',Arial,sans-serif; font-weight:600;}
 h4, h5, h6 {font-family: 'proximanova',Arial,sans-serif; font-weight:600;}
 
 .nowrap {white-space:nowrap;}
+
+footer { 
+  background: #333333;
+  color: #ffffff;
+  padding: 1em 0;
+}
+
+#page-content { 
+  padding: 1em 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
