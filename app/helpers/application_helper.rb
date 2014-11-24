@@ -23,4 +23,14 @@ module ApplicationHelper
     Mapping.new
   end
 
+  def is_active?(paths)
+    output_class = ''
+
+    Array(paths).each do |path|
+       output_class = 'active' if current_page?(path)
+    end
+
+    output_class
+  end
+
 end
