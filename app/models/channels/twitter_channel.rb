@@ -22,7 +22,9 @@ class TwitterChannel < Channel
   def refresh_items
     @new_count = 0
 
-    options = {}
+    options = { 
+      exclude_replies: true
+    }
 
     if items.most_recent.any?
       options[:since_id] = items.most_recent.first.guid
