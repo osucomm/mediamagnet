@@ -9,7 +9,6 @@ gem 'google-api-client'
 gem 'jbuilder', '~> 2.0'
 gem 'mysql2'
 gem 'rails', '4.1.6'
-gem 'rails_12factor', group: :production
 gem 'spring',        group: :development
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
