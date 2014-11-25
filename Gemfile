@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
+gem 'rails', '4.1.7'
 
 gem 'coffee-rails', '~> 4.0.0'
 gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'google-api-client'
+gem 'feedjira'
 gem 'jbuilder', '~> 2.0'
 gem 'mysql2'
-gem 'rails', '4.1.6'
-gem 'rails_12factor', group: :production
 gem 'spring',        group: :development
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
@@ -21,7 +21,7 @@ gem 'turbolinks'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 #Frontend
-gem 'bootstrap-sass', '~> 3.2.0.1'
+gem 'bootstrap-sass', '~> 3.3.1'
 gem 'font-awesome-rails'
 gem 'sass-rails', '~> 4.0.3'
 gem 'simple_form', '~> 3.1.0.rc2'

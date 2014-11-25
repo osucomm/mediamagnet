@@ -19,6 +19,13 @@ json.keywords do
     json.href url_for(keyword)
   end
 end
+json.events do
+  json.array! item.events do |event|
+    json.start_date event.start_date
+    json.end_date event.end_date
+    json.location event.location_name
+  end
+end
 json.channel do
   json.id item.channel.id
   json.name item.channel.name
