@@ -12,7 +12,7 @@ class EntityPolicy < ApplicationPolicy
     record.has_user? user
   end
 
-  def join
+  def join?
     user.entities.exclude?(record)
   end
 

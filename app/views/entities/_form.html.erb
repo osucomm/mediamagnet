@@ -17,5 +17,9 @@
   <% end %>
 
   <%= f.button :submit %>
+  <%- unless @entity.new_record? %>
+    <%= link_to 'Delete Entity', entity_path(@entity), class: 'btn btn-danger action-button',
+      method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%- end %>
 
 <%- end %>
