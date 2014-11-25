@@ -14,23 +14,28 @@ class WebChannel < Channel
   end
 
   def client
-    @@client ||= RSS::Parser.parse(service_identifier)
+    @client ||= 
+      begin
+        f = Feedjira::Feed
+        # f.add_common_feed_entry_element('guid', as: 'guida')
+        f.fetch_and_parse(service_identifier)
+      end
   end
 
   def refresh_items
-    web_items = client.items
+    web_items = client.entries
 
     web_items.each do |web_item|
-      unless items.where(guid: web_item.guid.content).exists?
+      unless items.where(guid: web_item.entry_id).exists?
         item = items.create(
-          guid: web_item.guid.content,
+          guid: web_item.entry_id,
           title: web_item.title,
-          content: web_item.content_encoded,
-          description: web_item.description,
-          link: web_item.link,
-          published_at: web_item.pubDate
+          content: web_item.content,
+          description: web_item.summary,
+          link: web_item.url,
+          published_at: web_item.published
         )
-        item.tag_names = (web_item.categories.map(&:content)) if web_item.categories
+        item.tag_names = (web_item.categories) if web_item.categories
       end
     end
     super
