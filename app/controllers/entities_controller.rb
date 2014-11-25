@@ -11,7 +11,7 @@ class EntitiesController < ApplicationController
   end
 
   def show
-    current_user.update_attributes(current_entity: @entity)
+    current_user.update_attributes(current_entity: @entity) if current_user
     respond_with @entity
   end
 
