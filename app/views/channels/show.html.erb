@@ -1,5 +1,5 @@
-<h1><%= @channel.name %></h1>
-<p><%= channel_action_links @channel %></p>
+<h1><%= @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
+
 <div class="col-sm-6">
   <ul>
     <li>Type: <%= @channel.type_name %></li>

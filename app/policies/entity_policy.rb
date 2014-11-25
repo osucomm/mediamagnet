@@ -12,6 +12,10 @@ class EntityPolicy < ApplicationPolicy
     record.has_user? user
   end
 
+  def join
+    user.entities.exclude?(record)
+  end
+
   def destroy?
     user.is_admin?
   end

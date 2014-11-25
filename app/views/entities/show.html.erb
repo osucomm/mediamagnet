@@ -1,8 +1,5 @@
-<h1><%= @entity.name %></h1>
+<h1><%= @entity.name %> <%= entity_action_links @entity, [:update] %></h1>
 <p><%= @entity.description %></p>
-<% if current_user %>
-  <p><%= entity_action_links @entity %></p>
-<% end %>
 
 <div class="col-sm-4">
   <h2>Channels <small><%= help_icon_for('Channel') %></small></h2>

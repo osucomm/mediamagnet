@@ -1,13 +1,13 @@
 module KeywordsHelper
-  def keyword_action_links keyword
+  def keyword_action_links(keyword, actions=[:update, :destroy])
     links = []
 
-    if policy(keyword).update?
+    if actions.include?(:update) && policy(keyword).update?
       links << (link_to fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit'),
         edit_keyword_path(keyword), class: 'btn btn-primary btn-xs action-button')
     end
 
-    if policy(keyword).destroy?
+    if actions.include?(:destroy) && policy(keyword).destroy?
       links << (link_to fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
         keyword_path(keyword), class: 'btn btn-danger btn-xs action-button', method: :delete)
     end
