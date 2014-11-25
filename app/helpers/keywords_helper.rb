@@ -1,11 +1,18 @@
 module KeywordsHelper
   def keyword_action_links keyword
     links = []
-    if current_user.is_admin?
-      links << (link_to 'Edit', edit_keyword_path(keyword))
-      links << (link_to 'Delete', keyword_path(keyword), method: :delete)
+
+    if policy(keyword).update?
+      links << (link_to fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit'),
+        edit_keyword_path(keyword), class: 'btn btn-primary btn-xs action-button')
     end
-    links.join(' | ').html_safe
+
+    if policy(keyword).destroy?
+      links << (link_to fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+        keyword_path(keyword), class: 'btn btn-danger btn-xs action-button', method: :delete)
+    end
+
+    links.join(' ').html_safe
   end
 
   def keyword_labels(keywords, type='primary')

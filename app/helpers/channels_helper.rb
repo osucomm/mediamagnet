@@ -3,12 +3,14 @@ module ChannelsHelper
     links = []
     type = channel.class.model_name.singular
     if policy(channel).update?
-      links << (link_to 'Edit', edit_channel_path(channel))
+      links << (link_to fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit'),
+        edit_channel_path(channel), class: 'btn btn-primary btn-xs action-button')
     end
     if policy(channel).destroy?
-      links << (link_to 'Delete', channel, method: :delete)
+      links << (link_to fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+        channel, class: 'btn btn-danger btn-xs action-button', method: :delete)
     end
-    links.join(' | ').html_safe
+    links.join(' ').html_safe
   end
 
   def link_to_channel(channel, options={})

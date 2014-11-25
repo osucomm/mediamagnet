@@ -3,15 +3,18 @@ module EntitiesHelper
   def entity_action_links(entity)
     links = []
     if current_user.entities.exclude?(entity)
-      links << (link_to 'Join', entity_path(entity))
+      links << (link_to fa_icon('users', data: {toggle: 'tooltip', placement: 'top'}, title: 'Join'),
+        entity_path(entity), class: 'btn btn-success btn-xs action-button')
     end
-    if entity.has_user? current_user
-      links << (link_to 'Edit', edit_entity_path(entity))
+    if policy(entity).update?
+      links << (link_to fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit'),
+        edit_entity_path(entity), class: 'btn btn-primary btn-xs action-button')
     end
-    if current_user.admin?
-      links << (link_to 'Delete', entity_path(entity), method: :delete, 
-                data: { confirm: 'Are you sure?' })
+    if policy(entity).destroy?
+      links << (link_to fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+        entity_path(entity), class: 'btn btn-danger btn-xs action-button', method: :delete,
+        data: { confirm: 'Are you sure?' })
     end
-    links.join(' | ').html_safe
+    links.join(' ').html_safe
   end
 end
