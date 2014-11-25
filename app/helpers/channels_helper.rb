@@ -9,8 +9,8 @@ module ChannelsHelper
     end
 
     if actions.include?(:destroy) && policy(channel).destroy?
-      links << (link_to fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
-        channel, class: 'btn btn-danger btn-xs action-button', method: :delete)
+      links << (link_to_delete fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+        channel, 'btn btn-danger btn-xs action-button')
     end
 
     links.join(' ').html_safe

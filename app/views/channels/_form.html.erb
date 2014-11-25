@@ -24,8 +24,7 @@
 
   <%= f.button :submit %>
   <%- unless @channel.new_record? %>
-    <%= link_to 'Delete Channel', channel_path(@channel), class: 'btn btn-danger action-button',
-      method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to_delete 'Delete Channel', @channel, 'btn btn-danger' %>
   <%- end %>
 
 <%- end %>

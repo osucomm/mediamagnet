@@ -8,8 +8,8 @@ module KeywordsHelper
     end
 
     if actions.include?(:destroy) && policy(keyword).destroy?
-      links << (link_to fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
-        keyword_path(keyword), class: 'btn btn-danger btn-xs action-button', method: :delete)
+      links << (link_to_delete fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+        keyword, 'btn btn-danger btn-xs action-button')
     end
 
     links.join(' ').html_safe

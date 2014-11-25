@@ -14,9 +14,8 @@ module EntitiesHelper
     end
 
     if actions.include?(:destroy) && policy(entity).destroy?
-      links << (link_to fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
-        entity_path(entity), class: 'btn btn-danger btn-xs action-button', method: :delete,
-        data: { confirm: 'Are you sure?' })
+      links << (link_to_delete fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+        entity, 'btn btn-danger btn-xs action-button')
     end
 
     links.join(' ').html_safe

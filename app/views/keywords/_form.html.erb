@@ -10,8 +10,7 @@
 
   <%= f.button :submit %>
   <%- unless @keyword.new_record? %>
-    <%= link_to 'Delete Keyword', keyword_path(@keyword), class: 'btn btn-danger action-button',
-      method: :delete, data: { confirm: 'Are you sure?' } %>
+    <%= link_to_delete 'Delete Keyword', @keyword, 'btn btn-danger' %>
   <%- end %>
 
 <%- end %>
