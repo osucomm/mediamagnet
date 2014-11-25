@@ -1,3 +1,5 @@
+<h1>Delayed Jobs</h1>
+
 <table class="table table-striped footable">
   <thead>
     <tr>
@@ -13,7 +15,7 @@
   </thead>
 
   <tbody>
-    <%- @delayed_jobs.each do |job| %>
+    <%- if @delayed_jobs.each do |job| %>
       <tr>
         <td><%= job.run_at %></td>
         <td><%= job.attempts %></td>
@@ -34,7 +36,11 @@
           <%= link_to 'destroy', admin_delayed_job_path(job), method: :delete %>
         </td>
       </tr>
-    <% end %>
+    <%- end.empty? %>
+      <tr>
+        <td colspan="8">There are no jobs in the queue</td>
+      </tr>
+    <%- end %>
   </tbody>
 <table>
 
