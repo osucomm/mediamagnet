@@ -49,4 +49,12 @@ module ApplicationHelper
     content_tag(:span, text, class: "label label-#{type}")
   end
 
+  def current_user_has_entities?
+    current_user && current_user.entities.any?
+  end
+
+  def current_user_is_admin?
+    current_user && current_user.is_admin?
+  end
+
 end
