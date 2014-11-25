@@ -9,7 +9,7 @@ class EntityPolicy < ApplicationPolicy
   end
  
   def update?
-    true
+    record.has_user? user
   end
 
   def destroy?
