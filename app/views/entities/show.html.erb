@@ -22,12 +22,14 @@
   <%- end %>
 </div>
 <div class="col-sm-4">
-  <h2>Users</h2>
-  <ul class="list-group">
-    <%- @entity.users.each do |user| %>
-      <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: 'list-group-item' %></li>
-    <%- end %>
-  </ul>
+  <%- if current_user %>
+    <h2>Users</h2>
+    <ul class="list-group">
+      <%- @entity.users.each do |user| %>
+        <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: 'list-group-item' %></li>
+      <%- end %>
+    </ul>
+  <%- end %>
 
   <%- if @entity.contact %>
     <h2>Contact</h2>
@@ -37,5 +39,8 @@
 <div class="col-sm-4">
   <h2>Keywords <small><%= help_icon_for('Keyword') %></small></h2>
   <p><%= keyword_labels(@entity.keywords) %></p>
-  <%= render 'mappings/mappings', mappable: @entity %>
+
+  <%- if current_user %>
+    <%= render 'mappings/mappings', mappable: @entity %>
+  <%- end %>
 </div>
