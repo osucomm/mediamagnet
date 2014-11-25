@@ -9,6 +9,11 @@ module ApplicationHelper
     end
   end
 
+  def title(page_title)
+    content_for(:title) { page_title + ' - ' }
+    page_title
+  end
+
   def comma_list_links(objects)
     objects.map do |object|
       link_to object.name, object
