@@ -1,16 +1,16 @@
 source 'https://rubygems.org'
 
+gem 'rails', '4.1.6'
 
 gem 'coffee-rails', '~> 4.0.0'
 gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'google-api-client'
+gem 'feedjira'
 gem 'jbuilder', '~> 2.0'
 gem 'mysql2'
-gem 'rails', '4.1.6'
 gem 'rails_12factor', group: :production
-gem 'spring',        group: :development
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
