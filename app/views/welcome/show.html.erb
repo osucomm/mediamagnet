@@ -4,10 +4,7 @@
 
     <div class="sm-col-12">
       <% flash.each do |key, value| %>
-        <div class="alert <%= flash_class key %> alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <%= value %>
-        </div>
+        <%= render 'shared/message', flash_type: key, message: value %>
       <% end %>
 
       <div class="osu_logo">
