@@ -19,10 +19,11 @@
   </div>
 
   <p>
-    <%= link_to 'Override Contact Info', '#', id: 'add-contact' %>
+  <%= link_to 'Override Contact Info', '#', id: 'add-contact', 
+    class: "#{'hidden' if @channel.contact.name?}" %>
   </p>
 
-  <%= field_set_tag 'Contact', class: 'contact hidden' do %>
+  <%= field_set_tag 'Contact', class: "contact #{'hidden' unless @channel.contact.name?}" do %>
     <%= render partial: 'contacts/form', locals: {f: f} %>
   <% end %>
 
