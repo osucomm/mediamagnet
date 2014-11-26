@@ -11,10 +11,10 @@ OSU is big place! We produce many thousands of pieces of digital content each ye
 Media Magnet provides a [universal set of keywords][1] based on commonly used university themes (like "Academics" and "Buckeye Pride"). Once applied, the tags are like glue, bits of meta-data binding individual content to one another.
 
 ###How is relating content useful? How does it benefit our audiences?
-Media Magnet makes content filterable and reusable. It provides a simple mechanism to reuse content in other locations and contexts: Narrow-casting content based on user's preferences. Related reading. Content mash-ups. Events calendars based on specific topics. Greater visibility and awareness of communications produced across the university.
+Media Magnet makes content filterable and reusable. It provides a simple mechanism to repurpose content in new ways and contexts: Narrow-casting content based on user's preferences. Related reading. Content mash-ups. Events calendars based on specific topics. Greater visibility and awareness of communications produced across the university.
 
 ###What types of content can be aggregated?
-Media Magnet can consume just about any content "channel": web site content like news, events and blog posts, as well as content from popular social media platforms (Youtube, Twitter, etc.).
+Media Magnet can consume just about any public content "channel": Web site content like news, events and blog posts, as well as feeds from popular social media platforms (the Youtubes, Twitter, etc.).
 
 ###How do I decide which content to register?
 TBD
@@ -47,11 +47,12 @@ TBD
 
 [1]: https://mediamagnet.osu.edu/keywords
 
-##Media Magnet Parts and Pieces
+##Media Magnet Terminology
+-----
 
 ###Entities
-To Media Magnet, [Entities](entities/README.md) are an umbrella for like channels (web site, social media accounts, etc.)
-Example: Department of Athletics
+To Media Magnet, [Entities](entities/README.md) are an umbrella for similar channels (web site, social media accounts, etc.)
+**Example:** *The Department of Athletics would be an entity containing various web feeds and social media channels*
 
 ###Channels
 [Channels](entities/README.md) are the communication vehicles an entity publishes. 
@@ -63,7 +64,7 @@ A universal set of words used based on common university themes. Media Magnet Ke
 
 ###Tags
 Public hashtags used within content: Like "#gobucks!"
-Optional pro-top: You can map tags you use to Keywords.
-**Example:** *The hash-tag "#gobucks" could be mapped to the Keyword "Buckeye Pride" since they both usually connote blah blah*
+####Pro-tip: Tags can be mapped to Keywords
+**Example:** *The public hash-tag "#gobucks" could be mapped to the Keyword "Buckeye Pride" since they both usually connote spirit messaging*
 
 
