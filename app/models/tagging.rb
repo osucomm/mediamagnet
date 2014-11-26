@@ -27,7 +27,7 @@ class Tagging < ActiveRecord::Base
   }
 
   scope :not_on_items, -> {
-    where("taggable_type == 'Channel' OR taggable_type == 'Entity'")
+    where("`taggings`.`taggable_type` = 'Channel' OR `taggings`.`taggable_type` = 'Entity'")
   }
 
   private
