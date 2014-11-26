@@ -1,4 +1,4 @@
-<h1>Keywords</h1>
+<h1><%= title 'Keywords' %></h1>
 <% if current_user.try(:is_admin?) %>
   <p><%= link_to 'New', new_keyword_path %></p>
 <% end %>
