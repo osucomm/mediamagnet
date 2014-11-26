@@ -2,6 +2,7 @@ require 'google/api_client'
 require 'google/api_client/auth/installed_app'
 
 class YoutubeChannel < Channel
+
   def service_id_name
     'Channel name'
   end
@@ -48,6 +49,12 @@ class YoutubeChannel < Channel
 
   def youtube
     @youtube ||= client.discovered_api('youtube', 'v3')
+  end
+
+  private
+
+  def set_keywords
+    keywords << Keyword.where(name: 'video').first
   end
 
 end

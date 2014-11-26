@@ -1,4 +1,4 @@
-<h1><%= @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
+<h1><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
 
 <div class="col-sm-6">
   <ul>
@@ -28,4 +28,8 @@
       <li><%= link_to item, item %></li>
     <%- end %>
   </ul>
+</div>
+
+<div class="col-sm-12">
+  <%= render 'mappings/mappings', mappable: @channel %>
 </div>

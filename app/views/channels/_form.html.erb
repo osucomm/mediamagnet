@@ -18,7 +18,12 @@
     Entity Keywords: <%= keyword_labels(@channel.entity.keywords) %>
   </div>
 
-  <%= field_set_tag 'Contact' do %>
+  <p>
+  <%= link_to 'Override Contact Info', '#', id: 'add-contact', 
+    class: "#{'hidden' if @channel.contact.name?}" %>
+  </p>
+
+  <%= field_set_tag 'Contact', class: "contact #{'hidden' unless @channel.contact.name?}" do %>
     <%= render partial: 'contacts/form', locals: {f: f} %>
   <% end %>
 
@@ -29,4 +34,3 @@
 
 <%- end %>
 
-<%= render 'mappings/mappings', mappable: @channel %>

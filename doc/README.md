@@ -45,7 +45,7 @@ Most modern Content Mangement Systems (CMS) like Drupal and Wordpress make publi
 ###What if I need technical assistance?
 TBD
 
-[1]: https://mediamagnet.osu.edu/keywords
+[1]: /keywords
 
 ##Media Magnet Terminology
 -----
