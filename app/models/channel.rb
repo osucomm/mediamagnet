@@ -23,6 +23,7 @@ class Channel < ActiveRecord::Base
   delegate :entity_mappings, to: :entity
 
   # Callbacks
+  after_initialize :set_keywords
   after_create :refresh_items
 
   # Scopes
@@ -86,5 +87,10 @@ class Channel < ActiveRecord::Base
     update_attribute(:last_polled_at, Time.now)
   end
   handle_asynchronously :refresh_items
+
+  private
+
+  def set_keywords
+  end
 
 end

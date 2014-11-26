@@ -77,5 +77,11 @@ class InstagramChannel < Channel
     end
   end
 
+  private
+
+  def set_keywords
+    keywords << Keyword.where(name: 'photo').first
+  end
+
 
 end
