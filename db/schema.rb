@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120014756) do
+ActiveRecord::Schema.define(version: 20141125183515) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -98,6 +98,15 @@ ActiveRecord::Schema.define(version: 20141120014756) do
     t.datetime "updated_at"
   end
 
+  create_table "events", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "location_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "items", force: true do |t|
     t.string   "title"
     t.integer  "channel_id"
@@ -116,6 +125,14 @@ ActiveRecord::Schema.define(version: 20141120014756) do
     t.string   "display_name"
     t.text     "description"
     t.integer  "category"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "locations", force: true do |t|
+    t.string   "location"
+    t.float    "latitude"
+    t.float    "longitude"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
