@@ -4,8 +4,10 @@ class GoogleController < ApplicationController
   end
 
   def callback
-    user_credentials.code = params[:code] if params[:code]
+    if params[:code]
+      user_credentials.code = params[:code] if params[:code]
       user_credentials.fetch_access_token!
+    end
   end
 
   private
@@ -13,7 +15,7 @@ class GoogleController < ApplicationController
   def user_credentials
     @authorization ||= (
       auth = client.authorization.dup
-      auth.redirect_uri = "http://#{request.host}/google/oauth2callback"
+      auth.redirect_uri = "https://#{request.host}/google/oauth2callback"
       options = {}
       auth.update_token!(options)
       options.each do |k,v|
