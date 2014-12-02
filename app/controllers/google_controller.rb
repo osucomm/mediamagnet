@@ -1,45 +1,31 @@
 class GoogleController < ApplicationController
+  def choose
+
+  end
+
   def auth
-    redirect_to user_credentials.authorization_uri.to_s
+    redirect_to google_client.authorization_uri.to_s
   end
 
   def callback
     if params[:code]
-      user_credentials.code = params[:code] if params[:code]
-      user_credentials.fetch_access_token!
-      @uc = user_credentials
+      google_client.code = params[:code]
+      google_client.fetch_access_token!
+      @token = Token.create(
+        access_token: google_client.access_token,
+        refresh_token: google_client.refresh_token,
+        expires_at: google_client.expires_in.to_i.seconds.from_now.to_datetime)
+      session[:token_id] = @token.id
+      redirect_to new_entity_youtube_playlist_channel_path(
+        entity_id: current_user.current_entity_id,
+      )
     end
   end
 
   private
 
-  def user_credentials
-    @authorization ||= (
-      auth = client.authorization.dup
-      auth.redirect_uri = "https://#{request.host}/google/oauth2callback"
-      options = {}
-      auth.update_token!(options)
-      options.each do |k,v|
-        session[k] = v
-      end
-      auth
-    )
+  def google_client
+    @google_client ||= GoogleClient.new.client
   end
-
-  def client
-    # Initialize the client.
-    @google_client ||= begin
-      client = Google::APIClient.new(
-        application_name: 'Media Magnet',
-        application_version: '0.1'
-      )
-      client_secrets = Google::APIClient::ClientSecrets.load
-      client.authorization = client_secrets.to_authorization
-      client.authorization.scope = 'https://www.googleapis.com/auth/youtube.readonly'
-      client
-    end
-  end
-
-
 
 end
