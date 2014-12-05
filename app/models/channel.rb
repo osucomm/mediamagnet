@@ -1,8 +1,10 @@
 class Channel < ActiveRecord::Base
   include Taggable
 
+  has_one :token
+
   # STI types
-  TYPES = [TwitterChannel,InstagramChannel,WebChannel,EventChannel,FacebookChannel,YoutubeChannel]
+  TYPES = [TwitterChannel,InstagramChannel,WebChannel,EventChannel,FacebookChannel,YoutubePlaylistChannel]
 
   # Associations
   belongs_to :entity
@@ -19,7 +21,6 @@ class Channel < ActiveRecord::Base
   #
   delegate :users, to: :entity
   delegate :has_user?, to: :entity
-
   delegate :entity_mappings, to: :entity
 
   # Callbacks
