@@ -22,27 +22,33 @@ class YoutubePlaylistChannel < Channel
   end
 
   def uploaded_video_ids
+    puts 'called uploaded video_ids'
     request = {
       api_method: youtube_api.playlist_items.list,
-      parameters: {part: 'snippet', playlistId: uploads_playlist_id}
+      parameters: {part: 'snippet', 
+                   playlistId: uploads_playlist_id,
+                   maxResults: 10},
     }
 
     video_ids = []
-    loop do
+    #loop do
+    
       result = client.execute(request)
 
       result.data.items.each do |item|
         video_ids << item.snippet.resourceId.videoId
       end
 
-      break unless result.next_page_token
-      request = result.next_page
-    end
+      #break unless result.next_page_token
+      #request = result.next_page
+    #end
 
+    pp video_ids
     video_ids
   end
 
   def uploaded_videos
+    puts 'called uploaded videos'
     request = {
       api_method: youtube_api.videos.list,
       parameters: {part: 'snippet', id: uploaded_video_ids.join(',') }
@@ -50,8 +56,9 @@ class YoutubePlaylistChannel < Channel
 
     videos = []
     loop do
+      puts 'in video fetch loop'
       result = client.execute(request)
-
+      binding.pry
       videos.concat(result.data.items)
 
       break unless result.next_page_token
@@ -64,6 +71,7 @@ class YoutubePlaylistChannel < Channel
 
   def refresh_items
     uploaded_videos.each do |youtube_video|
+      puts 'request'
       unless items.where(guid: youtube_video.id).any?
         i = items.build(
           guid: youtube_video.id,
@@ -93,7 +101,6 @@ class YoutubePlaylistChannel < Channel
       Google::APIClient.new
     )
 
-    binding.pry
     @client.authorization.access_token = token.fresh_token
     @client
   end

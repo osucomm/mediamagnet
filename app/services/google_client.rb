@@ -7,7 +7,7 @@ class GoogleClient
       token_endpoint_uri: 'https://accounts.google.com/o/oauth2/token',
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       token_uri: 'https://accounts.google.com/o/oauth2/token',
-      redirect_uri: 'http://17f46ae8.ngrok.com/auth/google/callback',
+      redirect_uri: 'http://4d5e9ae0.ngrok.com/auth/google/callback',
       client_id: ENV['GOOGLE_CLIENT_ID'],
       client_secret: ENV['GOOGLE_CLIENT_SECRET'],
       scope: 'https://www.googleapis.com/auth/youtube.readonly',
