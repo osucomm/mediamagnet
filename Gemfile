@@ -6,8 +6,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
-gem 'google-api-client'
-gem 'feedjira'
 gem 'jbuilder', '~> 2.0'
 gem 'mysql2'
 gem 'spring',        group: :development
@@ -43,6 +41,8 @@ gem 'redcarpet'
 gem 'unicorn'
 
 # Channel Clients
+gem 'feedjira'
+gem 'google-api-client'
 gem 'instagram'
 gem 'koala', '~> 1.10.1' # Facebook
 gem 'twitter'

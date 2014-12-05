@@ -1,0 +1,18 @@
+<h1>Google Authentication Recommended</h1>
+
+<div class="col-sm-12">
+YouTube requires that users consent to release the contents of the tags that are
+applied to videos. These tags, which are not public, are used by YouTube to help
+make recommendations to users by recommending videos that share these non-public
+tags. Media Magnet can use the YouTube tags to populate Media Magnet keywords. To
+allow Media Magnet to access your YouTube video tags, click 'Sign In With Google'
+and you will be redirected to authorizae MM to access these tags. 
+
+Otherwise, we <strong>will not</strong> assign keywords to imported videos, 
+except for those keywords that are on the channel and entity. 
+</div>
+
+<div "col-sm-12 text-center">
+<%= link_to 'Sign In With Google', { controller: 'google', action: 'auth' }, class: 'btn btn-primary' %>
+<%= link_to 'No Thanks', new_entity_youtube_playlist_channel_path(entity_id: current_user.current_entity) %>
+</div>
