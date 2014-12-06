@@ -5,6 +5,18 @@ class Token < ActiveRecord::Base
 
   belongs_to :channel
 
+  class << self
+    def create_from_omniauth_hash(hash)
+      create(
+        provider: hash.provider,
+        access_token: auth_hash.credentials.token,
+        refresh_token: auth_hash.credentials.refresh_token,
+        expires_at: DateTime.strptime(auth_hash.credentials.expires_at.to_s, '%s')
+      )
+    end
+
+  end
+
   def to_params
     {'refresh_token' => refresh_token,
     'client_id' => ENV['GOOGLE_CLIENT_ID'],

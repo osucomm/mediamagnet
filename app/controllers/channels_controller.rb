@@ -17,14 +17,16 @@ class ChannelsController < ApplicationController
   def new
     # TODO: Refactor out YouTube oauth2 stuff. 
     if (channel_type == YoutubePlaylistChannel && session[:token_id].nil?)
-      redirect_to '/auth/google/choose'
+      redirect_to '/auth/google_oauth2'
     end
 
     @channel = channel_type.new
 
     # More youtube oauth2 stuff.
-    @channel.token = Token.find(session[:token_id]) if session[:token_id]
-    @channel.load_service_identifier if session[:token_id]
+    if (channel_type == YoutubePlaylistChannel && session[:token_id].nil?)
+      @channel.token = Token.find(session[:token_id])
+      @channel.load_service_identifier
+    end
 
     @entity = Entity.find(params[:entity_id])
     @channel.entity = @entity
