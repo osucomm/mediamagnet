@@ -22,7 +22,6 @@ class YoutubePlaylistChannel < Channel
   end
 
   def uploaded_video_ids
-    puts 'called uploaded video_ids'
     request = {
       api_method: youtube_api.playlist_items.list,
       parameters: {part: 'snippet', 
@@ -32,7 +31,7 @@ class YoutubePlaylistChannel < Channel
 
     video_ids = []
     #loop do
-    
+
       result = client.execute(request)
 
       result.data.items.each do |item|
@@ -43,12 +42,10 @@ class YoutubePlaylistChannel < Channel
       #request = result.next_page
     #end
 
-    pp video_ids
     video_ids
   end
 
   def uploaded_videos
-    puts 'called uploaded videos'
     request = {
       api_method: youtube_api.videos.list,
       parameters: {part: 'snippet', id: uploaded_video_ids.join(',') }
@@ -56,9 +53,7 @@ class YoutubePlaylistChannel < Channel
 
     videos = []
     loop do
-      puts 'in video fetch loop'
       result = client.execute(request)
-      binding.pry
       videos.concat(result.data.items)
 
       break unless result.next_page_token
@@ -71,7 +66,6 @@ class YoutubePlaylistChannel < Channel
 
   def refresh_items
     uploaded_videos.each do |youtube_video|
-      puts 'request'
       unless items.where(guid: youtube_video.id).any?
         i = items.build(
           guid: youtube_video.id,

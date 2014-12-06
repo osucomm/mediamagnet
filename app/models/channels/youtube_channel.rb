@@ -3,32 +3,68 @@ require 'google/api_client/auth/installed_app'
 
 class YoutubeChannel < Channel
 
+
   def service_id_name
-    'Channel name'
+    'Uploads Channel Id'
   end
 
   def icon
     'youtube-play'
   end
 
-  def videos
+  def uploads_playlist_id
     request = {
-      api_method: youtube.search.list,
-      authorization: nil,
-      :parameters => {part: 'snippet', channelId: service_identifier}
+      api_method: youtube.channels.list,
+      authorization: google_authorization.user_credentials.to_json,
+      parameters: { part: 'contentDetails' }
     }
 
-    youtube_videos = []
+    result = client.execute(request)
+    result.data.items.first.contentDetails.relatedPlaylists.uploads
+  end
+
+  def uploaded_video_ids
+    request = {
+      api_method: youtube.playlistItems.list,
+      authorization: google_authorization.user_credentials.to_json,
+      parameters: {part: 'snippet', playlistId: uploads_playlist_id}
+    }
+
+    video_ids = []
     loop do
       result = client.execute(request)
 
-      youtube_videos.concat(result.data.items)
+      result.data.items.each do |item|
+        video_ids << item.contentDetails.videoId
+      end
 
       break unless result.next_page_token
       request = result.next_page
     end
+
     youtube_videos
   end
+
+  def uploaded_videos
+    request = {
+      api_method: youtube.playlistItems.list,
+      authorization: google_authorization.user_credentials.to_json,
+      parameters: {part: 'snippet', id: uploaded_video_ids.join(',') }
+    }
+
+    videos = []
+    loop do
+      result = client.execute(request)
+
+      videos.concat(result.data.items)
+
+      break unless result.next_page_token
+      request = result.next_page
+    end
+
+    videos
+  end
+
 
   def refresh_items
     videos.each do |youtube_video|
@@ -37,10 +73,11 @@ class YoutubeChannel < Channel
           guid: youtube_video.id.videoId,
           title: youtube_video.snippet.title,
           description: youtube_video.snippet.description,
-          link: ''
+          link: 'https://www.youtube.com/watch?v=' + youtube_video.id.videoId,
+          published_at: Date.strptime(youtube_video.snippet.published_at, '%s')
         )
-      i.tags
-      i.assets.build(url: youtube_video.snippet.thumbnails.high.url)
+        i.tag_names = youtube_video.snippet.tags
+        i.assets.build(url: youtube_video.snippet.thumbnails.high.url)
       end
     end
   end

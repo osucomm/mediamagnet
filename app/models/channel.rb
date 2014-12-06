@@ -4,7 +4,7 @@ class Channel < ActiveRecord::Base
   has_one :token
 
   # STI types
-  TYPES = [TwitterChannel,InstagramChannel,WebChannel,EventChannel,FacebookChannel,YoutubePlaylistChannel]
+  TYPES = [TwitterChannel,InstagramChannel,WebChannel,EventChannel,FacebookPageChannel,YoutubePlaylistChannel]
 
   # Associations
   belongs_to :entity
