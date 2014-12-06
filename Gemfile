@@ -27,6 +27,9 @@ gem 'simple_form', '~> 3.1.0.rc2'
 # Auth
 gem 'pundit', '~> 0.3'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'
 
 gem 'kaminari'
 gem 'has_scope'

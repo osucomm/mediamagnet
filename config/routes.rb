@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
 
+  get 'tokens/create'
+
+  get 'facebook/callback'
+
   namespace :admin do
   get 'delayed_jobs/index'
   end
@@ -13,8 +17,8 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'dashboard#show', as: :dashboard
   get 'auth/google/choose' => 'google#choose'
-  get 'auth/google/authorize' => 'google#auth'
-  get 'auth/google/callback' => 'google#callback'
+  get 'auth/google_oauth2/callback' => 'google#callback'
+  get 'auth/facebook/callback' => 'tokens#create'
 
   resources :keywords
 
