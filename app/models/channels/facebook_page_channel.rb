@@ -27,6 +27,7 @@ class FacebookPageChannel < Channel
     end
     log_refresh
   end
+  handle_asynchronously :refresh_items
 
   private
 
