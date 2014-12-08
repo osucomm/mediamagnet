@@ -37,6 +37,8 @@ class EventChannel < Channel
         e.save
       end
     end
-    super
+    log_refresh
   end
+  handle_asynchronously :refresh_items
+
 end

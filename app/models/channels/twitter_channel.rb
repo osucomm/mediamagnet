@@ -48,9 +48,9 @@ class TwitterChannel < Channel
         i.tag_names = tweet.hashtags.map(&:text)
       end
     end
-    true
-    super
+    log_refresh
   end
+  handle_asynchronously :refresh_items
 
   def link_for(item)
     "https://twitter.com/#{service_identifier}/status/#{item.guid}"

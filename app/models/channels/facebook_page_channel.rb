@@ -25,8 +25,7 @@ class FacebookPageChannel < Channel
         i.tag_names = TagParser.new(i.title).parse
       end
     end
-    true
-    super
+    log_refresh
   end
 
   private

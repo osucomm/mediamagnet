@@ -63,7 +63,6 @@ class YoutubePlaylistChannel < Channel
     videos
   end
 
-
   def refresh_items
     uploaded_videos.each do |youtube_video|
       unless items.where(guid: youtube_video.id).any?
@@ -78,7 +77,9 @@ class YoutubePlaylistChannel < Channel
         i.assets.create(url: youtube_video.snippet.thumbnails.high.url)
       end
     end
+    log_refresh
   end
+  handle_asynchronously :refresh_items
 
   def load_service_identifier
     self.service_identifier = uploads_playlist_id if new_record?

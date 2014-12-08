@@ -46,8 +46,9 @@ class InstagramChannel < Channel
         i.tag_names = media.tags
       end
     end
-    super
+    log_refresh
   end
+  handle_asynchronously :refresh_items
 
   private
 
