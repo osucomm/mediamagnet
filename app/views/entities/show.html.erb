@@ -15,7 +15,7 @@
       </button>
       <ul class="dropdown-menu" role="menu">
         <%- Channel::TYPES.each do |type| %>
-          <li><%= link_to type.type_name, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
+          <li><%= link_to type.type_name.titleize, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
         <%- end %>
       </ul>
     </div>
