@@ -9,9 +9,9 @@ class Token < ActiveRecord::Base
     def create_from_omniauth_hash(hash)
       create(
         provider: hash.provider,
-        access_token: auth_hash.credentials.token,
-        refresh_token: auth_hash.credentials.refresh_token,
-        expires_at: DateTime.strptime(auth_hash.credentials.expires_at.to_s, '%s')
+        access_token: hash.credentials.token,
+        refresh_token: hash.credentials.refresh_token,
+        expires_at: DateTime.strptime(hash.credentials.expires_at.to_s, '%s')
       )
     end
 
