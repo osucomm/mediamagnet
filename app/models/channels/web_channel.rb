@@ -36,6 +36,7 @@ class WebChannel < Channel
           published_at: web_item.published
         )
         item.tag_names = (web_item.categories) if web_item.categories
+      end
     end
     log_refresh
   end
