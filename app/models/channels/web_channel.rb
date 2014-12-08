@@ -17,7 +17,6 @@ class WebChannel < Channel
     @client ||= 
       begin
         f = Feedjira::Feed
-        # f.add_common_feed_entry_element('guid', as: 'guida')
         f.fetch_and_parse(service_identifier)
       end
   end
@@ -27,7 +26,7 @@ class WebChannel < Channel
 
     web_items.each do |web_item|
       unless items.where(guid: web_item.entry_id).exists?
-        item = items.create(
+        i = items.build(
           guid: web_item.entry_id,
           title: web_item.title,
           content: web_item.content,
@@ -35,7 +34,8 @@ class WebChannel < Channel
           link: web_item.url,
           published_at: web_item.published
         )
-        item.tag_names = (web_item.categories) if web_item.categories
+        i.assets.build(url: web_item.image) if web_item.image
+        i.tag_names = (web_item.categories) if web_item.categories
       end
     end
     log_refresh
