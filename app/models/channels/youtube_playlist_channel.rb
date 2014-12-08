@@ -101,7 +101,8 @@ class YoutubePlaylistChannel < Channel
   end
 
   def set_keywords
-    keywords << Keyword.where(name: :video).first if new_record?
+    video = Keyword.where(name: :video).first
+    keywords << video unless keywords.include?(video)
   end
 
 
