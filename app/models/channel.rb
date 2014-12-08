@@ -34,7 +34,7 @@ class Channel < ActiveRecord::Base
 
   class << self
     def type_name
-      self.name.sub('Channel', '')
+      self.name.sub('Channel', '').titleize
     end
 
     def policy_class
