@@ -2,6 +2,7 @@ class ChannelsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_channel, only: [:show, :edit, :update, :destroy]
+  before_action :get_token, only: [:new]
 
   respond_to :html, :json, :js
 
@@ -15,15 +16,10 @@ class ChannelsController < ApplicationController
   end
 
   def new
-    # TODO: Refactor out YouTube oauth2 stuff. 
-    if (channel_type == YoutubePlaylistChannel && session[:token_id].nil?)
-      redirect_to '/auth/google_oauth2'
-    end
-
     @channel = channel_type.new
 
     # More youtube oauth2 stuff.
-    if (channel_type == YoutubePlaylistChannel && session[:token_id].nil?)
+    if (channel_type == YoutubePlaylistChannel)
       @channel.token = Token.find(session[:token_id])
       @channel.load_service_identifier
     end
@@ -69,10 +65,14 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
+    authorize @channel
     @entity = @channel.entity
     @channel.destroy
     flash[:notice] = "Channel was successfully destroyed."
-    respond_with @channel, location: @entity
+    respond_with @channel do |format|
+      format.html { redirect_to @entity }
+      format.js { }
+    end
   end
 
 
@@ -89,6 +89,12 @@ class ChannelsController < ApplicationController
 
     def find_channel
       @channel = channel_type.includes(:entity).find(params[:id])
+    end
+
+    def get_token
+      if (channel_type == YoutubePlaylistChannel && session[:token_id].nil?)
+        redirect_to '/auth/google_oauth2'
+      end
     end
 
 end
