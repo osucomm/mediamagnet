@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+
   get 'tokens/create'
 
   get 'facebook/callback'
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
   get 'auth/facebook/callback' => 'tokens#create'
 
   resources :keywords
+  resources :links
 
   Mapping::TYPES.each do |type|
     resources type.model_name.plural, only: [:new, :create, :destroy], controller: 'mappings', type: type.to_s

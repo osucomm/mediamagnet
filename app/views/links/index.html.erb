@@ -1,0 +1,19 @@
+<h1>Links</h1>
+<table class="table">
+  <tr>
+    <th>URL</th>
+    <th>Item</th>
+    <th>Items Containing URL</th>
+  </tr>
+
+  <%- @links.each do |link| %>
+    <tr>
+      <td><%= link_to link.url, link.url %></td>
+      <td><%= (link.item.present?) ? (link_to link.item.id, link.item) : '-' %></td>
+      <td><%= link.items.map{|i| (link_to i.id, i)}.join(', ').html_safe %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<%= paginate @links %>
