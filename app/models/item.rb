@@ -57,14 +57,17 @@ class Item < ActiveRecord::Base
 
   # Build list of associated links from all of our text fields.
   def links_from_text_fields
-    all_text.scan(/https?\:\/\/\S+/).each do |url| 
-      new_link = Link.where(url: url).first_or_create
+    all_text.scan(Link::PATTERN).each do |url| 
+      dest_url = Link.resolve_uri(url)
+      new_link = Link.where(url: dest_url).first_or_create
       links << new_link unless links.include?(new_link)
     end
   end
 
   def all_text
-    title.to_s + description.to_s + content.to_s
+    %w(title description content).map do |field|
+      send(field).to_s
+    end.join(' ')
   end
 
 end
