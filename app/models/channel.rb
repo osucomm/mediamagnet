@@ -67,6 +67,9 @@ class Channel < ActiveRecord::Base
     end
   end
 
+  def refresh_items
+  end
+
   def type_name
     self.class.type_name
   end

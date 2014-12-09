@@ -1,4 +1,5 @@
-json.id item.title
+json.id item.id
+json.guid item.guid
 json.title item.title
 json.description item.description
 json.content item.content

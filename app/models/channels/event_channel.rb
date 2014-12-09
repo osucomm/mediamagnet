@@ -25,7 +25,7 @@ class EventChannel < Channel
           title: entry.title,
           content: entry.content,
           description: entry.summary,
-          link: entry.url,
+          link: Link.where(url: entry.url).first_or_create,
           published_at: entry.published
         )
         item.tag_names = (entry.categories) if entry.categories

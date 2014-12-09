@@ -39,7 +39,7 @@ class InstagramChannel < Channel
           guid: media.id,
           title: (media.caption? ? media.caption.text : 
             "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"),
-          link: media.link,
+          link: Link.where(url: media.link).first,
           description: (media.caption? ? media.caption.text : ''),
           published_at: Date.strptime(media.created_time, '%s')
         )
@@ -54,7 +54,7 @@ class InstagramChannel < Channel
   private
 
   def set_service_identifier_id
-    self.service_identifier_id = instagram_user.id
+    self.service_identifier_id = instagram_user.id unless service_identifier.nil?
   end
 
   def is_instagram_user

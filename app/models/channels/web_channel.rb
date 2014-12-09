@@ -31,7 +31,7 @@ class WebChannel < Channel
           title: web_item.title,
           content: web_item.content,
           description: web_item.summary,
-          link: web_item.url,
+          link: Link.where(url: web_item.url).first_or_create,
           published_at: web_item.published
         )
         i.assets.build(url: web_item.image) if web_item.image

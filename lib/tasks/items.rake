@@ -8,4 +8,15 @@ namespace :items do
     end
 
   end
+
+  desc 'Create links from link string fields on items'
+  task parselinks: :environment do
+
+    Item.all.each do |item|
+      item.send(:links_from_text_fields)
+      item.save!
+    end
+
+  end
+
 end

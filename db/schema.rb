@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209001300) do
+ActiveRecord::Schema.define(version: 20141209145544) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -121,7 +121,6 @@ ActiveRecord::Schema.define(version: 20141209001300) do
     t.string   "title"
     t.integer  "channel_id"
     t.text     "description"
-    t.string   "link"
     t.string   "guid"
     t.datetime "published_at"
     t.text     "raw"

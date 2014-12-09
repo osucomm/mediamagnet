@@ -1,7 +1,7 @@
 <h1><%= title 'Item View' %></h1>
 <h2><%= @item.title %></h2>
       <p>
-        <%= link_to @item.link, @item.link %><br>
+        <%= link_to @item.link.to_s, @item.link.to_s %><br>
         Published: <%= @item.published_at %>, 
         Imported into MM: <%= @item.created_at %>
       </p>
