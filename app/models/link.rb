@@ -11,7 +11,6 @@ class Link < ActiveRecord::Base
 
   class << self
     def resolve_uri(url)
-      binding.pry
       uri = URI(url.strip)
       return_url = ''
 
