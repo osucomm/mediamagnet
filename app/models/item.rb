@@ -3,14 +3,18 @@ class Item < ActiveRecord::Base
   has_many :channel_inherited_keywords, source: :keywords, through: :channel
   has_many :entity_inherited_keywords, source: :keywords, through: :entity
   has_many :events
-  has_many :links
+  has_many :item_links
+  has_many :links, through: :item_links
   has_many :assets, dependent: :destroy
 
   belongs_to :channel
   has_one :entity, through: :channel
+  has_one :link, class_name: 'Link', foreign_key: 'item_id'
 
   validates :guid, presence: :true
   validates :channel_id, presence: :true
+
+  before_save :links_from_text_fields
 
   delegate :mappings, to: :channel
   delegate :type_name, to: :channel
@@ -49,17 +53,19 @@ class Item < ActiveRecord::Base
     keywords + channel_inherited_keywords + entity_inherited_keywords
   end
 
-  def link
-    if attributes['link'].blank?
-      channel.link_for(self)
-    else
-      attributes['link']
+  private
+
+  # Build list of associated links from all of our text fields.
+  def links_from_text_fields
+    all_text.scan(/https?\:\/\/\S+/).each do |url| 
+      text = url.gsub('https?\:','')
+      new_link = Link.where(url: text).first_or_create
+      links << new_link unless links.include?(new_link)
     end
   end
 
-  private
-
-  def 
+  def all_text
+    title.to_s + description.to_s + content.to_s
   end
 
 end
