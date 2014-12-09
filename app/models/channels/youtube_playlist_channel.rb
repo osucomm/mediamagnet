@@ -70,7 +70,7 @@ class YoutubePlaylistChannel < Channel
           guid: youtube_video.id,
           title: youtube_video.snippet.title,
           description: youtube_video.snippet.description,
-          link: 'https://www.youtube.com/watch?v=' + youtube_video.id,
+          link: Link.where(url: "https://www.youtube.com/watch?v=#{youtube_video.id}").first_or_create,
           published_at: youtube_video.snippet.published_at,
         )
         i.tag_names = youtube_video.snippet.tags

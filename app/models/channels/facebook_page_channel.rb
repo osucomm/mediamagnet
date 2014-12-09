@@ -18,7 +18,7 @@ class FacebookPageChannel < Channel
           guid: post['id'],
           title: post['message'],
           description: post['message'],
-          link: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}",
+          link: Link.where(url: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}").first_or_create,
           published_at: post['created_time']
         )
         i.assets.build(url: post['picture']) if post['picture']
