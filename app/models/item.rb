@@ -12,6 +12,8 @@ class Item < ActiveRecord::Base
   has_one :link, class_name: 'Link', foreign_key: 'item_id'
 
   validates :guid, presence: :true
+  validates :title, presence: :true
+  validates :description, presence: :true
   validates :channel_id, presence: :true
 
   before_save :links_from_text_fields
