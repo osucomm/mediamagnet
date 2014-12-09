@@ -2,12 +2,12 @@ class Item < ActiveRecord::Base
   include Taggable
   has_many :channel_inherited_keywords, source: :keywords, through: :channel
   has_many :entity_inherited_keywords, source: :keywords, through: :entity
-
   has_many :events
+  has_many :links
+  has_many :assets, dependent: :destroy
 
   belongs_to :channel
   has_one :entity, through: :channel
-  has_many :assets, dependent: :destroy
 
   validates :guid, presence: :true
   validates :channel_id, presence: :true
@@ -55,6 +55,11 @@ class Item < ActiveRecord::Base
     else
       attributes['link']
     end
+  end
+
+  private
+
+  def 
   end
 
 end
