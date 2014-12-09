@@ -58,8 +58,7 @@ class Item < ActiveRecord::Base
   # Build list of associated links from all of our text fields.
   def links_from_text_fields
     all_text.scan(/https?\:\/\/\S+/).each do |url| 
-      text = url.gsub('https?\:','')
-      new_link = Link.where(url: text).first_or_create
+      new_link = Link.where(url: url).first_or_create
       links << new_link unless links.include?(new_link)
     end
   end
