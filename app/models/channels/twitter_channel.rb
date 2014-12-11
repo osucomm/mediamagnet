@@ -10,22 +10,6 @@ class TwitterChannel < Channel
     end
   end
 
-  def client
-    @client ||= Twitter::REST::Client.new do |config|
-      config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
-      config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
-      config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
-      config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
-    end
-  end
-
-  def get_info
-    if new_record? && twitter_user
-      self.name = twitter_user.name
-      self.description = twitter_user.description
-    end
-  end
-
   def refresh_items
     @new_count = 0
 
@@ -66,8 +50,28 @@ class TwitterChannel < Channel
 
   private
 
-  def twitter_user
-    client.user(service_identifier)
+  def service_account
+    begin
+      client.user(service_identifier)
+    rescue Twitter::Error::NotFound
+      nil
+    end
+  end
+
+  def client
+    @client ||= Twitter::REST::Client.new do |config|
+      config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
+      config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
+      config.access_token        = ENV['TWITTER_ACCESS_TOKEN']
+      config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
+    end
+  end
+
+  def get_info
+    if new_record? && service_identifier_is_valid?
+      self.name = service_account.name
+      self.description = service_account.description
+    end
   end
 
 end

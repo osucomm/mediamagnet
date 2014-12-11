@@ -15,6 +15,7 @@ class Channel < ActiveRecord::Base
   # Validations
   validates :name, presence: true
   validates :service_identifier, presence: true
+  validate :service_identifier_validator
 
   accepts_nested_attributes_for :contact
 
@@ -92,12 +93,32 @@ class Channel < ActiveRecord::Base
     update_attribute(:last_polled_at, Time.now)
   end
 
+  def service_identifier_is_valid?
+    service_identifier.present? && !service_account.nil?
+  end
+
   private
 
-  def set_keywords
+  def service_identifier_validator
+    unless service_identifier_is_valid?
+      errors.add :service_identifier, " must be a valid #{service_id_name.downcase}"
+    end
   end
 
   def get_info
+  end
+
+  def initial_keywords
+    []
+  end
+
+  def set_keywords
+    initial_keywords.each do |keyword_text|
+      keyword = Keyword.where(name: keyword_text).first
+      if keyword
+        keywords << keyword unless keywords.include?(keyword)
+      end
+    end
   end
 
 end

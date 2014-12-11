@@ -35,20 +35,24 @@ class FacebookPageChannel < Channel
     @graph ||= Koala::Facebook::API.new(token.access_token)
   end
 
-  def facebook_page
-    client.get_object(service_identifier)
+  def service_account
+    begin
+      client.get_object(service_identifier)
+    rescue Koala::Facebook::ClientError
+      nil
+    end
   end
 
   def get_info
-    if new_record? && facebook_page
-      self.name = facebook_page['name']
-      self.description = facebook_page['description']
-      self.url = facebook_page['link']
+    if new_record? && service_account
+      self.name = service_account['name']
+      self.description = service_account['description']
+      self.url = service_account['link']
     end
   end
 
   def token
-    Token.where(provider: :facebook).first
+    Token.where(provider: :facebook).last
   end
 
 end

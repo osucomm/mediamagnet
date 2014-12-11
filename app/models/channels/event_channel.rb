@@ -43,8 +43,15 @@ class EventChannel < Channel
     @client ||= Feedjira::Feed.fetch_and_parse(service_identifier)
   end
 
+  def service_account
+    if client.class == Fixnum
+      return nil
+    end
+      return client
+  end
+
   def get_info
-    if new_record? && client
+    if new_record? && service_identifier_is_valid?
       self.name = client.title
       self.description = client.description
       self.url = client.feed_url

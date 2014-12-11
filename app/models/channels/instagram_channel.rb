@@ -2,10 +2,7 @@ class InstagramChannel < Channel
 
   # Callbacks
   # Instagram endpoint queries are based on numeric user id, so lets set that.
-  before_save :set_service_identifier_id
-
-  # Validations
-  validate :is_instagram_user
+  # before_save :set_service_identifier_id
 
   def service_id_name
     'Account name'
@@ -15,27 +12,8 @@ class InstagramChannel < Channel
     'instagram'
   end
 
-  def client
-    @client ||=
-      begin
-        Instagram.configure do |config|
-          config.client_id       = ENV['INSTAGRAM_CLIENT_ID']
-          config.client_secret   = ENV['INSTAGRAM_CLIENT_SECRET']
-        end
-        Instagram.client
-      end
-  end
-
-  def new_media
-    client.user_recent_media(service_identifier_id,
-                             min_id: (most_recent_item_id.to_i + 1))
-  end
-
-  def get_info
-    if new_record? && instagram_user
-      self.name = instagram_user.full_name
-      self.description = instagram_user.bio
-    end
+  def initial_keywords
+    %w(photo)
   end
 
   def refresh_items
@@ -59,20 +37,34 @@ class InstagramChannel < Channel
 
   private
 
-  def set_service_identifier_id
-    self.service_identifier_id = instagram_user.id unless service_identifier.nil?
+  def client
+    @client ||=
+      begin
+        Instagram.configure do |config|
+          config.client_id       = ENV['INSTAGRAM_CLIENT_ID']
+          config.client_secret   = ENV['INSTAGRAM_CLIENT_SECRET']
+        end
+        Instagram.client
+      end
   end
 
-  def is_instagram_user
-    unless instagram_user
-      errors.add :service_identifier, ' must match current instagram account'
+  def new_media
+    client.user_recent_media(service_identifier_id,
+                             min_id: (most_recent_item_id.to_i + 1))
+  end
+
+  def get_info
+    if new_record? && service_identifier_is_valid?
+      self.name = service_account.full_name
+      self.description = service_account.bio
+      self.service_identifier_id = service_account.id 
     end
   end
 
-  def instagram_user
+  def service_account
     @user ||=
-      client.user_search(service_identifier).select do |instagram_user|
-        instagram_user.username == service_identifier
+      client.user_search(service_identifier).select do |service_account|
+        service_account.username == service_identifier
       end.first
   end
 
@@ -85,15 +77,5 @@ class InstagramChannel < Channel
       0
     end
   end
-
-  private
-
-  def set_keywords
-    photo = Keyword.where(name: 'photo').first
-    if photo
-      keywords << photo unless keywords.include?(photo)
-    end
-  end
-
 
 end

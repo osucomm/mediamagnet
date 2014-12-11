@@ -4,7 +4,7 @@ module Taggable
   included do
     has_many :taggings, as: :taggable, dependent: :destroy
     has_many :tags, through: :taggings
-    has_many :keywords, through: :taggings
+    has_many :keywords, -> { uniq }, through: :taggings
 
     def tag_names=(new_tags)
       new_tags = [] if new_tags.nil?

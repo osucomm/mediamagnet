@@ -11,6 +11,10 @@ class YoutubePlaylistChannel < Channel
     'youtube-play'
   end
 
+  def initial_keywords
+    %w(video)
+  end
+
   def uploads_playlist_id
     request = {
       api_method: youtube_api.channels.list,
@@ -87,6 +91,10 @@ class YoutubePlaylistChannel < Channel
 
   private
 
+  def service_identifier_is_valid?
+    true
+  end
+
   def youtube_api
     @youtube_api ||= client.discovered_api('youtube', 'v3')
   end
@@ -100,12 +108,8 @@ class YoutubePlaylistChannel < Channel
     @client
   end
 
-  def set_keywords
-    video = Keyword.where(name: 'video').first
-    if video
-      keywords << video unless keywords.include?(video)
-    end
-  end
+  def service_account
 
+  end
 
 end
