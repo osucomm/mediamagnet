@@ -22,7 +22,7 @@ class ChannelsController < ApplicationController
     if (channel_type == YoutubePlaylistChannel)
       @channel.token = Token.find(session[:token_id])
       @channel.load_service_identifier
-      @channel.name = request.env['omniauth.auth']['info']['name']
+      @channel.name = params[:name]
     end
 
     @entity = Entity.find(params[:entity_id])
