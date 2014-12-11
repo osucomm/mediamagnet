@@ -25,6 +25,7 @@ class Channel < ActiveRecord::Base
 
   # Callbacks
   after_initialize :set_keywords
+  after_initialize :get_info
   after_create :refresh_items
 
   # Scopes
@@ -94,6 +95,9 @@ class Channel < ActiveRecord::Base
   private
 
   def set_keywords
+  end
+
+  def get_info
   end
 
 end
