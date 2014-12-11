@@ -13,10 +13,6 @@ class EventChannel < Channel
     'Feed URL'
   end
 
-  def client
-    @client ||= Feedjira::Feed.fetch_and_parse(service_identifier)
-  end
-
   def refresh_items
     client.entries.each do |entry|
       unless items.where(guid: entry.entry_id).exists?
@@ -40,5 +36,19 @@ class EventChannel < Channel
     log_refresh
   end
   handle_asynchronously :refresh_items
+
+  private
+
+  def client
+    @client ||= Feedjira::Feed.fetch_and_parse(service_identifier)
+  end
+
+  def get_info
+    if new_record? && client
+      self.name = client.title
+      self.description = client.description
+      self.url = client.feed_url
+    end
+  end
 
 end
