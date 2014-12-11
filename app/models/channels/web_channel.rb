@@ -13,14 +13,6 @@ class WebChannel < Channel
     'rss'
   end
 
-  def client
-    @client ||= 
-      begin
-        f = Feedjira::Feed
-        f.fetch_and_parse(service_identifier)
-      end
-  end
-
   def refresh_items
     web_items = client.entries
 
@@ -41,5 +33,23 @@ class WebChannel < Channel
     log_refresh
   end
   handle_asynchronously :refresh_items
+
+  private
+
+  def client
+    @client ||= 
+      begin
+        f = Feedjira::Feed
+        f.fetch_and_parse(service_identifier)
+      end
+  end
+
+  def get_info
+    if new_record? && client
+      self.name = client.title
+      self.description = client.description
+      self.url = client.feed_url
+    end
+  end
 
 end
