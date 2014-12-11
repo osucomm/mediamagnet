@@ -31,6 +31,12 @@ class InstagramChannel < Channel
                              min_id: (most_recent_item_id.to_i + 1))
   end
 
+  def get_info
+    if new_record? && instagram_user
+      self.name = instagram_user.full_name
+      self.description = instagram_user.bio
+    end
+  end
 
   def refresh_items
     new_media.each do |media|
@@ -64,9 +70,10 @@ class InstagramChannel < Channel
   end
 
   def instagram_user
-    users = client.user_search(service_identifier).select do |instagram_user|
-      instagram_user.username == service_identifier
-    end.first
+    @user ||=
+      client.user_search(service_identifier).select do |instagram_user|
+        instagram_user.username == service_identifier
+      end.first
   end
 
   def most_recent_item_id
@@ -82,8 +89,10 @@ class InstagramChannel < Channel
   private
 
   def set_keywords
-    photo = Keyword.where(name: :photo).first_or_create
-    keywords << photo unless keywords.include?(photo)
+    photo = Keyword.where(name: 'photo').first
+    if photo
+      keywords << photo unless keywords.include?(photo)
+    end
   end
 
 
