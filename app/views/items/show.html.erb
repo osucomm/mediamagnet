@@ -56,4 +56,13 @@
       <%= keyword_labels(@item.all_keywords) %>
     </div>
   </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Events <%= help_icon_for('Event') %></h2>
+    </div>
+    <div class="panel-body">
+      <%= render @item.events %>
+    </div>
+  </div>
+
 </div>
