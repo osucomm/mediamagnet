@@ -82,7 +82,7 @@ class InstagramChannel < Channel
   private
 
   def set_keywords
-    photo = Keyword.where(name: :photo).first
+    photo = Keyword.where(name: :photo).first_or_create
     keywords << photo unless keywords.include?(photo)
   end
 
