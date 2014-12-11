@@ -19,6 +19,13 @@ class TwitterChannel < Channel
     end
   end
 
+  def get_info
+    if new_record? && twitter_user
+      self.name = twitter_user.name
+      self.description = twitter_user.description
+    end
+  end
+
   def refresh_items
     @new_count = 0
 
@@ -55,6 +62,12 @@ class TwitterChannel < Channel
 
   def link_for(item)
     "https://twitter.com/#{service_identifier}/status/#{item.guid}"
+  end
+
+  private
+
+  def twitter_user
+    client.user(service_identifier)
   end
 
 end
