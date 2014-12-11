@@ -22,6 +22,7 @@ class ChannelsController < ApplicationController
     if (channel_type == YoutubePlaylistChannel)
       @channel.token = Token.find(session[:token_id])
       @channel.load_service_identifier
+      @channel.name = request.env['omniauth.auth']['info']['name']
     end
 
     @entity = Entity.find(params[:entity_id])
@@ -39,7 +40,9 @@ class ChannelsController < ApplicationController
     @channel.contact = nil if @channel.contact.try(:empty?)
 
     if @channel.save
-      respond_with @channel
+      respond_with @channel do |format|
+        format.html { render :edit }
+      end
     else
       respond_with @channel do |format|
         format.html { render :new }
