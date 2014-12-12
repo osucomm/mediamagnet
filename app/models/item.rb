@@ -38,7 +38,8 @@ class Item < ActiveRecord::Base
       items = Tagging.on_items.by_keywords(keyword_ids).map(&:taggable)
       channel_entity_items = Tagging.not_on_items.by_keywords(keyword_ids).map(&:taggable).map(&:items)
 
-      (items + channel_entity_items).flatten.uniq || Item.none
+      item_ids = (items + channel_entity_items).flatten.uniq.map(&:id)
+      Item.where(id: item_ids)
     end
 
     def all_keywords
