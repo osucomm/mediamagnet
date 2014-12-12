@@ -12,6 +12,7 @@
     <tr>
       <th data-sort-initial="true">Display Name</th>
       <th data-hide="phone">Machine Name</th>
+      <th data-hide="phone">Item Count</th>
       <th data-hide="phone,tablet" data-sort-ignore="true">Description</th>
       <th data-hide="phone" class="nowrap">Category</th>
       <% if current_user %>
@@ -25,6 +26,7 @@
       <tr>
         <td><%= link_to keyword.display_name, keyword %></td>
         <td><%= keyword.name %></td>
+        <td><%= keyword.item_counter %></td>
         <td><%= keyword.description %></td>
         <td><%= keyword.category %></td>
         <% if current_user %>
