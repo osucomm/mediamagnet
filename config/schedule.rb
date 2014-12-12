@@ -7,3 +7,7 @@ env :PATH, '/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/aw
 every 10.minutes do
   rake 'channels:refresh'
 end
+
+every :monday, :at => '12:01am' do
+  rake 'keyword_usages:generate_weekly_totals'
+end
