@@ -1,6 +1,7 @@
 class Keyword < ActiveRecord::Base
   include LowercaseName
   has_many :taggings
+  has_many :entities, through: :taggings, source: :taggable, source_type: "Entity"
   has_many :channels, through: :taggings, source: :taggable, source_type: "Channel"
   has_many :items, through: :taggings, source: :taggable, source_type: "Item"
 
@@ -13,6 +14,11 @@ class Keyword < ActiveRecord::Base
   default_scope -> {
     order('display_name ASC')
   }
+
+  def all_items
+    items + 
+      channels
+  end
 
   class << self
     def help_text
