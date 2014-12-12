@@ -15,9 +15,18 @@ class Keyword < ActiveRecord::Base
     order('display_name ASC')
   }
 
+  def all_items_with_scope(item_scope)
+    (items.send(item_scope) + 
+     channels.map{ |c| c.items.send(item_scope) } +
+     entities.map{ |c| c.items.send(item_scope) }).to_a.flatten.uniq
+  end
+
+  def all_items_this_week_for_channel(channel_id)
+    Item.this_week.by_channels(channel_id).by_keywords(id)
+  end
+
   def all_items
-    items + 
-      channels
+    all_items_with_scope(:all)
   end
 
   class << self
@@ -32,6 +41,6 @@ class Keyword < ActiveRecord::Base
   end
 
   def item_count
-    items.count
+    all_items.count
   end
 end
