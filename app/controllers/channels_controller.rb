@@ -37,7 +37,8 @@ class ChannelsController < ApplicationController
     @channel.entity = Entity.find(params[:entity_id])
     authorize @channel
 
-    @channel.contact = nil if @channel.contact.try(:empty?)
+    @channel.build_contact
+    #@channel.contact = nil if @channel.contact.try(:empty?)
 
     if @channel.save
       respond_with @channel do |format|
