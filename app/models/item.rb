@@ -30,6 +30,7 @@ class Item < ActiveRecord::Base
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords, :channel_inherited_keywords, :entity_inherited_keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
+  scope :this_week, -> { where('created_at > ?', 1.week.ago) }
 
   class << self 
     def by_keywords(keyword_ids)
@@ -37,7 +38,7 @@ class Item < ActiveRecord::Base
       items = Tagging.on_items.by_keywords(keyword_ids).map(&:taggable)
       channel_entity_items = Tagging.not_on_items.by_keywords(keyword_ids).map(&:taggable).map(&:items)
 
-      (items + channel_entity_items).first || Item.none
+      (items + channel_entity_items).flatten.uniq || Item.none
     end
 
     def all_keywords
