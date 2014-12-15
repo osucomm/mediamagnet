@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212191406) do
+ActiveRecord::Schema.define(version: 20141212195645) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -135,6 +135,8 @@ ActiveRecord::Schema.define(version: 20141212191406) do
     t.integer  "count"
     t.datetime "starts_at"
     t.datetime "ends_at"
+    t.integer  "week_number"
+    t.integer  "year"
   end
 
   add_index "keyword_usages", ["channel_id"], name: "index_keyword_usages_on_channel_id"
