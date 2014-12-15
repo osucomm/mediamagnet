@@ -4,7 +4,7 @@ class KeywordUsage < ActiveRecord::Base
 
   class << self
     def generate_weekly_totals
-      last_week = Time.now.strftime('%W') - 1
+      last_week = Time.now.strftime('%W').to_i - 1
       year = Time.now.strftime('%Y').to_i
       starts_at = Time.now.beginning_of_week.yesterday.beginning_of_week
       ends_at = Time.now.beginning_of_week.yesterday.end_of_week
