@@ -4,6 +4,7 @@ class Keyword < ActiveRecord::Base
   has_many :entities, through: :taggings, source: :taggable, source_type: "Entity"
   has_many :channels, through: :taggings, source: :taggable, source_type: "Channel"
   has_many :items, through: :taggings, source: :taggable, source_type: "Item"
+  has_many :keyword_usages
 
   enum category: { audience: 0, college: 1, location: 2 }
 

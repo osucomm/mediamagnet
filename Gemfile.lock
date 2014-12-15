@@ -192,7 +192,10 @@ GEM
     haml (4.0.5)
       tilt
     has_scope (0.5.1)
+    hash-deep-merge (0.1.1)
     hashie (3.3.1)
+    highcharts-rails (4.0.4.1)
+      railties (>= 3.1)
     hike (1.2.3)
     hitimes (1.2.2)
     http (0.6.3)
@@ -228,6 +231,9 @@ GEM
       multi_json
     launchy (2.4.3)
       addressable (~> 2.3)
+    lazy_high_charts (1.5.4)
+      bundler (>= 1.0)
+      hash-deep-merge
     libv8 (3.16.14.7)
     listen (2.8.3)
       celluloid (>= 0.15.2)
@@ -508,6 +514,7 @@ DEPENDENCIES
   guard-rspec
   guard-spring
   has_scope
+  highcharts-rails
   instagram
   jasmine (~> 2.0.2)
   jbuilder (~> 2.0)
@@ -515,6 +522,7 @@ DEPENDENCIES
   kaminari
   koala (~> 1.10.1)
   launchy
+  lazy_high_charts
   mailcatcher
   meta_request
   mysql2

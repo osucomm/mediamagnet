@@ -21,6 +21,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 #Frontend
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'font-awesome-rails'
+gem 'highcharts-rails'
+gem 'lazy_high_charts'
 gem 'sass-rails', '~> 4.0.3'
 gem 'simple_form', '~> 3.1.0.rc2'
 

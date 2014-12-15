@@ -2,10 +2,6 @@ Rails.application.routes.draw do
 
 
 
-  get 'tokens/create'
-
-  get 'facebook/callback'
-
   namespace :admin do
   get 'delayed_jobs/index'
   end
@@ -23,6 +19,9 @@ Rails.application.routes.draw do
 
   resources :keywords
   resources :links
+
+  #reports
+  get 'reports/keyword_usage'
 
   Mapping::TYPES.each do |type|
     resources type.model_name.plural, only: [:new, :create, :destroy], controller: 'mappings', type: type.to_s

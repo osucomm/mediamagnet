@@ -2,6 +2,8 @@ class KeywordUsage < ActiveRecord::Base
   belongs_to :keyword
   belongs_to :channel
 
+  scope :by_channels, -> (channel_ids) { where(channel_id: channel_ids) }
+
   class << self
     def generate_weekly_totals
       last_week = Time.now.strftime('%W').to_i - 1
