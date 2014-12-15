@@ -30,7 +30,9 @@ class Item < ActiveRecord::Base
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords, :channel_inherited_keywords, :entity_inherited_keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
-  scope :this_week, -> { where('created_at > ?', 1.week.ago) }
+  scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
+  scope :before, -> (datetime) { where('created_at < ?', datetime) }
+  scope :after, -> (datetime) { where('created_at > ?', datetime) }
 
   class << self 
     def by_keywords(keyword_ids)
