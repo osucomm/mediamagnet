@@ -1,7 +1,6 @@
 class Link < ActiveRecord::Base
-  has_many :item_links
-  has_many :items, through: :item_links
   belongs_to :item
+  has_and_belongs_to_many :items
 
   PATTERN = /https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w\.-]*\/?/
 

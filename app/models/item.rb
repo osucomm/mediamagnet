@@ -3,9 +3,9 @@ class Item < ActiveRecord::Base
   has_many :channel_inherited_keywords, source: :keywords, through: :channel
   has_many :entity_inherited_keywords, source: :keywords, through: :entity
   has_many :events
-  has_many :item_links
-  has_many :links, through: :item_links
   has_many :assets, dependent: :destroy
+
+  has_and_belongs_to_many :links
 
   belongs_to :channel
   has_one :entity, through: :channel

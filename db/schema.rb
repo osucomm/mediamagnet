@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212195645) do
+ActiveRecord::Schema.define(version: 20141215210742) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -107,16 +107,6 @@ ActiveRecord::Schema.define(version: 20141212195645) do
     t.datetime "updated_at"
   end
 
-  create_table "item_links", force: true do |t|
-    t.integer  "item_id"
-    t.integer  "link_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "item_links", ["item_id"], name: "index_item_links_on_item_id"
-  add_index "item_links", ["link_id"], name: "index_item_links_on_link_id"
-
   create_table "items", force: true do |t|
     t.string   "title"
     t.integer  "channel_id"
@@ -128,6 +118,16 @@ ActiveRecord::Schema.define(version: 20141212195645) do
     t.datetime "updated_at"
     t.text     "content"
   end
+
+  create_table "items_links", force: true do |t|
+    t.integer  "item_id"
+    t.integer  "link_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items_links", ["item_id"], name: "index_items_links_on_item_id"
+  add_index "items_links", ["link_id"], name: "index_items_links_on_link_id"
 
   create_table "keyword_usages", force: true do |t|
     t.integer  "keyword_id"
