@@ -64,8 +64,11 @@ class Channel < ActiveRecord::Base
     entity_mappings.select do |mapping|
       out << mapping unless out.map(&:tag).include?(mapping.tag)
     end
+    channel_mappings.select do |mapping|
+      out << mapping unless out.map(&:tag).include?(mapping.tag)
+    end
     out.sort_by! do |a|
-      a.tag.name
+      a.keyword.name
     end
   end
 
