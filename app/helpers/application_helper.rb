@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def time_or_dash(time, format = :rfc822)
-    time.nil? ? '-' : time.to_formatted_s(:rfc822)
+    time.nil? ? '-' : time.time.to_formatted_s(format)
   end
 
   def new_mapping

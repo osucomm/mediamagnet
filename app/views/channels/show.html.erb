@@ -1,35 +1,41 @@
-<h1><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
+<small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
+<h1 class="channel"><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
+<p class="small">
 
-<div class="col-sm-6">
-  <ul>
-    <li>Type: <%= @channel.type_name %></li>
-    <li>Description: <%= @channel.description %></li>
-    <li>Entity: <%= link_to @channel.entity.name, @channel.entity %></li>
-    <li><%= @channel.service_id_name %>: <%= @channel.service_identifier %></li>
-    <%- if @channel.instance_of? WebChannel %>
-      <li>URL: <%= @channel.url %></li>
-    <%- end %>
-    <li>Item Count: <%= @channel.item_count %></li>
-    <li>Last Item Refresh: <%= time_or_dash(@channel.last_polled_at) %></li>
-    <%- if @channel.keywords.present? %>
-      <li>Keywords: <%= comma_list_links(@channel.keywords) %>
-    <%- end %>
-  </ul>
+  A <strong><%= @channel.type_name.downcase %></strong> owned by <%= link_to @channel.entity.name, @channel.entity %>.
+  <%- if @channel.instance_of? WebChannel %>
+    <li>Home: <%= link_to @channel.url, @channel.url %></li>
+  <%- end %>
+</p>
+<p><em><%= @channel.description %></em></p>
 
+<h2>
+  Latest Content
+  <%- if @channel.item_count > 3 %>
+    | <small><%= link_to 'View all content', channel_items_path(channel_id: @channel.id) %> (<%= @channel.item_count %> items)</small>
+  <%- end %>
+</h2>
+<table class="table table-bordered">
+  <tr>
+    <th>Date</th>
+    <th>Title</th>
+    <th>Summary</th>
+  </tr>
+  <%- @channel.items[0..4].each do |item| %>
+    <tr>
+      <td><nobr><%= time_or_dash(item.created_at, :med) %></td>
+      <td><%= link_to item, item %></td>
+      <td><%= item.description %></td>
+  <%- end %>
+</table>
+
+<div class="col-sm-12">
+  <%= render 'mappings/mappings', mappable: @channel %>
+</div>
+
+<div class="col-xs-12">
   <%- if @channel.display_contact %>
     <h2>Contact</h2>
     <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
   <%- end %>
-</div>
-
-<div class="col-sm-6">
-  <ul>
-    <%- @channel.items.each do |item| %>
-      <li><%= link_to item, item %></li>
-    <%- end %>
-  </ul>
-</div>
-
-<div class="col-sm-12">
-  <%= render 'mappings/mappings', mappable: @channel %>
 </div>
