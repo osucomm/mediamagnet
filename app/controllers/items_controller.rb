@@ -16,11 +16,14 @@ class ItemsController < ApplicationController
       .page(params[:page])
       .per(params[:per_page])
 
+    authorize @items
+
     respond_with @items
   end
 
   def show
     @item = Item.includes(:channel, :keywords).find(params[:id])
+    authorize @item
     respond_with @items
   end
 

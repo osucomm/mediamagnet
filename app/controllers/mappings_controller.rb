@@ -4,6 +4,7 @@ class MappingsController < ApplicationController
 
   def new
     @mapping = mapping_type.new(mappable_type: params[:mappable_type], mappable_id: params[:mappable_id])
+    authorize @mapping
     respond_with @mapping
   end
 
@@ -26,6 +27,7 @@ class MappingsController < ApplicationController
 
   def destroy
     @mapping = Mapping.find(params[:id])
+    authorize @mapping
     @mapping.destroy
     flash[:success] = "Mapping was deleted."
     respond_with @mapping

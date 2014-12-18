@@ -34,12 +34,9 @@ class KeywordsController < ApplicationController
   end
 
   def edit
-    authorize @keyword
   end
 
   def update
-    authorize @keyword
-
     if @keyword.update keyword_params
       respond_with @keyword
     else
@@ -64,6 +61,7 @@ class KeywordsController < ApplicationController
 
     def find_keyword
       @keyword = Keyword.find(params[:id])
+      authorize @keyword
     end
 
     def set_categories

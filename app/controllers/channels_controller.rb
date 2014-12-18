@@ -7,8 +7,10 @@ class ChannelsController < ApplicationController
   respond_to :html, :json, :js
 
   def index
-    respond_with @channels = channel_type.all.page(params[:page])
-                                             .per(params[:per_page])
+    @channels = channel_type.all.page(params[:page]).
+                                      per(params[:per_page])
+    authorize @channels
+    respond_with @channels
   end
 
   def show
@@ -17,6 +19,7 @@ class ChannelsController < ApplicationController
 
   def new
     @channel = channel_type.new
+    authorize @channel
 
     # More youtube oauth2 stuff.
     if (channel_type == YoutubePlaylistChannel)
@@ -33,6 +36,7 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = channel_type.new(channel_params)
+    authorize @channel
     @channel.token = Token.find(session[:token_id]) if session[:token_id]
     @channel.entity = Entity.find(params[:entity_id])
     authorize @channel
@@ -52,13 +56,10 @@ class ChannelsController < ApplicationController
   end
 
   def edit
-    authorize @channel
     @channel.build_contact unless @channel.contact
   end
 
   def update
-    authorize @channel
-
     if @channel.update channel_params
       respond_with @channel
     else
@@ -93,6 +94,7 @@ class ChannelsController < ApplicationController
 
     def find_channel
       @channel = channel_type.includes(:entity).find(params[:id])
+      authorize @channel
     end
 
     def get_token

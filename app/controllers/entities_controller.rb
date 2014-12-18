@@ -7,6 +7,7 @@ class EntitiesController < ApplicationController
 
   def index
     @entities = Entity.all
+    authorize @entities
     respond_with @entities
   end
 
@@ -38,13 +39,10 @@ class EntitiesController < ApplicationController
   end
 
   def edit
-    authorize @entity
     @entity.build_contact unless @entity.contact
   end
 
   def update
-    authorize @entity
-
     if @entity.update entity_params
       respond_with @entity
     else
@@ -70,5 +68,6 @@ class EntitiesController < ApplicationController
 
     def find_entity
       @entity = Entity.includes(:channels, :users).find(params[:id])
+      authorize @entity
     end
 end
