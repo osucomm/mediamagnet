@@ -1,5 +1,13 @@
 class KeywordPolicy < ApplicationPolicy
 
+  def index?
+    true
+  end
+
+  def show?
+    true
+  end
+
   def create?
     user.is_admin?
   end

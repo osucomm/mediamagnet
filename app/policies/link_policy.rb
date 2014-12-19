@@ -1,6 +1,7 @@
 class LinkPolicy < ApplicationPolicy
 
   def index?
-    true
+    user.dmin?
   end
+
 end

@@ -4,6 +4,10 @@ class EntityPolicy < ApplicationPolicy
     true
   end
 
+  def show?
+    true
+  end
+
   def create?
     new?
   end

@@ -1,5 +1,13 @@
 class ChannelPolicy < ApplicationPolicy
 
+  def index?
+    true
+  end
+
+  def show?
+    true
+  end
+
   def create?
     record.entity.has_user? user
   end
