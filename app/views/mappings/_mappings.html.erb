@@ -6,7 +6,7 @@
       <th>Keyword</th>
       <th>Actions</th>
     </tr>
-    <%- mappable.mappings.each do |mapping| %>
+    <%- mappable.all_mappings.each do |mapping| %>
       <%= render 'mappings/mapping_row', mapping: mapping, mappable: mappable %>
     <%- end %>
   </tbody>
