@@ -10,7 +10,7 @@ class Channel < ActiveRecord::Base
   belongs_to :entity
   has_one :contact, as: :contactable, dependent: :destroy
   has_many :items, dependent: :destroy
-  has_many :channel_mappings, as: :mappable, dependent: :destroy
+  has_many :mappings, as: :mappable, dependent: :destroy
 
   # Validations
   validates :name, presence: true
@@ -27,7 +27,6 @@ class Channel < ActiveRecord::Base
   # Callbacks
   after_initialize :set_keywords
   after_initialize :get_info
-  after_create :refresh_items
 
   # Scopes
   scope :needs_refresh, -> {
@@ -59,18 +58,36 @@ class Channel < ActiveRecord::Base
     self.class.icon
   end
 
-  def mappings
-    out = []
-    entity_mappings.select do |mapping|
-      out << mapping unless out.map(&:tag).include?(mapping.tag)
-    end
-    channel_mappings.select do |mapping|
-      out << mapping unless out.map(&:tag).include?(mapping.tag)
-    end
-    out.sort_by! do |a|
-      a.keyword.name
-    end
+  def all_mappings
+    mappings = Mapping.arel_table
+    Mapping.where(
+      ((mappings[:mappable_type].eq('Channel').and(mappings[:mappable_id].eq(id)))
+      .or(mappings[:mappable_type].eq('Entity').and(mappings[:mappable_id].eq(entity.id))))
+    ).order(:type)
   end
+
+  def all_mappings_distinct
+    all_mappings
+  end
+
+
+      #.group(mappings[:mappable_type]).project('id,min(type)')
+
+    #p = Mapping.where("(mappable_type == 'Channel' AND mappable_id == ?) OR
+    #               (mappable_type == 'Entity' AND mappable_id == ?)", id, entity.id)
+    #p.group(:keyword_id, :tag_id).order(:mappable_type)
+    #mappings.where(
+    #   ((mappings[:mappable_type]).eq('Entity')).and AND entity_mappings.map(&:id) 
+    #out = []
+    #entity_mappings.select do |mapping|
+    #  out << mapping unless out.map(&:tag).include?(mapping.tag)
+    #end
+    #mappings.select do |mapping|
+    #  out << mapping unless out.map(&:tag).include?(mapping.tag)
+    #end
+    #out.sort_by! do |a|
+    #  a.keyword.name
+    #end
 
   def refresh_items
   end
@@ -117,10 +134,9 @@ class Channel < ActiveRecord::Base
 
   def set_keywords
     initial_keywords.each do |keyword_text|
-      keyword = Keyword.where(name: keyword_text).first
-      if keyword
-        keywords << keyword unless keywords.include?(keyword)
-      end
+      keyword = Keyword.where(name: keyword_text, 
+                              display_name: keyword_text).first_or_create
+      keywords << keyword unless keywords.include?(keyword)
     end
   end
 
