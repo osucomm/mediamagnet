@@ -6,7 +6,7 @@ class Keyword < ActiveRecord::Base
   has_many :items, through: :taggings, source: :taggable, source_type: "Item"
   has_many :keyword_usages
 
-  enum category: { audience: 0, college: 1, location: 2 }
+  enum category: { audience: 0, college: 1, location: 2, format: 3 }
 
   # Validations
   validates :name, presence: true

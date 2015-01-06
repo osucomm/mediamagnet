@@ -3,6 +3,7 @@ class Tag < ActiveRecord::Base
   has_many :taggings
   has_many :channels, through: :taggings, source: :taggable, source_type: "Channel"
   has_many :items, through: :taggings, source: :taggable, source_type: "Item"
+  has_one :keyword, foreign_key: :name, primary_key: :name
 
   validate :name, unique: true
 

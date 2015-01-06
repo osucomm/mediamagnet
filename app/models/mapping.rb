@@ -28,6 +28,10 @@ class Mapping < ActiveRecord::Base
         include the leading '#'.
       EOT
     end
+
+    def keywords
+      all.map(&:keyword).flatten.uniq
+    end
   end
 
   def policy_class
