@@ -70,25 +70,6 @@ class Channel < ActiveRecord::Base
     all_mappings
   end
 
-
-      #.group(mappings[:mappable_type]).project('id,min(type)')
-
-    #p = Mapping.where("(mappable_type == 'Channel' AND mappable_id == ?) OR
-    #               (mappable_type == 'Entity' AND mappable_id == ?)", id, entity.id)
-    #p.group(:keyword_id, :tag_id).order(:mappable_type)
-    #mappings.where(
-    #   ((mappings[:mappable_type]).eq('Entity')).and AND entity_mappings.map(&:id) 
-    #out = []
-    #entity_mappings.select do |mapping|
-    #  out << mapping unless out.map(&:tag).include?(mapping.tag)
-    #end
-    #mappings.select do |mapping|
-    #  out << mapping unless out.map(&:tag).include?(mapping.tag)
-    #end
-    #out.sort_by! do |a|
-    #  a.keyword.name
-    #end
-
   def refresh_items
   end
 

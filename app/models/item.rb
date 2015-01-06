@@ -56,7 +56,7 @@ class Item < ActiveRecord::Base
   end
 
   def all_keywords
-    keywords + channel_inherited_keywords + entity_inherited_keywords
+    keywords + channel_inherited_keywords + entity_inherited_keywords + mapped_keywords
   end
 
   private
@@ -74,6 +74,10 @@ class Item < ActiveRecord::Base
     %w(title description content).map do |field|
       send(field).to_s
     end.join(' ')
+  end
+
+  def mapped_keywords
+    channel.all_mappings.where(:tag_id => tags.map(&:id)).keywords
   end
 
 end
