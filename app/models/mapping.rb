@@ -8,7 +8,6 @@ class Mapping < ActiveRecord::Base
   belongs_to :keyword
 
   validates :keyword_id, :tag_id, :mappable_id, presence: true
-  validates :tag_id, uniqueness: { scope: [:mappable_id, :mappable_type, :keyword_id] }
 
   attr_accessor :tag_text
 
