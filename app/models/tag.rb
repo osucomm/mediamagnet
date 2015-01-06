@@ -1,6 +1,7 @@
 class Tag < ActiveRecord::Base
   include LowercaseName
   has_many :taggings
+  has_many :entities, through: :taggings, source: :taggable, source_type: "Entity"
   has_many :channels, through: :taggings, source: :taggable, source_type: "Channel"
   has_many :items, through: :taggings, source: :taggable, source_type: "Item"
   has_one :keyword, foreign_key: :name, primary_key: :name
