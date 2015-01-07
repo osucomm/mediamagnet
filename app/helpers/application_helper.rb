@@ -67,8 +67,7 @@ module ApplicationHelper
       data: { 
         confirm: 'Are you sure?',
         confirm_message: "You are about to delete #{record.name}. This action cannot be undone.",
-        confirm_ok: 'Delete',
-        remote: true
+        confirm_ok: 'Delete'
       }
   end
 

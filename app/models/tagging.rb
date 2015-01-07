@@ -1,5 +1,4 @@
 class Tagging < ActiveRecord::Base
-  belongs_to :keyword
   belongs_to :tag
   belongs_to :taggable, polymorphic: true
   delegate :mappings, to: :taggable
@@ -45,18 +44,18 @@ class Tagging < ActiveRecord::Base
     end
   end
 
-  def get_keyword_from_mappings
-    mappings.to_a.keep_if do |mapping|
+  # 
+  def add_keyword_to_item_from_mappings
+    mappings = mappings.to_a.keep_if do |mapping|
       mapping.tag_id == tag.id
-    end.first.try(:keyword)
+    end.each do |mapping|
+      taggable.
+    Keyword.
   end
 
   # Update keyword to reflect what the mapping says it should be.
-  def assign_keyword_from_mapping
-    self.keyword = Keyword.where(name: tag.name).first
-    unless keyword || mappings.nil?
-      self.keyword = get_keyword_from_mappings
-    end
+  def assign_keyword_to_taggable
+    taggable.keywords << Keyword.where(name: tag.name).first
   end
 
 end

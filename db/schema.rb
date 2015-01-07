@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141215210742) do
+ActiveRecord::Schema.define(version: 20150107155848) do
 
   create_table "assets", force: true do |t|
     t.integer  "item_id"
@@ -142,6 +142,14 @@ ActiveRecord::Schema.define(version: 20141215210742) do
   add_index "keyword_usages", ["channel_id"], name: "index_keyword_usages_on_channel_id"
   add_index "keyword_usages", ["keyword_id"], name: "index_keyword_usages_on_keyword_id"
 
+  create_table "keywordings", force: true do |t|
+    t.string   "keywordable_type"
+    t.integer  "keywordable_id"
+    t.integer  "keyword_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "keywords", force: true do |t|
     t.string   "name"
     t.string   "display_name"
@@ -188,10 +196,8 @@ ActiveRecord::Schema.define(version: 20141215210742) do
   end
 
   create_table "taggings", force: true do |t|
-    t.integer "taggable_id"
-    t.string  "taggable_type"
     t.integer "tag_id"
-    t.integer "keyword_id"
+    t.integer "item_id"
   end
 
   create_table "tags", force: true do |t|
