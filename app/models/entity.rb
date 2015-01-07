@@ -6,7 +6,7 @@ class Entity < ActiveRecord::Base
   has_one :manifest
   has_many :channels, dependent: :destroy
   has_many :items, through: :channels
-  has_many :entity_mappings, as: :mappable, dependent: :destroy
+  has_many :mappings, as: :mappable, dependent: :destroy
   has_and_belongs_to_many :users
 
   belongs_to :parent, class_name: "Entity"
@@ -22,7 +22,7 @@ class Entity < ActiveRecord::Base
 
   accepts_nested_attributes_for :contact
 
-  alias_method :mappings, :entity_mappings
+  alias_method :all_mappings, :mappings
 
   def to_s
     name
