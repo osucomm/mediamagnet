@@ -14,7 +14,7 @@ json.assets do
   end
 end
 json.keywords do
-  json.array! item.all_keywords do |keyword|
+  json.array! item.keywords do |keyword|
     json.id keyword.id
     json.name keyword.name
     json.href url_for(keyword)

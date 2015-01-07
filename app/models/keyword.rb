@@ -1,11 +1,11 @@
 class Keyword < ActiveRecord::Base
   include LowercaseName
-  has_many :taggings
-  has_many :entities, through: :tag
-  has_many :channels, through: :tag
-  has_one :tag, foreign_key: :name, primary_key: :name
-  has_many :items, through: :tag
+  has_many :keywordings
+  has_many :items, through: :keywordings, source: :keywordable, source_type: "Item"
+  has_many :channels, through: :keywordings, source: :keywordable, source_type: "Channel"
+  has_many :entities, through: :keywordings, source: :keywordable, source_type: "Entity"
   has_many :keyword_usages
+  has_one :tag, foreign_key: :name, primary_key: :name
 
   enum category: { audience: 0, college: 1, location: 2, format: 3 }
 
@@ -27,14 +27,6 @@ class Keyword < ActiveRecord::Base
       EOT
     end
 
-  end
-
-  def all_items
-    #TODO Get all items
-  end
-
-  def item_count
-    all_items.count
   end
 
 end

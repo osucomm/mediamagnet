@@ -12,6 +12,8 @@ class Mapping < ActiveRecord::Base
   attr_accessor :tag_text
 
   before_validation :get_tag_from_tag_text
+  after_create :add_keyword_to_items
+  before_destroy :remove_keyword_from_items
 
   class << self
     def type_name
@@ -43,6 +45,18 @@ class Mapping < ActiveRecord::Base
   def get_tag_from_tag_text
     unless tag || tag_text.nil?
       self.tag = Tag.create_from_text(tag_text)
+    end
+  end
+
+  def add_keyword_to_items
+    mappable.items.each do |item|
+      item.keywords << keyword if item.tags.include?(tag)
+    end
+  end
+
+  def remove_keyword_from_items
+    mappable.items.each do |item|
+      item.remove_keyword(keyword) if item.tag == tag
     end
   end
 

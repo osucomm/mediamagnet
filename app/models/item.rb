@@ -1,9 +1,11 @@
 class Item < ActiveRecord::Base
-  include Taggable
-  has_many :channel_inherited_keywords, source: :keywords, through: :channel
-  has_many :entity_inherited_keywords, source: :keywords, through: :entity
   has_many :events
   has_many :assets, dependent: :destroy
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
+  has_many :keywordings, as: :keywordable, dependent: :destroy
+  has_many :keywords, through: :keywordings
 
   has_and_belongs_to_many :links
 
@@ -28,7 +30,7 @@ class Item < ActiveRecord::Base
 
   scope :most_recent, -> { order('published_at DESC').limit(1) }
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
-  scope :with_all_keywords, -> { includes(:keywords, :channel_inherited_keywords, :entity_inherited_keywords) }
+  scope :with_all_keywords, -> { includes(:keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
   scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
   scope :before, -> (datetime) { where('created_at < ?', datetime) }
@@ -36,16 +38,6 @@ class Item < ActiveRecord::Base
 
   class << self 
     def by_keywords(keyword_ids)
-      # Item ids
-      items = Tagging.on_items.by_keywords(keyword_ids).map(&:taggable)
-      channel_entity_items = Tagging.not_on_items.by_keywords(keyword_ids).map(&:taggable).map(&:items)
-
-      item_ids = (items + channel_entity_items).flatten.uniq.map(&:id)
-      Item.where(id: item_ids)
-    end
-
-    def all_keywords
-      with_all_keywords.map(&:all_keywords).flatten.uniq
     end
   end
 
@@ -55,8 +47,26 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def all_keywords
-    keywords + channel_inherited_keywords + entity_inherited_keywords + mapped_keywords
+  def tag_names=(new_tags)
+    new_tags = [] if new_tags.nil?
+    new_tags.map!(&:downcase)
+    existing_tags = tags.map(&:name)
+
+    (new_tags - existing_tags).each do |tag_text|
+      taggings.build(tag_text: tag_text)
+    end
+
+    save!
+
+    taggings.joins(:tag).where("tags.name IN (?)", (existing_tags - new_tags)).destroy_all
+
+    reload
+    return (new_tags - existing_tags)
+  end
+
+  def remove_keyword(keyword)
+    item_keywordings = keywordings.joins(:keyword).where(keywords: { id: keyword.id })
+    item_keywordings.first.destroy if item_keywordings.first
   end
 
   private

@@ -1,6 +1,4 @@
 class Entity < ActiveRecord::Base
-  include Taggable
-
   # Associations
   has_one :contact, as: :contactable, dependent: :destroy
   has_one :manifest
@@ -8,6 +6,9 @@ class Entity < ActiveRecord::Base
   has_many :items, through: :channels
   has_many :mappings, as: :mappable, dependent: :destroy
   has_and_belongs_to_many :users
+
+  has_many :keywordings, as: :keywordable, dependent: :destroy
+  has_many :keywords, through: :keywordings
 
   belongs_to :parent, class_name: "Entity"
   has_many :children, class_name: "Entity", foreign_key: "parent_id"
