@@ -12,7 +12,7 @@ class KeywordUsage < ActiveRecord::Base
       ends_at = Time.now.beginning_of_week.yesterday.end_of_week
       Keyword.all.each do |keyword|
         Channel.all.each do |channel|
-          count = keyword.all_items.between(starts_at, ends_at).by_channels(channel.id).count
+          count = keyword.items.between(starts_at, ends_at).by_channels(channel.id).count
           create(
             keyword: keyword,
             channel: channel,

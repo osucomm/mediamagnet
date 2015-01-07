@@ -1,5 +1,4 @@
 class Channel < ActiveRecord::Base
-  include Taggable
 
   has_one :token
 
@@ -11,6 +10,10 @@ class Channel < ActiveRecord::Base
   has_one :contact, as: :contactable, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :mappings, as: :mappable, dependent: :destroy
+
+  has_many :keywordings, as: :keywordable, dependent: :destroy
+  has_many :keywords, through: :keywordings
+
 
   # Validations
   validates :name, presence: true
@@ -96,6 +99,13 @@ class Channel < ActiveRecord::Base
 
   def service_identifier_is_valid?
     service_identifier.present? && !service_account.nil?
+  end
+
+  def add_keyword(keyword)
+    keywords << keyword
+    items.each do |item|
+      item.keywords << keyword
+    end
   end
 
   private
