@@ -23,7 +23,7 @@
   </tr>
   <%- @channel.items.take(4).each do |item| %>
     <tr>
-      <td><nobr><%= time_or_dash(item.created_at, :med) %></td>
+      <td><nobr><%= time_or_dash(item.published_at, :med) %></td>
       <td><%= link_to item, item %></td>
       <td><%= item.description %></td>
   <%- end %>
