@@ -6,9 +6,8 @@ class Tagging < ActiveRecord::Base
   attr_accessor :tag_text
 
   after_initialize :get_tag_from_tag_text
-  before_create :assign_keywords_to_item
+  before_create :add_keywords_to_item
   before_destroy :remove_keywords_from_item
-  after_save :update_keywords_on_item
 
   scope :by_mappable, ->(mappable) {
     where(item_id: mappable.items.map(&:id)).where(taggable_type: 'Item')
