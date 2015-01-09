@@ -1,14 +1,18 @@
 FactoryGirl.define do
   factory :channel do
-    type                  { 'TwitterChannel' }
     name                  { Faker::Internet.domain_word }
-    service_identifier    { '@' + Faker::Name.last_name }
+
   end
 
-  factory :twitter_channel do
-    type                  { 'TwitterChannel' }
-    name                  { Faker::Internet.domain_word }
+  factory :twitter_channel, parent: :channel do
     service_identifier    { '@' + Faker::Name.last_name }
+
+    trait :with_mappings do
+      after(:create) do |channel, evaluator|
+        create(:channel_mapping, :foo_to_department, mappable: channel)
+      end
+    end
   end
+
 
 end
