@@ -1,10 +1,10 @@
 class Keyword < ActiveRecord::Base
   include LowercaseName
-  has_many :keywordings
+  has_many :keywordings, dependent: :destroy
   has_many :items, through: :keywordings, source: :keywordable, source_type: "Item"
   has_many :channels, through: :keywordings, source: :keywordable, source_type: "Channel"
   has_many :entities, through: :keywordings, source: :keywordable, source_type: "Entity"
-  has_many :keyword_usages
+  has_many :keyword_usages, dependent: :destroy
   has_one :tag, foreign_key: :name, primary_key: :name
 
   enum category: { audience: 0, college: 1, location: 2, format: 3 }
