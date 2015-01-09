@@ -71,7 +71,6 @@ group :development do
   gem 'dotenv-rails'
   gem 'guard-livereload', require: false
   gem 'meta_request'
-  gem 'pry'
   gem 'pry-byebug', git: 'https://github.com/deivid-rodriguez/pry-byebug'
   gem 'pry-stack_explorer'
   gem 'quiet_assets'
@@ -99,6 +98,7 @@ group :development, :test do
   gem 'guard'
   gem 'guard-rspec'
   gem 'guard-spring'
+  gem 'pry'
   gem 'railroady', git: 'https://github.com/preston/railroady.git'
   gem 'spring-commands-rspec'
   gem 'jasmine', '~> 2.0.2' # js testing framework
