@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  has_many :events
+  has_many :events, dependent: :destroy
   has_many :assets, dependent: :destroy
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
@@ -65,8 +65,12 @@ class Item < ActiveRecord::Base
   end
 
   def remove_keyword(keyword)
-    item_keywordings = keywordings.joins(:keyword).where(keywords: { id: keyword.id })
+    item_keywordings = keywordings.where(keyword_id: keyword.id)
     item_keywordings.first.destroy if item_keywordings.first
+  end
+
+  def distinct_keywords
+    keywords.map(&:id).uniq
   end
 
   private
