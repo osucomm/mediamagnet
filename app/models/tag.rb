@@ -1,6 +1,6 @@
 class Tag < ActiveRecord::Base
   include LowercaseName
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :items, through: :taggings
   has_one :keyword, foreign_key: :name, primary_key: :name
 
