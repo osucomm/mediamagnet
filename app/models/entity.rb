@@ -1,7 +1,7 @@
 class Entity < ActiveRecord::Base
   # Associations
   has_one :contact, as: :contactable, dependent: :destroy
-  has_one :manifest
+  has_one :manifest, dependent: :destroy
   has_many :channels, dependent: :destroy
   has_many :items, through: :channels
   has_many :mappings, as: :mappable, dependent: :destroy
@@ -37,5 +37,12 @@ class Entity < ActiveRecord::Base
     channels.map(&:channel_mappings)
   end
 
+  def add_keyword(keyword)
+    keywords << keyword
+  end
+
+  def remove_keyword(keyword)
+    keywordings.where(keyword_id: keyword.id).destroy_all
+  end
 
 end
