@@ -16,7 +16,7 @@ class Keywording < ActiveRecord::Base
     end
   end
 
-  def update_keywords_on_items
+  def remove_keywords_from_items
     if keywordable.respond_to?(:items)
       keywordable.items.each { |item| item.remove_keyword(keyword) }
     end

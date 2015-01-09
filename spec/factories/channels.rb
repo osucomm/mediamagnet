@@ -12,6 +12,13 @@ FactoryGirl.define do
         create(:channel_mapping, :foo_to_department, mappable: channel)
       end
     end
+
+    trait :with_items do
+      after(:create) do |channel, evaluator|
+        create_list(:item, 3, channel: channel)
+      end
+    end
+
   end
 
 
