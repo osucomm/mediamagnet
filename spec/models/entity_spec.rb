@@ -6,14 +6,12 @@ describe Entity do
     it { should respond_to :channels_mappings }
   end
 
+  it 'should return false when the user is a member of the entity' do
+    expect(entities(:ucomm).name).to eql(false)
+  end
+
   #
   describe '#has_user?' do
-    let(:entity) { FactoryGirl.create(:entity) }
-    let(:user)   { FactoryGirl.create(:user) }
-
-    it 'should return false when the user is a member of the entity' do
-      expect(entity.has_user?(user)).to eql(false)
-    end
 
     it 'should return true when the user is a member of the entity' do
       entity.users << user

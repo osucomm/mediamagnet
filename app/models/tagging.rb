@@ -6,7 +6,7 @@ class Tagging < ActiveRecord::Base
   attr_accessor :tag_text
 
   after_initialize :get_tag_from_tag_text
-  before_create :add_keywords_to_item
+  after_create :add_keywords_to_item
   before_destroy :remove_keywords_from_item
 
   scope :by_mappable, ->(mappable) {
@@ -29,11 +29,15 @@ class Tagging < ActiveRecord::Base
   def add_keywords_to_item
     # Add keywords whose name matches the tag name.
     keyword = Keyword.where(name: tag.name).first
-    item.keywords << Keyword.where(name: tag.name).first if keyword
+    if keyword
+      item.keywords << keyword
+    end
 
     # Assign keywords from mappings on our tag.
     mappings.each do |mapping|
-      item.keywords << mapping.keyword if mapping.tag_id == tag.id
+      if mapping.tag_id == tag.id
+        item.keywords << mapping.keyword 
+      end
     end
   end
 

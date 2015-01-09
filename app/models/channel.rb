@@ -98,7 +98,7 @@ class Channel < ActiveRecord::Base
   end
 
   def service_identifier_is_valid?
-    service_identifier.present? && !service_account.nil?
+    service_identifier.present?
   end
 
   def add_keyword(keyword)
