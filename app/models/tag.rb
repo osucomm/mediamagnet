@@ -4,7 +4,7 @@ class Tag < ActiveRecord::Base
   has_many :items, through: :taggings
   has_one :keyword, foreign_key: :name, primary_key: :name
 
-  validates :name, unique: true
+  validates :name, uniqueness: true
 
   class << self
     def create_from_text(text)
