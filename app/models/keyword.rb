@@ -1,7 +1,7 @@
 class Keyword < ActiveRecord::Base
   include LowercaseName
   has_many :keywordings, dependent: :destroy
-  has_many :items, through: :keywordings, source: :keywordable, source_type: "Item"
+  has_many :items, -> { uniq }, through: :keywordings, source: :keywordable, source_type: "Item"
   has_many :channels, through: :keywordings, source: :keywordable, source_type: "Channel"
   has_many :entities, through: :keywordings, source: :keywordable, source_type: "Entity"
   has_many :keyword_usages, dependent: :destroy

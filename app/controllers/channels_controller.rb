@@ -35,7 +35,6 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = channel_type.new(channel_params)
-    authorize @channel
     @channel.token = Token.find(session[:token_id]) if session[:token_id]
     @channel.entity = Entity.find(params[:entity_id])
     authorize @channel
