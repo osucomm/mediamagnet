@@ -43,7 +43,7 @@
             <%- current_user.entities.each do |entity| %>
               <li><%= link_to entity.name, entity %></li>
             <%- end %>
-            <%- if current_user.entities %>
+            <%- unless current_user.entities.empty? %>
               <li class="divider"></li>
             <%- end %>
             <li><%= link_to 'Register new entity', new_entity_path %></li>
