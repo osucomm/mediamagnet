@@ -19,7 +19,6 @@ class ChannelsController < ApplicationController
 
   def new
     @channel = channel_type.new
-    authorize @channel
 
     # More youtube oauth2 stuff.
     if (channel_type == YoutubePlaylistChannel)
