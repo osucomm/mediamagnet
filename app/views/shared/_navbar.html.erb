@@ -36,17 +36,19 @@
           </ul>
         </li>
 
-        <%- if current_user_has_entities? %>
-          <li class="dropdown">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             My Entities<span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <%- current_user.entities.each do |entity| %>
-                <li><%= link_to entity.name, entity %></li>
-              <%- end %>
-            </ul>
-          </li>
-        <%- end %>
+          <ul class="dropdown-menu" role="menu">
+            <%- current_user.entities.each do |entity| %>
+              <li><%= link_to entity.name, entity %></li>
+            <%- end %>
+            <%- if current_user.entities %>
+              <li class="divider"></li>
+            <%- end %>
+            <li><%= link_to 'Register new entity', new_entity_path %></li>
+          </ul>
+        </li>
 
         <li><%= link_to 'Help', help_path %></li>
 
