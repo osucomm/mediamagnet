@@ -16,7 +16,7 @@ class FacebookPageChannel < Channel
       unless items.where(guid: post['id']).exists?
         i = items.build(
           guid: post['id'],
-          title: post['message'],
+          title: truncate(post['message'], 255),
           description: post['message'],
           link: Link.where(url: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}").first_or_create,
           published_at: post['created_time']
