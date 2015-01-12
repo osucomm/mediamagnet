@@ -39,10 +39,16 @@ class Entity < ActiveRecord::Base
 
   def add_keyword(keyword)
     keywords << keyword
+    items.each do |item|
+      item.keywords << keyword
+    end
   end
 
   def remove_keyword(keyword)
     keywordings.where(keyword_id: keyword.id).destroy_all
+    items.each do |item|
+      item.remove_keyword(keyword)
+    end
   end
 
 end
