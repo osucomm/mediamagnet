@@ -28,6 +28,7 @@ class WebChannel < Channel
         )
         i.assets.build(url: web_item.image) if web_item.image
         i.tag_names = (web_item.categories) if web_item.categories
+        i.keywords << all_keywords
       end
     end
     log_refresh

@@ -29,6 +29,7 @@ class InstagramChannel < Channel
         )
         i.assets.build(url: media.images.standard_resolution.url)
         i.tag_names = media.tags
+        i.keywords << all_keywords
       end
     end
     log_refresh

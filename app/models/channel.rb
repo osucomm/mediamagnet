@@ -69,6 +69,10 @@ class Channel < ActiveRecord::Base
     ).order(:type)
   end
 
+  def all_keywords
+    entity.keywords + keywords
+  end
+
   def all_mappings_distinct
     all_mappings
   end
@@ -103,6 +107,9 @@ class Channel < ActiveRecord::Base
 
   def add_keyword(keyword)
     keywords << keyword
+    items.each do |item|
+      item.keywords << keyword
+    end
   end
 
   def remove_keyword(keyword)
