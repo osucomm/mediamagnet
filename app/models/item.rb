@@ -32,12 +32,14 @@ class Item < ActiveRecord::Base
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
+  scope :by_keywords, -> keyword_ids { joins(:keywordings).where('keywordings.keyword_id' => keyword_ids) }
   scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
   scope :before, -> (datetime) { where('created_at < ?', datetime) }
   scope :after, -> (datetime) { where('created_at > ?', datetime) }
 
   class << self 
-    def by_keywords(keyword_ids)
+    def keywords
+      all.map(&:keywords).flatten.uniq
     end
   end
 
