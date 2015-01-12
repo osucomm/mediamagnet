@@ -7,7 +7,8 @@ namespace :channels do
     end
 
     Keyword.all.each do |keyword|
-      keyword.update_attributes(item_counter: keyword.item_count)
+      # Do we need this anymore?
+      #keyword.update_attributes(item_counter: keyword.item_count)
     end
 
   end
