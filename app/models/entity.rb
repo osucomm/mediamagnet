@@ -30,7 +30,7 @@ class Entity < ActiveRecord::Base
   end
 
   def has_user? user
-    users.exists? user
+    users.exists? user.id
   end
 
   def channels_mappings
