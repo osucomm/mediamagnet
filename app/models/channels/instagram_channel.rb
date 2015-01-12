@@ -21,7 +21,7 @@ class InstagramChannel < Channel
       unless items.where(guid: media.id.to_s).exists?
         i = items.build(
           guid: media.id,
-          title: (media.caption? ? media.caption.text : 
+          title: (media.caption? ? media.caption.text[0..254] : 
             "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"),
           link: Link.where(url: media.link).first,
           description: (media.caption? ? media.caption.text : ''),

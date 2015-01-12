@@ -6,10 +6,5 @@ namespace :channels do
       channel.refresh_items
     end
 
-    Keyword.all.each do |keyword|
-      # Do we need this anymore?
-      #keyword.update_attributes(item_counter: keyword.item_count)
-    end
-
   end
 end
