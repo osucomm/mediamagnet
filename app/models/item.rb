@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   has_many :tags, through: :taggings
 
   has_many :keywordings, as: :keywordable, dependent: :destroy
-  has_many :keywords, through: :keywordings
+  has_many :keywords, -> { uniq }, through: :keywordings
 
   has_and_belongs_to_many :links
 
