@@ -20,6 +20,21 @@ describe Item do
     let(:item_without_tags) { FactoryGirl.create(:item) }
     let(:item_with_tags) { FactoryGirl.create(:item, :with_tags) }
     let(:item_with_mappings) { FactoryGirl.create(:item, :with_channel_mappings, :with_tags) }
+    let(:keyword) { FactoryGirl.create(:keyword) }
+
+    it 'should allow duplicates and only remove top of stack' do
+      keyword = FactoryGirl.create(:keyword, :department)
+      item_without_tags.keywords << keyword
+      item_without_tags.keywords << keyword
+      item_without_tags.remove_keyword(keyword)
+      expect(item_without_tags.keywords).to include(keyword)
+    end
+
+    it 'should report count of distinct keywords' do
+      item_without_tags.keywords << keyword
+      item_without_tags.keywords << keyword
+      expect(item_without_tags.distinct_keywords.count).to eql(1)
+    end
 
     it 'should be assigned a keyword with the same name if it exists' do
       keyword = FactoryGirl.create(:keyword, :department)

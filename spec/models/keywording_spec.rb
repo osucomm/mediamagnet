@@ -27,10 +27,16 @@ describe Keywording do
     let(:entity)    { FactoryGirl.create(:entity) }
     let(:keyword)    { FactoryGirl.create(:keyword) }
 
-    it 'on channel adds keyword to child items' do
+    it 'on channel removes keyword to child items' do
       channel.add_keyword(keyword)
       channel.remove_keyword(keyword)
       expect(channel.items.first.keywords).to_not include(keyword)
+    end
+
+    it 'on entity removes keyword to child items' do
+      entity.add_keyword(keyword)
+      entity.remove_keyword(keyword)
+      expect(entity.items.first.keywords).to_not include(keyword)
     end
 
   end
