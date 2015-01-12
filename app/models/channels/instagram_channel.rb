@@ -25,7 +25,7 @@ class InstagramChannel < Channel
             "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"),
           link: Link.where(url: media.link).first,
           description: (media.caption? ? media.caption.text : ''),
-          published_at: Date.strptime(media.created_time, '%s')
+          published_at: Time.strptime(media.created_time, '%s')
         )
         i.assets.build(url: media.images.standard_resolution.url)
         i.tag_names = media.tags
