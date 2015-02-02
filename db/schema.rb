@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112143657) do
+ActiveRecord::Schema.define(version: 20150202164232) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "item_id",    null: false
@@ -230,7 +230,7 @@ ActiveRecord::Schema.define(version: 20150112143657) do
     t.string   "access_token"
     t.string   "refresh_token"
     t.string   "expires_at"
-    t.integer  "channel_id",    null: false
+    t.integer  "channel_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "provider"
