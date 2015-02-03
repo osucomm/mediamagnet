@@ -30,6 +30,7 @@ gem 'simple_form', '~> 3.1.0.rc2'
 gem 'pundit', '~> 0.3'
 gem 'devise'
 gem 'omniauth'
+gem 'omniauth-shibboleth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-facebook'
 
