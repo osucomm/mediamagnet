@@ -13,13 +13,11 @@
       <%= link_to 'All', items_path, class: "list-group-item #{'active' unless @current_keyword}" %>
 
       <%- #This will produce duplicate keywords. FIX THIS %>
-      <%- @items.each do |item| %>
-        <%- item.keywords.each do |keyword| %>
-          <%- if @current_keyword == keyword %>
-            <span class="list-group-item active"><%= keyword.display_name %></span>
-          <%- else %>
-            <%= link_to keyword.display_name, url_for(keyword_id: keyword.id), class: 'list-group-item' %>
-          <%- end %>
+      <%- @items.keywords.each do |keyword| %>
+        <%- if @current_keyword == keyword %>
+          <span class="list-group-item active"><%= keyword.display_name %></span>
+        <%- else %>
+          <%= link_to keyword.display_name, url_for(keyword_id: keyword.id), class: 'list-group-item' %>
         <%- end %>
       <%- end %>
 

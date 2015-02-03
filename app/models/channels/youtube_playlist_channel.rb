@@ -78,6 +78,7 @@ class YoutubePlaylistChannel < Channel
           published_at: youtube_video.snippet.published_at,
         )
         i.tag_names = youtube_video.snippet.tags
+        i.keywords << all_keywords
         i.assets.create(url: youtube_video.snippet.thumbnails.high.url)
       end
     end

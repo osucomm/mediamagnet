@@ -38,6 +38,7 @@ class TwitterChannel < Channel
           i.assets.build(url: media.media_url_https.to_s)
         end
         i.tag_names = tweet.hashtags.map(&:text)
+        i.keywords << all_keywords
       end
     end
     log_refresh

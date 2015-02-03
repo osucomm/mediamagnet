@@ -12,8 +12,7 @@ class Channel < ActiveRecord::Base
   has_many :mappings, as: :mappable, dependent: :destroy
 
   has_many :keywordings, as: :keywordable, dependent: :destroy
-  has_many :keywords, through: :keywordings
-
+  has_many :keywords, through: :keywordings, before_remove: :remove_keyword_from_items
 
   # Validations
   validates :name, presence: true
@@ -69,6 +68,10 @@ class Channel < ActiveRecord::Base
     ).order(:type)
   end
 
+  def all_keywords
+    entity.keywords + keywords
+  end
+
   def all_mappings_distinct
     all_mappings
   end
@@ -103,10 +106,16 @@ class Channel < ActiveRecord::Base
 
   def add_keyword(keyword)
     keywords << keyword
+    items.each do |item|
+      item.keywords << keyword
+    end
   end
 
   def remove_keyword(keyword)
     keywordings.where(keyword_id: keyword.id).destroy_all
+    items.each do |item|
+      item.remove_keyword(keyword)
+    end
   end
 
   private
@@ -125,11 +134,16 @@ class Channel < ActiveRecord::Base
   end
 
   def set_keywords
-    #initial_keywords.each do |keyword_text|
-    #  keyword = Keyword.where(name: keyword_text, 
-    #                          display_name: keyword_text).first_or_create
-    #  keywords << keyword unless keywords.include?(keyword)
-    #end
+    initial_keywords.each do |keyword_text|
+      keyword = Keyword.where(name: keyword_text, 
+                              display_name: keyword_text).first_or_create
+      keywords << keyword unless keywords.include?(keyword)
+    end
   end
+
+  def remove_keyword_from_items(keyword)
+    items.each {|item| item.remove_keyword(keyword)}
+  end
+
 
 end

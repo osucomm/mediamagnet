@@ -25,6 +25,7 @@ class EventChannel < Channel
           published_at: entry.published
         )
         item.tag_names = (entry.categories) if entry.categories
+        i.keywords << all_keywords
         e = item.events.build(
           start_date: entry.start_date,
           end_date: entry.end_date,

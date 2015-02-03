@@ -23,6 +23,7 @@ class FacebookPageChannel < Channel
         )
         i.assets.build(url: post['picture']) if post['picture']
         i.tag_names = TagParser.new(i.title).parse
+        i.keywords << all_keywords
       end
     end
     log_refresh

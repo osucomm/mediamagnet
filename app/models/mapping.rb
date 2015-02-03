@@ -56,7 +56,7 @@ class Mapping < ActiveRecord::Base
 
   def remove_keyword_from_items
     mappable.items.each do |item|
-      item.remove_keyword(keyword) if item.tag == tag
+      item.remove_keyword(keyword) if item.tags.include?(tag)
     end
   end
 
