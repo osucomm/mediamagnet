@@ -1,6 +1,6 @@
 <div id="masthead">
   <div id="page-content" class="container">
-    <%= link_to 'Login', dashboard_path, class: 'login_link' %>
+    <%= link_to 'Login', user_omniauth_authorize_path('shibboleth'), class: 'login_link' %>
 
     <div class="sm-col-12">
       <% flash.each do |key, value| %>
