@@ -92,10 +92,6 @@ class YoutubePlaylistChannel < Channel
 
   private
 
-  def service_identifier_is_valid?
-    true
-  end
-
   def youtube_api
     @youtube_api ||= client.discovered_api('youtube', 'v3')
   end
