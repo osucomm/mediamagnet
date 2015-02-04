@@ -9,7 +9,7 @@ class FacebookPageChannel < Channel
 
   def posts
     client.get_object("#{service_identifier}/posts").keep_if do |post|
-      post.key?(:message)
+      post.key? 'message'
     end
   end
 
