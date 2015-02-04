@@ -20,7 +20,7 @@ class Keyword < ActiveRecord::Base
   validates :display_name, presence: true
 
   default_scope -> {
-    order('display_name ASC')
+    order('display_name ASC').normal
   }
 
   class << self
