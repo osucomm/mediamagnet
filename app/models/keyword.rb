@@ -43,7 +43,7 @@ class Keyword < ActiveRecord::Base
 
     def normal
       templated_categories = Category.where(template: true)
-      where('category_id not in (?)', templated_categories.map(&:id))
+      where('category_id is null or category_id not in (?)', templated_categories.map(&:id))
     end
 
   end
