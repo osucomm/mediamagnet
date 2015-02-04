@@ -4,7 +4,7 @@ class Keyword < ActiveRecord::Base
   SPECIAL_KEYWORD_PATTERNS = ::Regexp.union([ 
     /course-[A-Za-z]+-[0-9]+/,
     /department-[0-9]{,5}/,
-    /person-[A-Za-z\-]\.[0-9]+/
+    /person-[A-Za-z\-]+\.[0-9]+/
   ])
 
   has_many :keywordings, dependent: :destroy
