@@ -1,16 +1,11 @@
 Rails.application.routes.draw do
 
-
-
   namespace :admin do
   get 'delayed_jobs/index'
   end
 
   devise_for :users, :skip => [:registrations], :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
-  as :user do
-    get 'user/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-    put 'user' => 'devise/registrations#update', :as => 'user_registration'
-  end
+
 
   get 'dashboard' => 'dashboard#show', as: :dashboard
   get 'users/auth/google/choose' => 'google#choose'
