@@ -5,6 +5,10 @@ class TokenPolicy < ApplicationPolicy
   end
 
   def create?
+    true
+  end
+
+  def destroy?
     user.is_admin?
   end
 

@@ -5,12 +5,14 @@
     <th>Provider</th>
     <th>Channel</th>
     <th>Expires</th>
+    <th>Action</th>
   </tr>
   <%- @tokens.each do |token| %>
     <tr>
       <td><%= token.provider %></td>
       <td><%= token.channel %></td>
       <td><%= token.expires_at %></td>
+      <td><%= link_to 'Delete', token, method: :delete %></td>
     </tr>
   <%- end %>
 </table>
