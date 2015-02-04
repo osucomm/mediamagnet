@@ -1,13 +1,19 @@
 class Keyword < ActiveRecord::Base
   include LowercaseName
+
+  SPECIAL_KEYWORD_PATTERNS = ::Regexp.union([ 
+    /course-[A-Za-z]+-[0-9]+/,
+    /department-[0-9]{,5}/,
+    /person-[A-Za-z\-]\.[0-9]+/
+  ])
+
   has_many :keywordings, dependent: :destroy
   has_many :items, -> { uniq }, through: :keywordings, source: :keywordable, source_type: "Item"
   has_many :channels, through: :keywordings, source: :keywordable, source_type: "Channel"
   has_many :entities, through: :keywordings, source: :keywordable, source_type: "Entity"
   has_many :keyword_usages, dependent: :destroy
   has_one :tag, foreign_key: :name, primary_key: :name
-
-  enum category: { audience: 0, college: 1, location: 2, format: 3 }
+  belongs_to :category
 
   # Validations
   validates :name, presence: true
@@ -25,6 +31,14 @@ class Keyword < ActiveRecord::Base
       having tags in their source system named identically to a keyword, or
       through mappings on channels and entities.
       EOT
+    end
+
+    def special_keyword?(tag_name)
+      SPECIAL_KEYWORD_PATTERNS =~ tag_name
+    end
+
+    def valid_keyword?(tag_name)
+      where(name: tag_name).any? || special_keyword?(tag_name)
     end
 
   end

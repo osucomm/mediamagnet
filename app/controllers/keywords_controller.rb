@@ -65,6 +65,6 @@ class KeywordsController < ApplicationController
     end
 
     def set_categories
-      @categories = Keyword.categories.keys
+      @categories = Category.all
     end
 end

@@ -27,18 +27,7 @@ class Tagging < ActiveRecord::Base
   end
 
   def add_keywords_to_item
-    # Add keywords whose name matches the tag name.
-    keyword = Keyword.where(name: tag.name).first
-    if keyword
-      item.keywords << keyword
-    end
-
-    # Assign keywords from mappings on our tag.
-    mappings.each do |mapping|
-      if mapping.tag_id == tag.id
-        item.keywords << mapping.keyword 
-      end
-    end
+    CreateKeywordingService.new(item, tag).execute
   end
 
   def remove_keywords_from_item
