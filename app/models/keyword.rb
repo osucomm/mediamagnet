@@ -48,4 +48,8 @@ class Keyword < ActiveRecord::Base
 
   end
 
+  def category_name
+    category.present? ? category.name : ''
+  end
+
 end
