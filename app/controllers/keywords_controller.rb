@@ -56,7 +56,7 @@ class KeywordsController < ApplicationController
   private
 
     def keyword_params
-      params.require(:keyword).permit(:name, :display_name, :description, :category)
+      params.require(:keyword).permit(:name, :display_name, :description, :category_id)
     end
 
     def find_keyword
