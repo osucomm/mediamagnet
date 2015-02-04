@@ -1,0 +1,16 @@
+<h1>Tokens</h1>
+
+<table class="table">
+  <tr>
+    <th>Provider</th>
+    <th>Channel</th>
+    <th>Expires</th>
+  </tr>
+  <%- @tokens.each do |token| %>
+    <tr>
+      <td><%= token.provider %></td>
+      <td><%= token.channel %></td>
+      <td><%= token.exipres_at %></td>
+    </tr>
+  <%- end %>
+</table>

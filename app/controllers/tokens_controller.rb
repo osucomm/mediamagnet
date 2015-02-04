@@ -1,4 +1,8 @@
 class TokensController < ApplicationController
+  def index
+    @tokens = Token.all
+  end
+
   def create
     @token = Token.create_from_omniauth_hash(auth_hash)
     authorize @token
