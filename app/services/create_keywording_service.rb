@@ -6,9 +6,11 @@ class CreateKeywordingService
   end
 
   def execute
-    # Or is a 'special' keyword format
     if Keyword.valid_keyword?(@tag.name)
-      @item.keywords << Keyword.where(name: @tag.name, display_name: @tag.name).first_or_create
+      @item.keywords << Keyword.where(name: @tag.name, 
+                                      display_name: @tag.name,
+                                      category_id: Category.find(@tag.name.split('-').first).id)
+                          .first_or_create
     end
 
     @item.mappings.each do |mapping|

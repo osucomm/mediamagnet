@@ -7,7 +7,7 @@ class KeywordsController < ApplicationController
   respond_to :html, :js, :json
 
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.normal
     respond_with @keywords
   end
 

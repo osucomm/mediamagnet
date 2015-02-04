@@ -41,6 +41,11 @@ class Keyword < ActiveRecord::Base
       where(name: tag_name).any? || special_keyword?(tag_name)
     end
 
+    def normal
+      templated_categories = Category.where(template: true)
+      where('category_id not in (?)', templated_categories.map(&:id))
+    end
+
   end
 
 end
