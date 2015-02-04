@@ -97,7 +97,7 @@ class ChannelsController < ApplicationController
 
     def get_token
       if (channel_type == YoutubePlaylistChannel && session[:token_id].nil?)
-        redirect_to '/auth/google_oauth2'
+        redirect_to '/users/auth/google_oauth2'
       end
     end
 

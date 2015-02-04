@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   end
 
   get 'dashboard' => 'dashboard#show', as: :dashboard
-  get 'auth/google/choose' => 'google#choose'
-  get 'auth/google_oauth2/callback' => 'google#callback'
-  get 'auth/facebook/callback' => 'tokens#create'
+  get 'users/auth/google/choose' => 'google#choose'
+  get 'users/auth/google_oauth2/callback' => 'google#callback'
+  get 'users/auth/facebook/callback' => 'tokens#create'
 
   resources :keywords
   resources :links
