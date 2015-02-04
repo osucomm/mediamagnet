@@ -9,7 +9,7 @@ class CreateKeywordingService
     if Keyword.valid_keyword?(@tag.name)
       @item.keywords << Keyword.where(name: @tag.name, 
                                       display_name: @tag.name,
-                                      category_id: Category.find(@tag.name.split('-').first).id)
+                                      category_id: Category.where(name: @tag.name.split('-').first).id)
                           .first_or_create
     end
 
