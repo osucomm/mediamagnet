@@ -1,0 +1,15 @@
+<h1>Categories</h1>
+
+<table class="table">
+  <tr>
+    <td>Name</td>
+    <td>Description</td>
+  </tr>
+
+  <%- @categories.each do |cat| %>
+    <tr>
+      <td><%= cat.name %></td>
+      <td><%= cat.description %></td>
+    </tr>
+  <%- end %>
+</table>

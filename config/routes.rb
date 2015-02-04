@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'categories/index'
+
   namespace :admin do
   get 'delayed_jobs/index'
   end
@@ -16,10 +18,11 @@ Rails.application.routes.draw do
   get 'users/auth/google/choose' => 'google#choose'
   get 'users/auth/google_oauth2/callback' => 'google#callback'
   get 'users/auth/facebook/callback' => 'tokens#create'
-  get 'tokens' => 'tokens#index'
 
+  resources 'tokens', only: [:index, :destroy]
   resources :keywords
   resources :links
+  resources :categories, only: [:index]
 
   #reports
   get 'reports/keyword_usage'
