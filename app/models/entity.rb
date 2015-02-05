@@ -14,7 +14,7 @@ class Entity < ActiveRecord::Base
   has_many :children, class_name: "Entity", foreign_key: "parent_id"
 
   # Validations
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   # Scopes
   default_scope -> {
