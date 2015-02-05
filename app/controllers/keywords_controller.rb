@@ -7,7 +7,7 @@ class KeywordsController < ApplicationController
   respond_to :html, :js, :json
 
   def index
-    @keywords = Keyword.all
+    @keywords = Keyword.normal
     respond_with @keywords
   end
 
@@ -56,7 +56,7 @@ class KeywordsController < ApplicationController
   private
 
     def keyword_params
-      params.require(:keyword).permit(:name, :display_name, :description, :category)
+      params.require(:keyword).permit(:name, :display_name, :description, :category_id)
     end
 
     def find_keyword
@@ -65,6 +65,6 @@ class KeywordsController < ApplicationController
     end
 
     def set_categories
-      @categories = Keyword.categories.keys
+      @categories = Category.all
     end
 end

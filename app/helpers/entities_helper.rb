@@ -1,12 +1,7 @@
 module EntitiesHelper
 
-  def entity_action_links(entity, actions=[:join, :update, :destroy])
+  def entity_action_links(entity, actions=[:update, :destroy])
     links = []
-
-    if actions.include?(:join) && policy(entity).join?
-      links << (link_to fa_icon('users', data: {toggle: 'tooltip', placement: 'top'}, title: 'Join'),
-        entity_path(entity), class: 'btn btn-success btn-xs action-button')
-    end
 
     if actions.include?(:update) && policy(entity).update?
       links << (link_to fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit'),

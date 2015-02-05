@@ -9,6 +9,13 @@ class TokensController < ApplicationController
     # TODO: make this redirect to new form in correct cases to replace
     # google controller.
   end
+  
+  def destroy
+    @token = Token.find(params[:id])
+    authorize @token
+    @token.destroy
+    redirect_to takens_path
+  end
 
   private
 

@@ -6,7 +6,7 @@
   <%= f.input :display_name %>
   <%= f.input :name %>
   <%= f.input :description %>
-  <%= f.input :category, :collection => @categories %>
+  <%= f.association :category, :collection => @categories %>
 
   <%= f.button :submit %>
   <%- unless @keyword.new_record? %>

@@ -8,7 +8,9 @@ class FacebookPageChannel < Channel
   end
 
   def posts
-    client.get_object("#{service_identifier}/posts")
+    client.get_object("#{service_identifier}/posts").keep_if do |post|
+      post.key? 'message'
+    end
   end
 
   def refresh_items

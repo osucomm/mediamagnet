@@ -30,6 +30,7 @@ class Channel < ActiveRecord::Base
   # Callbacks
   after_initialize :set_keywords
   after_initialize :get_info
+  after_create :refresh_items if Rails.env == 'production'
 
   # Scopes
   scope :needs_refresh, -> {
