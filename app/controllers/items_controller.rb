@@ -11,6 +11,7 @@ class ItemsController < ApplicationController
     @channel = Channel.find(params[:channel_id]) if params[:channel_id]
     @current_keyword = Keyword.find(params[:keyword_id]) if params[:keyword_id]
     @items = apply_scopes(Item)
+      .from_approved
       .with_channel
       .with_all_keywords
       .page(params[:page])

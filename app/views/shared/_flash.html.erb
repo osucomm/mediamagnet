@@ -1,0 +1,5 @@
+<%- [:notice, :success, :error, :alert].each do |level| %>
+  <%- if flash.key? level %>
+    <%= render 'shared/message', flash_type: level, message: flash[level] %>
+  <%- end %>
+<%- end %>

@@ -1,3 +1,7 @@
+<%- if ! @entity.approved %>
+  <%= render 'shared/message', flash_type: :alert, no_close: true, message: 'This entity has been registered but not approved. Content from this entity will not appear in feeds.' %>
+<%- end %>
+
 <h1><%= title @entity.name %> <%= entity_action_links @entity, [:update] %></h1>
 <p><%= @entity.description %></p>
 

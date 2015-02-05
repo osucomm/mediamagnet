@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
     order('email ASC')
   }
 
+  scope :admin, -> { where(admin: true) }
+
   def is_admin?
     admin
   end

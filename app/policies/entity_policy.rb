@@ -13,14 +13,26 @@ class EntityPolicy < ApplicationPolicy
   end
  
   def update?
-    record.has_user? user
+    record.has_user?(user) || user.is_admin?
   end
 
   def join?
-    user.entities.exclude?(record)
+    user.entities.exclude? record
   end
 
   def destroy?
     user.is_admin?
+  end
+
+  def approve?
+    user.is_admin?
+  end
+
+  def permitted_attributes
+    permitted = [:name, :description, :link, :keyword_ids => [],
+      contact_attributes: [:id, :name, :organization, :url, :phone, :email],
+      user_ids: []]
+
+    approve? ? permitted << :approved : permitted
   end
 end

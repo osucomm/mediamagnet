@@ -6,9 +6,7 @@
 
   <div id="page-content" class="container">
     <div class="messages">
-    <% flash.each do |key, value| %>
-      <%= render 'shared/message', flash_type: key, message: value %>
-    <% end %>
+      <%= render 'shared/flash' %>
     </div>
 
     <%= yield %>

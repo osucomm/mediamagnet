@@ -21,6 +21,9 @@ class Entity < ActiveRecord::Base
     order('name ASC')
   }
 
+  scope :approved, -> { where(approved: true) }
+  scope :not_approved, -> { where(approved: false) }
+
   accepts_nested_attributes_for :contact
 
   alias_method :all_mappings, :mappings

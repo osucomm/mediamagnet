@@ -54,16 +54,19 @@ class EntitiesController < ApplicationController
 
   def destroy
     @entity.destroy
-    flash[:success] = "Entity was successfully destroyed."
-    respond_with @entity
+    flash[:success] = "#{@entity.name} has been deleted."
+
+    if flash[:delete_redirect]
+      respond_with @entity, location: flash[:delete_redirect]
+    else
+      respond_with @entity
+    end
   end
 
   private
 
     def entity_params
-      params.require(:entity).permit(:name, :description, :link, :keyword_ids => [],
-        contact_attributes: [:id, :name, :organization, :url, :phone, :email],
-        user_ids: [])
+      params.require(:entity).permit(*policy(@entity || Entity).permitted_attributes)
     end
 
     def find_entity

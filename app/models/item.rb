@@ -1,4 +1,6 @@
 class Item < ActiveRecord::Base
+  include ApprovedEntityScope
+
   has_many :events, dependent: :destroy
   has_many :assets, dependent: :destroy
   has_many :taggings, dependent: :destroy

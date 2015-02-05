@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :update]
+    resources :entities, only: [:index, :update]
     resources :delayed_jobs, only: [:index, :destroy]
   end
 
