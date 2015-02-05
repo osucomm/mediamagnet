@@ -30,6 +30,7 @@ class EntitiesController < ApplicationController
     @entity.users << current_user
 
     if @entity.save
+      EntityMailer.register_email(@entity).deliver_later unless @entity.approved
       respond_with @entity
     else
       respond_with @entity do |format|
