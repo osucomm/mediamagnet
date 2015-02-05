@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-  get 'delayed_jobs/index'
-  end
-
   devise_for :users, :skip => [:registrations], :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
 
 
