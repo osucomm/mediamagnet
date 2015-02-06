@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
+    session[:return_to] = request.fullpath
     redirect_to auth_path(:shibboleth) unless user_signed_in?
   end
 

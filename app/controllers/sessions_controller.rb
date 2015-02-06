@@ -49,6 +49,6 @@ class SessionsController < ApplicationController
   private
 
   def redirect_to_origin
-    redirect_to request.env['omniauth.origin'] || root_url
+    redirect_to request.env['omniauth.origin'] || session[:return_to] || root_url
   end
 end
