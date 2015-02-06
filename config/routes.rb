@@ -2,14 +2,16 @@ Rails.application.routes.draw do
 
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
+  # OAuth
+  get 'auth/google/choose' => 'google#choose'
+  get 'auth/google_oauth2/callback' => 'google#callback'
+  get 'auth/facebook/callback' => 'tokens#create'
+
   # Omniauth and sessions
   get 'auth/:provider', to: lambda{|env| [404, {}, ["Not Found"]]}, as: 'auth'
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   delete 'logout', to: 'sessions#destroy', as: 'logout'
 
-  get 'users/auth/google/choose' => 'google#choose'
-  get 'users/auth/google_oauth2/callback' => 'google#callback'
-  get 'users/auth/facebook/callback' => 'tokens#create'
 
   resources 'tokens', only: [:index, :destroy]
   resources :keywords

@@ -14,7 +14,7 @@ class TokensController < ApplicationController
     @token = Token.find(params[:id])
     authorize @token
     @token.destroy
-    redirect_to takens_path
+    redirect_to tokens_path
   end
 
   private

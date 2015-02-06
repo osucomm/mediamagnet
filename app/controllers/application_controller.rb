@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :disallow_blocked
 
-  helper_method :current_user, :user_signed_in?, :authenticate_user!
+  helper_method :current_user, :user_signed_in?
 
 
   private
@@ -19,8 +19,10 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user!
-    session[:return_to] = request.fullpath
-    redirect_to auth_path(:shibboleth) unless user_signed_in?
+    unless user_signed_in?
+      session[:return_to] = request.fullpath
+      redirect_to auth_path(:shibboleth)
+    end
   end
 
 
