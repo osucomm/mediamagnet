@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :skip => [:registrations], :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
-
-
   get 'dashboard' => 'dashboard#show', as: :dashboard
+
+  # Omniauth and sessions
+  get 'auth/:provider', to: lambda{|env| [404, {}, ["Not Found"]]}, as: 'auth'
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
+
   get 'users/auth/google/choose' => 'google#choose'
   get 'users/auth/google_oauth2/callback' => 'google#callback'
   get 'users/auth/facebook/callback' => 'tokens#create'
-  get 'categories/index'
 
   resources 'tokens', only: [:index, :destroy]
   resources :keywords

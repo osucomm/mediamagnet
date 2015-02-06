@@ -1,4 +1,4 @@
-class Admin::DelayedJobsController < ApplicationController
+class Admin::DelayedJobsController < Admin::BaseController
   def index
     authorize :delayed_job, :index?
     @delayed_jobs = Delayed::Job.all

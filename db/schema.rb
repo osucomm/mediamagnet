@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204184145) do
+ActiveRecord::Schema.define(version: 20150206032807) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "item_id",                null: false
@@ -116,6 +116,16 @@ ActiveRecord::Schema.define(version: 20150204184145) do
   add_index "events", ["item_id"], name: "index_events_on_item_id"
   add_index "events", ["location_id"], name: "index_events_on_location_id"
   add_index "events", ["start_date"], name: "index_events_on_start_date"
+
+  create_table "identities", force: :cascade do |t|
+    t.string   "uid"
+    t.string   "provider"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "items", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -250,31 +260,18 @@ ActiveRecord::Schema.define(version: 20150204184145) do
   add_index "tokens", ["channel_id"], name: "index_tokens_on_channel_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "username",               limit: 255
-    t.string   "email",                  limit: 255,                 null: false
-    t.string   "fullname",               limit: 255
+    t.string   "email",             limit: 255,                 null: false
+    t.string   "name",              limit: 255
     t.datetime "last_sign_in_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     limit: 255, default: "",    null: false
-    t.string   "reset_password_token",   limit: 255
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,     null: false
-    t.datetime "current_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.integer  "failed_attempts",                    default: 0,     null: false
-    t.string   "unlock_token",           limit: 255
-    t.datetime "locked_at"
-    t.boolean  "admin",                              default: false
-    t.boolean  "blocked"
+    t.integer  "sign_in_count",                 default: 0,     null: false
+    t.boolean  "admin",                         default: false
+    t.boolean  "blocked",                       default: false
     t.integer  "current_entity_id"
   end
 
   add_index "users", ["admin"], name: "index_users_on_admin"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["username"], name: "index_users_on_username"
 
 end

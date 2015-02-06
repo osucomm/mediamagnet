@@ -1,4 +1,4 @@
-class Admin::EntitiesController < ApplicationController
+class Admin::EntitiesController < Admin::BaseController
   before_action :authenticate_user!
   respond_to :html, :js
 

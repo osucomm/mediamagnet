@@ -71,4 +71,8 @@ module ApplicationHelper
       }
   end
 
+  #def auth_path(provider)
+  #  "#{root_path}auth/#{provider.to_s}"
+  #end
+
 end

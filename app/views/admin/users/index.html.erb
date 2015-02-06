@@ -12,7 +12,7 @@
   <tbody>
     <%- @users.each do |user| %>
       <tr id="user-<%= user.id %>">
-        <td><%= user.fullname %></td>
+        <td><%= user.display_name %></td>
         <td><%= mail_to user.email %></td>
         <td><%= comma_list_links(user.entities) %></td>
         <td>

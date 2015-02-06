@@ -12,6 +12,7 @@ gem 'spring',        group: :development
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
+gem 'responders'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -28,7 +29,6 @@ gem 'simple_form', '~> 3.1.0.rc2'
 
 # Auth
 gem 'pundit', '~> 0.3'
-gem 'devise'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
 gem 'omniauth-google-oauth2'

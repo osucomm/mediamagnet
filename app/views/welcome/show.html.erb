@@ -1,6 +1,6 @@
 <div id="masthead">
   <div id="page-content" class="container">
-    <%= link_to 'Login', user_omniauth_authorize_path('shibboleth'), class: 'login_link' %>
+    <%= link_to 'Login', auth_path(:shibboleth), class: 'login_link' %>
 
     <div class="sm-col-12">
       <%= render 'shared/flash' %>
