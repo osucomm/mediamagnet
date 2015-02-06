@@ -40,6 +40,13 @@ class SessionsController < ApplicationController
     redirect_to_origin
   end
 
+  def failure
+    error_message = "There was an error during your login attempt."
+    error_message = params[:message].nil? ? error_message : error_message += " The error was: #{params[:message].humanize}"
+    flash[:error] = error_message
+    redirect_to root_url
+  end
+
   def destroy
     self.current_user = nil
     redirect_to root_url, notice: "You have been logged out. Come back soon!"

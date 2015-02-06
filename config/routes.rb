@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'auth/facebook/callback' => 'tokens#create'
 
   # Omniauth and sessions
+  get 'auth/failure', to: 'sessions#failure'
   get 'auth/:provider', to: lambda{|env| [404, {}, ["Not Found"]]}, as: 'auth'
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   delete 'logout', to: 'sessions#destroy', as: 'logout'
