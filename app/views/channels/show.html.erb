@@ -6,7 +6,7 @@
 <h1 class="channel"><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
 <p class="small">
 
-  A <strong><%= @channel.type_name.downcase %></strong> owned by <%= link_to @channel.entity.name, @channel.entity %>.
+  A <strong><%= @channel.type_name.downcase %></strong> channel owned by <%= link_to @channel.entity.name, @channel.entity %>.
   <%- if @channel.instance_of? WebChannel %>
     <li>Home: <%= link_to @channel.url, @channel.url %></li>
   <%- end %>

@@ -3,6 +3,7 @@ class ChannelsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_channel, only: [:show, :edit, :update, :destroy]
   before_action :get_token, only: [:new]
+  before_action :preserve_action_redirect!, only: [:show, :edit]
 
   respond_to :html, :json, :js
 
@@ -59,6 +60,7 @@ class ChannelsController < ApplicationController
 
   def update
     if @channel.update channel_params
+      flash[:success] = "#{@channel.name} #{@channel.type_name.downcase} channel has been updated."
       respond_with @channel
     else
       respond_with @channel do |format|
@@ -71,9 +73,9 @@ class ChannelsController < ApplicationController
     authorize @channel
     @entity = @channel.entity
     @channel.destroy
-    flash[:notice] = "Channel was successfully destroyed."
+    flash[:success] = "#{@channel.name} #{@channel.type_name.downcase} channel was successfully deleted."
     respond_with @channel do |format|
-      format.html { redirect_to @entity }
+      format.html { redirect_or_respond_with @channel }
       format.js { }
     end
   end

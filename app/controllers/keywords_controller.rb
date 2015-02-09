@@ -38,6 +38,7 @@ class KeywordsController < ApplicationController
 
   def update
     if @keyword.update keyword_params
+      flash[:success] = "The #{@keyword.name} keyword has been updated."
       respond_with @keyword
     else
       respond_with @keyword do |format|
@@ -48,7 +49,7 @@ class KeywordsController < ApplicationController
 
   def destroy
     @keyword.destroy
-    flash[:success] = "Keyword was successfully deleted."
+    flash[:success] = "The #{@keyword.name} keyword was successfully deleted."
     respond_with @keyword
   end
 
