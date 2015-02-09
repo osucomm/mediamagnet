@@ -21,7 +21,7 @@ class Mapping < ActiveRecord::Base
     end
     def help_text
       <<-EOT
-        Mappings allow you to translate hastags, categories and tags from your 
+        Mappings allow you to translate hashtags, categories and tags from your 
         site into Media Magnet keywords. Mappings may be applied to channels, or 
         to their entities, which will provide a default map for all channels in 
         that entity.
