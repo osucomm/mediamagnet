@@ -14,12 +14,15 @@ class Entity < ActiveRecord::Base
   has_many :children, class_name: "Entity", foreign_key: "parent_id"
 
   # Validations
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   # Scopes
   default_scope -> {
     order('name ASC')
   }
+
+  scope :approved, -> { where(approved: true) }
+  scope :not_approved, -> { where(approved: false) }
 
   accepts_nested_attributes_for :contact
 

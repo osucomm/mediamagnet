@@ -1,10 +1,10 @@
 class DelayedJobPolicy < Struct.new(:user, :delayed_job)
 
   def index?
-    user.admin?
+    user.is_admin?
   end
   def destroy?
-    user.admin?
+    user.is_admin?
   end
 
 

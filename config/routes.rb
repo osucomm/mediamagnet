@@ -1,23 +1,18 @@
 Rails.application.routes.draw do
 
-
-
-  get 'categories/index'
-
-  namespace :admin do
-  get 'delayed_jobs/index'
-  end
-
-  devise_for :users, :skip => [:registrations], :controllers => { :omniauth_callbacks => "omniauth_callbacks" }
-  as :user do
-    get 'user/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'
-    put 'user' => 'devise/registrations#update', :as => 'user_registration'
-  end
-
   get 'dashboard' => 'dashboard#show', as: :dashboard
-  get 'users/auth/google/choose' => 'google#choose'
-  get 'users/auth/google_oauth2/callback' => 'google#callback'
-  get 'users/auth/facebook/callback' => 'tokens#create'
+
+  # OAuth
+  get 'auth/google/choose' => 'google#choose'
+  get 'auth/google_oauth2/callback' => 'google#callback'
+  get 'auth/facebook/callback' => 'tokens#create'
+
+  # Omniauth and sessions
+  get 'auth/failure', to: 'sessions#failure'
+  get 'auth/:provider', to: lambda{|env| [404, {}, ["Not Found"]]}, as: 'auth'
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  delete 'logout', to: 'sessions#destroy', as: 'logout'
+
 
   resources 'tokens', only: [:index, :destroy]
   resources :keywords
@@ -35,6 +30,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:index, :update]
+    resources :entities, only: [:index, :update]
     resources :delayed_jobs, only: [:index, :destroy]
   end
 

@@ -1,3 +1,7 @@
+<%- if ! @channel.entity.approved %>
+  <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
+<%- end %>
+
 <small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
 <h1 class="channel"><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
 <p class="small">

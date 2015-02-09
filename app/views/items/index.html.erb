@@ -25,7 +25,7 @@
     <h2>Channels</h2>
     <div class="list-group">
       <%= link_to 'All', items_path, class: "list-group-item #{'active' unless @channel}" %>
-      <%- Channel.all.each do |channel| %>
+      <%- Channel.from_approved.all.each do |channel| %>
         <%- if @channel == channel %>
           <span class="list-group-item active"><%= channel.name %></span>
         <%- else %>

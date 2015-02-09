@@ -1,19 +1,19 @@
 class UserPolicy < ApplicationPolicy
 
   def index?
-    user.admin?
+    create?
   end
 
   def show?
-    user.admin?
+    create?
   end
 
   def new?
-    user.admin?
+    create?
   end
 
   def create?
-    new?
+    user.is_admin?
   end
 
   def edit?
@@ -25,6 +25,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin?
+    create?
   end
 end

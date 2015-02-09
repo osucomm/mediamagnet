@@ -1,4 +1,5 @@
 class Channel < ActiveRecord::Base
+  include ApprovedEntityScope
 
   has_one :token, dependent: :destroy
 

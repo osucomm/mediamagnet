@@ -9,7 +9,7 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def create?
-    record.entity.has_user? user
+    record.entity.has_user?(user) || user.is_admin?
   end
 
   def new?

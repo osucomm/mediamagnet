@@ -1,0 +1,36 @@
+<h1><%= title 'Unapproved Entities' %></h1>
+<table class="table table-striped footable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th data-hide="phone,tablet">Descripton</th>
+      <th data-hide="phone">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%- if @entities.each do |entity| %>
+      <tr id="entity-<%= entity.id %>">
+        <td><%= entity.name %></td>
+        <td><%= entity.description %></td>
+        <td>
+          <%- if policy(entity).approve? %>
+            <%= simple_form_for [:admin, entity], :html=> { class: 'inline' } do |f| %>
+              <%= f.hidden_field :approved, value: true %>
+              <%= f.button :submit, 'Approve', class: 'btn-success btn-xs' %>
+            <%- end %>
+          <%- end %>
+          <%- if policy(entity).destroy? %>
+            <%= link_to_delete 'Delete', entity, 'btn btn-danger btn-xs' %>
+          <%- end %>
+        </td>
+      </tr>
+    <%- end.empty? %>
+      <tr>
+        <td colspan="3">There are no entities that require approval</td>
+      </tr>
+    <%- end %>
+  </tbody>
+</table>
+
+<%= paginate @entities %>

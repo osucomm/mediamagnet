@@ -5,14 +5,37 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :disallow_blocked
 
+  helper_method :current_user, :user_signed_in?
+
+
   private
 
   def disallow_blocked
     if current_user && current_user.blocked?
-      flash[:danger] = "You have been logged out because account has been blocked."
-      sign_out(current_user)
-      redirect_to root_path
+      self.current_user = nil
+      redirect_to root_path, danger: "You have been logged out because your account has been blocked."
     end
     return true
+  end
+
+  def authenticate_user!
+    unless user_signed_in?
+      session[:return_to] = request.fullpath
+      redirect_to auth_path(:shibboleth)
+    end
+  end
+
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+
+  def user_signed_in?
+    !!current_user
+  end
+
+  def current_user=(user)
+    @current_user = user
+    session[:user_id] = user.nil? ? nil : user.id
   end
 end

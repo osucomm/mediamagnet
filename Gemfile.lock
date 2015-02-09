@@ -59,7 +59,6 @@ GEM
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
       multi_json (>= 1.0.0)
-    bcrypt (3.1.9)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -126,13 +125,6 @@ GEM
     delayed_job_active_record (4.0.3)
       activerecord (>= 3.0, < 5.0)
       delayed_job (>= 3.0, < 4.1)
-    devise (3.4.1)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      responders
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
     dotenv (1.0.2)
@@ -313,7 +305,6 @@ GEM
       omniauth (~> 1.2)
     omniauth-shibboleth (1.2.0)
       omniauth (>= 1.0.0)
-    orm_adapter (0.5.0)
     parser (2.2.0.2)
       ast (>= 1.1, < 3.0)
     phantomjs (1.9.7.1)
@@ -498,8 +489,6 @@ GEM
       rack
       raindrops (~> 0.7)
     uniform_notifier (1.6.2)
-    warden (1.2.3)
-      rack (>= 1.0)
     websocket-driver (0.5.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.1)
@@ -534,7 +523,6 @@ DEPENDENCIES
   database_cleaner (~> 1.3)
   delayed_job
   delayed_job_active_record
-  devise
   dotenv-rails
   factory_girl_rails
   faker
@@ -573,6 +561,7 @@ DEPENDENCIES
   railroady!
   rails (= 4.2.0)
   redcarpet
+  responders
   rspec (~> 3.0.0)
   rspec-given
   rspec-rails (~> 3.0.0)
