@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def redirect_or_respond_with(model)
     if flash[:action_redirect]
-      respond_with model, location: flash[:action_redirect]
+      redirect_to flash[:action_redirect]
     else
       respond_with model
     end
@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
 
   def after_action_redirect_to(location)
     flash[:action_redirect] = location
+  end
+
+  def preserve_action_redirect!
+    flash.keep :action_redirect
   end
 
 

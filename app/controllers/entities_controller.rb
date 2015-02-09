@@ -13,6 +13,7 @@ class EntitiesController < ApplicationController
 
   def show
     current_user.update_attributes(current_entity: @entity) if current_user
+    after_action_redirect_to entity_path(@entity)
     respond_with @entity
   end
 
@@ -45,6 +46,7 @@ class EntitiesController < ApplicationController
 
   def update
     if @entity.update entity_params
+      flash[:success] = "#{@entity.name} has been updated."
       respond_with @entity
     else
       respond_with @entity do |format|
