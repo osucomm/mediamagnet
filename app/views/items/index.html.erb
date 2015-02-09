@@ -29,7 +29,7 @@
         <%- if @channel == channel %>
           <span class="list-group-item active"><%= channel.name %></span>
         <%- else %>
-          <%= link_to channel.name, channel_items_path(channel), class: 'list-group-item' %>
+          <%= link_to_channel(channel, class: 'list-group-item') %>
         <%- end %>
       <%- end %>
     </div>
