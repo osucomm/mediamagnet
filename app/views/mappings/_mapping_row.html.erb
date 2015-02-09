@@ -1,6 +1,6 @@
 <tr id="mapping-<%= mapping.id %>">
   <td><%= mapping.tag.name %></td>
-  <td><%= bootstrap_label(mapping.keyword.name) %></td>
+  <td><%= keyword_labels(mapping.keyword) %></td>
   <td>
     <%- if (defined? mappable) && mapping.mappable == mappable %>
       <%= link_to 'Destroy', mapping, method: :delete, data: { remote: true } %>
