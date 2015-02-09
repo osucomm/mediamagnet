@@ -5,7 +5,7 @@ class Admin::EntitiesController < Admin::BaseController
   def index
     @entities = Entity.not_approved.page(params[:page])
     authorize @entities, :approve?
-    flash[:action_redirect] = admin_entities_path
+    after_action_redirect_to admin_entities_path
   end
 
   def update

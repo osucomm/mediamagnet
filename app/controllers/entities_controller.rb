@@ -56,12 +56,7 @@ class EntitiesController < ApplicationController
   def destroy
     @entity.destroy
     flash[:success] = "#{@entity.name} has been deleted."
-
-    if flash[:action_redirect]
-      respond_with @entity, location: flash[:action_redirect]
-    else
-      respond_with @entity
-    end
+    redirect_or_respond_with @entity
   end
 
   private

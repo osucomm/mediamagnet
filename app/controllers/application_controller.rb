@@ -10,6 +10,19 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def redirect_or_respond_with(model)
+    if flash[:action_redirect]
+      respond_with model, location: flash[:action_redirect]
+    else
+      respond_with model
+    end
+  end
+
+  def after_action_redirect_to(location)
+    flash[:action_redirect] = location
+  end
+
+
   def disallow_blocked
     if current_user && current_user.blocked?
       self.current_user = nil
