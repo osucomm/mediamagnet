@@ -54,6 +54,12 @@ module ApplicationHelper
     content_tag(:span, text, class: "label label-#{type}")
   end
 
+  def bootstrap_label_with_tooltip(text, options={type: 'primary', title: ''})
+    content_tag(:span, text, class: "label label-#{options[:type]}",
+                data: { toggle: 'tooltip', placement: 'bottom'},
+                title: options[:title])
+  end
+
   def current_user_has_entities?
     current_user && current_user.entities.any?
   end

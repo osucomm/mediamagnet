@@ -17,7 +17,8 @@ module KeywordsHelper
 
   def keyword_labels(keywords)
     Array(keywords).map do |keyword|
-      bootstrap_label_with_tooltip(keyword.name, type: :primary, title: keyword.description)
+      link = link_to keyword.name, keyword
+      bootstrap_label_with_tooltip(link, type: :primary, title: keyword.description)
     end.join(' ').html_safe
   end
 
