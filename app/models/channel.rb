@@ -115,9 +115,11 @@ class Channel < ActiveRecord::Base
 
   def remove_keyword(keyword)
     keywordings.where(keyword_id: keyword.id).destroy_all
-    items.each do |item|
-      item.remove_keyword(keyword)
-    end
+    remove_keyword_from_items(keyword)
+  end
+
+  def service_identifier_is_valid?
+    !service_account.nil?
   end
 
   private
