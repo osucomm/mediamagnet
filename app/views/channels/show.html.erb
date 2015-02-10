@@ -9,31 +9,28 @@
     <div class="col-sm-6">
       <p class="small">
 
-        A <strong><%= @channel.type_name.downcase %></strong> channel owned by <%= link_to @channel.entity.name, @channel.entity %>.
+      A <strong><%= @channel.type_name.downcase %></strong> channel owned by <%= link_to @channel.entity.name, @channel.entity %>.<br>
         <%- if @channel.instance_of? WebChannel %>
-          <li>Home: <%= link_to @channel.url, @channel.url %></li>
+          Home: <%= link_to @channel.url, @channel.url %><br>
         <%- end %>
       </p>
       <p><em><%= @channel.description %></em></p>
     </div>
     <div class="col-sm-6">
-      <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
+      <%- if @channel.display_contact %>
+        <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
+      <%- end %>
     </div>
   </div>
 </div>
 
-
-<%= render 'shared/recent_items', itemable: @channel %>
-
-<%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
-<hr>
-
-<div class="">
-  <%= render 'mappings/mappings', mappable: @channel %>
-</div>
-
-<div class="">
-  <%- if @channel.display_contact %>
-    <h2>Contact</h2>
-  <%- end %>
+<div class="container channel">
+  <div class="col-sm-8">
+    <%= render 'shared/recent_items', itemable: @channel %>
+  </div>
+  <div class="col-sm-4">
+    <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
+    <hr>
+    <%= render 'mappings/mappings', mappable: @channel %>
+  </div>
 </div>
