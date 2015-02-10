@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :keywords
   resources :links
   resources :categories, only: [:index]
+  resources :keywordings, only: [:new, :create, :destroy]
 
   #reports
   get 'reports/keyword_usage'
