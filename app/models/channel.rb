@@ -119,7 +119,7 @@ class Channel < ActiveRecord::Base
   end
 
   def service_identifier_is_valid?
-    !service_account.nil?
+    !service_identifier.nil? && !service_account.nil?
   end
 
   private
