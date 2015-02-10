@@ -13,10 +13,6 @@
     <%= f.input :url, label: 'Home page' %>
   <%- end %>
   <%= f.input :primary %>
-  <%= render partial: 'keywords/tag_field', locals: {f: f} %>
-  <div class="well well-lg">
-    Entity Keywords: <%= keyword_labels(@channel.entity.keywords) %>
-  </div>
 
   <p>
   <%= link_to 'Override Contact Info', '#', id: 'add-contact', 

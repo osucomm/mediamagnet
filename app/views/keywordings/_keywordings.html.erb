@@ -1,0 +1,17 @@
+<h2>Keywords <small><%= help_icon_for('Keyword') %></small>
+  <%- if policy(keywordable).update? %>
+    <%= add_button new_keywording_path(keywordable_id: keywordable.id, keywordable_type: keywordable_type), remote: true %></h2>
+  <%- end %>
+</h2>
+<p class="keywordings">
+  <%- if keywordable.keywords.any? %> 
+    <%- keywordable.keywordings.each do |keywording| %>
+      <%= render 'keywordings/keywording', keywording: keywording %>
+    <%- end %>
+
+  <%- else %>
+    This <%= keywordable.class %> has no keywords. Consider adding keywords which
+    apply to all content for this <%= keywordable.class %>.
+  <%- end %>
+</p>
+<div id="add-keywording"></div>

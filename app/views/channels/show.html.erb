@@ -4,44 +4,29 @@
 
 <small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
 <h1 class="channel"><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
-<p class="small">
+<div class="well well-sm">
+  <div class="container">
+    <div class="col-sm-6">
+      <p class="small">
 
-  A <strong><%= @channel.type_name.downcase %></strong> channel owned by <%= link_to @channel.entity.name, @channel.entity %>.
-  <%- if @channel.instance_of? WebChannel %>
-    <li>Home: <%= link_to @channel.url, @channel.url %></li>
-  <%- end %>
-</p>
-<p><em><%= @channel.description %></em></p>
-
-<h2>
-  Latest Content
-  <%- if @channel.item_count > 3 %>
-    | <small><%= link_to 'View all content', channel_items_path(channel_id: @channel.id) %> (<%= @channel.item_count %> items)</small>
-  <%- end %>
-</h2>
-<table class="table table-bordered">
-  <tr>
-    <th>Date</th>
-    <th>Title</th>
-    <th>Summary</th>
-  </tr>
-  <%- @channel.items.take(4).each do |item| %>
-    <tr>
-      <td><nobr><%= time_or_dash(item.published_at, :med) %></td>
-      <td><%= link_to item, item %></td>
-      <td><%= item.description %></td>
-  <%- end %>
-</table>
-
-<h2>Keywords <small><%= help_icon_for('Keyword') %></small></h2>
-
-<div>
-<%- if @channel.keywords.any? %>
-  <%= keyword_labels(@channel.keywords) %>
-<%- else %>
-  There are no keywords associated with this channel.
-<%- end %>
+        A <strong><%= @channel.type_name.downcase %></strong> channel owned by <%= link_to @channel.entity.name, @channel.entity %>.
+        <%- if @channel.instance_of? WebChannel %>
+          <li>Home: <%= link_to @channel.url, @channel.url %></li>
+        <%- end %>
+      </p>
+      <p><em><%= @channel.description %></em></p>
+    </div>
+    <div class="col-sm-6">
+      <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
+    </div>
+  </div>
 </div>
+
+
+<%= render 'shared/recent_items', itemable: @channel %>
+
+<%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
+<hr>
 
 <div class="">
   <%= render 'mappings/mappings', mappable: @channel %>
@@ -50,6 +35,5 @@
 <div class="">
   <%- if @channel.display_contact %>
     <h2>Contact</h2>
-    <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
   <%- end %>
 </div>

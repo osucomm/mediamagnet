@@ -1,0 +1,1 @@
+$('#keywording-'+<%= @keywording.id %>).fadeOut()
