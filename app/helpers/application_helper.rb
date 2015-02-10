@@ -60,6 +60,16 @@ module ApplicationHelper
                 title: options[:title])
   end
 
+  def add_button(link, options={}) 
+    link_to (fa_icon('plus', data: {toggle: 'tooltip', placement: 'top'}, title: 'Add')
+            ), link, options.merge({class: 'btn btn-primary btn-xs action-button'})
+  end
+
+  def edit_button(link, options={}) 
+    link_to (fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit')
+            ), link, options.merge({class: 'btn btn-primary btn-xs action-button'})
+  end
+
   def current_user_has_entities?
     current_user && current_user.entities.any?
   end
