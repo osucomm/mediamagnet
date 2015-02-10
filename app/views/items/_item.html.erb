@@ -1,12 +1,14 @@
-<%- if item.assets.any? %>
-  <%= link_to (render item.assets.first), item, class: "media-left pull-right thumbnail col-sm-2" %>
-<%- end %>
-
-<div class="media-body">
-  <h4 class="media-heading"><%= link_to item, item %></h4>
-  <p>
-    <%= truncate(strip_tags(item.description.html_safe).html_safe, length: 150) %>
-  </p>
-  <%= link_to_channel(item.channel) %>
+<div class="media item-preview">
+  <%- if item.assets.any? %>
+    <div class="media-left">
+      <%= link_to (render item.assets.first), item %>
+    </div>
+  <%- end %>
+  <div class="media-body">
+    <h4 class="media-heading"><%= link_to item, item %></h4>
+    <%- if item.to_s != short_description(item) %>
+      <p><%= short_description(item) %></p>
+    <%- end %>
+    <small><span class="attribution"><%= link_to_channel(item.channel) %> on </span><%= time_or_dash(item.published_at, :pretty_long) %></small>
 </div>
 
