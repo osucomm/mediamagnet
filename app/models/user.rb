@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   end
 
 
-  def self.create_from_omniauth(info)
+  def self.create_with_omniauth(info)
     create(name: info['name'], email: info['email'])
   end
 

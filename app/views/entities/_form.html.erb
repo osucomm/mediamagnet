@@ -8,8 +8,9 @@
   <%= f.input :link %>
   <%= f.association :users,
     include_blank: true,
+    label: 'Members',
     label_method: :display_name,
-    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add users..." } %>
+    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add members..." } %>
   <%= render partial: 'keywords/tag_field', locals: {f: f} %>
   <%- if policy(@entity).approve? %>
     <%= f.input :approved %>

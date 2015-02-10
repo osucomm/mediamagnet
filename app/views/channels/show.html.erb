@@ -6,7 +6,7 @@
 <h1 class="channel"><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
 <p class="small">
 
-  A <strong><%= @channel.type_name.downcase %></strong> owned by <%= link_to @channel.entity.name, @channel.entity %>.
+  A <strong><%= @channel.type_name.downcase %></strong> channel owned by <%= link_to @channel.entity.name, @channel.entity %>.
   <%- if @channel.instance_of? WebChannel %>
     <li>Home: <%= link_to @channel.url, @channel.url %></li>
   <%- end %>
@@ -33,11 +33,21 @@
   <%- end %>
 </table>
 
-<div class="col-sm-12">
+<h2>Keywords <small><%= help_icon_for('Keyword') %></small></h2>
+
+<div>
+<%- if @channel.keywords.any? %>
+  <%= keyword_labels(@channel.keywords) %>
+<%- else %>
+  There are no keywords associated with this channel.
+<%- end %>
+</div>
+
+<div class="">
   <%= render 'mappings/mappings', mappable: @channel %>
 </div>
 
-<div class="col-xs-12">
+<div class="">
   <%- if @channel.display_contact %>
     <h2>Contact</h2>
     <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>

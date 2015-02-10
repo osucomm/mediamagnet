@@ -27,7 +27,7 @@
 </div>
 <div class="col-sm-4">
   <%- if current_user %>
-    <h2>Users</h2>
+    <h2>Members</h2>
     <ul class="list-group">
       <%- @entity.users.each do |user| %>
         <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: 'list-group-item' %></li>
