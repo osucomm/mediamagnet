@@ -6,7 +6,6 @@
   <%= f.input :name %>
   <%= f.input :description %>
   <%= f.input :link %>
-
   <%- if policy(@entity).approve? %>
     <%= f.input :approved %>
   <%- end %>
