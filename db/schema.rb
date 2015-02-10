@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206032807) do
+ActiveRecord::Schema.define(version: 20150210041013) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "item_id",                null: false
@@ -28,9 +28,9 @@ ActiveRecord::Schema.define(version: 20150206032807) do
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.boolean  "template"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.boolean  "template",    default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "channels", force: :cascade do |t|
@@ -205,18 +205,6 @@ ActiveRecord::Schema.define(version: 20150206032807) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "manifests", force: :cascade do |t|
-    t.integer  "entity_id",                 null: false
-    t.string   "url",           limit: 255, null: false
-    t.text     "last_response"
-    t.datetime "succeded_at"
-    t.datetime "fetched_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "manifests", ["entity_id"], name: "index_manifests_on_entity_id"
 
   create_table "mappings", force: :cascade do |t|
     t.integer  "mappable_id",               null: false
