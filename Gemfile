@@ -40,11 +40,12 @@ gem 'chosen-rails'
 gem 'chosen-sass-bootstrap-rails'
 gem 'redcarpet'
 
+#API
+gem 'versionist'
+gem 'rabl'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use unicorn as the app server
-gem 'unicorn'
 
 # Channel Clients
 gem 'feedjira'
