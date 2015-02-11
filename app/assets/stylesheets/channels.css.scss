@@ -16,13 +16,18 @@ ul.channel-list {
 
 
 /* v2 */
+.jumbotron {
+margin-bottom: 10px;
+}
+
 
 
 .jumbotron.jumbotron-twitter {
     background-color: #55acee;
     padding: 12px;
+    margin-top: -20px;
 }
-.jumbotron-twitter h1 {
+.jumbotron.jumbotron-twitter h1 {
     color: #fff;
     font-size: 3em;
 }
@@ -86,3 +91,8 @@ table .table-content hr {
     font-size: 20px;
 }
 
+
+.jumbotron h1, .jumbotron-twitter h1 {
+  color: #fff;
+  font-size: 3em;
+}

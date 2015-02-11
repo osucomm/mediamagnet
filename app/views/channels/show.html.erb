@@ -1,7 +1,3 @@
-<%- if ! @channel.entity.approved %>
-  <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
-<%- end %>
-
 <!--channel header-->
 <div class="jumbotron jumbotron-<%= @channel.type_name.downcase %>">
 	<div class="container">
@@ -16,7 +12,7 @@
 			<div class="col-md-4 col-md-offset-0">
 				<p class="small channel-desc">			
 				"<strong><%= link_to @channel.name, @channel.url %></strong>" 
-				is a <strong><%= link_to @channel.type.name.capitalize, @channel.type.url %> channel</strong> 
+				is a <strong><a href=""><%= @channel.type_name.capitalize %> channel</a></strong> 
 				managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
 			</p>
 			</div>
@@ -29,6 +25,9 @@
 
 <!--channel content-->
 <div id="page-content" class="container">
+	<%- if ! @channel.entity.approved %>
+	  <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
+	<%- end %>
     <div class="messages"><%= render 'shared/flash' %></div>
 	<div class="row ">
   		<div class="col-md-4">
@@ -63,20 +62,23 @@
 					<%= link_to item, item %>
 					<hr/>
 					<p class="small text-rightx">
-						Replies: <mark>item.replies???</mark> | Retweets: <mark>item.retweets???</mark> | <a href="<%= link_to @item.link.to_s %>">View on Twitter</a>
+						Replies: <mark>item.replies???</mark> | Retweets: <mark>item.retweets???</mark> | <a href="link_to @item.link.to_s">View on Twitter</a>
 					</p>
 			  </td>
 			  <td>
-				<%- if @item.assets.present? %>
-					<%- @item.assets.each do |asset| %>
+				<%- if item.assets.present? %>
+					<%- item.assets.each do |asset| %>
 						<%= render_asset(asset) %>
 					<%- end %>
 				<%- end %>
 			  </td>
+			</tr>
+		<%- end %>
 		</tbody>
 	</table>	
+	
+	
 	<h2>Keywords <small><%= help_icon_for('Keyword') %></small></h2>
-
 	<div>
 		<%- if @channel.keywords.any? %>
 		  <%= keyword_labels(@channel.keywords) %>
