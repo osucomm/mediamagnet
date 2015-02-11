@@ -34,16 +34,41 @@ class Item < ActiveRecord::Base
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
+  scope :by_tags, -> tag_ids { joins(:taggings).where('taggings.tag_id' => tag_ids) }
   scope :by_keywords, -> keyword_ids { joins(:keywordings).where('keywordings.keyword_id' => keyword_ids) }
   scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
   scope :before, -> (datetime) { where('published_at < ?', datetime) }
   scope :after, -> (datetime) { where('published_at > ?', datetime) }
 
+
   class << self 
     def keywords
       all.map(&:keywords).flatten.uniq
     end
+
+    def tagged_with(search_tags, op = :or)
+      keywords = []
+      tags = []
+      op = :and unless op == :or
+
+      search_tags.each do |search_tag|
+        search_tag.downcase!
+        if k = Keyword.find_by_name(search_tag)
+          keywords << k
+        else
+          if t = Tag.find_by_name(search_tag)
+            tags << t
+          end
+        end
+      end
+
+      Item.eager_load(:taggings, :keywordings).where(
+        Tagging.arel_table[:tag_id].in(tags)
+        .send( op, Keywording.arel_table[:keyword_id].in(keywords) )
+      )
+    end
   end
+
 
   def to_s
     [:title, :description, :guid].each do |field|
