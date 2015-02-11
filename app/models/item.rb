@@ -34,6 +34,7 @@ class Item < ActiveRecord::Base
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
+  scope :by_entities, -> entity_ids { includes(:channel).where(channels: { entity_id: entity_ids }) }
   scope :by_keywords, -> keyword_ids { joins(:keywordings).where('keywordings.keyword_id' => keyword_ids) }
   scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
   scope :before, -> (datetime) { where('published_at < ?', datetime) }

@@ -1,17 +1,17 @@
-<ul>
+<address>
   <%- if contact.name.present? %>
-    <li>Name: <%= contact.name %></li>
+    <strong><%= contact.name %></strong><br>
   <%- end %>
   <%- if contact.organization.present? %>
-    <li>Organization: <%= contact.organization %></li>
-  <%- end %>
-  <%- if contact.url.present? %>
-    <li>Website: <%= link_to contact.url, contact.url %></li>
+    <%= contact.organization %></br>
   <%- end %>
   <%- if contact.phone.present? %>
-    <li>Phone: <%= contact.phone %></li>
+    <%= contact.phone %> |
   <%- end %>
   <%- if contact.email.present? %>
-    <li>Email: <%= mail_to contact.email %></li>
+    <%= mail_to contact.email %> |
   <%- end %>
-</ul>
+  <%- if contact.url.present? %>
+   <%= link_to contact.url, contact.url %>
+  <%- end %>
+</address>

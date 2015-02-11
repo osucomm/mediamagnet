@@ -1,7 +1,7 @@
 require 'net/http'
 
 namespace :keywords do
-  desc 'Retrieve items from stale channels'
+  desc 'Load keywords from UCOM website'
   task import_from_ucom: :environment do
 
     response = Net::HTTP.get_response("ucom.osu.edu","/media-magnet/mm-tags.js")
@@ -13,7 +13,10 @@ namespace :keywords do
                         display_name: keyword['display_name'],
                         description: keyword['description']).first_or_initialize
       if k.new_record?
-        k.category = keyword['category']
+        unless keyword['category'].blank?
+          k.category = Category.where(name: keyword['category']).first_or_create
+        end
+
         k.save
         puts "Created new keyword #{keyword['name']}"
       end

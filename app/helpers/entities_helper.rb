@@ -4,8 +4,7 @@ module EntitiesHelper
     links = []
 
     if actions.include?(:update) && policy(entity).update?
-      links << (link_to fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit'),
-        edit_entity_path(entity), class: 'btn btn-primary btn-xs action-button')
+      links << edit_button(edit_entity_path(entity))
     end
 
     if actions.include?(:destroy) && policy(entity).destroy?
