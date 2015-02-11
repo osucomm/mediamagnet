@@ -13,7 +13,7 @@ class EntityPolicy < ApplicationPolicy
   end
  
   def update?
-    record.has_user?(user) || user.is_admin?
+    user && record.has_user?(user) || user.is_admin?
   end
 
   def join?

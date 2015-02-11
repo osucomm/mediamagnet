@@ -6,6 +6,7 @@
       <li class="clearfix media"><%= render item %></li>
     <%- end %>
     </ul>
+  <%= paginate @items %>
   </div>
   <div class="col-sm-3">
     <h2>Keywords</h2>
@@ -35,5 +36,3 @@
     </div>
   </div>
 </div>
-
-<%= paginate @items %>

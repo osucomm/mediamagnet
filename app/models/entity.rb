@@ -54,4 +54,8 @@ class Entity < ActiveRecord::Base
     end
   end
 
+  def item_count
+    items.count
+  end
+
 end

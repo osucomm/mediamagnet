@@ -40,7 +40,7 @@ class EventChannel < Channel
 
   def service_identifier_validator
     unless service_identifier_is_valid?
-      errors.add :service_identifier, " must be a valid #{service_id_name.downcase}. <a href=\"http://validator.w3.org/feed/check.cgi?url=#{CGI.escape service_identifier}\">Click here to troubleshoot this feed</a>"
+      errors.add :service_identifier, " must be a valid #{service_id_name.downcase}. <a href=\"http://validator.w3.org/feed/check.cgi?url=#{CGI.escape service_identifier}\">Click here to troubleshoot this feed</a>".html_safe
     end
   end
 
@@ -51,10 +51,10 @@ class EventChannel < Channel
   end
 
   def service_account
-    if client.class == Fixnum
+    if client.class == Fixnum || client.class == Hash
       return nil
     end
-      return client
+    return client
   end
 
   def get_info

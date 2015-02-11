@@ -1,0 +1,12 @@
+<%= simple_form_for @keywording,
+  html: { class: 'form-horizontal' }, as: :keywording, data: { remote: true } do |f| %>
+  <%= f.input :keywordable_id, as: :hidden  %>
+  <%= f.input :keywordable_type, as: :hidden  %>
+  <%= f.association :keyword,
+    label_method: :display_name,
+    collection: Keyword.all - @keywording.keywordable.keywords,
+    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
+  <%= f.button :submit, 'Add Keyword' %>
+  </div>
+
+<%- end %>

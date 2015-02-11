@@ -2,30 +2,54 @@
   <%= render 'shared/message', flash_type: :alert, no_close: true, message: 'This entity has been registered but not approved. Content from this entity will not appear in feeds.' %>
 <%- end %>
 
-<h1><%= title @entity.name %> <%= entity_action_links @entity, [:update] %></h1>
-<p><%= @entity.description %></p>
 
-<div class="col-sm-4">
-  <h2>Channels <small><%= help_icon_for('Channel') %></small></h2>
+<h1><%= title @entity.name %> <%= entity_action_links @entity, [:update] %></h1>
+<div class="well well-sm">
+  <div class="container">
+    <div class="col-sm-6">
+      <p><%= @entity.description %></p>
+    </div>
+    <div class="col-sm-6">
+      <%- if @entity.contact %>
+        <%= render partial: "contacts/contact", locals: { contact: @entity.contact } %>
+      <%- end %>
+    </div>
+  </div>
+</div>
+
+<div class="col-sm-8">
+  <%= render 'shared/recent_items', itemable: @entity %>
+
+  <h2>Channels <small><%= help_icon_for('Channel') %></small>
+    <%- if policy(@entity).update? %>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary btn-xs action-button dropdown-toggle" data-toggle="dropdown">
+          <%= fa_icon(:plus) %> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <%- Channel::TYPES.each do |type| %>
+            <li><%= link_to type.type_name.titleize, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
+          <%- end %>
+        </ul>
+      </div>
+    <%- end %>
+  </h2>
   <div class="list-group">
     <%- @entity.channels.each do |channel| %>
       <%= link_to_channel(channel, class: 'list-group-item') %>
     <%- end %>
   </div>
-  <%- if @entity.has_user? current_user %>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        Register new channel <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <%- Channel::TYPES.each do |type| %>
-          <li><%= link_to type.type_name.titleize, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
-        <%- end %>
-      </ul>
-    </div>
-  <%- end %>
 </div>
 <div class="col-sm-4">
+  <%= render 'keywordings/keywordings', keywordable: @entity, keywordable_type: 'Entity' %>
+  <div id="add-keywording"></div>
+  <hr>
+
+  <%- if current_user %>
+    <%= render 'mappings/mappings', mappable: @entity %>
+    <hr>
+  <%- end %>
+
   <%- if current_user %>
     <h2>Members</h2>
     <ul class="list-group">
@@ -33,18 +57,8 @@
         <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: 'list-group-item' %></li>
       <%- end %>
     </ul>
+    <%= render 'entities/user_form', entity: @entity %>
   <%- end %>
 
-  <%- if @entity.contact %>
-    <h2>Contact</h2>
-    <%= render partial: "contacts/contact", locals: { contact: @entity.contact } %>
-  <%- end %>
-</div>
-<div class="col-sm-4">
-  <h2>Keywords <small><%= help_icon_for('Keyword') %></small></h2>
-  <p><%= keyword_labels(@entity.keywords) %></p>
 
-  <%- if current_user %>
-    <%= render 'mappings/mappings', mappable: @entity %>
-  <%- end %>
 </div>

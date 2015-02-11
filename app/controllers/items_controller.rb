@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
   before_action :normalize_params
 
   has_scope :by_channels, as: :channel_id
+  has_scope :by_entities, as: :entity_id
   has_scope :by_keywords, as: :keyword_id
 
   def index
