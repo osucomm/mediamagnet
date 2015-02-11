@@ -51,6 +51,18 @@ Rails.application.routes.draw do
   end
 
 
+  #API
+  namespace :api do
+    api_version(:module => "v1",
+      :header => {:name => "Accept", :value => "application/vnd.mediamagnet; version=1"},
+      :path => {:value => "v1"},
+      :default => true) do
+
+      resources :items, only: [:index, :show]
+    end
+  end
+
+
   # Help
   get 'help'                  => 'help#index', as: :help
   get 'help/:category'        => 'help#category',  as: :help_category
