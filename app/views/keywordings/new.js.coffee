@@ -1,1 +1,2 @@
-$('#add-keywording').append("<%= j render(:partial => 'keywordings/form', mapping: @keywording) %>")
+$('#add-keywording').append("<%= j render(:partial => 'keywordings/form', keywording: @keywording) %>")
+$('select').chosen()

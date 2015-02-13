@@ -1,0 +1,11 @@
+<%= simple_form_for @membership_form, url: memberships_path,
+  html: { class: 'form-horizontal' }, as: :membership_form, data: { remote: true } do |f| %>
+  <%= f.input :entity_id, as: :hidden  %>
+  <%= f.input :user_id,
+    label_method: :name,
+    collection: User.all - @membership_form.entity.users,
+    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
+  <%= f.button :submit, 'Add User' %>
+  </div>
+
+<%- end %>

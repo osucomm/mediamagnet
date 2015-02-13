@@ -51,13 +51,17 @@
   <%- end %>
 
   <%- if current_user %>
-    <h2>Members</h2>
-    <ul class="list-group">
+    <h2>Members
+      <%- if policy(@entity).update? %>
+        <%= add_button new_membership_path(entity_id: @entity.id), remote: true %></h2>
+      <%- end %>
+    </h2>
+    <ul class="list-group memberships">
       <%- @entity.users.each do |user| %>
-        <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: 'list-group-item' %></li>
+        <%= render 'memberships/membership', user: user, entity: @entity %>
       <%- end %>
     </ul>
-    <%= render 'entities/user_form', entity: @entity %>
+    <div id="add-membership"></div>
   <%- end %>
 
 

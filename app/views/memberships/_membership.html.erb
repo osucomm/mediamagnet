@@ -1,0 +1,6 @@
+<div id="<%= "member-#{user.id}" %>">
+  <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: '' %>
+  <%- unless user == current_user %>
+    <%= link_to fa_icon(:remove), membership_path(entity_id: entity.id, user_id: user.id), method: :delete, remote: true %>
+  <%- end %>
+</div>
