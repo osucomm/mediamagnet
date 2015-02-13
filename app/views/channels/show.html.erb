@@ -1,36 +1,70 @@
-<%- if ! @channel.entity.approved %>
-  <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
-<%- end %>
-
-<small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
-<h1 class="channel"><%= title @channel.name %> <%= channel_action_links @channel, [:update] %></h1>
-<div class="well well-sm">
-  <div class="container">
-    <div class="col-sm-6">
-      <p class="small">
-
-      A <strong><%= @channel.type_name.downcase %></strong> channel owned by <%= link_to @channel.entity.name, @channel.entity %>.<br>
-        <%- if @channel.instance_of? WebChannel %>
-          Home: <%= link_to @channel.url, @channel.url %><br>
-        <%- end %>
-      </p>
-      <p><em><%= @channel.description %></em></p>
-    </div>
-    <div class="col-sm-6">
-      <%- if @channel.display_contact %>
-        <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
-      <%- end %>
-    </div>
-  </div>
+<!--channel header-->
+<div class="jumbotron jumbotron-<%= @channel.type_name.downcase %>">
+	<div class="container">
+		<div class="row">
+  			<div class="col-md-8">        
+  				<h1>
+  					<img class="channel-type-icon" style="width: 40px;" src="http://newmedia.osu.edu/projects/media-magnet/site/img/<%= @channel.type_name.downcase %>-box.png">
+  					<img src="https://pbs.twimg.com/profile_images/3433597373/0a80bbe598692a73112d6df2ddca6fa9_400x400.png" style="width: 40px;">
+  					<%= title @channel.name %> <%= channel_action_links @channel, [:update] %>
+        		</h1>
+          </div>
+			<div class="col-md-4 col-md-offset-0">
+				<p class="small channel-desc">			
+				"<strong><%= link_to @channel.name, @channel.url %></strong>" 
+				is a <strong><a href=""><%= @channel.type_name.capitalize %> channel</a></strong><br/>
+				managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
+			</p>
+			</div>
+			<p class="col-md-8 channel-profile-desc-twitter">
+				<%= @channel.description %>
+			</p>      
+    	</div>
+	</div>
 </div>
 
-<div class="container channel">
-  <div class="col-sm-8">
-    <%= render 'shared/recent_items', itemable: @channel %>
-  </div>
-  <div class="col-sm-4">
-    <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
-    <hr>
-    <%= render 'mappings/mappings', mappable: @channel %>
-  </div>
+<!--channel content-->
+<div id="page-content" class="container">
+	<%- if ! @channel.entity.approved %>
+	  <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
+	<%- end %>
+    <div class="messages"><%= render 'shared/flash' %></div>
+	<div class="row ">
+  		<div class="col-md-4">
+  			<h2 class="content-leadin">Latest Content</h2>
+  			<small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
+		</div>
+    	<div class="col-md-3 col-md-offset-5">
+			  <%- if @channel.item_count > 3 %>
+				<p class="content-list-controls">
+  					<a class="btn btn-default btn-sm" href="<%= channel_items_path(channel_id: @channel.id) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
+				</p>
+  			<%- end %>
+		</div>
+	</div>
+	<%- if @channel.type_name.downcase=="twitter" %>
+	  <%= render 'channels/show.table.twitter.html.erb' %>
+	  <%#= render 'show the API call for this view???' %>
+	<%- end %>	
+	
+	<h2>Keywords <small><%= help_icon_for('Keyword') %></small></h2>
+	<div>
+		<%- if @channel.keywords.any? %>
+		  <%= keyword_labels(@channel.keywords) %>
+		<%- else %>
+		  There are no keywords associated with this channel.
+		<%- end %>
+	</div>
+
+	<div class="">
+	  <%= render 'mappings/mappings', mappable: @channel %>
+	</div>
+
+	<div class="">
+	  <%- if @channel.display_contact %>
+		<h2>Contact</h2>
+		<%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
+	  <%- end %>
+	</div>
 </div>
+<!--end content-->

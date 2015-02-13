@@ -13,3 +13,87 @@ ul.channel-list {
     margin-left: 0;
   }
 }
+
+
+/* v2 */
+
+
+.jumbotron.jumbotron-twitter {
+    background-color: #55acee;
+    padding: 12px;
+    margin-top: -20px;
+    margin-bottom: 10px;
+}
+.jumbotron.jumbotron-twitter h1 {
+    color: #fff;
+    font-size: 3em;
+}
+.small.channel-desc {
+    color: #fff;
+    font-size: 15px;
+    margin-top: 1em;
+    text-align: right;
+}
+.col-md-8.channel-profile-desc {
+    color: darkblue;
+}
+.col-md-8.channel-profile-desc-twitter {
+    color: #23527c;
+}
+.jumbotron-twitter.channel-desc > a {
+    color: #23527c;
+    text-decoration: underline;
+}
+.small.channel-desc a {
+    color: #fff;
+    text-decoration: underline;
+}
+.channel-type-icon {
+    border: 1px solid #ccc;
+}
+.btn.btn-default.btn-sm.btn-view-all {
+    text-align: right;
+}
+.content-list-controls {
+    text-align: right;
+}
+.content-leadin > h2 {
+    margin-top: 0;
+}
+.content-leadin.col-md-4 > h2 {
+    margin-top: 0;
+}
+.content-leadin {
+    margin-bottom: 0;
+    margin-top: 0;
+}
+th {
+    background-color: #dddddd;
+}
+
+table .table-content {
+    margin-top: 1em;
+}
+.table-content {
+    margin-top: 1em;
+}
+td.link-to-service {
+    text-align: right;
+}
+table .table-content hr {
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+}
+.table-content a.item {
+    font-size: 20px;
+}
+
+.table-content img.table-twitter-image {
+max-width: 222px;
+}
+
+
+.jumbotron h1, .jumbotron-twitter h1 {
+  color: #fff;
+  font-size: 3em;
+}

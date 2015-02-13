@@ -7,6 +7,8 @@ class ChannelsController < ApplicationController
 
   respond_to :html, :json, :js
 
+  layout 'application', except: :show
+
   def index
     @channels = channel_type.all.page(params[:page]).
                                       per(params[:per_page])
