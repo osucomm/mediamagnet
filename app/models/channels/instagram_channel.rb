@@ -59,6 +59,7 @@ class InstagramChannel < Channel
       self.name = service_account.full_name
       self.description = service_account.bio
       self.service_identifier_id = service_account.id 
+      self.avatar_url = service_account.profile_picture
     end
   end
 

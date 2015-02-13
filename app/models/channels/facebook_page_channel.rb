@@ -51,6 +51,7 @@ class FacebookPageChannel < Channel
       self.name = service_account['name']
       self.description = service_account['description']
       self.url = service_account['link']
+      self.avatar_url = client.get_picture(service_identifier)
     end
   end
 
