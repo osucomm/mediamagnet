@@ -21,7 +21,6 @@ class MappingsController < ApplicationController
     end
   end
 
-
   def update
   end
 
