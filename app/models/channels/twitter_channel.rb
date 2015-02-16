@@ -29,7 +29,7 @@ class TwitterChannel < Channel
       unless items.where(guid: tweet.id.to_s).exists?
         i = items.build(
           guid: tweet.id,
-          title: tweet.text,
+          title: '',
           link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
           description: tweet.text,
           published_at: tweet.created_at

@@ -1,5 +1,6 @@
 class Item < ActiveRecord::Base
   include ApprovedEntityScope
+  include ElasticsearchSearchable
 
   has_many :events, dependent: :destroy
   has_many :assets, dependent: :destroy
@@ -70,7 +71,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-
   def to_s
     [:title, :description, :guid].each do |field|
       return self.send(field) unless self.send(field).blank?
@@ -92,6 +92,10 @@ class Item < ActiveRecord::Base
 
     reload
     return (new_tags - existing_tags)
+  end
+
+  def tag_names
+    tags.map(&:name) + keywords.map(&:name)
   end
 
   def remove_keyword(keyword)
@@ -123,5 +127,13 @@ class Item < ActiveRecord::Base
   def mapped_keywords
     channel.all_mappings.where(:tag_id => tags.map(&:id)).keywords
   end
+
+  def as_indexed_json
+    self.as_json(only: 
+                 %w(id title link channel_id entity_id description guid published_at),
+                 include: [ :keywords, :links, :events ],
+                 methods: [:tag_names, :html_content])
+  end
+
 
 end

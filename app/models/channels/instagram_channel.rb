@@ -21,8 +21,7 @@ class InstagramChannel < Channel
       unless items.where(guid: media.id.to_s).exists?
         i = items.build(
           guid: media.id,
-          title: (media.caption? ? media.caption.text[0..254] : 
-            "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"),
+          title: '',
           link: Link.where(url: media.link).first,
           description: (media.caption? ? media.caption.text : ''),
           published_at: Time.strptime(media.created_time, '%s')
@@ -35,6 +34,10 @@ class InstagramChannel < Channel
     log_refresh
   end
   handle_asynchronously :refresh_items
+
+  def to_s
+    description || "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"
+  end
 
   private
 
