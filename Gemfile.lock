@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/elasticsearch/elasticsearch-rails.git
+  revision: bd9b2fbe025b6ffcb92085e1d72416a6ef576abd
+  specs:
+    elasticsearch-model (0.1.6)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.6)
+
+GIT
   remote: https://github.com/deivid-rodriguez/pry-byebug
   revision: babf5ecab820017cb9d526acbdcc2b70335034cb
   specs:
@@ -130,6 +140,14 @@ GEM
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
+    elasticsearch (1.0.6)
+      elasticsearch-api (= 1.0.6)
+      elasticsearch-transport (= 1.0.6)
+    elasticsearch-api (1.0.6)
+      multi_json
+    elasticsearch-transport (1.0.6)
+      faraday
+      multi_json
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -525,6 +543,8 @@ DEPENDENCIES
   delayed_job
   delayed_job_active_record
   dotenv-rails
+  elasticsearch-model!
+  elasticsearch-rails!
   factory_girl_rails
   faker
   feedjira
