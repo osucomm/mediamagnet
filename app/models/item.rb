@@ -26,6 +26,8 @@ class Item < ActiveRecord::Base
   delegate :mappings, to: :channel
   delegate :type_name, to: :channel
   delegate :name, :id, to: :channel, prefix: :channel
+  delegate :entity_id, to: :channel
+  delegate :url, to: :link
 
   default_scope -> {
     order('published_at DESC')
@@ -130,9 +132,11 @@ class Item < ActiveRecord::Base
 
   def as_indexed_json
     self.as_json(only: 
-                 %w(id title link channel_id entity_id description guid published_at),
-                 include: [ :keywords, :links, :events ],
-                 methods: [:tag_names, :html_content])
+                 %w(id title channel_id content description guid published_at),
+                 include: { keywords: { only: [ :id, :name, :category_name ] },
+                            links: { only: [:url] },
+                            events: {}  },
+                 methods: [:tag_names, :entity_id, :url])
   end
 
 
