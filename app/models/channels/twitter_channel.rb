@@ -32,6 +32,7 @@ class TwitterChannel < Channel
           title: '',
           link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
           description: tweet.text,
+          content: tweet.text,
           published_at: tweet.created_at
         )
         tweet.media.each do |media|
@@ -44,10 +45,6 @@ class TwitterChannel < Channel
     log_refresh
   end
   handle_asynchronously :refresh_items
-
-  def link_for(item)
-    "https://twitter.com/#{service_identifier}/status/#{item.guid}"
-  end
 
   private
 

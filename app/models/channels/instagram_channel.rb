@@ -22,8 +22,9 @@ class InstagramChannel < Channel
         i = items.build(
           guid: media.id,
           title: '',
-          link: Link.where(url: media.link).first,
           description: (media.caption? ? media.caption.text : ''),
+          content: (media.caption? ? media.caption.text : ''),
+          link: Link.where(url: media.link).first,
           published_at: Time.strptime(media.created_time, '%s')
         )
         i.assets.build(url: media.images.standard_resolution.url)
@@ -37,6 +38,10 @@ class InstagramChannel < Channel
 
   def to_s
     description || "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"
+  end
+
+  def html_content
+    "<img src=\"assets.first.url\">"
   end
 
   private
