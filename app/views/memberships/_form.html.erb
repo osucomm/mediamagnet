@@ -4,7 +4,7 @@
   <%= f.input :user_id,
     label_method: :name,
     collection: User.all - @membership_form.entity.users,
-    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
+    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add users..." } %>
   <%= f.button :submit, 'Add User' %>
   </div>
 
