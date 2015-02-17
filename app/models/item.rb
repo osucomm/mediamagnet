@@ -71,6 +71,18 @@ class Item < ActiveRecord::Base
         .send( op, Keywording.arel_table[:keyword_id].in(keywords) )
       )
     end
+
+
+    private
+
+    def search_facet_fields
+      ['entity_id', 'channel_id', 'tag_names']
+    end
+
+    def search_text_fields
+      ['title', 'description', 'content']
+    end
+
   end
 
   def to_s
@@ -109,6 +121,15 @@ class Item < ActiveRecord::Base
     keywords.map(&:id).uniq
   end
 
+  def as_indexed_json(options={})
+    self.as_json(only:
+                 %w(id title channel_id content description guid published_at),
+                 include: { keywords: { only: [ :id, :name, :category_name ] },
+                            links: { only: [:url] },
+                            events: {}  },
+                 methods: [:tag_names, :entity_id, :url])
+  end
+
   private
 
   # Build list of associated links from all of our text fields.
@@ -129,15 +150,5 @@ class Item < ActiveRecord::Base
   def mapped_keywords
     channel.all_mappings.where(:tag_id => tags.map(&:id)).keywords
   end
-
-  def as_indexed_json
-    self.as_json(only: 
-                 %w(id title channel_id content description guid published_at),
-                 include: { keywords: { only: [ :id, :name, :category_name ] },
-                            links: { only: [:url] },
-                            events: {}  },
-                 methods: [:tag_names, :entity_id, :url])
-  end
-
 
 end
