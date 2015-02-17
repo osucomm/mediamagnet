@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :categories, only: [:index]
   resources :keywordings, only: [:new, :create, :destroy]
   resources :memberships, only: [:new, :create, :destroy]
+  delete 'memberships/destroy', to: 'memberships#destroy'
 
   #reports
   get 'reports/keyword_usage'
