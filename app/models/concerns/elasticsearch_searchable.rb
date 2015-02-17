@@ -52,6 +52,7 @@ module ElasticsearchSearchable
         query: {},
         filter: {},
         facets: {},
+        fields: [:id],
       }
 
       # Prefill and set the filters (top-level `filter` and `facet_filter` elements)

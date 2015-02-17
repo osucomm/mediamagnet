@@ -2,12 +2,11 @@ class Api::V1::ItemsController < ApplicationController
   respond_to :json, :xml
 
   def index
-    @items = apply_scopes(Item)
-      .from_approved
-      .with_channel
-      .with_all_keywords
-      .page(params[:page])
-      .per(params[:per_page])
+    @items = Item.search( *Item.search_params(params) )
+      .page(params[:page]).per(params[:per_page]).records
+        .eager_load(:assets, :link, :channel, :keywords)
+        .from_approved
+
   end
 
   def show
