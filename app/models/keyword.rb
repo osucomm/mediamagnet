@@ -15,6 +15,11 @@ class Keyword < ActiveRecord::Base
   has_one :tag, foreign_key: :name, primary_key: :name
   belongs_to :category
 
+  Category.all.each do |category|
+    plural_name = category.name.downcase.pluralize
+    scope plural_name, -> { where(category_id: category.id) }
+  end
+
   # Validations
   validates :name, presence: true
   validates :display_name, presence: true
