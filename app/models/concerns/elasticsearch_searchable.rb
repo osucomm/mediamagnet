@@ -98,7 +98,11 @@ module ElasticsearchSearchable
       options.each do |key,value|
         next unless search_facet_fields.include?(key)
 
-        f = { term: { key.to_sym => value } }
+        if value.class == Array
+          f = { terms: { key.to_sym => value }  }
+        else
+          f = { term: { key.to_sym => value } }
+        end
 
         __set_filters.(key, f)
 
