@@ -6,7 +6,6 @@ class Api::V1::ItemsController < ApplicationController
       .page(params[:page]).per(params[:per_page]).records
         .eager_load(:assets, :link, :channel, :keywords)
         .from_approved
-
   end
 
   def show
