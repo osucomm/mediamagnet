@@ -16,6 +16,19 @@ class Item < ActiveRecord::Base
   has_one :entity, through: :channel
   has_one :link, class_name: 'Link', foreign_key: 'item_id'
 
+  Category.all.each do |category|
+    association_name = "#{category.name}_keywords".to_sym
+
+    has_many association_name,
+      -> { where(category_id: category.id).uniq },
+      through: :keywordings,
+      source: :keyword
+
+    define_method "#{category.name.pluralize}" do |*args|
+      send(association_name).map(&:name)
+    end
+  end
+
   validates :guid, presence: :true
   validates :title, presence: :true
   validates :description, presence: :true
@@ -72,11 +85,10 @@ class Item < ActiveRecord::Base
       )
     end
 
-
     private
 
     def search_facet_fields
-      ['entity_id', 'channel_id', 'tag_names']
+      ['entity_id', 'channel_id', 'tag_names', 'courses']
     end
 
     def search_text_fields
@@ -127,10 +139,14 @@ class Item < ActiveRecord::Base
                  include: { keywords: { only: [ :id, :name, :category_name ] },
                             links: { only: [:url] },
                             events: {}  },
-                 methods: [:tag_names, :entity_id, :url])
+                 methods: [:tag_names, :entity_id, :url].concat(category_names))
   end
 
   private
+
+  def category_names
+    Category.all.map{|cat| "#{cat.name.pluralize}"}
+  end
 
   # Build list of associated links from all of our text fields.
   def links_from_text_fields
