@@ -29,7 +29,7 @@ xml.channel do
       xml.link item.link
       xml.guid item.guid, isPermaLink: 'false'
       xml.source item.channel_name, url: channel_items_url(item.channel_id, format: :rss)
-      xml.dc :type, item.type_name
+      xml.dc :type, item.channel_type
       if item.channel.display_contact && item.channel.display_contact.display_name.present?
         xml.dc :publisher, item.channel.display_contact.display_name
       end

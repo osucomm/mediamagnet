@@ -50,13 +50,13 @@ class Mapping < ActiveRecord::Base
 
   def add_keyword_to_items
     mappable.items.each do |item|
-      item.keywords << keyword if item.tags.include?(tag)
+      item.keywords << keyword if item.user_tags.include?(tag)
     end
   end
 
   def remove_keyword_from_items
     mappable.items.each do |item|
-      item.remove_keyword(keyword) if item.tags.include?(tag)
+      item.remove_keyword(keyword) if item.user_tags.include?(tag)
     end
   end
 

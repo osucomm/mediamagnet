@@ -5,7 +5,7 @@ class Item < ActiveRecord::Base
   has_many :events, dependent: :destroy
   has_many :assets, dependent: :destroy
   has_many :taggings, dependent: :destroy
-  has_many :tags, through: :taggings
+  has_many :user_tags, source: :tag, through: :taggings
 
   has_many :keywordings, as: :keywordable, dependent: :destroy
   has_many :keywords, -> { uniq }, through: :keywordings
@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
   before_save :links_from_text_fields
 
   delegate :mappings, to: :channel
-  delegate :type_name, to: :channel
+  delegate :channel_type, to: :channel
   delegate :name, :id, to: :channel, prefix: :channel
   delegate :entity_id, to: :channel
   delegate :url, to: :link
@@ -88,7 +88,7 @@ class Item < ActiveRecord::Base
     private
 
     def search_facet_fields
-      ['entity_id', 'channel_id', 'tag_names', 'courses']
+      ['entity_id', 'channel_id', 'tags', 'courses']
     end
 
     def search_text_fields
@@ -106,7 +106,7 @@ class Item < ActiveRecord::Base
   def tag_names=(new_tags)
     new_tags = [] if new_tags.nil?
     new_tags.map!(&:downcase)
-    existing_tags = tags.map(&:name)
+    existing_tags = user_tags.map(&:name)
 
     (new_tags - existing_tags).each do |tag_text|
       taggings.build(tag_text: tag_text)
@@ -120,8 +120,8 @@ class Item < ActiveRecord::Base
     return (new_tags - existing_tags)
   end
 
-  def tag_names
-    tags.map(&:name) + keywords.map(&:name)
+  def tags
+    (user_tags.map(&:name) + keywords.map(&:name)).uniq
   end
 
   def remove_keyword(keyword)
@@ -139,7 +139,7 @@ class Item < ActiveRecord::Base
                  include: { keywords: { only: [ :id, :name, :category_name ] },
                             links: { only: [:url] },
                             events: {}  },
-                 methods: [:tag_names, :entity_id, :url].concat(category_names))
+                 methods: [:channel_type, :tags, :entity_id, :url].concat(category_names))
   end
 
   private
@@ -164,7 +164,7 @@ class Item < ActiveRecord::Base
   end
 
   def mapped_keywords
-    channel.all_mappings.where(:tag_id => tags.map(&:id)).keywords
+    channel.all_mappings.where(:tag_id => user_tags.map(&:id)).keywords
   end
 
 end

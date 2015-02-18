@@ -1,7 +1,7 @@
 cache @item
 object @item => :items
 
-attributes :id, :guid, :title, :description, :content, :link, :published_at
+attributes :id, :guid, :title, :tags, :description, :content, :link, :published_at
 node(:href) { |i| item_url(i) }
 node(:excerpt) { |i| i.to_s }
 
@@ -13,5 +13,3 @@ child :keywords, object_root: false do
   attributes :id, :name
   node(:category) { |k| k.category.try(:name) }
 end
-
-attribute :tag_names => :tags
