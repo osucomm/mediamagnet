@@ -4,7 +4,7 @@ class Api::V1::ItemsController < ApplicationController
   def index
     @items = Item.search( *search_params(params) )
       .page(params[:page]).per(params[:per_page]).records
-        .eager_load(:assets, :link, :channel, :keywords)
+        .eager_load(:assets, :link, :channel, :keywords, :custom_tags)
         .from_approved
   end
 
