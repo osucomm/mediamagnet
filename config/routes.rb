@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   end
 
   resources :channels, except: [:new, :create] do
-    resources :items, only: [:index, :show]
+    #resources :items, only: [:index, :show]
   end
 
   Channel::TYPES.each do |type|
