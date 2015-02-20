@@ -24,7 +24,7 @@ class InstagramChannel < Channel
           title: '',
           description: (media.caption? ? media.caption.text : ''),
           content: (media.caption? ? media.caption.text : ''),
-          link: Link.where(url: media.link).first,
+          link: Link.where(url: media.link).first_or_initialize,
           published_at: Time.strptime(media.created_time, '%s')
         )
         i.assets.build(url: media.images.standard_resolution.url)
