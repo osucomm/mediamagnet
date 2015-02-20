@@ -2,7 +2,7 @@ class Item < ActiveRecord::Base
   include ApprovedEntityScope
   include ElasticsearchSearchable
 
-  index_name    "items-#{Rails.env}"
+  #index_name    "items-#{Rails.env}"
 
   has_many :events, dependent: :destroy
   has_many :assets, dependent: :destroy
@@ -32,7 +32,6 @@ class Item < ActiveRecord::Base
   end
 
   validates :guid, presence: :true
-  validates :title, presence: :true
   validates :description, presence: :true
   validates :channel_id, presence: :true
 
@@ -92,7 +91,7 @@ class Item < ActiveRecord::Base
     private
 
     def search_facet_fields
-      ['entity_id', 'channel_id', 'tags', 'channel_type'].concat(Category.all.map(&:name))
+      ['entity_id', 'channel_id', 'tags', 'channel_type'].concat(Category.all.map{|c| c.name.pluralize})
     end
 
     def search_text_fields
@@ -143,7 +142,7 @@ class Item < ActiveRecord::Base
                  include: { keywords: { only: [ :id, :name, :category_name ] },
                             links: { only: [:url] },
                             events: {}  },
-                 methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map(&:name)))
+                 methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
   end
 
   private
