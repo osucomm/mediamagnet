@@ -5,11 +5,11 @@ class KeywordingPolicy < ApplicationPolicy
   end
 
   def create?
-    record.keywordable.has_user?(user)
+    record.keywordable.has_user?(user) || user.admin?
   end
 
   def destroy?
-    record.keywordable.has_user?(user)
+    record.keywordable.has_user?(user) || user.admin?
   end
 
 end
