@@ -109,7 +109,6 @@ module ElasticsearchSearchable
       end
 
       # execute Elasticsearch search
-      pp @search_definition
       __elasticsearch__.search(@search_definition)
 
     end
