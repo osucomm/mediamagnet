@@ -31,6 +31,23 @@ class Item < ActiveRecord::Base
     end
   end
 
+  # Elasticsearch
+  settings index: { number_of_shards: 1 } do
+    mappings dynamic: 'false' do
+      indexes :audiences, analyzer: 'keyword', type: 'string'
+      indexes :formats, analyzer: 'keyword', type: 'string'
+      indexes :colleges, analyzer: 'keyword', type: 'string'
+      indexes :locations, analyzer: 'keyword', type: 'string'
+      indexes :channel_type, analyzer: 'keyword', type: 'string'
+      indexes :tags, analyzer: 'keyword', type: 'string'
+      indexes :title, analyzer: 'english', type: 'string'
+      indexes :description, analyzer: 'english', type: 'string'
+      indexes :content, analyzer: 'english', type: 'string'
+      indexes :channel_id, type: 'integer'
+      indexes :entity_id, type: 'integer'
+    end
+  end
+
   validates :guid, presence: :true
   validates :channel_id, presence: :true
 
