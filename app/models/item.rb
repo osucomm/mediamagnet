@@ -32,7 +32,6 @@ class Item < ActiveRecord::Base
   end
 
   validates :guid, presence: :true
-  validates :description, presence: :true
   validates :channel_id, presence: :true
 
   before_save :links_from_text_fields
