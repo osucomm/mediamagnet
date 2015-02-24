@@ -32,6 +32,7 @@ class Item < ActiveRecord::Base
   end
 
   # Elasticsearch
+  index_name  'items'
   settings index: { number_of_shards: 1 } do
     mappings dynamic: 'false' do
       indexes :audiences, analyzer: 'keyword', type: 'string'
@@ -40,9 +41,9 @@ class Item < ActiveRecord::Base
       indexes :locations, analyzer: 'keyword', type: 'string'
       indexes :channel_type, analyzer: 'keyword', type: 'string'
       indexes :tags, analyzer: 'keyword', type: 'string'
-      indexes :title, analyzer: 'english', type: 'string'
-      indexes :description, analyzer: 'english', type: 'string'
-      indexes :content, analyzer: 'english', type: 'string'
+      indexes :title, type: 'string'
+      indexes :description, type: 'string'
+      indexes :content, type: 'string'
       indexes :channel_id, type: 'integer'
       indexes :entity_id, type: 'integer'
     end
