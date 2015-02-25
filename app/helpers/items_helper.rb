@@ -1,5 +1,4 @@
 module ItemsHelper
-
   def itemable_items_path(itemable)
     if itemable.class.name =~ /Channel$/
       channel_items_path(channel_id: itemable.id)
@@ -8,7 +7,7 @@ module ItemsHelper
     end
   end
 
-  def excerpt(item, length=140)
+  def excerpt_for(item, length=140)
     truncate(strip_tags(item.to_s.html_safe).html_safe, length: length)
   end
 
@@ -19,7 +18,7 @@ module ItemsHelper
       when 'youtube'
         "<iframe src=\"https://www.youtube.com/embed/#{item.guid}\" />".html_safe
       when 'instagram'
-        "<img src=\"https://www.youtube.com/embed/#{item.assets.first.url}\" />".html_safe
+        "<img src=\"#{item.assets.first.url}\" />".html_safe
       else
         auto_link(item.to_s)
       end
