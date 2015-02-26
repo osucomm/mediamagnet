@@ -3,4 +3,4 @@ Api - Channels
 
 Endpoint
 --------
-[/channels.json](/channels.json)
+[/api/v1/channels.json](/api/v1/channels.json)

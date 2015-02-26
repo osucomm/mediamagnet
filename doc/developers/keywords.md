@@ -1,6 +1,6 @@
-Api - Entities
+Api - Keywords
 ==============
 
-Endpoint
+Endpoints
 --------
-[/entities.json](/entities.json)
+[/api/v1/keywords.json](/api/v1/keywords.json)

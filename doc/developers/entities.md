@@ -3,4 +3,4 @@ Api - Entities
 
 Endpoint
 --------
-[/entities.json](/entities.json)
+[/api/v1/entities.json](/api/v1/entities.json)
