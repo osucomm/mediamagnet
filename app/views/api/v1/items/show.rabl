@@ -3,7 +3,7 @@ object @item => :items
 
 attributes :id, :guid, :title, :channel_type, :tags, :description, :link, :published_at
 node(:href) { |i| item_url(i) }
-node(:excerpt) { |i| exceprt(i) }
+node(:excerpt) { |i| excerpt_for(i) }
 node(:content) { |i| content(i) }
 
 child :assets, object_root: false do

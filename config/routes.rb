@@ -62,6 +62,9 @@ Rails.application.routes.draw do
       :default => true) do
 
       resources :items, only: [:index, :show]
+      resources :keywords, only: [:index, :show]
+      resources :channels, only: [:index, :show]
+      resources :entities, only: [:index, :show]
     end
   end
 
