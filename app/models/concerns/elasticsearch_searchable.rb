@@ -10,14 +10,14 @@ module ElasticsearchSearchable
     # require and include Elasticsearch libraries
     require 'elasticsearch/model'
     include Elasticsearch::Model
-    #include Elasticsearch::Model::Callbacks
+    include Elasticsearch::Model::Callbacks
     include Elasticsearch::Model::Indexing
 
     # index document on model touch
     # @see: http://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html
-    after_touch() { __elasticsearch__.index_document }
-    after_save() { __elasticsearch__.index_document }
-    after_destroy() { __elasticsearch__.index_document }
+    #after_touch() { __elasticsearch__.index_document }
+    #after_save() { __elasticsearch__.update_document }
+    #after_destroy() { __elasticsearch__.delete_document }
 
     # Customize the JSON serialization for Elasticsearch
     def as_indexed_json(options={})
@@ -115,7 +115,6 @@ module ElasticsearchSearchable
       end
 
       # execute Elasticsearch search
-      binding.pry
       __elasticsearch__.search(@search_definition)
 
     end

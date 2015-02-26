@@ -57,7 +57,6 @@ class Item < ActiveRecord::Base
   delegate :mappings, to: :channel
   delegate :name, :id, to: :channel, prefix: :channel
   delegate :entity_id, to: :channel
-  delegate :url, to: :link
 
   default_scope -> {
     order('published_at DESC')
@@ -76,6 +75,10 @@ class Item < ActiveRecord::Base
 
   def channel_type
     channel.type_name.downcase
+  end
+
+  def url
+    link.present? ? link.url : "https://mediamagnet.osu.edu/items/#{id}"
   end
 
   class << self 

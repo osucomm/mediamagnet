@@ -9,7 +9,7 @@ class Channel < ActiveRecord::Base
   # Associations
   belongs_to :entity
   has_one :contact, as: :contactable, dependent: :destroy
-  has_many :items, dependent: :destroy
+  has_many :items
   has_many :mappings, as: :mappable, dependent: :destroy
 
   has_many :keywordings, as: :keywordable, dependent: :destroy
@@ -31,6 +31,7 @@ class Channel < ActiveRecord::Base
   after_initialize :set_keywords
   after_initialize :get_info
   after_create :refresh_items if Rails.env == 'production'
+  before_destroy :destroy_all_items
 
   # Scopes
   scope :needs_refresh, -> {
@@ -131,6 +132,12 @@ class Channel < ActiveRecord::Base
 
   def initial_keywords
     []
+  end
+
+  def destroy_all_items
+    items.each do |i|
+      i.destroy
+    end
   end
 
   def set_keywords
