@@ -1,14 +1,12 @@
-<div class="media item-preview">
-  <%- if item.assets.any? %>
-    <div class="media-left">
-      <%= link_to (render item.assets.first), item %>
-    </div>
-  <%- end %>
-  <div class="media-body">
-    <h4 class="media-heading"><%= link_to item, item %></h4>
-    <%- if item.to_s != short_description(item) %>
-      <p><%= short_description(item) %></p>
+<% cache(item) do %>
+  <div class="media item-preview">
+    <%- if item.assets.any? %>
+      <div class="media-left">
+        <%= link_to (render item.assets.first), item %>
+      </div>
     <%- end %>
-    <small><span class="attribution"><%= link_to_channel(item.channel) %> on </span><%= time_or_dash(item.published_at, :pretty_long) %></small>
-</div>
-
+    <div class="media-body">
+      <h4 class="media-heading"><%= link_to excerpt_for(item), item %></h4>
+      <small><span class="attribution"><%= link_to_channel(item.channel) %> on </span><%= time_or_dash(item.published_at, :pretty_long) %></small>
+  </div>
+<% end %>

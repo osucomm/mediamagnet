@@ -15,16 +15,14 @@
     </div>
   </div>
   <%- end %>
-  <%- if @item.content.present? %>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h2 class="panel-title">Content</h2>
-      </div>
-      <div class="panel-body">
-        <p><%= @item.content.html_safe %></p>
-      </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title">Content</h2>
     </div>
-  <%- end %>
+    <div class="panel-body">
+      <p><%= content(@item) %></p>
+    </div>
+  </div>
   <%- if @item.assets.present? %>
    <div class="panel panel-default">
     <div class="panel-heading">

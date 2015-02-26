@@ -2,6 +2,8 @@ class Item < ActiveRecord::Base
   include ApprovedEntityScope
   include ElasticsearchSearchable
 
+  #index_name    "items-#{Rails.env}"
+
   has_many :events, dependent: :destroy
   has_many :assets, dependent: :destroy
   has_many :taggings, dependent: :destroy
@@ -29,9 +31,25 @@ class Item < ActiveRecord::Base
     end
   end
 
+  # Elasticsearch
+  index_name  'items'
+  settings index: { number_of_shards: 1 } do
+    mappings dynamic: 'false' do
+      indexes :audiences, analyzer: 'keyword', type: 'string'
+      indexes :formats, analyzer: 'keyword', type: 'string'
+      indexes :colleges, analyzer: 'keyword', type: 'string'
+      indexes :locations, analyzer: 'keyword', type: 'string'
+      indexes :channel_type, analyzer: 'keyword', type: 'string'
+      indexes :tags, analyzer: 'keyword', type: 'string'
+      indexes :title, type: 'string'
+      indexes :description, type: 'string'
+      indexes :content, type: 'string'
+      indexes :channel_id, type: 'integer'
+      indexes :entity_id, type: 'integer'
+    end
+  end
+
   validates :guid, presence: :true
-  validates :title, presence: :true
-  validates :description, presence: :true
   validates :channel_id, presence: :true
 
   before_save :links_from_text_fields
@@ -39,7 +57,6 @@ class Item < ActiveRecord::Base
   delegate :mappings, to: :channel
   delegate :name, :id, to: :channel, prefix: :channel
   delegate :entity_id, to: :channel
-  delegate :url, to: :link
 
   default_scope -> {
     order('published_at DESC')
@@ -58,6 +75,10 @@ class Item < ActiveRecord::Base
 
   def channel_type
     channel.type_name.downcase
+  end
+
+  def url
+    link.present? ? link.url : "https://mediamagnet.osu.edu/items/#{id}"
   end
 
   class << self 
@@ -90,7 +111,7 @@ class Item < ActiveRecord::Base
     private
 
     def search_facet_fields
-      ['entity_id', 'channel_id', 'tags', 'channel_type'].concat(Category.all.map(&:name))
+      ['entity_id', 'channel_id', 'tags', 'channel_type'].concat(Category.all.map{|c| c.name.pluralize})
     end
 
     def search_text_fields
@@ -141,7 +162,7 @@ class Item < ActiveRecord::Base
                  include: { keywords: { only: [ :id, :name, :category_name ] },
                             links: { only: [:url] },
                             events: {}  },
-                 methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map(&:name)))
+                 methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
   end
 
   private

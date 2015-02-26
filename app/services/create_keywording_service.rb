@@ -7,10 +7,11 @@ class CreateKeywordingService
 
   def execute
     if Keyword.valid_keyword?(@tag.name)
-      @item.keywords << Keyword.where(name: @tag.name, 
-                                      display_name: @tag.name,
-                                      category_id: Category.where(name: @tag.name.split('-')).first.id)
-                          .first_or_create
+      keyword = Keyword.where(name: @tag.name, display_name: @tag.name).first_or_initialize
+      if category = Category.find_by_name(@tag.name.split('-'))
+        keyword.category = category
+      end
+      @item.keywords << keyword
     end
 
     @item.mappings.each do |mapping|

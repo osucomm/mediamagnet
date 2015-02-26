@@ -37,7 +37,7 @@
     	<div class="col-md-3 col-md-offset-5">
 			  <%- if @channel.item_count > 3 %>
 				<p class="content-list-controls">
-  					<a class="btn btn-default btn-sm" href="<%= channel_items_path(channel_id: @channel.id) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
+  					<a class="btn btn-default btn-sm" href="<%= items_path(channel_id: @channel.id) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
 				</p>
   			<%- end %>
 		</div>

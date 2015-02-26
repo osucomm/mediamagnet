@@ -11,6 +11,17 @@ class User < ActiveRecord::Base
     order('name ASC')
   }
 
+  class << self
+    def help_text
+      <<-EOT
+      Communicators who are authorized to make changes (add keywords and channels)
+      in an Entity.
+      EOT
+    end
+  end
+
+
+
   scope :admin, -> { where(admin: true) }
 
   def is_admin?

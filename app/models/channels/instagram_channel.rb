@@ -1,8 +1,5 @@
 class InstagramChannel < Channel
-
-  # Callbacks
-  # Instagram endpoint queries are based on numeric user id, so lets set that.
-  # before_save :set_service_identifier_id
+  #
 
   def service_id_name
     'Account name'
@@ -23,8 +20,8 @@ class InstagramChannel < Channel
           guid: media.id,
           title: '',
           description: (media.caption? ? media.caption.text : ''),
-          content: (media.caption? ? media.caption.text : ''),
-          link: Link.where(url: media.link).first,
+          content: '',
+          link: Link.where(url: media.link).first_or_initialize,
           published_at: Time.strptime(media.created_time, '%s')
         )
         i.assets.build(url: media.images.standard_resolution.url)
@@ -40,8 +37,8 @@ class InstagramChannel < Channel
     description || "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"
   end
 
-  def html_content
-    "<img src=\"assets.first.url\">"
+  def html_content_for(item)
+    "<img src=\"#{item.assets.first.url}\">"
   end
 
   private

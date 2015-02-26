@@ -20,6 +20,7 @@ gem 'turbolinks'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 #Frontend
+gem 'rails_autolink'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'font-awesome-rails'
 gem 'highcharts-rails'
@@ -58,6 +59,7 @@ gem 'instagram'
 gem 'koala', '~> 1.10.1' # Facebook
 gem 'twitter'
 gem 'youtube_it'
+gem 'icalendar'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

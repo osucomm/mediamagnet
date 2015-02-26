@@ -20,7 +20,7 @@ class FacebookPageChannel < Channel
           guid: post['id'],
           title: '',
           description: post['message'],
-          content: post['message'],
+          content: '',
           link: Link.where(url: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}").first_or_create,
           published_at: post['created_time']
         )
