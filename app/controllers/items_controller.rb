@@ -17,8 +17,8 @@ class ItemsController < ApplicationController
         .page(params[:page]).per(params[:per_page])
 
     @api_url = api_url
+    @human_desc = human_desc
     authorize @items
-
 
     respond_with @items
   end
@@ -43,19 +43,33 @@ class ItemsController < ApplicationController
   def api_url
     p = params.dup
     api_params = Item.send(:search_facet_fields).concat(['search'])
-    p.keep_if {|k| api_params.include?(k) }
+    p.keep_if {|k,v| api_params.include?(k) && v.present? }
     url = "/api/v1/items.json?"
     url += p.map do |k,v|
       if v.class == Array && v.length > 1
-        a = ''
-        v.each do |tag|
-          a = "#{k}[]=#{tag}"
+        v.map do |tag|
+          "#{k}[]=#{tag}"
         end.join('&')
       else
-        a = "#{k}=#{v.first}"
+        "#{k}=#{v.first}"
       end
-      a
     end.join('&')
   end
+
+  def human_desc
+    p = params.dup
+    api_params = Item.send(:search_facet_fields).concat(['search'])
+    p.keep_if {|k,v| api_params.include?(k) && v.present? }
+    p.map do |k,v|
+      if v.class == Array && v.length > 1
+        v.map do |tag|
+          "#{tag}"
+        end.join(' or ').prepend("#{k} is ")
+      else
+        "#{k} is #{v.first}"
+      end
+    end.join(' and ')
+  end
+
 
 end
