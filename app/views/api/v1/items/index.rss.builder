@@ -60,7 +60,11 @@ xml.channel do
       end
 
       item.assets.each do |asset|
-        xml.enclosure url: asset.url, type: asset.mime
+        if asset.size.present?
+          xml.enclosure url: asset.url, length: asset.size, type: asset.mime
+        else
+          xml.enclosure url: asset.url, type: asset.mime
+        end
       end
 
     end
