@@ -1,6 +1,6 @@
 class MembershipsController < ApplicationController
 
-  respond_to :html, :js
+  respond_to :js
 
   def new
     @membership_form = MembershipForm.new(entity_id: params[:entity_id])

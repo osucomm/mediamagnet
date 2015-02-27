@@ -1,6 +1,6 @@
 class KeywordingsController < ApplicationController
 
-  respond_to :html, :js
+  respond_to :js
 
   def new
     @keywording = Keywording.new(keywordable_type: params[:keywordable_type], keywordable_id: params[:keywordable_id])

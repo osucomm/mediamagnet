@@ -5,7 +5,7 @@ class ChannelsController < ApplicationController
   before_action :get_token, only: [:new]
   before_action :preserve_action_redirect!, only: [:show, :edit]
 
-  respond_to :html, :json, :js
+  respond_to :html
 
   layout 'application', except: :show
 

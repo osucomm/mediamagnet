@@ -1,6 +1,6 @@
 class MappingsController < ApplicationController
 
-  respond_to :html, :js
+  respond_to :js
 
   def new
     @mapping = mapping_type.new(mappable_type: params[:mappable_type], mappable_id: params[:mappable_id])

@@ -1,6 +1,5 @@
 class ItemsController < ApplicationController
-  respond_to :html, :js, :json
-  respond_to :rss, only: :index
+  respond_to :html
 
   before_action :normalize_params
 
