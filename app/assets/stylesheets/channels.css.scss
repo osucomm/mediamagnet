@@ -28,13 +28,16 @@ $colors:   ( #55acee #bb0000   #ff6600 #1a8463 #9d928d   #3b5998  #cd201f);
       background-color: nth($colors, $i);
     }
   }
-.jumbotron {
-  padding-bottom: 48px;
-  padding-left: 0;
-  padding-right: 0;
-  padding-top: 48px;
-  margin-top: -20px;
+  
 }
+  
+	.jumbotron {
+	  padding-bottom: 48px;
+	  padding-left: 0;
+	  padding-right: 0;
+	  padding-top: 48px;
+	  margin-top: -20px;
+	}
   .jumbotron h1 {
       color: #fff;
       font-size: 50px;
@@ -108,7 +111,7 @@ $colors:   ( #55acee #bb0000   #ff6600 #1a8463 #9d928d   #3b5998  #cd201f);
   }
 
 
-}
+
 p.nobr{
 white-space:nowrap;
 }
