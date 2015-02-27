@@ -1,6 +1,6 @@
 <!--channel header-->
 <div class="channel">
-  <div class="jumbotron <%= @channel.type_name.downcase %>">
+  <div class="jumbotron <%= @channel.type_name.dasherize.downcase %>">
     <div class="container">
       <div class="row">
         <div class="col-md-8">        
@@ -17,7 +17,7 @@
           managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
           </p>
         </div>
-        <p class="col-md-8 channel-profile-desc-twitter">
+        <p class="col-md-8 channel-profile-desc-<%= @channel.type_name.downcase %>">
         <%= @channel.description %>
         </p>      
       </div>
@@ -43,10 +43,8 @@
         <%- end %>
       </div>
     </div>
-    <%- if @channel.type_name.downcase=="twitter" %>
-      <%= render 'channels/show.table.twitter.html.erb' %>
-      <%#= render 'show the API call for this view???' %>
-    <%- end %>	
+    <%= render "channels/show.table.#{@channel.type_name.downcase}.html.erb" rescue render "channels/show.table.html.erb" %>
+    <%#= render 'show the API call for this view???' %>
 
     <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
 
