@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       resources :keywords, only: [:index, :show]
       resources :channels, only: [:index, :show]
       resources :entities, only: [:index, :show]
+      resources :events, only: [:index, :show]
     end
   end
 

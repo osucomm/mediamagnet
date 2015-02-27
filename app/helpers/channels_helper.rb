@@ -20,4 +20,8 @@ module ChannelsHelper
     link_to (fa_icon channel.icon, text: channel.name, right: true), channel_path(channel), options
   end
 
+  def with_icon(channel)
+    fa_icon channel.icon, text: channel.name, right: true
+  end
+
 end

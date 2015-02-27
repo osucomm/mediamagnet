@@ -1,0 +1,8 @@
+<div class="container">
+  <%- @channel.items.take(8).each do |item| %>
+    <div class="col-sm-3" >
+      <%= link_to render_asset(item.assets.first,'img-responsive' ), item %>
+      <p class="nobr small"><strong><%= item.description %></strong><br><%= time_or_dash(item.published_at, :med_omit_year) %></p>
+    </div>
+  <%- end %>
+</div>

@@ -1,4 +1,4 @@
-<h1><%= title @item.to_s %></h1>
+<h1><%= title excerpt_for(@item) %></h1>
       <p>
         <%= link_to @item.link.to_s, @item.link.to_s %><br>
         Published: <%= @item.published_at %>, 
