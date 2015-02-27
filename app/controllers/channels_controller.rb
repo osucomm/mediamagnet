@@ -86,7 +86,7 @@ class ChannelsController < ApplicationController
   private
 
     def channel_params
-      params.require(:channel).permit(:name, :description, :service_identifier, :url, :primary,
+      params.require(:channel).permit(:name, :description, :service_identifier, :url, :avatar_url, :primary,
         :keyword_ids => [], contact_attributes: [:id, :name, :organization, :url, :phone, :email])
     end
 
