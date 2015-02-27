@@ -8,7 +8,14 @@ module ItemsHelper
   end
 
   def excerpt_for(item, length=140)
-    truncate(strip_tags(item.to_s.html_safe).html_safe, length: length)
+
+    string = if item.to_s == item.guid
+               "#{item.channel_type.titleize} from #{item.channel.service_identifier} on #{time_or_dash(item.published_at, :pretty_long)}"
+             else
+               item.to_s
+             end.html_safe
+
+    truncate(strip_tags(string).html_safe, length: length)
   end
 
   def content(item)

@@ -28,6 +28,10 @@ class Keyword < ActiveRecord::Base
     order('display_name ASC')
   }
 
+  scope :top, ->(n) {
+    limit(n)
+  }
+
   class << self
     def help_text
       <<-EOT
@@ -54,7 +58,7 @@ class Keyword < ActiveRecord::Base
   end
 
   def category_name
-    category.present? ? category.name : ''
+    category.present? ? category.name : nil
   end
 
 end

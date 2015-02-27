@@ -1,7 +1,7 @@
 class IcalendarChannel < Channel
   class << self
     def type_name
-      'iCalendar'
+      'icalendar'
     end
   end
 
@@ -15,23 +15,27 @@ class IcalendarChannel < Channel
 
   def refresh_items
     client.events.each do |event|
-      unless items.where(guid: event.uid).exists?
+      unless items.where(guid: event.uid.to_s).exists?
         item = items.create(
-          guid: event.uid,
-          title: event.summary,
+          guid: event.uid.to_s,
+          title: event.summary.to_s,
           content: '',
-          description: event.description,
-          link: Link.where(url: service_identifier).first_or_create,
+          description: event.description.to_s,
           published_at: event.dtstamp
         )
-        item.tag_names = TagParser.new(event.description).parse
+        item.tag_names = TagParser.new(event.description.to_s).parse
         #i.keywords << all_keywords
+        starts_at = event.dtstart
+        ends_at = event.dtend
+        if ((client.prodid =~ /Microsoft Exchange/) == 0)
+          starts_at = ExchangeTimeParser.new(event.dtstart).parse
+          ends_at = ExchangeTimeParser.new(event.dtend).parse
+        end
         e = item.events.build(
-          start_date: event.dtstart,
-          end_date: event.dtend,
-          locaiton: event.location
+          start_date: starts_at,
+          end_date: ends_at
         )
-        e.location = Location.where(location: event.location).first_or_create
+        e.location = Location.where(location: event.location.to_s).first_or_create
         e.save
       end
     end
@@ -51,6 +55,7 @@ class IcalendarChannel < Channel
     uri = URI.parse(service_identifier)
     document ||= Net::HTTP.get(uri)
     @client ||= Icalendar.parse(document)[0]
+    @client
   end
 
   def service_account
@@ -59,7 +64,7 @@ class IcalendarChannel < Channel
 
   def get_info
     if new_record? && service_identifier_is_valid?
-    #  self.name = client.title
+      self.name = 'My Calendar' # client.title
     #  self.description = client.description
       self.url = service_identifier.sub('.ics', '.html')
     end
