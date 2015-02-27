@@ -43,7 +43,7 @@
         <%- end %>
       </div>
     </div>
-    <%= render "channels/show.table.#{@channel.type_name.downcase}.html.erb" rescue render "channels/show.table.html.erb" %>
+    <%= render "channels/show.table.#{@channel.type_name.downcase.tr(' ', '_')}.html.erb" rescue render "channels/show.table.html.erb" %>
     <%#= render 'show the API call for this view???' %>
 
     <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
