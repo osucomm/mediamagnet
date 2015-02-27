@@ -22,7 +22,7 @@
             class: 'chosen-select autosubmit') %>
 
     <%= label_tag "channel_id[]", 'Channel' %>
-    <%= select_tag('channel_id[]', options_for_select(@search_response.facets.channel_id.terms.map{|a| [ "#{Channel.find(a[:term]).name} (#{a[:count]})", a[:term] ] }, selected: params[:channel_id]),
+    <%= select_tag('channel_id[]', options_for_select(@search_response.facets.channel_id.terms.map{|a| [ "#{with_icon(Channel.find(a[:term]))} (#{a[:count]})", a[:term] ] }, selected: params[:channel_id]),
             multiple: :true, 
             class: 'chosen-select autosubmit') %>
 
