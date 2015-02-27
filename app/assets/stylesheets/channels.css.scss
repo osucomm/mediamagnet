@@ -17,25 +17,25 @@ ul.channel-list {
    lacks maps */
 $services: ( twitter icalendar web     events  instagram facebook youtube);
 $colors:   ( #55acee #bb0000   #ff6600 #1a8463 #9d928d   #3b5998  #cd201f);
-$lightenColor: 62;
+$lightenColor: 59;
 $darkenColor: 38;
 
   @each $service in $services {
     $i: index($services, $service);
-    body .#{$service} {
+    body *.#{$service} {
       background-color: nth($colors, $i);
     }
-    body .#{$service}-darker-bg{
+    body *.#{$service}-darker-bg{
       background-color: darken(nth($colors, $i),$darkenColor);
     }
-    body .#{$service}-lighter-bg{
+    body *.#{$service}-lighter-bg{
       background-color: lighten(nth($colors, $i), $lightenColor);
     }
     
-    body .#{$service}-darker-color{
+    body *.#{$service}-darker-color{
       color: darken(nth($colors, $i),$darkenColor);
     }
-    body .#{$service}-lighter-color{
+    body *.#{$service}-lighter-color{
       color: lighten(nth($colors, $i), $lightenColor);
     }
     
