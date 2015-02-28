@@ -9,3 +9,5 @@ end
 child :events, object_root: false do
   extends 'api/v1/events/_event'
 end
+
+node(:links) { |i| i.links.to_a }

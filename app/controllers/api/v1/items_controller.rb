@@ -14,7 +14,7 @@ class Api::V1::ItemsController < Api::BaseController
   end
 
   def show
-    @item = Item.includes(:channel, :keywords, :custom_tags, :events).find(params[:id])
+    @item = Item.includes(:channel, :keywords, :custom_tags, :events, :links).find(params[:id])
   end
 
   private 
