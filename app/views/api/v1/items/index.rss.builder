@@ -37,7 +37,7 @@ xml.channel do
         xml.title item.title unless item.title.blank?
         xml.description item.description unless item.description.blank?
       else
-        xml.title excerpt_for(item)
+        xml.description excerpt_for(item)
       end
 
       if item.content.present?
@@ -56,10 +56,10 @@ xml.channel do
       end
 
       item.keywords.each do |keyword|
-        xml.category keyword.name, domain: 'keyword'
+        xml.category keyword.name, domain: 'mm-keyword'
       end
       item.custom_tags.each do |tag|
-        xml.category tag.name, domain: 'custom'
+        xml.category tag.name, domain: 'mm-custom'
       end
 
       item.assets.each do |asset|
