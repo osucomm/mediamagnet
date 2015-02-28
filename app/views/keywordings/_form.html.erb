@@ -1,5 +1,4 @@
-<%= simple_form_for @keywording,
-  html: { class: 'form-horizontal' }, as: :keywording, data: { remote: true } do |f| %>
+<%= simple_form_for @keywording, as: :keywording, data: { remote: true } do |f| %>
   <%= f.input :keywordable_id, as: :hidden  %>
   <%= f.input :keywordable_type, as: :hidden  %>
   <%= f.association :keyword,

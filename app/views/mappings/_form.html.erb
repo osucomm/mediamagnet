@@ -1,5 +1,4 @@
-<%= simple_form_for @mapping, 
-  html: { class: 'form-horizontal' }, as: :mapping, data: { remote: true } do |f| %>
+<%= simple_form_for @mapping, as: :mapping, data: { remote: true } do |f| %>
   <%= f.input :mappable_id, as: :hidden  %>
   <%= f.input :mappable_type, as: :hidden  %>
   <%= f.input :tag_text %>
