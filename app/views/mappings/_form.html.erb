@@ -6,7 +6,6 @@
     include_blank: true,
     label_method: :display_name,
     input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
-  <%= f.button :submit %>
-  </div>
-
+  <%= f.button :submit, 'Create mapping' %>
+  <button id="add-mapping-cancel" type="button" class="btn btn-link">Cancel</button>
 <%- end %>
