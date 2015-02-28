@@ -6,6 +6,10 @@ child :channel => :channel do
   extends 'api/v1/channels/_channel'
 end
 
+child :entity => :entity do
+  extends 'api/v1/entities/_entity'
+end
+
 child :events, object_root: false do
   extends 'api/v1/events/_event'
 end

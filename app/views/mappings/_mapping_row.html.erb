@@ -5,7 +5,7 @@
     <%- if (defined? mappable) && mapping.mappable == mappable %>
       <%= link_to fa_icon(:remove), mapping, method: :delete, data: { remote: true } %>
     <%- else %>
-      <em>On Parent Entity</em>
+      <em>From <%= mapping.mappable.name %></em>
     <%- end %>
   </td>
 </tr>
