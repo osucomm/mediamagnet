@@ -1,5 +1,4 @@
-class Api::V1::EventsController < ApplicationController
-  respond_to :json, :xml
+class Api::V1::EventsController < Api::BaseController
 
   def index
     items = Item.search( *search_params(params) )

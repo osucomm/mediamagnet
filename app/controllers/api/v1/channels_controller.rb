@@ -1,5 +1,4 @@
-class Api::V1::ChannelsController < ApplicationController
-  respond_to :json, :xml
+class Api::V1::ChannelsController < Api::BaseController
 
   def index
     @channels = Channel.all.includes(:entity)

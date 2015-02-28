@@ -1,5 +1,4 @@
-class Api::V1::ItemsController < ApplicationController
-  respond_to :json, :xml
+class Api::V1::ItemsController < Api::BaseController
   respond_to :rss, only: :index
 
   def index

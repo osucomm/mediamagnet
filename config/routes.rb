@@ -55,7 +55,7 @@ Rails.application.routes.draw do
 
 
   #API
-  namespace :api do
+  namespace :api, defaults: { format: :json }, constraints: { format: /(json|xml|rss)/ } do
     api_version(:module => "v1",
       :header => {:name => "Accept", :value => "application/vnd.mediamagnet; version=1"},
       :path => {:value => "v1"},

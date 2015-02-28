@@ -1,5 +1,4 @@
-class Api::V1::KeywordsController < ApplicationController
-  respond_to :json, :xml
+class Api::V1::KeywordsController < Api::BaseController
 
   def index
     @keywords = Keyword.all.includes(:category)
