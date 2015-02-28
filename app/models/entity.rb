@@ -5,6 +5,8 @@ class Entity < ActiveRecord::Base
   has_many :channels, dependent: :destroy
   has_many :items, through: :channels
   has_many :mappings, as: :mappable, dependent: :destroy
+  has_many :mapped_tags, through: :mappings, source: :tag
+  has_many :mapped_keywords, through: :mappings, source: :keyword
   has_and_belongs_to_many :users
 
   has_many :keywordings, as: :keywordable, dependent: :destroy

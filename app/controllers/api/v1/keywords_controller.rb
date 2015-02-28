@@ -5,7 +5,7 @@ class Api::V1::KeywordsController < Api::BaseController
   end
 
   def show
-    @keyword = Keyword.find(params[:id])
+    @keyword = Keyword.includes(:category).find(params[:id])
   end
 
 end

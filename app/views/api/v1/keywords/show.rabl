@@ -1,5 +1,5 @@
 cache @keyword
-object @keyword => :items
+object @keyword => :keyword
+extends 'api/v1/keywords/_keyword'
 
-attributes :id, :name, :description, :category
-node(:category) { |i| i.category_name }
+attributes :display_name, :description

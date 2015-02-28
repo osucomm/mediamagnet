@@ -11,7 +11,8 @@ class Channel < ActiveRecord::Base
   has_one :contact, as: :contactable, dependent: :destroy
   has_many :items
   has_many :mappings, as: :mappable, dependent: :destroy
-
+  has_many :mapped_tags, through: :mappings, source: :tag
+  has_many :mapped_keywords, through: :mappings, source: :keyword
   has_many :keywordings, as: :keywordable, dependent: :destroy
   has_many :keywords, through: :keywordings, before_remove: :remove_keyword_from_items
 

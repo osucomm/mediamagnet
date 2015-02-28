@@ -56,7 +56,10 @@ xml.channel do
       end
 
       item.keywords.each do |keyword|
-        xml.category keyword.name, domain: 'mm-keyword'
+        xml.category keyword.name, domain: 'keyword'
+      end
+      item.custom_tags.each do |tag|
+        xml.category tag.name, domain: 'custom'
       end
 
       item.assets.each do |asset|

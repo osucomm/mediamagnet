@@ -1,5 +1,7 @@
 cache @event
 object @event => :events
+extends 'api/v1/events/_event'
 
-  attributes :id, :location, :start_date, :end_date
-node(:item) { |e| e.item }
+child :item do
+  extends 'api/v1/entities/_item'
+end

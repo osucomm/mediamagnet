@@ -1,16 +1,11 @@
+object @item => :item
+extends 'api/v1/items/_item'
 cache @item
-object @item => :items
 
-attributes :id, :guid, :title, :channel_type, :tags, :description, :link, :published_at
-node(:href) { |i| item_url(i) }
-node(:excerpt) { |i| excerpt_for(i) }
-node(:content) { |i| content(i) }
-
-child :assets, object_root: false do
-  attributes :mime, :url
+child :channel => :channel do
+  extends 'api/v1/channels/_channel'
 end
 
-child :keywords, object_root: false do
-  attributes :id, :name
-  node(:category) { |k| k.category.try(:name) }
+child :events, object_root: false do
+  extends 'api/v1/events/_event'
 end
