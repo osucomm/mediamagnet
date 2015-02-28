@@ -24,7 +24,13 @@ class InstagramChannel < Channel
           link: Link.where(url: media.link).first_or_initialize,
           published_at: Time.strptime(media.created_time, '%s')
         )
-        i.assets.build(url: media.images.standard_resolution.url)
+        if media.respond_to?(:images)
+          i.assets.build(url: media.images.standard_resolution.url)
+        end
+        binding.pry
+        if media.respond_to?(:videos)
+          i.assets.build(url: media.videos.standard_resolution.url)
+        end
         i.tag_names = media.tags
         i.keywords << all_keywords
       end
