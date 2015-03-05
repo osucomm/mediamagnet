@@ -4,8 +4,8 @@
 		<div class="row">
   			<div class="col-md-8">        
   				<h1>
-            <img class="channel-type-icon" src="<%= image_path("#{@channel.type_name.downcase}-box.svg") %>">
-            <img src="<%= @channel.avatar_url %>" style="width: 40px;">
+            <%= channel_icon(@channel) %>
+            <%= image_tag(@channel.avatar_url, class: :avatar) if @channel.avatar_url.present? %>
   					<%= title @channel.name %> <%= channel_action_links @channel, [:update] %>
         		</h1>
           </div>
