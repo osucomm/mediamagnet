@@ -1,11 +1,13 @@
 class Api::V1::EventsController < Api::BaseController
 
   def index
-    items = Item.search( *search_params(params) )
-      .page(params[:page]).per(params[:per_page]).records
+    # Paging only works with one-to-one correspondance of items to events!
+    items = Item.search( *search_params(params) ).page(params[:page]).per(params[:per_page])
+      .records
         .eager_load(:assets, :link, :channel, :keywords, :custom_tags)
-        .from_approved.map(&:id)
-    @events = Event.where(item_id: items).includes(:item)
+        .map(&:id)
+    @events = Event.where(item_id: items).includes(:item).
+      page(params[:page]).per(params[:per_page])
   end
 
   def show

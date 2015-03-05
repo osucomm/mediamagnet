@@ -1,6 +1,8 @@
 class Item < ActiveRecord::Base
   include ApprovedEntityScope
   include ElasticsearchSearchable
+  Kaminari::Hooks.init
+  Elasticsearch::Model::Response::Response.__send__ :include, Elasticsearch::Model::Response::Pagination::Kaminari
 
   #index_name    "items-#{Rails.env}"
 
@@ -54,6 +56,9 @@ class Item < ActiveRecord::Base
   validates :channel_id, presence: :true
 
   before_save :links_from_text_fields
+  after_create() { __elasticsearch__.index_document if entity.approved? }
+  after_save() { __elasticsearch__.update_document if entity.approved? }
+  after_destroy() { __elasticsearch__.delete_document if entity.approved? }
 
   delegate :mappings, to: :channel
   delegate :name, :id, to: :channel, prefix: :channel
@@ -69,6 +74,94 @@ class Item < ActiveRecord::Base
   scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
   scope :before, -> (datetime) { where('published_at < ?', datetime) }
   scope :after, -> (datetime) { where('published_at > ?', datetime) }
+  scope :eager, -> { eager_load(:assets, :link, :channel, :keywords) }
+
+  class << self
+    # define search method to be used in Rails controller
+    def search(query=nil, options={})
+
+      # setup empty search definition
+      @search_definition = {
+        query: {},
+        filter: {},
+        facets: {},
+        #fields: [:id],
+      }
+
+      # Prefill and set the filters (top-level `filter` and `facet_filter` elements)
+      __set_filters = lambda do |key, f|
+
+        @search_definition[:filter][:and] ||= []
+        @search_definition[:filter][:and]  |= [f]
+
+        @search_definition[:facets].keys.each do |filter_name| 
+          unless key.to_sym == filter_name
+            @search_definition[:facets][filter_name][:facet_filter][:and] ||= []
+            @search_definition[:facets][filter_name][:facet_filter][:and] |= [f]
+          end
+        end
+      end
+
+      # facets
+      @search_definition[:facets] = search_facet_fields.each_with_object({}) do |a,hsh|
+        hsh[a.to_sym] = {
+          terms: {
+            field: a
+          },
+          facet_filter: {}
+        }
+      end
+
+      # query
+      unless query.blank?
+        @search_definition[:query] = {
+          bool: {
+            should: [
+              { multi_match: {
+                query: query,
+                # limit which fields to search, or boost here:
+                fields: search_text_fields,
+                operator: 'or'
+              }
+              },
+              { multi_match: {
+                query: Time.now,
+                # limit which fields to search, or boost here:
+                fields: :published_at
+              }
+              }
+            ]
+          }
+        }
+      else
+        @search_definition[:query] = { 
+          function_score: {
+            functions: [
+              { gauss: { published_at: { scale: '1w', decay: '0.5' } } }
+            ]
+          }
+        }
+      end
+
+      # add filters for facets
+      options.each do |key,value|
+        next unless search_facet_fields.include?(key)
+
+        if value.class == Array
+          f = { terms: { key.to_sym => value }  }
+        else
+          f = { term: { key.to_sym => value } }
+        end
+
+        __set_filters.(key, f)
+
+      end
+
+      # execute Elasticsearch search
+      __elasticsearch__.search(@search_definition)
+
+    end
+  end
 
   def channel_type
     channel.type_name.downcase
@@ -157,95 +250,10 @@ class Item < ActiveRecord::Base
     self.as_json(only:
                  %w(id title channel_id content description guid published_at),
                  include: { keywords: { only: [ :id, :name, :category_name ] },
-                            links: { only: [:url] },
-                            events: {}  },
+                            links: { only: [:url] } },
                  methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
   end
 
-  # define search method to be used in Rails controller
-  def search(query=nil, options={})
-
-    # setup empty search definition
-    @search_definition = {
-      query: {},
-      filter: {},
-      facets: {},
-      fields: [:id],
-    }
-
-    # Prefill and set the filters (top-level `filter` and `facet_filter` elements)
-    __set_filters = lambda do |key, f|
-
-      @search_definition[:filter][:and] ||= []
-      @search_definition[:filter][:and]  |= [f]
-
-      @search_definition[:facets].keys.each do |filter_name| 
-        unless key.to_sym == filter_name
-          @search_definition[:facets][filter_name][:facet_filter][:and] ||= []
-          @search_definition[:facets][filter_name][:facet_filter][:and] |= [f]
-        end
-      end
-    end
-
-    # facets
-    @search_definition[:facets] = search_facet_fields.each_with_object({}) do |a,hsh|
-      hsh[a.to_sym] = {
-        terms: {
-          field: a
-        },
-        facet_filter: {}
-      }
-    end
-
-    # query
-    unless query.blank?
-      @search_definition[:query] = {
-        bool: {
-          should: [
-            { multi_match: {
-              query: query,
-              # limit which fields to search, or boost here:
-              fields: search_text_fields,
-              operator: 'or'
-            }
-            },
-            { multi_match: {
-              query: Time.now,
-              # limit which fields to search, or boost here:
-              fields: :published_at
-            }
-            }
-          ]
-        }
-      }
-    else
-      @search_definition[:query] = { 
-        function_score: {
-          functions: [
-            { gauss: { published_at: { scale: '1w', decay: '0.5' } } }
-          ]
-        }
-      }
-    end
-
-    # add filters for facets
-    options.each do |key,value|
-      next unless search_facet_fields.include?(key)
-
-      if value.class == Array
-        f = { terms: { key.to_sym => value }  }
-      else
-        f = { term: { key.to_sym => value } }
-      end
-
-      __set_filters.(key, f)
-
-    end
-
-    # execute Elasticsearch search
-    __elasticsearch__.search(@search_definition)
-
-  end
 
   private
 
