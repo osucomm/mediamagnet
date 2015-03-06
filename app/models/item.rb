@@ -49,6 +49,7 @@ class Item < ActiveRecord::Base
       indexes :channel_id, type: 'integer'
       indexes :entity_id, type: 'integer'
       indexes :published_at, type: 'date'
+      indexes :url, analyzer: 'keyword', type: 'string'
     end
   end
 
@@ -57,7 +58,9 @@ class Item < ActiveRecord::Base
 
   before_save :links_from_text_fields
   after_create() { __elasticsearch__.index_document if entity.approved? }
-  after_save() { __elasticsearch__.update_document if entity.approved? }
+  #Partial updates are unaware of changes in has_many through relationships, so
+  #avoid update_document on save.
+  after_save() { __elasticsearch__.delete_document; __elasticsearch__.index_document if entity.approved? }
   after_destroy() { __elasticsearch__.delete_document if entity.approved? }
 
   delegate :mappings, to: :channel
