@@ -34,7 +34,7 @@ class Channel < ActiveRecord::Base
 
   # Scopes
   scope :needs_refresh, -> {
-    where('last_polled_at < ?', 1.hour.ago)
+    where('last_polled_at < ? OR last_polled_at is null', 1.hour.ago)
   }
 
   class << self
