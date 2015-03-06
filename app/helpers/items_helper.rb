@@ -19,7 +19,7 @@ module ItemsHelper
   end
 
   def content(item)
-    if item.content.nil?
+    if item.content.blank?
     # Channel-specific html
       case item.channel_type
       when 'youtube'
