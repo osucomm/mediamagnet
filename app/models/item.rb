@@ -198,6 +198,12 @@ class Item < ActiveRecord::Base
       )
     end
 
+    def import
+      from_approved.each do |item|
+        item.__elasticsearch__.index_document
+      end
+    end
+
     private
 
     def search_facet_fields
