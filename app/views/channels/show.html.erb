@@ -42,10 +42,7 @@
   			<%- end %>
 		</div>
 	</div>
-	<%- if @channel.type_name.downcase=="twitter" %>
-	  <%= render 'channels/show.table.twitter.html.erb' %>
-	  <%#= render 'show the API call for this view???' %>
-	<%- end %>	
+  <%= render "channels/show.table.#{@channel.type_name.downcase}.html.erb" rescue render 'channels/show.table.html.erb' %>
 	
   <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
 
