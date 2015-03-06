@@ -82,6 +82,11 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def refresh
+    @channel = Channel.find(params[:id])
+    @channel.refresh_items_without_delay
+    redirect_to @channel
+  end
 
   private
 
