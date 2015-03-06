@@ -1,60 +1,62 @@
 <!--channel header-->
-<div class="jumbotron <%= @channel.type_name.downcase %>">
-	<div class="container">
-		<div class="row">
-  			<div class="col-md-8">        
-  				<h1>
-            <%= channel_icon(@channel) %>
-            <%= image_tag(@channel.avatar_url, class: :avatar) if @channel.avatar_url.present? %>
-  					<%= title @channel.name %> <%= channel_action_links @channel, [:update, :refresh] %>
-        		</h1>
-          </div>
-			<div class="col-md-4 col-md-offset-0">
-				<p class="small channel-desc ">			
-				"<strong><%= link_to @channel.name, @channel.url %></strong>" 
-				is a <strong><a href=""><%= @channel.type_name.capitalize %> channel</a></strong><br/>
-				managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
-			</p>
-			</div>
-			<p class="col-md-8 <%= @channel.type_name.downcase %>-darker-color">
-				<%= @channel.description %>
-			</p>      
-    	</div>
-	</div>
-</div>
+<div class="channel">
+  <div class="jumbotron <%= @channel.type_name.downcase %>">
+    <div class="container">
+      <div class="row">
+          <div class="col-md-8">        
+            <h1>
+              <%= channel_icon(@channel) %>
+              <%= image_tag(@channel.avatar_url, class: :avatar) if @channel.avatar_url.present? %>
+              <%= title @channel.name %> <%= channel_action_links @channel, [:update, :refresh] %>
+              </h1>
+            </div>
+        <div class="col-md-4 col-md-offset-0">
+          <p class="small channel-desc ">			
+          "<strong><%= link_to @channel.name, @channel.url %></strong>" 
+          is a <strong><a href=""><%= @channel.type_name.capitalize %> channel</a></strong><br/>
+          managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
+        </p>
+        </div>
+        <p class="col-md-8 <%= @channel.type_name.downcase %>-darker-color">
+          <%= @channel.description %>
+        </p>      
+        </div>
+    </div>
+  </div>
 
-<!--channel content-->
-<div id="page-content" class="container">
-	<%- if ! @channel.entity.approved %>
-	  <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
-	<%- end %>
-    <div class="messages"><%= render 'shared/flash' %></div>
-	<div class="row ">
-  		<div class="col-md-4">
-  			<h2 class="content-leadin">Latest Content</h2>
-  			<small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
-		</div>
-    	<div class="col-md-3 col-md-offset-5">
-			  <%- if @channel.item_count > 3 %>
-				<p class="content-list-controls">
-  					<a class="btn btn-default btn-sm" href="<%= items_path(channel_id: @channel.id) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
-				</p>
-  			<%- end %>
-		</div>
-	</div>
-  <%= render "channels/show.table.#{@channel.type_name.downcase}.html.erb" rescue render 'channels/show.table.html.erb' %>
-	
-  <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
+  <!--channel content-->
+  <div id="page-content" class="container">
+    <%- if ! @channel.entity.approved %>
+      <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
+    <%- end %>
+      <div class="messages"><%= render 'shared/flash' %></div>
+    <div class="row ">
+        <div class="col-md-4">
+          <h2 class="content-leadin">Latest Content</h2>
+          <small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
+      </div>
+        <div class="col-md-3 col-md-offset-5">
+          <%- if @channel.item_count > 3 %>
+          <p class="content-list-controls">
+              <a class="btn btn-default btn-sm" href="<%= items_path(channel_id: @channel.id) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
+          </p>
+          <%- end %>
+      </div>
+    </div>
+    <%= render "channels/show.table.#{@channel.type_name.downcase}.html.erb" rescue render 'channels/show.table.html.erb' %>
+    
+    <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
 
-	<div class="">
-	  <%= render 'mappings/mappings', mappable: @channel %>
-	</div>
+    <div class="">
+      <%= render 'mappings/mappings', mappable: @channel %>
+    </div>
 
-	<div class="">
-	  <%- if @channel.display_contact %>
-		<h2>Contact</h2>
-		<%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
-	  <%- end %>
-	</div>
+    <div class="">
+      <%- if @channel.display_contact %>
+      <h2>Contact</h2>
+      <%= render partial: "contacts/contact", locals: { contact: @channel.display_contact } %>
+      <%- end %>
+    </div>
+  </div>
 </div>
 <!--end content-->
