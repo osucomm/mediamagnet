@@ -1,11 +1,18 @@
 <%= simple_form_for @mapping, as: :mapping, data: { remote: true } do |f| %>
   <%= f.input :mappable_id, as: :hidden  %>
   <%= f.input :mappable_type, as: :hidden  %>
-  <%= f.input :tag_text %>
-  <%= f.association :keyword,
-    include_blank: true,
-    label_method: :display_name,
-    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
-  <%= f.button :submit, 'Create mapping' %>
-  <button id="add-mapping-cancel" type="button" class="btn btn-link">Cancel</button>
+  <div class="input-group form-group">
+    <%= f.input :tag_text, label_html: { class: "sr-only" }, placeholder: 'Tag text' %>
+    <span class="input-group-btn">
+      <button id="add-mapping-cancel" class="btn btn-default" type="button"><i class="fa fa-remove"></i><span class="sr-only">Cancel</span></button>
+    </span>
+  </div>
+
+  <div class="keyword-select">
+    <%= f.association :keyword,
+      label_method: :display_name,
+      label: 'The tag <span class="mapping-keyword-label"></span> means...'.html_safe,
+      input_html: { class: 'chosen-select', 'data-placeholder'=> "Media Magnet keyword..." } %>
+  </div>
+  <%= f.button :submit, 'Create mapping', class: 'sr-only' %>
 <%- end %>
