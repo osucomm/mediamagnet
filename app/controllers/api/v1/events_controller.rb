@@ -6,8 +6,10 @@ class Api::V1::EventsController < Api::BaseController
       .records
         .eager_load(:assets, :link, :channel, :keywords, :custom_tags)
         .map(&:id)
-    @events = Event.where(item_id: items).includes(:item).
-      page(params[:page]).per(params[:per_page])
+    @events = Event.where(item_id: items).includes(:item)
+      .page(params[:page]).per(params[:per_page])
+      .upcoming
+      .ordered
   end
 
   def show
