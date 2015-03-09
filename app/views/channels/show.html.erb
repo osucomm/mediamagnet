@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
   			<div class="col-md-8">        
-  				<h1>
+  				<h1 class="<%= @channel.type_name.downcase %>-lighter-color">
             <img class="channel-type-icon" src="<%= image_path("#{@channel.type_name.downcase}-box.svg") %>">
             <img src="<%= @channel.avatar_url %>" style="width: 40px;">
   					<%= title @channel.name %> <%= channel_action_links @channel, [:update] %>
