@@ -10,7 +10,7 @@ class Link < ActiveRecord::Base
 
   class << self
     def resolve_uri(url)
-      uri = URI(url.strip)
+      uri = URI(URI.encode(url.strip))
       return_url = ''
 
       Net::HTTP.start(uri.host, uri.port,
@@ -27,6 +27,14 @@ class Link < ActiveRecord::Base
 
       end
     return_url
+    end
+
+    def is_uri?(uri)
+      begin
+        URI.parse(uri)
+      rescue
+        false
+      end
     end
   end
 
