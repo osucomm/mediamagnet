@@ -1,78 +1,81 @@
-<header id="masthead">
-	<div class="container">
-	  <div class="row">
-	  	<div class="col-sm-4 col-md-8">
-	  	    <a class="logo" href="http://www.osu.edu/">The Ohio State University</a>
-	  	</div><!-- /6 -->
-	  	<div class="col-xs-12 col-sm-8 col-md-4">
-	  	    
-	  		<h1>Media Magnet</h1>
-	  	</div><!-- /6 -->
-	  </div><!-- /row -->
-	</div><!-- /container -->
-</header>
+<% cache "welcome-#{Date.today}" do %>
+  <header id="masthead">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 col-md-8">
+            <a class="logo" href="http://www.osu.edu/">The Ohio State University</a>
+        </div><!-- /6 -->
+        <div class="col-xs-12 col-sm-8 col-md-4">
+            
+          <h1>Media Magnet</h1>
+        </div><!-- /6 -->
+      </div><!-- /row -->
+    </div><!-- /container -->
+  </header>
 
 
-<div class="container">
-     <div class="row">
-     	<div class="col-md-12">
-		  <div class="row">
-				<div class="col-md-8">
-						<p class="home-intro">Media Magnet is a service for aggregating and coordinating digital content across the university.</p>
-				 </div>
-				 <div class="col-md-4 text-right">
-						<p>
-							<%= link_to 'Login', auth_path(:shibboleth), class: 'btn btn-danger btn-lg home-login' %>
-						</p>
-    <p class="small">New to Media Magnet? <a href="">View Help docs</a></p>
-				 </div>
-			  </div>
-			  <hr/>
+  <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-8">
+              <p class="home-intro">Media Magnet is a service for aggregating and coordinating digital content across the university.</p>
+          </div>
+          <div class="col-md-4 text-right">
+              <p>
+                <%= link_to 'Login', auth_path(:shibboleth), class: 'btn btn-danger btn-lg home-login' %>
+              </p>
+      <p class="small">New to Media Magnet? <a href="/help">View Help docs</a></p>
+          </div>
+          </div>
+          <hr/>
+          </div>
         </div>
+    <div class="row">
+    <div class="col-md-4">
+    
+    <h3>Why is it needed?</h3>
+  <p>OSU is big place! We produce many thousands of pieces of digital content each year. Media Magnet provides a way to easily relate and combine separate pieces of content.</p>
+      
+    </div>
+
+  <div class="col-md-4">
+    
+    <h3>How does it work?</h3>
+  <ol>
+    <li>Point Media Magnet at some content</li>
+    <li>Tag content with keywords or custom tags</li>
+    <li>Content is pooled and filterable for anyone to use</li>
+  </ol>
+    
+      
+    </div>
+    
+    <div class="col-md-4">
+    
+    <h3>What's inside?</h3>
+    <p>Media Magnet currently supports <a href=""><%= Channel::TYPES.count %></a> channel types and <%= Keyword.all.count %> common <a href="">keywords</a>. It is consuming content from <%= Entity.count %> <a href="">Departments</a>, <%= Channel.count %> Content <a href="">channels</a> totaling <%= Item.count %> unique content <a href="/items">items</a>.</p>
+    </div>
+  </div>
+
+  </div>
+
+
+
+  <footer id="page-footer">
+  <div class="container">
+    <div class="row" id="footer-info">
+    
+    
+    
+      <div class="col-sm-12" id="institutional-info">
+        <p><a class="wordmark" href="http://www.osu.edu/">The Ohio State University</a></p>
+            <p>&copy; 2015 | Student Academic Services Building | 281 W. Lane Ave. | Columbus, Ohio 43210 | <a href="tel:614-292-OHIO">614-292-OHIO</a></p>
+            <p>Contact: <a href="mailto:askabuckeye@osu.edu">Admissions</a> | <a href="mailto:webmaster@osu.edu">Webmaster</a> | Page maintained by <a href="http://ucom.osu.edu/">University Communications</a></p>
+            <p><a href="http://www.osu.edu/webmaster.php">Request</a> an alternate format of this page | <a href="http://ocio.osu.edu/status/">Web Services Status</a> | <a href="http://hr.osu.edu/policy/resources/110nondiscrimnotice.pdf">Nondiscrimination notice</a></p>
       </div>
-	<div class="row">
-  <div class="col-md-4">
-  
-  <h3>Why is it needed?</h3>
-<p>OSU is big place! We produce many thousands of pieces of digital content each year. Media Magnet provides a way to easily relate and combine separate pieces of content.</p>
-    
-  </div>
-
-<div class="col-md-4">
-  
-  <h3>How does it work?</h3>
-<ol>
-  <li>Point Media Magnet at some content</li>
-   <li>Tag content with keywords or custom tags</li>
-   <li>Content is pooled and filterable for anyone to use</li>
-</ol>
-  
-    
-  </div>
-  
-  <div class="col-md-4">
-  
-  <h3>What's inside?</h3>
-<p>Media Magnet currently supports <a href="">8 content types</a> and 55 common <a href="">keywords</a>. It is consuming content from 34 <a href="">Departments</a>, 234 Content <a href="">channels</a> totaling 1345 unique content <a href="">items</a></p>
-  </div>
+    </div><!-- /footer_info -->
+  </div><!-- /container -->
+  </footer>
 </div>
-
-</div>
-
-
-
-<footer id="page-footer">
-<div class="container">
-	<div class="row" id="footer-info">
-	
-	
-	
-		<div class="col-sm-12" id="institutional-info">
-			<p><a class="wordmark" href="http://www.osu.edu/">The Ohio State University</a></p>
-  				<p>&copy; 2015 | Student Academic Services Building | 281 W. Lane Ave. | Columbus, Ohio 43210 | <a href="tel:614-292-OHIO">614-292-OHIO</a></p>
-  				<p>Contact: <a href="mailto:askabuckeye@osu.edu">Admissions</a> | <a href="mailto:webmaster@osu.edu">Webmaster</a> | Page maintained by <a href="http://ucom.osu.edu/">University Communications</a></p>
-  				<p><a href="http://www.osu.edu/webmaster.php">Request</a> an alternate format of this page | <a href="http://ocio.osu.edu/status/">Web Services Status</a> | <a href="http://hr.osu.edu/policy/resources/110nondiscrimnotice.pdf">Nondiscrimination notice</a></p>
-		</div>
-	</div><!-- /footer_info -->
-</div><!-- /container -->
-</footer>
+<% end %>
