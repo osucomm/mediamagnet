@@ -24,9 +24,7 @@ class Channel < ActiveRecord::Base
   accepts_nested_attributes_for :contact
 
   #
-  delegate :users, to: :entity
-  delegate :has_user?, to: :entity
-  delegate :entity_mappings, to: :entity
+  delegate :users, :has_user?, :entity_mappings, :approved, to: :entity
 
   # Callbacks
   after_initialize :set_keywords
@@ -36,7 +34,7 @@ class Channel < ActiveRecord::Base
 
   # Scopes
   scope :needs_refresh, -> {
-    where('last_polled_at < ?', 1.hour.ago)
+    where('last_polled_at < ? OR last_polled_at is null', 1.hour.ago)
   }
 
   class << self
@@ -152,6 +150,5 @@ class Channel < ActiveRecord::Base
   def remove_keyword_from_items(keyword)
     items.each {|item| item.remove_keyword(keyword)}
   end
-
 
 end

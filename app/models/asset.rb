@@ -15,7 +15,8 @@ class Asset < ActiveRecord::Base
   private
 
   def set_metadata
-    response = open url
+    encoded_url = URI.encode(url)
+    response = open encoded_url
     self.mime = response.content_type
     self.size = response.size
   end

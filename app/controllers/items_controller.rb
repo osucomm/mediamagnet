@@ -9,11 +9,10 @@ class ItemsController < ApplicationController
 
   def index
     search = Item.search( *search_params(params) )
-    @search_response = search.response
-    @items = search.records
-        .eager_load(:assets, :link, :channel, :keywords)
-        .from_approved
         .page(params[:page]).per(params[:per_page])
+    @search_response = search.response
+    records = search.records
+    @items = EagerPagination.new(records, :eager)
 
     @api_url = api_url
     authorize @items

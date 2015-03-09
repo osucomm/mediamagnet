@@ -23,6 +23,9 @@ class Entity < ActiveRecord::Base
     order('name ASC')
   }
 
+  #Callbacks
+  before_save :update_elasticsearch_on_approved_change
+
   scope :approved, -> { where(approved: true) }
   scope :not_approved, -> { where(approved: false) }
 
@@ -58,6 +61,16 @@ class Entity < ActiveRecord::Base
 
   def item_count
     items.count
+  end
+
+  def update_elasticsearch_on_approved_change
+    if approved_changed?
+      if approved?
+        items.each {|item| item.__elasticsearch__.index_document}
+      else
+        items.each {|item| item.__elasticsearch__.delete_document}
+      end
+    end
   end
 
 end

@@ -3,35 +3,106 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-#masthead {clear:both; background:#fff image-url('bg_leaves.jpg') top center no-repeat; background-size:cover; overflow:hidden; text-align:center;}
-#masthead #page-content {position:relative;}
-#masthead h1 {font-family:'proximanova',Arial,sans-serif; font-weight:600; font-size:60px; color:#111; line-height:1.0; margin-bottom:30px;}
-#masthead h4 {color:#666666; font-size:22px; line-height:30px; margin-bottom:8px; margin-top:0;}
-#masthead h4 a {text-decoration:underline;}
-#masthead h5 {color:#666666; font-size:18px; line-height:24px; margin-top:0;}
-
-#masthead div.alert {text-align:left;}
-#masthead div.alert:first-child {margin-top:50px;}
-
-div.osu_logo a {display:block; overflow:hidden; width:167px; height:180px; text-indent:-9999px; background:transparent image-url('osu-web-header-vert2.png') 0 0 no-repeat; }
-
-#mm_image {width: 350px;}
-
-.login_link {display:block; position:absolute; top:15px; right:28px;}
-
 
 /* #Media Queries
 ================================================== */
+   
+   #osu_navbar .univ_name a {
+  background: url("/assets/osu_navbar/osu_name.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+  display: block;
+  height: 16px;
+  margin-left: 0;
+  text-indent: -9999px;
+  width: 80px;
+}
     
+    
+#masthead {
+  background-color: #222;
+  /*background-image: url("../images/bg-discsovery-revised-2015.jpg"), linear-gradient(to bottom, #222222 0%, #333333 100%);*/
+  background-position: center top;
+  background-repeat: no-repeat;
+}    
+    
+    
+#masthead a.logo {
+  background: url(asset-path("osu-logo.png")) no-repeat scroll left center / contain  rgba(0, 0, 0, 0);
+  display: block;
+  float: none;
+  height: 60px;
+  margin: 60px 0;
+  text-indent: -9999px;
+  width: 344px;
+}
+#masthead h1 {
+  color: #ffffff;
+  float: none;
+  font-size: 50px;
+  font-weight: 300;
+  margin: 60px 0 0.4em;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+
+p.home-intro {
+  color: #333;
+  font-size: 33px;
+  line-height: 125%;
+  margin-top: 1em;
+}
+
+    
+    a.home-login{
+  margin-top: 2em;
+  width: 100%;
+}
+    
+    
+#page-footer {
+  background: none repeat scroll 0 0 #222;
+  color: #fff;
+  margin-top: 50px;
+  padding: 30px 0;
+}
+    
+    #page-footer * {
+  color: #fff;
+}
+
+#footer-info p {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+
+#page-footer a.wordmark {
+  background: url(asset-path("osu-wordmark.png")) no-repeat scroll left center / contain  rgba(0, 0, 0, 0);
+  display: block;
+  height: 35px;
+  text-indent: -9999px;
+  width: 295px;
+}
+    
+    
+    #page-footer a {
+  text-decoration: underline;
+}
   /* Tablet Portrait size to standard 960 (devices and browsers) */
   @media only screen and (min-width: 768px) and (max-width: 959px) {
-    #masthead h1 {font-size:52px;}
+
+
+    
+    
+    
   }
 
   /* All Mobile Sizes (devices and browser) */
   @media only screen and (max-width: 767px) {
-    #masthead h1 {font-size:44px; padding-top:20px;}
-    div.osu_logo {display:none;}    
+
+
+
+
+  
   }
 
   /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */

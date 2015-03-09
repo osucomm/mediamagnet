@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     resources :delayed_jobs, only: [:index, :destroy]
   end
 
+  get 'channels/:id/refresh' => 'channels#refresh'
+
   resources :channels, except: [:new, :create] do
     #resources :items, only: [:index, :show]
   end
@@ -57,7 +59,6 @@ Rails.application.routes.draw do
   #API
   namespace :api, defaults: { format: :json }, constraints: { format: /(json|xml|rss)/ } do
     api_version(:module => "v1",
-      :header => {:name => "Accept", :value => "application/vnd.mediamagnet; version=1"},
       :path => {:value => "v1"},
       :default => true) do
 
