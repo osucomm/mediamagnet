@@ -19,13 +19,13 @@ module ItemsHelper
   end
 
   def content(item)
-    if item.content.nil?
+    if item.content.blank?
     # Channel-specific html
       case item.channel_type
       when 'youtube'
-        "<iframe src=\"https://www.youtube.com/embed/#{item.guid}\" />".html_safe
+        tag(:iframe, src: "https://www.youtube.com/embed/#{item.guid}")
       when 'instagram'
-        "<img src=\"#{item.assets.first.url}\" />".html_safe
+        image_tag(item.assets.first.url)
       else
         auto_link(item.to_s)
       end

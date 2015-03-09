@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     resources :delayed_jobs, only: [:index, :destroy]
   end
 
+  get 'channels/:id/refresh' => 'channels#refresh'
+
   resources :channels, except: [:new, :create] do
     #resources :items, only: [:index, :show]
   end

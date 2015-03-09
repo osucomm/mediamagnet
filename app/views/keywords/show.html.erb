@@ -10,5 +10,5 @@
   <%= @keyword.description %>
 </p>
 <p>
-  There are <%= @keyword.items.count %> items tagged with this keyword.
+There are <%= link_to "#{@keyword.items.count} items", items_path(tags: @keyword.name)  %> tagged with this keyword.
 </p>
