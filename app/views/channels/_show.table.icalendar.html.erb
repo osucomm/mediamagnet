@@ -1,0 +1,33 @@
+	<table class="table table-striped table-content">
+	  <tbody>
+		<tr>
+      <th class="">Item</th>
+      <th class="">Start</th>
+      <th class="">End</th>
+      <th class="">Location</th>
+	  </tr>
+		  <%- @channel.items.take(4).each do |item| %>
+			<tr>
+			  <td>
+					<%= link_to item, item %>
+			  </td>
+        <td>
+            <%- item.events.each do |event| %>
+              <%= time_or_dash(event.start_date, :pretty_long) %><br>
+            <%- end %>
+        </td>
+        <td>
+            <%- item.events.each do |event| %>
+              <%= time_or_dash(event.end_date, :pretty_long) %><br>
+            <%- end %>
+        </td>
+        <td>
+            <%- item.events.each do |event| %>
+              <%= event.location_name %><br>
+            <%- end %>
+        </td>
+
+          </tr>
+        <%- end %>
+      </tbody>
+    </table>	

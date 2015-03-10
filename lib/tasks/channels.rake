@@ -7,4 +7,13 @@ namespace :channels do
     end
 
   end
+
+  desc 'Update channel types to new names'
+  task rename_channels: :environment do
+
+    Channel.where(type: 'WebChannel').each {|i| i.update_attribute(type: 'RssChannel') }
+    Channel.where(type: 'EventChannel').each {|i| i.update_attribute(type: 'EventRssChannel') }
+
+  end
+
 end

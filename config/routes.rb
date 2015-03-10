@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   resources :keywords
   resources :links
   resources :categories, only: [:index]
+  resources :keywordings, only: [:new, :create, :destroy]
+  resources :memberships, only: [:new, :create, :destroy]
+  delete 'memberships/destroy', to: 'memberships#destroy'
 
   #reports
   get 'reports/keyword_usage'
@@ -34,8 +37,10 @@ Rails.application.routes.draw do
     resources :delayed_jobs, only: [:index, :destroy]
   end
 
+  get 'channels/:id/refresh' => 'channels#refresh'
+
   resources :channels, except: [:new, :create] do
-    resources :items, only: [:index, :show]
+    #resources :items, only: [:index, :show]
   end
 
   Channel::TYPES.each do |type|
@@ -47,6 +52,21 @@ Rails.application.routes.draw do
 
     Channel::TYPES.each do |type|
       resources type.model_name.plural, only: [:new, :create], controller: 'channels', type: type.to_s
+    end
+  end
+
+
+  #API
+  namespace :api, defaults: { format: :json }, constraints: { format: /(json|xml|rss)/ } do
+    api_version(:module => "v1",
+      :path => {:value => "v1"},
+      :default => true) do
+
+      resources :items, only: [:index, :show]
+      resources :keywords, only: [:index, :show]
+      resources :channels, only: [:index, :show]
+      resources :entities, only: [:index, :show]
+      resources :events, only: [:index, :show]
     end
   end
 

@@ -1,0 +1,17 @@
+<%= simple_form_for @membership_form, url: memberships_path,
+  as: :membership_form, data: { remote: true } do |f| %>
+  <%= f.input :entity_id, as: :hidden  %>
+  <div class="input-group keyword-select">
+    <%= f.input :user_id,
+      label_method: :name,
+      label_html: { class: "sr-only" },
+      collection: User.all - @membership_form.entity.users,
+      input_html: { class: 'chosen-select', 'data-placeholder'=> "Add users..." } %>
+
+    <span class="input-group-btn">
+      <button id="add-membership-cancel" class="btn btn-default" type="button"><i class="fa fa-remove"></i><span class="sr-only">Cancel</span></button>
+    </span>
+  </div>
+
+  <%= f.button :submit, 'Add user', class: 'sr-only' %>
+<%- end %>

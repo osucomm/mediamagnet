@@ -61,7 +61,7 @@ class KeywordsController < ApplicationController
     end
 
     def find_keyword
-      @keyword = Keyword.find(params[:id])
+      @keyword = Keyword.find_by_name(params[:id])
       authorize @keyword
     end
 

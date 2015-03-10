@@ -1,0 +1,1 @@
+attributes :name, :organization, :url, :phone, :email

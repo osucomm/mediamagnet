@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150210041013) do
+ActiveRecord::Schema.define(version: 20150227185153) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "item_id",                null: false
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20150210041013) do
     t.string   "alt",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "size"
   end
 
   add_index "assets", ["item_id"], name: "index_assets_on_item_id"
@@ -45,6 +46,7 @@ ActiveRecord::Schema.define(version: 20150210041013) do
     t.datetime "updated_at"
     t.datetime "last_polled_at"
     t.integer  "service_identifier_id"
+    t.text     "avatar_url"
   end
 
   add_index "channels", ["entity_id"], name: "index_channels_on_entity_id"

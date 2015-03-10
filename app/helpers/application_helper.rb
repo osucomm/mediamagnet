@@ -54,10 +54,20 @@ module ApplicationHelper
     content_tag(:span, text, class: "label label-#{type}")
   end
 
-  def bootstrap_label_with_tooltip(text, options={type: 'primary', title: ''})
+  def bootstrap_label_with_tooltip(text, options={type: 'primary'})
     content_tag(:span, text, class: "label label-#{options[:type]}",
                 data: { toggle: 'tooltip', placement: 'bottom'},
-                title: options[:title])
+                title: options[:title], id: options[:id])
+  end
+
+  def add_button(link, options={}) 
+    link_to (fa_icon('plus', data: {toggle: 'tooltip', placement: 'top'}, title: 'Add')
+            ), link, options.merge({class: 'btn btn-primary btn-xs action-button'})
+  end
+
+  def edit_button(link, options={}) 
+    link_to (fa_icon('pencil', data: {toggle: 'tooltip', placement: 'top'}, title: 'Edit')
+            ), link, options.merge({class: 'btn btn-primary btn-xs action-button'})
   end
 
   def current_user_has_entities?

@@ -4,14 +4,15 @@ class Channel < ActiveRecord::Base
   has_one :token, dependent: :destroy
 
   # STI types
-  TYPES = [TwitterChannel,InstagramChannel,WebChannel,EventChannel,FacebookPageChannel,YoutubePlaylistChannel]
+  TYPES = [TwitterChannel,InstagramChannel,WebChannel,RssChannel,EventChannel,EventRssChannel,FacebookPageChannel,YoutubePlaylistChannel,IcalendarChannel]
 
   # Associations
   belongs_to :entity
   has_one :contact, as: :contactable, dependent: :destroy
-  has_many :items, dependent: :destroy
+  has_many :items
   has_many :mappings, as: :mappable, dependent: :destroy
-
+  has_many :mapped_tags, through: :mappings, source: :tag
+  has_many :mapped_keywords, through: :mappings, source: :keyword
   has_many :keywordings, as: :keywordable, dependent: :destroy
   has_many :keywords, through: :keywordings, before_remove: :remove_keyword_from_items
 
@@ -23,18 +24,17 @@ class Channel < ActiveRecord::Base
   accepts_nested_attributes_for :contact
 
   #
-  delegate :users, to: :entity
-  delegate :has_user?, to: :entity
-  delegate :entity_mappings, to: :entity
+  delegate :users, :has_user?, :entity_mappings, :approved, to: :entity
 
   # Callbacks
   after_initialize :set_keywords
   after_initialize :get_info
   after_create :refresh_items if Rails.env == 'production'
+  before_destroy :destroy_all_items
 
   # Scopes
   scope :needs_refresh, -> {
-    where('last_polled_at < ?', 1.hour.ago)
+    where('last_polled_at < ? OR last_polled_at is null', 1.hour.ago)
   }
 
   class << self
@@ -56,6 +56,10 @@ class Channel < ActiveRecord::Base
     def icon
       'rss'
     end
+  end
+
+  def to_s
+    name
   end
 
   def icon
@@ -97,13 +101,13 @@ class Channel < ActiveRecord::Base
     items.count
   end
 
+  def approved?
+    entity.approved
+  end
+
   def log_refresh
     logger.info {"Channel #{name} refreshed at #{Time.now}."}
     update_attribute(:last_polled_at, Time.now)
-  end
-
-  def service_identifier_is_valid?
-    service_identifier.present?
   end
 
   def add_keyword(keyword)
@@ -115,9 +119,11 @@ class Channel < ActiveRecord::Base
 
   def remove_keyword(keyword)
     keywordings.where(keyword_id: keyword.id).destroy_all
-    items.each do |item|
-      item.remove_keyword(keyword)
-    end
+    remove_keyword_from_items(keyword)
+  end
+
+  def service_identifier_is_valid?
+    service_identifier.present? && !service_account.nil?
   end
 
   private
@@ -135,6 +141,12 @@ class Channel < ActiveRecord::Base
     []
   end
 
+  def destroy_all_items
+    items.each do |i|
+      i.destroy
+    end
+  end
+
   def set_keywords
     initial_keywords.each do |keyword_text|
       keyword = Keyword.where(name: keyword_text, 
@@ -146,6 +158,5 @@ class Channel < ActiveRecord::Base
   def remove_keyword_from_items(keyword)
     items.each {|item| item.remove_keyword(keyword)}
   end
-
 
 end

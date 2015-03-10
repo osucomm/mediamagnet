@@ -29,9 +29,10 @@ class TwitterChannel < Channel
       unless items.where(guid: tweet.id.to_s).exists?
         i = items.build(
           guid: tweet.id,
-          title: tweet.text,
+          title: '',
           link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
-          description: tweet.text,
+          description: tweet.full_text,
+          content: '', # Only set content for things that get special markup
           published_at: tweet.created_at
         )
         tweet.media.each do |media|
@@ -44,10 +45,6 @@ class TwitterChannel < Channel
     log_refresh
   end
   handle_asynchronously :refresh_items
-
-  def link_for(item)
-    "https://twitter.com/#{service_identifier}/status/#{item.guid}"
-  end
 
   private
 
@@ -72,6 +69,7 @@ class TwitterChannel < Channel
     if new_record? && service_identifier_is_valid?
       self.name = service_account.name
       self.description = service_account.description
+      self.avatar_url = service_account.profile_image_url
     end
   end
 

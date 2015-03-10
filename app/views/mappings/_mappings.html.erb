@@ -1,18 +1,20 @@
-<h2>Mappings <small><%= help_icon_for('Mapping') %></small></h2>
-<table class="table table-striped table-bordered mappings">
+<h2>Mappings <small><%= help_icon_for('Mapping') %></small>
+  <%- if policy(mappable).update? %>
+    <%= add_button new_mapping_path(mappable), remote: true %>
+  <%- end %>
+</h2>
+<div id="add-mappings"></div>
+<table class="table table-striped mappings">
   <tbody>
     <tr>
-      <th>Tag <span class="pull-right"><%= fa_icon('arrow-right') %></span></th>
+      <th>Tag <span class="pull-right"></th>
       <th>Keyword</th>
-      <th>Actions</th>
+      <th><span class="sr-only">Actions</span></th>
     </tr>
-    <%- mappable.all_mappings.each do |mapping| %>
+    <%- if mappable.all_mappings.each do |mapping| %>
       <%= render 'mappings/mapping_row', mapping: mapping, mappable: mappable %>
+    <%- end.empty? %>
+      <tr class="no-mappings"><td colspan="3">No mappings have been created</td></tr>
     <%- end %>
   </tbody>
 </table>
-
-  <%- if policy(mappable).update? %>
-    <%= link_to 'Add Mapping', new_mapping_path(mappable), remote: true %>
-    <div id="add-mappings"></div>
-  <%- end %>

@@ -18,8 +18,9 @@ class FacebookPageChannel < Channel
       unless items.where(guid: post['id']).exists?
         i = items.build(
           guid: post['id'],
-          title: post['message'][0..254],
+          title: '',
           description: post['message'],
+          content: '',
           link: Link.where(url: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}").first_or_create,
           published_at: post['created_time']
         )
@@ -51,6 +52,7 @@ class FacebookPageChannel < Channel
       self.name = service_account['name']
       self.description = service_account['description']
       self.url = service_account['link']
+      self.avatar_url = client.get_picture(service_identifier)
     end
   end
 

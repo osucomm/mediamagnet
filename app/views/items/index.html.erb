@@ -1,4 +1,9 @@
 <div class="row"> 
+  <p>
+  Access this data set in the api: <%= link_to @api_url, @api_url %><br>
+  <%= @search_response.hits.total %> 
+  <%= @search_response.hits.total == 1 ? 'result' : 'results' %>
+  <%= @human_params.present? ? "where #{@human_params}" : '' %></p>
   <div class="col-sm-9">
   <h1><%= title 'Items' %></h1>
     <ul class="media-list">
@@ -6,34 +11,61 @@
       <li class="clearfix media"><%= render item %></li>
     <%- end %>
     </ul>
+  <%= paginate @items %>
   </div>
+
   <div class="col-sm-3">
-    <h2>Keywords</h2>
-    <div class="list-group">
-      <%= link_to 'All', items_path, class: "list-group-item #{'active' unless @current_keyword}" %>
+  <%= form_tag items_path, method: :get, class: 'facets' do %>
+      <div class="form-group">
+      <%= label_tag "entity_id[]", 'Entity' %>
+      <%= select_tag('entity_id[]', options_for_select(@search_response.facets.entity_id.terms.map{|a| [ "#{Entity.find(a[:term]).name} (#{a[:count]})", a[:term] ] }, selected: params[:entity_id]),
+              multiple: :true, 
+              class: 'chosen-select autosubmit') %>
+          </div>
 
-      <%- #This will produce duplicate keywords. FIX THIS %>
-      <%- @items.keywords.each do |keyword| %>
-        <%- if @current_keyword == keyword %>
-          <span class="list-group-item active"><%= keyword.display_name %></span>
-        <%- else %>
-          <%= link_to keyword.display_name, url_for(keyword_id: keyword.id), class: 'list-group-item' %>
-        <%- end %>
-      <%- end %>
+      <div class="form-group">
+      <%= label_tag "channel_id[]", 'Channel' %>
+      <%= select_tag('channel_id[]', options_for_select(@search_response.facets.channel_id.terms.map{|a| [ "#{with_icon(Channel.find(a[:term]))} (#{a[:count]})".html_safe, a[:term] ] }, selected: params[:channel_id]),
+              multiple: :true, 
+              class: 'chosen-select autosubmit') %>
+          </div>
 
-    </div>
-    <h2>Channels</h2>
-    <div class="list-group">
-      <%= link_to 'All', items_path, class: "list-group-item #{'active' unless @channel}" %>
-      <%- Channel.from_approved.all.each do |channel| %>
-        <%- if @channel == channel %>
-          <span class="list-group-item active"><%= channel.name %></span>
-        <%- else %>
-          <%= link_to (fa_icon channel.icon, text: channel.name, right: true), channel_items_path(channel), class: 'list-group-item' %>
-        <%- end %>
-      <%- end %>
-    </div>
+
+      <div class="form-group">
+      <%= label_tag 'tags[]', 'Tags' %>
+      <%= select_tag('tags[]', options_for_select(@search_response.facets.tags.terms.map{|a| [ "#{a[:term]} (#{a[:count]})", a[:term] ] }, selected: params[:tags]),
+            multiple: :true, 
+            class: 'chosen-select autosubmit') %>
+        </div>
+
+      <div class="form-group">
+      <%= label_tag 'channel_type[]', 'Channel Types' %>
+      <%= select_tag('channel_type[]', options_for_select(@search_response.facets.channel_type.terms.map{|a| [ "#{a[:term]} (#{a[:count]})", a[:term] ] }, selected: params[:channel_type]),
+            multiple: :true, 
+            class: 'chosen-select autosubmit') %>
+      </div>
+
+        <%- Category.all.map{|c| c.name.pluralize}.each do |category| %>
+          <%- if @search_response.facets[category].terms.any? %>
+            <div class="form-group">
+            <%= label_tag "#{category}[]", category.titleize %>
+            <%= select_tag("#{category}[]",
+                  options_for_select(@search_response.facets[category].terms.map{|a| [ "#{a[:term]} (#{a[:count]})", a[:term] ] }, selected: params[category]),
+                  multiple: :true, 
+                  class: 'chosen-select autosubmit') %>
+              </div>
+          <% end %>
+        <% end %>
+
+      <div class="form-group">
+        <%= label_tag :search %>
+        <%= text_field_tag(:search, params['search'], class: 'form-control') %>
+      </div>
+
+
+        <%= button_tag "Search", class: 'btn btn-primary', id: 'submit' %>
+        <%= link_to 'Reset', items_path, class: 'btn btn-default', id: 'reset' %>
+    <% end %>
+  </div>
   </div>
 </div>
-
-<%= paginate @items %>

@@ -73,7 +73,8 @@ class YoutubePlaylistChannel < Channel
         i = items.build(
           guid: youtube_video.id,
           title: youtube_video.snippet.title,
-          description: youtube_video.snippet.description.nil? ? youtube_video.snippet.title : youtube_video.snippet.description,
+          description: youtube_video.snippet.description,
+          content: "<iframe src=\"https://www.youtube.com/embed/#{youtube_video.id}\" />",
           link: Link.where(url: "https://www.youtube.com/watch?v=#{youtube_video.id}").first_or_create,
           published_at: youtube_video.snippet.published_at,
         )

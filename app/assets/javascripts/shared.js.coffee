@@ -4,6 +4,10 @@ ready = ->
     no_results_text: 'No results matched'
     width: '100%'
 
+  $('.chosen-select.autosubmit').on 'change', ->
+    $('#submit').click()
+    $('#submit, #reset').addClass('disabled')
+
   $('.footable').footable()
 
 $(document).ready(ready)

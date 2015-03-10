@@ -3,7 +3,7 @@ class EntitiesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_entity, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :json, :js
+  respond_to :html
 
   def index
     @entities = Entity.all

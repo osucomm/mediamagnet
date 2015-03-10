@@ -1,8 +1,5 @@
 class InstagramChannel < Channel
-
-  # Callbacks
-  # Instagram endpoint queries are based on numeric user id, so lets set that.
-  # before_save :set_service_identifier_id
+  #
 
   def service_id_name
     'Account name'
@@ -21,13 +18,19 @@ class InstagramChannel < Channel
       unless items.where(guid: media.id.to_s).exists?
         i = items.build(
           guid: media.id,
-          title: (media.caption? ? media.caption.text[0..254] : 
-            "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"),
-          link: Link.where(url: media.link).first,
+          title: '',
           description: (media.caption? ? media.caption.text : ''),
+          content: '',
+          link: Link.where(url: media.link).first_or_initialize,
           published_at: Time.strptime(media.created_time, '%s')
         )
-        i.assets.build(url: media.images.standard_resolution.url)
+        if media.respond_to?(:images)
+          i.assets.build(url: media.images.standard_resolution.url)
+        end
+        if media.respond_to?(:videos)
+          i.assets.build(url: media.videos.standard_resolution.url)
+          i.keywords << Keyword.find_by_name('video')
+        end
         i.tag_names = media.tags
         i.keywords << all_keywords
       end
@@ -35,6 +38,14 @@ class InstagramChannel < Channel
     log_refresh
   end
   handle_asynchronously :refresh_items
+
+  def to_s
+    description || "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"
+  end
+
+  def html_content_for(item)
+    "<img src=\"#{item.assets.first.url}\">"
+  end
 
   private
 
@@ -59,6 +70,7 @@ class InstagramChannel < Channel
       self.name = service_account.full_name
       self.description = service_account.bio
       self.service_identifier_id = service_account.id 
+      self.avatar_url = service_account.profile_picture
     end
   end
 

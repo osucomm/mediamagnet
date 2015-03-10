@@ -19,7 +19,7 @@
         <td><%= link_to channel.name, channel %></td>
         <td><%= channel.type_name %></td>
         <td><%= link_to channel.entity.name, channel.entity %></td>
-        <td><%= time_or_dash(channel.last_polled_at) %></td>
+        <td><%= time_or_dash(channel.last_polled_at, :pretty_long) %></td>
         <% if current_user %>
           <td class="nowrap"><%= channel_action_links channel %></td>
         <% end %>

@@ -10,15 +10,19 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  *= require chosen_bootstrap
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
 @import "font-awesome";
+@import "footable.core";
+
+@import "osu_navbar-resp";
+@import "channels";
+@import "items";
+@import "welcome";
 
 body {background:#fff; font: 16px/21px 'proximanova', Arial, sans-serif;font-weight:normal; color:#111;}
 h1, h2, h3, h4, h5, h6, p, li, a {font-weight:normal;}
@@ -27,12 +31,27 @@ h4, h5, h6 {font-family: 'proximanova',Arial,sans-serif; font-weight:600;}
 
 .nowrap {white-space:nowrap;}
 .inline {display:inline;}
+.no-bullet {list-style-type:none; margin-left:0;}
+.url-wrap {
+  -ms-word-break: break-all;
+
+       /* Be VERY careful with this, breaks normal words wh_erever */
+       word-break: break-all;
+
+       /* Non standard for webkit */
+       word-break: break-word;
+
+  -webkit-hyphens: auto;
+     -moz-hyphens: auto;
+          hyphens: auto;
+}
 
 footer {background:#333; color:#fff;}
 
 #page-content, footer {padding-bottom:1em; padding-top:1em;}
 
 img {max-width:100%; height:auto;}
+video {max-width:100%; height:auto;}
 
 .action-button {margin-left:2px; margin-right:2px;}
 
@@ -45,3 +64,9 @@ img {max-width:100%; height:auto;}
     color: #fff;
   }
 }
+
+#add-membership .keyword-select .form-group,
+#add-keywording .keyword-select .form-group,
+#add-mappings .keyword-select .form-group {margin-bottom:0;}
+
+#add-mappings form, #add-keywording form, #add-membership form { margin-bottom: 1.5em; }
