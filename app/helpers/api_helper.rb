@@ -38,8 +38,9 @@ module ApiHelper
         :links => base_meta[:links].merge({
           :self => url_with_format()
         }),
-        :total_results => 1,
-        :response_code => response.code.to_i
+        :current_page => 1,
+        :total_pages => 1,
+        :total_results => 1
       })
     end
 
@@ -71,6 +72,6 @@ module ApiHelper
   end
 
   def url_with_format(args={})
-    url_for(args.merge({format: request.format.to_sym}))
+    url_for(args.merge({only_path: false, format: request.format.to_sym}))
   end
 end
