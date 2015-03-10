@@ -6,6 +6,7 @@ ready = ->
 
   $('.chosen-select.autosubmit').on 'change', ->
     $('#submit').click()
+    $('#submit, #reset').addClass('disabled')
 
   $('.footable').footable()
 
