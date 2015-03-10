@@ -8,7 +8,14 @@ class EagerPagination < SimpleDelegator
   end
  
   def each
+    binding.pry
     records.public_send(scope).each do |r|
+      yield r
+    end
+  end
+
+  def map
+    records.public_send(scope).map do |r|
       yield r
     end
   end
