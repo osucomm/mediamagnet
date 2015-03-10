@@ -1,5 +1,11 @@
+object false
 cache @keyword
-object @keyword => :keyword
-extends 'api/v1/keywords/_keyword'
 
-attributes :display_name, :description
+child @keyword, object_root: false do
+  extends 'api/v1/keywords/_keyword'
+  attributes :display_name, :description
+end
+
+node (:meta) do
+  meta(@keyword)
+end

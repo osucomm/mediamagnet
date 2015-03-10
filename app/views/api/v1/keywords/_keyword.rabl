@@ -1,2 +1,2 @@
-attributes :id, :name
+attributes :name
 node(:category) { |k| k.category.try(:name) }
