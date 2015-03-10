@@ -42,27 +42,12 @@
 </div>
 <div class="col-sm-4">
   <%= render 'keywordings/keywordings', keywordable: @entity, keywordable_type: 'Entity' %>
-  <div id="add-keywording"></div>
   <hr>
 
   <%- if current_user %>
     <%= render 'mappings/mappings', mappable: @entity %>
     <hr>
+    <%= render 'memberships/memberships', entity: @entity %>
   <%- end %>
-
-  <%- if current_user %>
-    <h2>Members
-      <%- if policy(@entity).update? %>
-        <%= add_button new_membership_path(entity_id: @entity.id), remote: true %></h2>
-      <%- end %>
-    </h2>
-    <ul class="list-group memberships">
-      <%- @entity.users.each do |user| %>
-        <%= render 'memberships/membership', user: user, entity: @entity %>
-      <%- end %>
-    </ul>
-    <div id="add-membership"></div>
-  <%- end %>
-
 
 </div>
