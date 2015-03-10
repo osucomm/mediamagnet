@@ -15,8 +15,8 @@ ul.channel-list {
 
 /* I don't normally complain about SASS 3.2, but when I do, it's because it
    lacks maps */
-$services: ( twitter icalendar website events  instagram facebook youtube);
-$colors:   ( #55acee #bb0000   #ff6600 #1a8463 #9d928d   #3b5998  #cd201f);
+$services: ( twitter icalendar rss     events-rss-feed  instagram facebook youtube);
+$colors:   ( #55acee #1a8463   #ff6600 #1a8463    #9d928d   #3b5998  #cd201f);
 $lightenColor: 59;
 $darkenColor: 38;
 
