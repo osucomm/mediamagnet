@@ -6,6 +6,17 @@
 
 /* #Media Queries
 ================================================== */
+* body {
+  background: none repeat scroll 0 0 #222;
+}
+   
+   
+   #content {
+  background-color: #f7f7f7;
+  padding: 1em 0;
+  padding-bottom: 2em;
+}
+   
    
    #osu_navbar .univ_name a {
   background: url("/assets/osu_navbar/osu_name.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -37,7 +48,7 @@
 #masthead h1 {
   color: #ffffff;
   float: none;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: 300;
   margin: 60px 0 0.4em;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
@@ -61,7 +72,6 @@ p.home-intro {
 #page-footer {
   background: none repeat scroll 0 0 #222;
   color: #fff;
-  margin-top: 50px;
   padding: 30px 0;
 }
     
@@ -87,6 +97,9 @@ p.home-intro {
     #page-footer a {
   text-decoration: underline;
 }
+
+
+
   /* Tablet Portrait size to standard 960 (devices and browsers) */
   @media only screen and (min-width: 768px) and (max-width: 959px) {
 
