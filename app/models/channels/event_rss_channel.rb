@@ -1,34 +1,37 @@
-class WebChannel < Channel
+class EventRssChannel < Channel
   class << self
     def type_name
-      'Web'
+      'Events RSS feed'
     end
+  end
+
+  def icon
+    'calendar'
   end
 
   def service_id_name
     'Feed URL'
   end
 
-  def icon
-    'rss'
-  end
-
   def refresh_items
-    web_items = client.entries
-
-    web_items.each do |web_item|
-      unless items.where(guid: web_item.entry_id).exists?
-        i = items.build(
-          guid: web_item.entry_id,
-          title: web_item.title,
-          content: web_item.content,
-          description: web_item.summary,
-          link: Link.where(url: web_item.url).first_or_create,
-          published_at: web_item.published
+    client.entries.each do |entry|
+      unless items.where(guid: entry.entry_id).exists?
+        item = items.create(
+          guid: entry.entry_id,
+          title: entry.title,
+          content: entry.content,
+          description: entry.summary,
+          link: Link.where(url: entry.url).first_or_create,
+          published_at: entry.published
         )
-        i.assets.build(url: web_item.image) if web_item.image
-        i.tag_names = (web_item.categories) if web_item.categories
+        item.tag_names = (entry.categories) if entry.categories
         i.keywords << all_keywords
+        e = item.events.build(
+          start_date: entry.start_date,
+          end_date: entry.end_date,
+        )
+        e.location = Location.where(location: entry.location).first_or_create
+        e.save
       end
     end
     log_refresh
@@ -44,10 +47,7 @@ class WebChannel < Channel
   private
 
   def client
-    @client ||= (
-        f = Feedjira::Feed
-        f.fetch_and_parse(service_identifier)
-    )
+    @client ||= Feedjira::Feed.fetch_and_parse(service_identifier)
   end
 
   def service_account

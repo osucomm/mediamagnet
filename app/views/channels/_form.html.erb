@@ -10,7 +10,7 @@
   <%= f.input :description %>
   <%= f.input :service_identifier, label: @channel.service_id_name %>
   <%= f.input :avatar_url %>
-  <%- if @channel.instance_of? WebChannel %>
+  <%- if @channel.instance_of? RssChannel %>
     <%= f.input :url, label: 'Home page' %>
   <%- end %>
   <%= f.input :primary %>
