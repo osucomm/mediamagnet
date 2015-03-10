@@ -26,7 +26,7 @@
 
 <!--channel content-->
 <div id="page-content" class="container">
-	<%- if ! @channel.entity.approved %>
+	<%- if ! @channel.approved? %>
 	  <%= render 'shared/message', flash_type: :alert, no_close: true, message: "#{@channel.entity.name} has been registered but not approved. Content from this channel will not appear in feeds." %>
 	<%- end %>
     <div class="messages"><%= render 'shared/flash' %></div>
@@ -36,7 +36,7 @@
   			<small><strong>Last updated:</strong> <%= time_or_dash(@channel.last_polled_at, :pretty_long) %></small>
 		</div>
     	<div class="col-md-3 col-md-offset-5">
-			  <%- if @channel.item_count > 3 %>
+			  <%- if @channel.item_count > 3 && @channel.approved? %>
 				<p class="content-list-controls">
   					<a class="btn btn-default btn-sm" href="<%= items_path(channel_id: @channel.id) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
 				</p>

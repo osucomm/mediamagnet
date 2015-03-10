@@ -101,6 +101,10 @@ class Channel < ActiveRecord::Base
     items.count
   end
 
+  def approved?
+    entity.approved
+  end
+
   def log_refresh
     logger.info {"Channel #{name} refreshed at #{Time.now}."}
     update_attribute(:last_polled_at, Time.now)

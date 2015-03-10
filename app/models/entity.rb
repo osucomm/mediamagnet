@@ -63,6 +63,10 @@ class Entity < ActiveRecord::Base
     items.count
   end
 
+  def approved?
+    approved
+  end
+
   def update_elasticsearch_on_approved_change
     if approved_changed?
       if approved?
