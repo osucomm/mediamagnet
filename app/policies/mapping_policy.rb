@@ -1,15 +1,19 @@
 class MappingPolicy < ApplicationPolicy
 
+  def new?
+    record.mappable.has_user?(user) || user.admin?
+  end
+
   def create?
-    record.mappable.has_user? user
+    new?
   end
 
   def update?
-    create?
+    new?
   end
 
   def destroy?
-    create?
+    new?
   end
 
 end

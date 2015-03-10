@@ -1,7 +1,7 @@
-class WebChannel < Channel
+class RssChannel < Channel
   class << self
     def type_name
-      'Web'
+      'RSS'
     end
   end
 

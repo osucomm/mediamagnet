@@ -1,10 +1,10 @@
 <!--channel header-->
 <div class="channel">
-<div class="jumbotron <%= @channel.type_name.downcase %>">
+<div class="jumbotron <%= @channel.type_name.downcase.gsub(' ', '-') %>">
 	<div class="container">
 		<div class="row">
   			<div class="col-md-8">        
-  				<h1 class="<%= @channel.type_name.downcase %>-lighter-color">
+  				<h1 class="<%= @channel.type_name.downcase.gsub(' ', '-') %>-lighter-color">
             <%= image_tag "#{@channel.type_name.downcase}-box.svg", class: "channel-type-icon" %>
             <%= (image_tag(@channel.avatar_url, class: :avatar)) unless @channel.avatar_url.blank? %>
   					<%= title @channel.name %> <%= channel_action_links @channel, [:update, :refresh] %>
@@ -17,7 +17,7 @@
 				managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
 			</p>
 			</div>
-			<p class="col-md-8 <%= @channel.type_name.downcase %>-darker-color">
+			<p class="col-md-8 <%= @channel.type_name.downcase.gsub(' ', '-') %>-darker-color">
 				<%= @channel.description %>
 			</p>      
     	</div>

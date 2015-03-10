@@ -21,11 +21,12 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.is_admin?
+    record.entity.has_user?(user) || user.is_admin?
   end
 
   def refresh?
     user.is_admin?
   end
+
 
 end

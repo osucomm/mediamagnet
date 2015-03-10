@@ -6,11 +6,6 @@
 
 /* #Media Queries
 ================================================== */
-body.welcome {
-  background: none repeat scroll 0 0 #222;
-}
-   
-   
 #content {
   background-color: #f7f7f7;
   padding: 1em 0;
@@ -108,11 +103,17 @@ a.home-login{
 
   }
 
-  @media (max-width: $screen-xs-max) {
-    #masthead {
+  /* All Mobile Sizes (devices and browser) */
+  @media only screen and (max-width: 767px) {
+
+
+ #masthead {
       h1 { text-align:center; margin: 30px 0; font-size:40px; }
       a.logo { display:none; }
     }
+
+
+  
   }
 
 
