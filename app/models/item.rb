@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
 
   belongs_to :channel
   has_one :entity, through: :channel
-  has_one :link, class_name: 'Link', foreign_key: 'item_id'
+  has_one :link #, class_name: 'Link', foreign_key: 'item_id'
 
   Category.all.each do |category|
     association_name = "#{category.name}_keywords".to_sym
@@ -77,7 +77,7 @@ class Item < ActiveRecord::Base
   scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
   scope :before, -> (datetime) { where('published_at < ?', datetime) }
   scope :after, -> (datetime) { where('published_at > ?', datetime) }
-  scope :eager, -> { eager_load(:assets, :link, :channel, :keywords) }
+  scope :eager, -> { eager_load(:assets, :link, :links, :custom_tags, :channel, :keywords, :taggings) }
 
   class << self
     # define search method to be used in Rails controller

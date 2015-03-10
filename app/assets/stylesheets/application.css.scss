@@ -47,4 +47,8 @@ video {max-width:100%; height:auto;}
   }
 }
 
-#add-mappings form, #add-keywording form { margin-bottom: 1.5em; }
+#add-membership .keyword-select .form-group,
+#add-keywording .keyword-select .form-group,
+#add-mappings .keyword-select .form-group {margin-bottom:0;}
+
+#add-mappings form, #add-keywording form, #add-membership form { margin-bottom: 1.5em; }

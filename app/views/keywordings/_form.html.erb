@@ -1,10 +1,15 @@
 <%= simple_form_for @keywording, as: :keywording, data: { remote: true } do |f| %>
   <%= f.input :keywordable_id, as: :hidden  %>
   <%= f.input :keywordable_type, as: :hidden  %>
-  <%= f.association :keyword,
-    label_method: :display_name,
-    collection: Keyword.normal - @keywording.keywordable.keywords,
-    input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
-  <%= f.button :submit, 'Add Keyword' %>
-  <button id="add-keywording-cancel" type="button" class="btn btn-link">Cancel</button>
+  <div class="input-group keyword-select">
+    <%= f.association :keyword,
+      label_method: :display_name,
+      label_html: { class: "sr-only" },
+      collection: Keyword.normal - @keywording.keywordable.keywords,
+      input_html: { class: 'chosen-select', 'data-placeholder'=> "Add keywords..." } %>
+    <span class="input-group-btn">
+      <button id="add-keywording-cancel" class="btn btn-default" type="button"><i class="fa fa-remove"></i><span class="sr-only">Cancel</span></button>
+    </span>
+  </div>
+  <%= f.button :submit, 'Add Keyword', class: 'sr-only' %>
 <%- end %>

@@ -11,8 +11,10 @@
       <th>Keyword</th>
       <th><span class="sr-only">Actions</span></th>
     </tr>
-    <%- mappable.all_mappings.each do |mapping| %>
+    <%- if mappable.all_mappings.each do |mapping| %>
       <%= render 'mappings/mapping_row', mapping: mapping, mappable: mappable %>
+    <%- end.empty? %>
+      <tr class="no-mappings"><td colspan="3">No mappings have been created</td></tr>
     <%- end %>
   </tbody>
 </table>
