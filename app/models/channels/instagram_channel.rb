@@ -27,9 +27,9 @@ class InstagramChannel < Channel
         if media.respond_to?(:images)
           i.assets.build(url: media.images.standard_resolution.url)
         end
-        binding.pry
         if media.respond_to?(:videos)
           i.assets.build(url: media.videos.standard_resolution.url)
+          i.keywords << Keyword.find_by_name('video')
         end
         i.tag_names = media.tags
         i.keywords << all_keywords
