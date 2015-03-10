@@ -15,6 +15,7 @@ class ItemsController < ApplicationController
     @items = EagerPagination.new(records, :eager)
 
     @api_url = api_url
+    @human_params = human_params
     authorize @items
 
     respond_with @items
@@ -51,6 +52,21 @@ class ItemsController < ApplicationController
         "#{k}=#{v.class == Array ? v.first : v}"
       end
     end.join('&')
+  end
+
+  def human_params
+    p = params.dup
+    api_params = Item.send(:search_facet_fields).concat(['search'])
+    p.keep_if {|k,v| api_params.include?(k) && v.present? }
+    p.map do |k,v|
+      if v.class == Array && v.length > 1
+        v.map do |tag|
+          "'#{tag}'"
+        end.join(' or ').prepend("#{k} is ")
+      else
+        "#{k} is '#{v.class == Array ? v.first : v}'"
+      end
+    end.join(' and ').concat('.')
   end
 
 end
