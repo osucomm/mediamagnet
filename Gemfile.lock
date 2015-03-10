@@ -223,6 +223,7 @@ GEM
       railties (>= 3.1)
     hike (1.2.3)
     hitimes (1.2.2)
+    htmlentities (4.3.3)
     http (0.6.3)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
@@ -557,6 +558,7 @@ DEPENDENCIES
   guard-spring
   has_scope
   highcharts-rails
+  htmlentities
   icalendar
   instagram
   jasmine (~> 2.0.2)

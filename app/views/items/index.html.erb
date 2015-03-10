@@ -1,7 +1,9 @@
 <div class="row"> 
   <p>
   Access this data set in the api: <%= link_to @api_url, @api_url %><br>
-  <%= @search_response.hits.total %> <%= @search_response.hits.total == 1 ? 'result' : 'results' %> where <%= @human_params %></p>
+  <%= @search_response.hits.total %> 
+  <%= @search_response.hits.total == 1 ? 'result' : 'results' %>
+  <%= @human_params.present? ? "where #{@human_params}" : '' %></p>
   <div class="col-sm-9">
   <h1><%= title 'Items' %></h1>
     <ul class="media-list">

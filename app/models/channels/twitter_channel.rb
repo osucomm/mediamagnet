@@ -31,7 +31,7 @@ class TwitterChannel < Channel
           guid: tweet.id,
           title: '',
           link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
-          description: tweet.text,
+          description: tweet.full_text,
           content: '', # Only set content for things that get special markup
           published_at: tweet.created_at
         )

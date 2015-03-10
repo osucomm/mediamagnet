@@ -7,15 +7,16 @@ module ItemsHelper
     end
   end
 
-  def excerpt_for(item, length=140)
+  def excerpt_for(item, length=150)
+    decoder = HTMLEntities.new
 
     string = if item.to_s == item.guid
                "#{item.channel_type.titleize} from #{item.channel.service_identifier} on #{time_or_dash(item.published_at, :pretty_long)}"
              else
-               item.to_s
+               decoder.decode(item.to_s)
              end
 
-    truncate(sanitize(string), length: length)
+    truncate(decoder.decode(strip_tags(string)), length: length, separator: ' ').html_safe
   end
 
   def content(item)

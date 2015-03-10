@@ -11,10 +11,12 @@
 				<p class="nobr"><%= time_or_dash(item.published_at, :med_omit_year) %></p>
 			  </td>
 			  <td>
-					<%= link_to item, item %>
+					<%= link_to excerpt_for(item), item %>
 					<hr/>
 					<p class="small text-rightx">
+          <!--
 						Replies: <mark>item.replies???</mark> | Retweets: <mark>item.retweets???</mark> | <a href="link_to @item.link.to_s">View on Twitter</a>
+            -->
 					</p>
 			  </td>
 			  <td>
