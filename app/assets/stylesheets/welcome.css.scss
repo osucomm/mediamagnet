@@ -6,11 +6,7 @@
 
 /* #Media Queries
 ================================================== */
-* body {
-  background: none repeat scroll 0 0 #222;
-}
-   
-   
+
    #content {
   background-color: #f7f7f7;
   padding: 1em 0;
@@ -113,7 +109,9 @@ p.home-intro {
   @media only screen and (max-width: 767px) {
 
 
-
+#masthead a.logo {
+  margin: 20px 0;
+}
 
   
   }
