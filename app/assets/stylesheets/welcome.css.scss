@@ -6,8 +6,19 @@
 
 /* #Media Queries
 ================================================== */
+* body {
+  background: none repeat scroll 0 0 #222;
+}
    
-   #osu_navbar .univ_name a {
+   
+#content {
+  background-color: #f7f7f7;
+  padding: 1em 0;
+  padding-bottom: 2em;
+}
+   
+   
+#osu_navbar .univ_name a {
   background: url("/assets/osu_navbar/osu_name.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
   display: block;
   height: 16px;
@@ -37,12 +48,12 @@
 #masthead h1 {
   color: #ffffff;
   float: none;
-  font-size: 50px;
+  font-size: 45px;
   font-weight: 300;
   margin: 60px 0 0.4em;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+  text-align: right;
 }
-
 
 p.home-intro {
   color: #333;
@@ -52,7 +63,7 @@ p.home-intro {
 }
 
     
-    a.home-login{
+a.home-login{
   margin-top: 2em;
   width: 100%;
 }
@@ -61,11 +72,10 @@ p.home-intro {
 #page-footer {
   background: none repeat scroll 0 0 #222;
   color: #fff;
-  margin-top: 50px;
   padding: 30px 0;
 }
     
-    #page-footer * {
+#page-footer * {
   color: #fff;
 }
 
@@ -84,26 +94,27 @@ p.home-intro {
 }
     
     
-    #page-footer a {
+#page-footer a {
   text-decoration: underline;
 }
-  /* Tablet Portrait size to standard 960 (devices and browsers) */
-  @media only screen and (min-width: 768px) and (max-width: 959px) {
 
 
-    
-    
-    
+/* #Media Queries
+================================================== */
+
+  @media (max-width: $screen-sm-max) {
+    p.home-intro { font-size: 23px; }
+    #masthead h1 { font-size:40px; }
+
   }
 
-  /* All Mobile Sizes (devices and browser) */
-  @media only screen and (max-width: 767px) {
-
-
-
-
-  
+  @media (max-width: $screen-xs-max) {
+    #masthead {
+      h1 { text-align:center; margin: 30px 0; font-size:40px; }
+      a.logo { display:none; }
+    }
   }
+
 
   /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
   @media only screen and (max-width: 479px) {

@@ -10,15 +10,19 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  *= require chosen_bootstrap
  */
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
 @import "font-awesome";
+@import "footable.core";
+
+@import "osu_navbar-resp";
+@import "channels";
+@import "items";
+@import "welcome";
 
 body {background:#fff; font: 16px/21px 'proximanova', Arial, sans-serif;font-weight:normal; color:#111;}
 h1, h2, h3, h4, h5, h6, p, li, a {font-weight:normal;}
