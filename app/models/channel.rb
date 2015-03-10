@@ -58,6 +58,10 @@ class Channel < ActiveRecord::Base
     end
   end
 
+  def to_s
+    name
+  end
+
   def icon
     self.class.icon
   end
