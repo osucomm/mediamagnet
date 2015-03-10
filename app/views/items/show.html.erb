@@ -1,9 +1,6 @@
 <h1><%= title excerpt_for(@item) %></h1>
-      <p>
-        <%= link_to @item.link.to_s, @item.link.to_s %><br>
-        Published: <%= @item.published_at %>, 
-        Imported into MM: <%= @item.created_at %>
-      </p>
+<p class="lead">URL: <%= link_to @item.link.to_s, @item.link.to_s %></p>
+
 <div class="col-sm-7">
   <%- if @item.description.present? %>
   <div class="panel panel-default">
@@ -39,6 +36,19 @@
 <div class="col-sm-5">
   <div class="panel panel-default">
     <div class="panel-heading">
+      <h2 class="panel-title">Item Information</h2>
+    </div>
+    <div class="panel-body url-wrap">
+      <p>
+        Published: <%= @item.published_at %><br>
+        Imported: <%= @item.created_at %><br>
+        Channel: <%= link_to_channel @item.channel %><br>
+        Entity: <%= link_to @item.channel.entity, @item.channel.entity %>
+      </p>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
       <h2 class="panel-title">Tags <%= help_icon_for('Tag') %></h2>
     </div>
     <div class="panel-body">
@@ -53,13 +63,15 @@
       <%= keyword_labels(@item.keywords) %>
     </div>
   </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2 class="panel-title">Events <%= help_icon_for('Event') %></h2>
+  <% if @item.events.present? -%>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Events <%= help_icon_for('Event') %></h2>
+      </div>
+      <div class="panel-body">
+        <%= render @item.events %>
+      </div>
     </div>
-    <div class="panel-body">
-      <%= render @item.events %>
-    </div>
-  </div>
+  <% end -%>
 
 </div>

@@ -1,6 +1,6 @@
 <h2>
   Latest Content
-  <%- if itemable.item_count > 4  && itemable.approved %>
+  <%- if itemable.item_count > 4  && itemable.approved? %>
     | <small><%= link_to 'View all content', itemable_items_path(itemable) %> (<%= itemable.item_count %> items)</small>
   <%- end %>
   </h2>    

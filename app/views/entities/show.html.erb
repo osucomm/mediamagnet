@@ -1,4 +1,4 @@
-<%- if ! @entity.approved %>
+<%- if ! @entity.approved? %>
   <%= render 'shared/message', flash_type: :alert, no_close: true, message: 'This entity has been registered but not approved. Content from this entity will not appear in feeds.' %>
 <%- end %>
 

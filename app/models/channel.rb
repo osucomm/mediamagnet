@@ -58,6 +58,10 @@ class Channel < ActiveRecord::Base
     end
   end
 
+  def to_s
+    name
+  end
+
   def icon
     self.class.icon
   end
@@ -95,6 +99,10 @@ class Channel < ActiveRecord::Base
 
   def item_count
     items.count
+  end
+
+  def approved?
+    entity.approved
   end
 
   def log_refresh
