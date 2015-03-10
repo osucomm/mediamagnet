@@ -57,6 +57,10 @@ class Keyword < ActiveRecord::Base
 
   end
 
+  def to_param
+    name
+  end
+
   def category_name
     category.present? ? category.name : nil
   end
