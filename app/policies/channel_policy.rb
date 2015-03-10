@@ -24,4 +24,8 @@ class ChannelPolicy < ApplicationPolicy
     user.is_admin?
   end
 
+  def refresh?
+    user.is_admin?
+  end
+
 end

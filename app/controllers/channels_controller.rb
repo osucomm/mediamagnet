@@ -1,7 +1,7 @@
 class ChannelsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_channel, only: [:show, :edit, :update, :destroy]
+  before_action :find_channel, only: [:show, :edit, :update, :destroy, :refresh]
   before_action :get_token, only: [:new]
   before_action :preserve_action_redirect!, only: [:show, :edit]
 
@@ -72,7 +72,6 @@ class ChannelsController < ApplicationController
   end
 
   def destroy
-    authorize @channel
     @entity = @channel.entity
     @channel.destroy
     flash[:success] = "#{@channel.name} #{@channel.type_name.downcase} channel was successfully deleted."
@@ -83,7 +82,6 @@ class ChannelsController < ApplicationController
   end
 
   def refresh
-    @channel = Channel.find(params[:id])
     @channel.refresh_items_without_delay
     redirect_to @channel
   end
