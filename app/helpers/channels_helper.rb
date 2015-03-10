@@ -8,7 +8,7 @@ module ChannelsHelper
         edit_channel_path(channel), class: 'btn btn-primary btn-xs action-button')
     end
 
-    if actions.include?(:refresh) && policy(channel).update?
+    if actions.include?(:refresh) && policy(channel).refresh?
       links << (link_to fa_icon('refresh', data: {toggle: 'tooltip', placement: 'top'}, title: 'Refresh'),
                 "/channels/#{channel.id}/refresh", class: 'btn btn-primary btn-xs action-button')
     end
