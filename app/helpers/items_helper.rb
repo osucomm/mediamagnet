@@ -13,9 +13,9 @@ module ItemsHelper
                "#{item.channel_type.titleize} from #{item.channel.service_identifier} on #{time_or_dash(item.published_at, :pretty_long)}"
              else
                item.to_s
-             end.html_safe
+             end
 
-    truncate(strip_tags(string).html_safe, length: length)
+    truncate(sanitize(string), length: length)
   end
 
   def content(item)
