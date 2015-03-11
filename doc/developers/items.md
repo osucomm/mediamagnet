@@ -1,13 +1,14 @@
 Api: Items
 ==========
 
-Endpoints
---------
-/api/v1/items.json
-/api/v1/items/[id].json
+[Back to API Reference](api.md)
 
-Item Attributes
------------------
+Items Index Endpoints
+---------------------
+/api/v1/items.[json/xml/rss]
+
+### Item Attributes ###
+---------------
 **bold = required**
 
 * **id**(number) - Internal MM id.
@@ -28,8 +29,10 @@ Item Attributes
   Photos/Videos, twitpic, RSS enclosures). **NOTE: YouTube videos are not 
   assets as YouTube does not provide access to the source files.**
 
-Filters
+### Filters ###
 -------
+
+Check out the [items page](/items) for an interactive query builder.
 
 * search - /api/v1/items.json?search=urban%20meyer
 * entity_id - /api/v1/items.json?entity_id=1
@@ -37,6 +40,9 @@ Filters
 * channel_type - /api/v1/items.xml?channel_type=twitter
 * tags - /api/v1/items.json?tags[]=mytag&tags[]=audience-alumni
 * **Keyword Categories (i.e., audience=audience-alumni)
+
+
+/api/v1/items/[item_id].[json/xml/rss]
 
 The following elements are available on items based on type:
 
