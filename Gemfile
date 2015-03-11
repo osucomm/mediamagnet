@@ -19,12 +19,13 @@ gem 'turbolinks'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 #Frontend
-gem 'rails_autolink'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'font-awesome-rails'
+gem 'google-analytics-rails'
 gem 'highcharts-rails'
 gem 'htmlentities'
 gem 'lazy_high_charts'
+gem 'rails_autolink'
 gem 'sass-rails', '~> 4.0.3'
 gem 'simple_form', '~> 3.1.0.rc2'
 
