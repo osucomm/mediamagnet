@@ -1,11 +1,12 @@
 <tr id="mapping-<%= mapping.id %>">
-  <td><%= mapping.tag.name %><%= fa_icon('arrow-right', class: 'pull-right') %></span></td>
+  <td><%= mapping.tag.name %></td>
+  <td><%= fa_icon('arrow-right') %></td>
   <td><%= keyword_labels(mapping.keyword) %></td>
   <td>
     <%- if (defined? mappable) && mapping.mappable == mappable %>
       <%= link_to fa_icon(:remove), mapping, method: :delete, data: { remote: true } %>
     <%- else %>
-      <em>From <%= mapping.mappable.name %></em>
+      <!-- <em>From <%= mapping.mappable.name %></em> -->
     <%- end %>
   </td>
 </tr>

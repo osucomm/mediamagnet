@@ -1,20 +1,26 @@
-<h2>Mappings <small><%= help_icon_for('Mapping') %></small>
-  <%- if policy(mappable).update? %>
-    <%= add_button new_mapping_path(mappable), remote: true %>
-  <%- end %>
-</h2>
-<div id="add-mappings"></div>
-<table class="table table-striped mappings">
-  <tbody>
-    <tr>
-      <th>Tag <span class="pull-right"></th>
-      <th>Keyword</th>
-      <th><span class="sr-only">Actions</span></th>
-    </tr>
-    <%- if mappable.all_mappings.each do |mapping| %>
-      <%= render 'mappings/mapping_row', mapping: mapping, mappable: mappable %>
-    <%- end.empty? %>
-      <tr class="no-mappings"><td colspan="3">No mappings have been created</td></tr>
+<div class="panel panel-default interactive-panel">
+  <div class="panel-heading">
+    <h2 class="panel-title">Mappings <%= help_icon_for('Mapping') %></h2>
+    <%- if policy(mappable).update? %>
+      <span class="text-right"><%= add_button new_mapping_path(mappable), remote: true %></span>
     <%- end %>
-  </tbody>
-</table>
+  </div>
+  <div class="panel-body mappings">
+    <div id="add-mappings"></div>
+    <table class="table table-striped mappings">
+      <tbody>
+        <tr>
+          <th>Tag</th>
+          <th><span class="sr-only">Maps to</span></th>
+          <th>Keyword</th>
+          <th><span class="sr-only">Actions</span></th>
+        </tr>
+        <%- if mappable.all_mappings.each do |mapping| %>
+          <%= render 'mappings/mapping_row', mapping: mapping, mappable: mappable %>
+        <%- end.empty? %>
+          <tr class="no-mappings"><td colspan="4">No mappings have been created</td></tr>
+        <%- end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -37,6 +37,8 @@ class Channel < ActiveRecord::Base
     where('last_polled_at < ? OR last_polled_at is null', 1.hour.ago)
   }
 
+  scope :by_type, -> type { where(:type => type) }
+
   class << self
     def type_name
       self.name.sub('Channel', '').titleize

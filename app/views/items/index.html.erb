@@ -1,17 +1,18 @@
+<p>
+  Found <%= pluralize @search_response.hits.total, 'item' %>
+  <%= @human_params.present? ? "where #{@human_params}." : '' %><br>
+  Access this data set in the API: <%= link_to @api_url, @api_url %>
+</p>
+
 <div class="row"> 
-  <p>
-  Access this data set in the api: <%= link_to @api_url, @api_url %><br>
-  <%= @search_response.hits.total %> 
-  <%= @search_response.hits.total == 1 ? 'result' : 'results' %>
-  <%= @human_params.present? ? "where #{@human_params}" : '' %></p>
   <div class="col-sm-9">
-  <h1><%= title 'Items' %></h1>
-    <ul class="media-list">
-    <%- @items.each do |item| %>
-      <li class="clearfix media"><%= render item %></li>
-    <%- end %>
-    </ul>
-  <%= paginate @items %>
+    <h1><%= title 'Items' %></h1>
+      <ul class="media-list">
+      <%- @items.each do |item| %>
+        <li class="clearfix media"><%= render item %></li>
+      <%- end %>
+      </ul>
+    <%= paginate @items %>
   </div>
 
   <div class="col-sm-3">

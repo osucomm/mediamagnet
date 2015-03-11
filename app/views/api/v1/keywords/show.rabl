@@ -1,4 +1,4 @@
-object false
+object root: { root: 'result' } if request.format.xml?
 cache @keyword
 
 child @keyword, object_root: false do

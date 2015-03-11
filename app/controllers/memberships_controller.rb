@@ -21,11 +21,10 @@ class MembershipsController < ApplicationController
 
   def destroy
     @entity = Entity.find(params[:entity_id])
+    authorize @entity
     @user = User.find(params[:user_id])
     @membership_form = MembershipForm.new(user_id: params[:user_id], entity_id: params[:entity_id])
     @membership_form.destroy
-    authorize @entity
-    flash[:success] = "Member was removed from entity."
     respond_with @membership_form
   end
 

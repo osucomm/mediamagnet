@@ -1,2 +1,5 @@
 <span class="no-keywords">This <%= keywordable.class %> has no keywords.
-Consider adding keywords which apply to all content for this <%= keywordable.class %>.</span>
+<% if policy(keywordable).update? -%>
+  Consider adding keywords which apply to all content for this <%= keywordable.class %>.
+<% end -%>
+</span>

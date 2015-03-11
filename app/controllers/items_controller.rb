@@ -42,8 +42,9 @@ class ItemsController < ApplicationController
     p = params.dup
     api_params = Item.send(:search_facet_fields).concat(['search'])
     p.keep_if {|k,v| api_params.include?(k) && v.present? }
-    url = "/api/v1/items.json?"
-    url += p.map do |k,v|
+    url = api_v1_items_path+'.json'
+
+    url_params = p.map do |k,v|
       if v.class == Array && v.length > 1
         v.map do |tag|
           "#{k}[]=#{tag}"
@@ -52,6 +53,8 @@ class ItemsController < ApplicationController
         "#{k}=#{v.class == Array ? v.first : v}"
       end
     end.join('&')
+
+    url_params.present? ? "#{url}?#{url_params}" : url
   end
 
   def human_params
@@ -66,7 +69,7 @@ class ItemsController < ApplicationController
       else
         "#{k} is '#{v.class == Array ? v.first : v}'"
       end
-    end.join(' and ').concat('.')
+    end.join(' and ')
   end
 
 end

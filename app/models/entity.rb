@@ -33,6 +33,15 @@ class Entity < ActiveRecord::Base
 
   alias_method :all_mappings, :mappings
 
+  class << self
+    def help_text
+      <<-EOT
+        An entity is an umbrella for similar content channels and usually
+        represents a unit or organization within the university.
+      EOT
+    end
+  end
+
   def to_s
     name
   end

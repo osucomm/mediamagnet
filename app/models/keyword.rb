@@ -65,4 +65,8 @@ class Keyword < ActiveRecord::Base
     category.present? ? category.name : nil
   end
 
+  def item_count
+    items.from_approved.count
+  end
+
 end
