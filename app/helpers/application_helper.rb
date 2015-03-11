@@ -41,13 +41,13 @@ module ApplicationHelper
   def help_icon_for(klass)
     fa_icon('question-circle',
             data: { toggle: 'tooltip', placement: 'bottom'},
-            title: klass.constantize.help_text)
+            title: klass.constantize.help_text, class: 'help-icon')
   end
 
   def help_icon(text)
     fa_icon('question-circle',
             data: { toggle: 'tooltip', placement: 'bottom'},
-            title: text)
+            title: text, class: 'help-icon')
   end
 
   def bootstrap_label(text, type='primary')
@@ -62,7 +62,7 @@ module ApplicationHelper
 
   def add_button(link, options={}) 
     link_to (fa_icon('plus', data: {toggle: 'tooltip', placement: 'top'}, title: 'Add')
-            ), link, options.merge({class: 'btn btn-primary btn-xs action-button'})
+            ), link, options.merge({class: 'btn btn-success btn-xs action-button'})
   end
 
   def edit_button(link, options={}) 

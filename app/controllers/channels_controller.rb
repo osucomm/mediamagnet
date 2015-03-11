@@ -10,8 +10,9 @@ class ChannelsController < ApplicationController
   layout 'application', except: :show
 
   def index
-    @channels = channel_type.all.page(params[:page]).
-                                      per(params[:per_page])
+    @channels = channel_type.all.from_approved
+      .page(params[:page])
+      .per(params[:per_page])
     authorize @channels
     respond_with @channels
   end

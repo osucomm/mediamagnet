@@ -1,12 +1,12 @@
-<h2>Keywords <small><%= help_icon_for('Keyword') %></small>
-  <%- if policy(keywordable).update? %>
-    <%= add_button new_keywording_path(keywordable_id: keywordable.id, keywordable_type: keywordable_type), remote: true %></h2>
-  <%- end %>
-</h2>
-<div id="add-keywording"></div>
-
-<div class="panel panel-default">
+<div class="panel panel-default interactive-panel">
+  <div class="panel-heading">
+    <h2 class="panel-title">Keywords <%= help_icon_for('Keyword') %></h2>
+    <%- if policy(keywordable).update? %>
+      <span class="text-right"><%= add_button new_keywording_path(keywordable_id: keywordable.id, keywordable_type: keywordable_type), remote: true %></span>
+    <%- end %>
+  </div>
   <div class="panel-body keywordings">
+    <div id="add-keywording"></div>
     <%- if keywordable.keywords.any? %>
       <%- keywordable.keywordings.each do |keywording| %>
         <%= render 'keywordings/keywording', keywording: keywording %>
