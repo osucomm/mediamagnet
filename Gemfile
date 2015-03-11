@@ -21,7 +21,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 #Frontend
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'font-awesome-rails'
-gem 'google-analytics-rails'
 gem 'highcharts-rails'
 gem 'htmlentities'
 gem 'lazy_high_charts'

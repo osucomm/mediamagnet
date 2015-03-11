@@ -183,7 +183,6 @@ GEM
       sorcerer (>= 0.3.7)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
-    google-analytics-rails (0.0.6)
     google-api-client (0.8.1.1)
       activesupport (>= 3.2)
       addressable (~> 2.3)
@@ -552,7 +551,6 @@ DEPENDENCIES
   feedjira
   figaro
   font-awesome-rails
-  google-analytics-rails
   google-api-client
   guard
   guard-livereload
