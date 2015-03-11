@@ -3,6 +3,9 @@ class Channel < ActiveRecord::Base
 
   has_one :token, dependent: :destroy
 
+  validates :service_identifier,
+    uniqueness: { scope: :type, message: "has already been registered" }
+
   # STI types
   TYPES = [TwitterChannel,InstagramChannel,RssChannel,EventRssChannel,FacebookPageChannel,YoutubePlaylistChannel,IcalendarChannel]
 

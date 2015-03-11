@@ -7,7 +7,7 @@ gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'mysql2'
-gem 'spring',        group: :development
+gem 'sanitize'
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
@@ -84,6 +84,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rack-livereload'
   gem 'sqlite3'
+  gem 'spring'
 end
 
 group :test do
