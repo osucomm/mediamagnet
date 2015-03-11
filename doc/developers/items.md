@@ -8,39 +8,37 @@ Endpoints
 
 Item Attributes
 -----------------
+**bold = required**
 
-* **id** - Internal MM id.
-* **link** - URL of item from source system.
-* **href** - URL of item in Media Magnet.
-* **guid** - Globally unique identifier as provided by source system.
-* **chtype**
-* excerpt - ~140 character 
-* content - HTML content associated 
-
-Optional Elements
------------------
-
-* title - Source systems that 
-* description
-* links
-* assets
+* **id**(number) - Internal MM id.
+* **guid**(string) - Globally unique identifier as provided by source system.
+* **link**(string) - Absolute URL of item from source system.
+* **href**(string) - Absolute URL of item in Media Magnet (defaults to html).
+* **channel_type**(string) - twitter, facebook page, instagram, etc.
+* **channel_id**(number)
+* **excerpt**(string) - ~140 character synopsis, title or excerpt of item.
+* **content**(string) - HTML content associated  with the item.
+* **tags**(array of strings) - array of strings with tags.
+* **keywords**(array of objects) - array of objects representing keywords (name and category).
+* title(string) - Source systems that have explicit titles will be returned here. This
+  may be same as excerpt without 140 character limit.
+* description(string) - Used for channel_types that have explicit plain-text 
+  descriptions (RSS, Events, YouTube.)
+* assets(array of objects) - mime, url, and size for media assets (Instagram 
+  Photos/Videos, twitpic, RSS enclosures). **NOTE: YouTube videos are not 
+  assets as YouTube does not provide access to the source files.**
 
 Filters
 -------
 
-* channel_id
-* channel_type
-* entity_id
-* tags
+* search - /api/v1/items.json?search=urban%20meyer
+* entity_id - /api/v1/items.json?entity_id=1
+* channel_id - /api/v1/items.json?channel_id[]=1&channel_id[]2
+* channel_type - /api/v1/items.xml?channel_type=twitter
+* tags - /api/v1/items.json?tags[]=mytag&tags[]=audience-alumni
 * **Keyword Categories (i.e., audience=audience-alumni)
 
-Items are abstracted from their source systems to provide a more uniform 
-interface to getting at data. Currently all items are guaranteed to have an 
-**excerpt** which is 140 characters of plain text, and **content** which is a 
-suitably lean html marked up version of the item's entire content. Additionally
-all items contain a **link** (canonical URL of the resource), and an **href** 
-(permalink to fetch the item from MediaMagnet). The following
-elements are available on items based on type:
+The following elements are available on items based on type:
 
 <table class="table table-condensed">
   <thead>
