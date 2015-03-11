@@ -1,9 +1,9 @@
 Developers
 ==========
 
-MediaMagnet has a public api designed to make it easy to extract content.
+Overview for Developers.
 
-* [Items](items.md)
-* [Keywords](keywords.md)
-* [Channels](channels.md)
-* [Entities](entities.md)
+* [Getting Content in to Media Magnet](subscription.md)
+* [Getting Content out of Media Magnet](api.md)
+
+
