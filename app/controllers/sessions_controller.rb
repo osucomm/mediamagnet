@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
       # Log in the user
       self.current_user = @identity.user
       @identity.user.sign_in!
-      flash[:notice] = "Welcome, #{current_user.display_name}!"
+      show_welcome_message
     end
 
     redirect_to_origin
@@ -57,5 +57,13 @@ class SessionsController < ApplicationController
 
   def redirect_to_origin
     redirect_to request.env['omniauth.origin'] || session.delete(:return_to) || root_url
+  end
+
+  def show_welcome_message
+    if current_user.sign_in_count == 1 || (current_user.sign_in_count <= 5 && current_user.entities.count == 0)
+      flash[:welcome] = render_to_string(partial: 'sessions/welcome_message', layout: false)
+    else
+      flash[:notice] = "Welcome, #{current_user.display_name}!"
+    end
   end
 end

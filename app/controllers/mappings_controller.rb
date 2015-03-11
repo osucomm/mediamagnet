@@ -28,7 +28,6 @@ class MappingsController < ApplicationController
     @mapping = Mapping.find(params[:id])
     authorize @mapping
     @mapping.destroy
-    flash[:success] = "Mapping was deleted."
     respond_with @mapping
   end
 
