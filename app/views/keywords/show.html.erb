@@ -1,14 +1,28 @@
-<h1><%= title @keyword.display_name %> <%= keyword_action_links @keyword, [:update] %></h1>
+<h1>Keyword: <%= title @keyword.display_name %> <%= keyword_action_links @keyword, [:update] %></h1>
 
-<p>
-  Machine Name: <%= @keyword.name %>
-  <% if @keyword.category %>
-    <br>Category: <%= @keyword.category.name %>
-  <% end %>
-</p>
-<p>
-  <%= @keyword.description %>
-</p>
-<p>
-There are <%= link_to "#{@keyword.items.count} items", items_path(tags: @keyword.name)  %> tagged with this keyword.
-</p>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <p>
+      Machine Name: <%= @keyword.name %>
+      <% if @keyword.category %>
+        <br>Category: <%= @keyword.category.name %>
+      <% end %>
+    </p>
+    <p><%= @keyword.description %></p>
+    <p>
+      There are <%= link_to "#{@keyword.items.count} items", items_path(tags: @keyword.name)  %> tagged with this keyword.
+    </p>
+  </div>
+</div>
+
+<h2>
+  Latest Content
+  <%- if @keyword.item_count > 4 %>
+    | <small><%= link_to 'View all content', items_path(tags: @keyword.name) %> (<%= @keyword.item_count %> items)</small>
+  <%- end %>
+</h2>    
+<ul class="media-list">
+  <%- @keyword.items.from_approved.take(4).each do |item| %>
+    <li class="clearfix media"><%= render item %></li>
+  <%- end %>
+</ul>

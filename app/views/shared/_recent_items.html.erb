@@ -1,11 +1,12 @@
-<h2>
-  Latest Content
-  <%- if itemable.item_count > 4  && itemable.approved? %>
-    | <small><%= link_to 'View all content', itemable_items_path(itemable) %> (<%= itemable.item_count %> items)</small>
-  <%- end %>
-  </h2>    
-<ul class="media-list">
-  <%- itemable.items.take(4).each do |item| %>
-    <li class="clearfix media"><%= render item %></li>
-  <%- end %>
-</ul>
+<%- if itemable.item_count > 0 %>
+  <h2>Latest Content
+    <%- if itemable.item_count > 4  && itemable.approved? %>
+      | <small><%= link_to 'View all content', itemable_items_path(itemable) %> (<%= itemable.item_count %> items)</small>
+    <%- end %>
+  </h2>
+  <ul class="media-list">
+    <%- itemable.items.take(4).each do |item| %>
+      <li class="clearfix media"><%= render item %></li>
+    <%- end %>
+  </ul>
+<%- end %>

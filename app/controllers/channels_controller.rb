@@ -5,13 +5,16 @@ class ChannelsController < ApplicationController
   before_action :get_token, only: [:new]
   before_action :preserve_action_redirect!, only: [:show, :edit]
 
+  has_scope :by_type
+
   respond_to :html
 
   layout 'application', except: :show
 
   def index
-    @channels = channel_type.all.page(params[:page]).
-                                      per(params[:per_page])
+    @channels = apply_scopes(channel_type).all.from_approved
+      .page(params[:page])
+      .per(params[:per_page])
     authorize @channels
     respond_with @channels
   end
