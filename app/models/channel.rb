@@ -3,9 +3,6 @@ class Channel < ActiveRecord::Base
 
   has_one :token, dependent: :destroy
 
-  validates :service_identifier,
-    uniqueness: { scope: :type, message: "has already been registered" }
-
   # STI types
   TYPES = [TwitterChannel,InstagramChannel,RssChannel,EventRssChannel,FacebookPageChannel,YoutubePlaylistChannel,IcalendarChannel]
 
@@ -21,7 +18,8 @@ class Channel < ActiveRecord::Base
 
   # Validations
   validates :name, presence: true
-  validates :service_identifier, presence: true
+  validates :service_identifier, presence: true,
+    uniqueness: { scope: :type, message: "has already been registered" }
   validate :service_identifier_validator
 
   accepts_nested_attributes_for :contact
