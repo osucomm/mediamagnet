@@ -46,8 +46,8 @@ gem 'versionist'
 gem 'rabl'
 
 # elasticsearch
-gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
-gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-model', git: 'https://github.com/elasticsearch/elasticsearch-rails'
+gem 'elasticsearch-rails', git: 'https://github.com/elasticsearch/elasticsearch-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
