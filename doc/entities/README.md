@@ -1,4 +1,0 @@
-Entities
-========
-
-Help with entities.
