@@ -1,18 +1,16 @@
-<% cache "welcome-#{Date.today}" do %>
-  <header id="masthead">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-7 masthead-logo">
-            <a class="logo" href="http://www.osu.edu/">The Ohio State University</a>
-        </div><!-- /6 -->
-        <div class="col-xs-12 col-sm-5 masthead-title">
-            
-          <h1>Media Magnet</h1>
-        </div><!-- /6 -->
-      </div><!-- /row -->
-    </div><!-- /container -->
-  </header>
-
+<header id="masthead">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-7 masthead-logo">
+          <a class="logo" href="http://www.osu.edu/">The Ohio State University</a>
+      </div><!-- /6 -->
+      <div class="col-xs-12 col-sm-5 masthead-title">
+          
+        <h1>Media Magnet</h1>
+      </div><!-- /6 -->
+    </div><!-- /row -->
+  </div><!-- /container -->
+</header>
 
 <section id="content">
 <div class="container" id="page-content">
@@ -33,37 +31,39 @@
 			  <hr/>
         </div>
       </div>
-	<div class="row">
-  		<div class="col-md-4">
-  
-  <h3>How is it useful?</h3>
-  <p>Ohio State is big! We produce thousands of digital content items each year. 
-  Media Magnet makes it easy to organize and combine separate pieces of content.
-  And it's easy to participate! <%= link_to 'Login', auth_path(:shibboleth) %> to start.
-  </p>
-
-    </div>
-		<div class="col-md-4">
-  
-  <h3>How does it work?</h3>
-  <ol>
-    <li>Point Media Magnet at some content</li>
-     <li>Tag the content with keywords</li>
-     <li>The content is pooled and filterable for anyone to use</li>
-  </ol>
-  <p class="small"><a href="<%= help_path %>">View Help docs</a> for more details!</p>
+  <% cache "welcome-body-#{Date.today}" do %>
+  	<div class="row">
+    		<div class="col-md-4">
     
-  </div>
-		<div class="col-md-4">
-    
-    <h3>What's inside?</h3>
-    <p>Media Magnet is comprised of <a href="<%= entities_path %>"><%= Entity.approved.count %> departments</a> managing <a href="<%= channels_path %>"><%= Channel.from_approved.count %> content channels</a> providing
-    <a href="<%= items_path %>"><%= Item.from_approved.count %> individual content items</a>.</p>
-    
-    <p>Content is tagged with any combination of <a href="<%= keywords_path %>"><%= Keyword.all.count %> common keywords</a> and <%= Channel::TYPES.count %> channel types are supported.
+    <h3>How is it useful?</h3>
+    <p>Ohio State is big! We produce thousands of digital content items each year. 
+    Media Magnet makes it easy to organize and combine separate pieces of content.
+    And it's easy to participate! <%= link_to 'Login', auth_path(:shibboleth) %> to start.
     </p>
+
+      </div>
+  		<div class="col-md-4">
+    
+    <h3>How does it work?</h3>
+    <ol>
+      <li>Point Media Magnet at some content</li>
+       <li>Tag the content with keywords</li>
+       <li>The content is pooled and filterable for anyone to use</li>
+    </ol>
+    <p class="small"><a href="<%= help_path %>">View Help docs</a> for more details!</p>
+      
     </div>
-  </div>
+  		<div class="col-md-4">
+      
+      <h3>What's inside?</h3>
+      <p>Media Magnet is comprised of <a href="<%= entities_path %>"><%= Entity.approved.count %> departments</a> managing <a href="<%= channels_path %>"><%= Channel.from_approved.count %> content channels</a> providing
+      <a href="<%= items_path %>"><%= Item.from_approved.count %> individual content items</a>.</p>
+      
+      <p>Content is tagged with any combination of <a href="<%= keywords_path %>"><%= Keyword.all.count %> common keywords</a> and <%= Channel::TYPES.count %> channel types are supported.
+      </p>
+      </div>
+    </div>
+  <% end %>
 
   </div>
 
@@ -84,4 +84,3 @@
   </div><!-- /container -->
   </footer>
 </div>
-<% end %>
