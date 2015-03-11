@@ -65,7 +65,7 @@ TwitterChannel.create([
   }
 ])
 
-WebChannel.create([
+RssChannel.create([
   {
     name: 'OSU.edu Features',
     description: 'Feature articles from the Ohio State web site',
@@ -75,7 +75,7 @@ WebChannel.create([
   }
 ])
 
-WebChannel.create([
+RssChannel.create([
   {
     name: 'OSU Image of the Day',
     description: 'Images from the Ohio State University',
