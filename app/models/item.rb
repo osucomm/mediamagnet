@@ -60,7 +60,7 @@ class Item < ActiveRecord::Base
   after_create() { __elasticsearch__.index_document if entity.approved? }
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
-  after_save() { __elasticsearch__.delete_document; __elasticsearch__.index_document if entity.approved? }
+  after_save() { (__elasticsearch__.delete_document; __elasticsearch__.index_document) if entity.approved? }
   after_destroy() { __elasticsearch__.delete_document if entity.approved? }
 
   delegate :mappings, to: :channel
