@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   # Associations
-  has_many :identities
+  has_many :identities, dependent: :destroy
   has_and_belongs_to_many :entities
 
   belongs_to :current_entity, class_name: 'Entity', foreign_key: 'current_entity_id'
