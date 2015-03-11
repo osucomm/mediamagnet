@@ -1,4 +1,4 @@
-object false
+object root: { root: 'result' } if request.format.xml?
 cache @channels
 
 if @channels.present?
