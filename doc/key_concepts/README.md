@@ -1,2 +1,5 @@
 Key Concepts
 ============
+
+Channels
+--------
