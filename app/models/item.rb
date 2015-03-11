@@ -57,6 +57,7 @@ class Item < ActiveRecord::Base
   validates :channel_id, presence: :true
 
   before_save :links_from_text_fields
+  before_save :sanitize_plain_elements
   after_create() { __elasticsearch__.index_document if entity.approved? }
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
@@ -221,7 +222,7 @@ class Item < ActiveRecord::Base
   end
 
   def to_s
-    [:title, :description, :guid].each do |field|
+    [:description, :title, :guid].each do |field|
       return self.send(field) unless self.send(field).blank?
     end
   end
@@ -277,6 +278,12 @@ class Item < ActiveRecord::Base
       end
     end
   end
+
+  def sanitize_plain_elements
+    self.title = Sanitize.fragment(title)
+    self.description = Sanitize.fragment(description)
+  end
+
 
   def all_text
     %w(title description content).map do |field|
