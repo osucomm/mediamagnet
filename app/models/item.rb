@@ -67,7 +67,8 @@ class Item < ActiveRecord::Base
   delegate :name, :id, to: :channel, prefix: :channel
   delegate :entity_id, to: :channel
 
-  scope :most_recent, -> { order('published_at DESC').limit(1) }
+  scope :recent, -> { order('published_at DESC') }
+  scope :most_recent, -> { recent.limit(1) }
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
