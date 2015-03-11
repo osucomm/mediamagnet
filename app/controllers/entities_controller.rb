@@ -6,7 +6,7 @@ class EntitiesController < ApplicationController
   respond_to :html
 
   def index
-    @entities = Entity.all
+    @entities = Entity.all.approved
     authorize @entities
     respond_with @entities
   end

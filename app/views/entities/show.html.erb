@@ -5,9 +5,9 @@
 
 <h1><%= title @entity.name %> <%= entity_action_links @entity, [:update] %></h1>
 <div class="well well-sm">
-  <div class="container">
+  <div class="row">
     <div class="col-sm-6">
-      <p><%= @entity.description %></p>
+      <%= @entity.description %>
     </div>
     <div class="col-sm-6">
       <%- if @entity.contact %>
@@ -17,37 +17,39 @@
   </div>
 </div>
 
-<div class="col-sm-8">
-  <%= render 'shared/recent_items', itemable: @entity %>
+<div class="row">
+  <div class="col-sm-8">
+    <%= render 'shared/recent_items', itemable: @entity %>
 
-  <h2>Channels <small><%= help_icon_for('Channel') %></small>
-    <%- if policy(@entity).update? %>
-      <div class="btn-group">
-        <button type="button" class="btn btn-primary btn-xs action-button dropdown-toggle" data-toggle="dropdown">
-          <%= fa_icon(:plus) %> <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <%- Channel::TYPES.each do |type| %>
-            <li><%= link_to type.type_name.titleize, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
-          <%- end %>
-        </ul>
-      </div>
-    <%- end %>
-  </h2>
-  <div class="list-group">
-    <%- @entity.channels.each do |channel| %>
-      <%= link_to_channel(channel, class: 'list-group-item') %>
+    <h2>Channels <small><%= help_icon_for('Channel') %></small>
+      <%- if policy(@entity).update? %>
+        <div class="btn-group">
+          <button type="button" class="btn btn-success btn-xs action-button dropdown-toggle" data-toggle="dropdown">
+            <%= fa_icon(:plus) %> <span class="caret"></span>
+            <span class="sr-only">Add channel</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <%- Channel::TYPES.each do |type| %>
+              <li><%= link_to type.type_name.titleize, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
+            <%- end %>
+          </ul>
+        </div>
+      <%- end %>
+    </h2>
+    <div class="list-group channels">
+      <%- if @entity.channels.each do |channel| %>
+        <%= link_to_channel(channel, class: 'list-group-item') %>
+      <%- end.empty? %>
+        <p>No content channels have been added to <%= @entity.name %></p>
+      <%- end %>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <%= render 'keywordings/keywordings', keywordable: @entity, keywordable_type: 'Entity' %>
+
+    <%- if current_user %>
+      <%= render 'mappings/mappings', mappable: @entity %>
+      <%= render 'memberships/memberships', entity: @entity %>
     <%- end %>
   </div>
-</div>
-<div class="col-sm-4">
-  <%= render 'keywordings/keywordings', keywordable: @entity, keywordable_type: 'Entity' %>
-  <hr>
-
-  <%- if current_user %>
-    <%= render 'mappings/mappings', mappable: @entity %>
-    <hr>
-    <%= render 'memberships/memberships', entity: @entity %>
-  <%- end %>
-
 </div>

@@ -3,5 +3,5 @@
   <%- unless no_close %>
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <%- end %>
-  <%= message %>
+  <%= flash_type == :welcome ? message.html_safe : message %>
 </div>

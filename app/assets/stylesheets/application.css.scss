@@ -21,6 +21,7 @@
 
 @import "osu_navbar-resp";
 @import "channels";
+@import "entities";
 @import "items";
 @import "welcome";
 
@@ -28,6 +29,7 @@ body {background:#fff; font: 16px/21px 'proximanova', Arial, sans-serif;font-wei
 h1, h2, h3, h4, h5, h6, p, li, a {font-weight:normal;}
 h1, h2, h3 {font-family:'proximanova',Arial,sans-serif; font-weight:600;}
 h4, h5, h6 {font-family: 'proximanova',Arial,sans-serif; font-weight:600;}
+address {margin-bottom:0;}
 
 .nowrap {white-space:nowrap;}
 .inline {display:inline;}
@@ -54,10 +56,10 @@ img {max-width:100%; height:auto;}
 video {max-width:100%; height:auto;}
 
 .action-button {margin-left:2px; margin-right:2px;}
+.action-button i.fa {vertical-align:middle;}
+i.fa.help-icon {vertical-align:baseline;}
 
-.label-primary:hover {
-  background-color: darken($brand-primary, 10%);
-}
+.label-primary:hover {background-color: darken($brand-primary, 10%);}
 
 .label {
   a {
@@ -65,8 +67,22 @@ video {max-width:100%; height:auto;}
   }
 }
 
-#add-membership .keyword-select .form-group,
-#add-keywording .keyword-select .form-group,
-#add-mappings .keyword-select .form-group {margin-bottom:0;}
+.panel-title > a.action-button {color:white;}
 
-#add-mappings form, #add-keywording form, #add-membership form { margin-bottom: 1.5em; }
+
+/* Interactive tagging forms */
+.interactive-panel {
+  .keyword-select .form-group {margin-bottom:0;}
+  form { margin-bottom: 15px; }
+  .panel-heading {display:table; width:100%;}
+  h2.panel-title, .panel-heading span {display:table-cell;}
+  ul {margin-bottom:0;}
+}
+
+#add-mappings form {margin:15px;}
+
+.panel-body.mappings {padding:0;}
+table.mappings {
+  margin-bottom:5px;
+  th:first-child, td:first-child {padding-left:15px;}
+}

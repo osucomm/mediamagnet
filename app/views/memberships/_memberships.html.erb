@@ -1,11 +1,16 @@
-<h2>Members <small><%= help_icon_for('User') %></small>
-  <%- if policy(entity).update? %>
-    <%= add_button new_membership_path(entity_id: entity.id), remote: true %></h2>
-  <%- end %>
-</h2>
-<div id="add-membership"></div>
-<ul class="list-group memberships">
-  <%- entity.users.each do |user| %>
-    <%= render 'memberships/membership', user: user, entity: entity %>
-  <%- end %>
-</ul>
+<div class="panel panel-default interactive-panel">
+  <div class="panel-heading">
+    <h2 class="panel-title">Members <%= help_icon_for('User') %></h2>
+      <%- if policy(entity).update? %>
+        <span class="text-right"><%= add_button new_membership_path(entity_id: entity.id), remote: true %></span>
+      <%- end %>
+  </div>
+  <div class="panel-body memberships">
+    <div id="add-membership"></div>
+    <ul class="list-group memberships">
+      <%- entity.users.each do |user| %>
+        <%= render 'memberships/membership', user: user, entity: entity %>
+      <%- end %>
+    </ul>
+  </div>
+</div>

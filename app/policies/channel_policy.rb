@@ -5,7 +5,7 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    record.approved? || User.exists?(user)
   end
 
   def create?
