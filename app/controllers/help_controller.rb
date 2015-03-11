@@ -25,7 +25,7 @@ class HelpController < ApplicationController
     end
 
     def render_page(view='show')
-      renderer = Redcarpet::Render::HTML.new()
+      renderer = Redcarpet::Render::HTML.new(with_toc_data: true)
       markdown = Redcarpet::Markdown.new(renderer)
 
       if File.exists?(@file_name)
@@ -35,7 +35,7 @@ class HelpController < ApplicationController
         title_node.try(:remove)
         render view
       else
-        not_found!
+        raise ActionController::RoutingError.new('Not Found')
       end
     end
 
