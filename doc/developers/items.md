@@ -1,24 +1,26 @@
 Api: Items
 ==========
 
-Endpoint 
+Endpoints
 --------
 /api/v1/items.json
+/api/v1/items/[id].json
 
-Required Elements
+Item Attributes
 -----------------
 
-* id
-* link
-* href
-* guid
-* excerpt
-* content
+* **id** - Internal MM id.
+* **link** - URL of item from source system.
+* **href** - URL of item in Media Magnet.
+* **guid** - Globally unique identifier as provided by source system.
+* **chtype**
+* excerpt - ~140 character 
+* content - HTML content associated 
 
 Optional Elements
 -----------------
 
-* title
+* title - Source systems that 
 * description
 * links
 * assets
