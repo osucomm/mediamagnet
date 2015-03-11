@@ -1,4 +1,4 @@
-object false
+object root: { root: 'result' } if request.format.xml?
 cache @channel
 
 child @channel, root: 'channel', object_root: false do
