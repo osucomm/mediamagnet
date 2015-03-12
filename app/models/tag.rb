@@ -21,7 +21,7 @@ class Tag < ActiveRecord::Base
     end
 
     def taggerize(text)
-      text.gsub('-', '').gsub(' ', '-').gsub(/[^0-9a-z\-]/i, '').downcase
+      text.gsub('_', '-').gsub(' ', '-').gsub(/[^0-9a-z\-]/i, '').downcase
     end
   end
 
