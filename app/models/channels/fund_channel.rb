@@ -30,7 +30,7 @@ class FundChannel < Channel
           description: fund['description'],
           digest: Digest::SHA256.base64digest(fund.to_s)
         )
-        i.tag_names = fund['tags'].split(',')
+        i.tag_names = fund['tags']
         i.keywords << all_keywords
         i.update_es_record
       end
