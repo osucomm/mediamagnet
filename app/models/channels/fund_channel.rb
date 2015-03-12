@@ -32,6 +32,7 @@ class FundChannel < Channel
         )
         i.tag_names = fund['tags'].split(',')
         i.keywords << all_keywords
+        i.update_es_record
       end
     end
     log_refresh

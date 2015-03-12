@@ -40,6 +40,7 @@ class TwitterChannel < Channel
         end
         i.tag_names = tweet.hashtags.map(&:text)
         i.keywords << all_keywords
+        i.update_es_record
       end
     end
     log_refresh
