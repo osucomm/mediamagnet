@@ -28,8 +28,7 @@ class FundChannel < Channel
           title: fund['title'],
           link: Link.where(url: fund['url']).first_or_create,
           description: fund['description'],
-          digest: Digest::SHA256.base64digest(fund.to_s),
-          published_at: Time.at(0)
+          digest: Digest::SHA256.base64digest(fund.to_s)
         )
         i.tag_names = fund['tags'].split(',')
         i.keywords << all_keywords
