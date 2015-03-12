@@ -34,13 +34,17 @@ class Channel < ActiveRecord::Base
   before_destroy :destroy_all_items
 
   # Scopes
-  scope :needs_refresh, -> {
-    where('last_polled_at < ? OR last_polled_at is null', 1.hour.ago)
-  }
 
   scope :by_type, -> type { where(:type => type) }
 
   class << self
+    def needs_refresh
+      ids = all.to_a.keep_if do |channel|
+        channel.last_polled_at.nil? || 
+          channel.last_polled_at < channel.max_refresh_interval.seconds.ago
+      end.map(&:id)
+      find(ids)
+    end
     def type_name
       self.name.sub('Channel', '').titleize
     end

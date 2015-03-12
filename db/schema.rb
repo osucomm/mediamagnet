@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311203021) do
+ActiveRecord::Schema.define(version: 20150312160546) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "item_id",    null: false
@@ -35,10 +35,10 @@ ActiveRecord::Schema.define(version: 20150311203021) do
   end
 
   create_table "channels", force: :cascade do |t|
-    t.string   "type",                  null: false
-    t.string   "name",                  null: false
+    t.string   "type",                                null: false
+    t.string   "name",                                null: false
     t.text     "description"
-    t.integer  "entity_id",             null: false
+    t.integer  "entity_id",                           null: false
     t.boolean  "primary"
     t.string   "service_identifier"
     t.string   "url"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20150311203021) do
     t.datetime "last_polled_at"
     t.integer  "service_identifier_id"
     t.text     "avatar_url"
+    t.integer  "max_refresh_interval",  default: 300
   end
 
   add_index "channels", ["entity_id"], name: "index_channels_on_entity_id"
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(version: 20150311203021) do
     t.datetime "updated_at"
     t.text     "content"
     t.string   "source_identifier"
+    t.string   "digest"
   end
 
   add_index "items", ["channel_id"], name: "index_items_on_channel_id"
