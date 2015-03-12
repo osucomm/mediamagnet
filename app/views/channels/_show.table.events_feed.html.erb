@@ -6,7 +6,7 @@
       <th class="">End</th>
       <th class="">Location</th>
 	  </tr>
-		  <%- @channel.items.take(4).each do |item| %>
+		  <%- @channel.items.take(4).recent.each do |item| %>
 			<tr>
 			  <td>
 					<%= link_to item, item %>
