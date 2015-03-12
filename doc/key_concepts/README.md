@@ -15,7 +15,7 @@ circumstance.
 An organization is not limited to one entity, and is free to choose a structure
 that best represents their content.
 
-**Example:** *The Department of Athletics would be an entity containing various web feeds and social media channels*
+**Example:** *The Department of Athletics would be an entity containing various web feeds and social media channels*  
 **Example:** *The College of Arts and Sciences may be an entity. The Department of Mathematics and the Center for Languages, Literatures, and Culture may also create entities to better organize their content channels.*
 
 - - -
@@ -23,15 +23,15 @@ that best represents their content.
 Channels
 --------
 [Channels](/channels) are the digital communication vehicles published by an
-entity. A channel contains individual content items and publishes those items in
-a format Media Magnet can understand.
+entity. A channel contains individual [content items](#items) and publishes
+those items in a format Media Magnet can understand.
 
 There are seven content sources (or channel types) that can be added to Media
 Magnet:
 
 ### RSS Feed
 
-Content based on a traditional website that is periodical or regularly updated.
+Content hosted on a traditional website that is periodical or regularly updated.
 This often takes the form of a blog or news section. Media Magnet requires the
 URL of an [RSS](http://en.wikipedia.org/wiki/RSS) feed to make use of this type
 of content.
@@ -40,7 +40,7 @@ Most popular content management systems such as [Wordpress](http://codex.wordpre
 and [Drupal](https://www.drupal.org/project/views_rss) can produce an RSS feed
 out of the box or by using popular plugins.
 
-**Example** *The university newsroom publishes regular news articles on their [website](http://news.osu.edu). The RSS feed can be found [here](http://news.osu.edu/feed.rss).
+**Example** *The university newsroom publishes regular news articles on their [website](http://news.osu.edu). The RSS feed can be found [here](http://news.osu.edu/feed.rss).*
 
 ### Twitter
 
@@ -53,16 +53,16 @@ account name or handle.
 
 ### Facebook
 
-[Facebook](https://facebook.com)... who doesn't use it? Even Media Magnet has an
-account! If you have a Facebook page (not a personal account), Media Magnet can
-pull in its content. Simply create a Facebook channel and provide the page name.
+Even Media Magnet is on [Facebook](https://facebook.com)! If you have a Facebook
+page (not a personal account), Media Magnet can pull in its content. Simply
+create a Facebook channel and provide the page name.
 
 **Example** *[The Ohio State Facebook page](https://www.facebook.com/osu) could be added using the page name "osu"*
 
 ### Youtube
 
 To make sure we all have access to the latest viral videos, [Youtube](https://youtube.com)
-video playlists can be imported into Media Magnet. They will provide the title,
+playlists can be imported into Media Magnet. They will provide the title,
 description, and embed code for each video.
 
 To create a Youtube channel, you'll need the playlist ID you would like to add.
@@ -100,14 +100,95 @@ calendar URL to create an iCal channel.
 
 - - -
 
+Items
+-----
+[Items](/items) are the beating heart of Media Magnet. An item represents a
+single piece of content published in a [channel](#channels). An item could be a
+tweet, post, photo, web page, or event. Media Magnet imports items from channels
+on a regular basis and stores their normalized content. This allows you to
+retrieve items without needing to know their original content.
+
+When items are imported, they are also given [tags](#tags) and
+[keywords](#keywords) using tags from the items themselves and from their
+channels and entities.
+
+- - -
+
 Keywords
 --------
-A universal set of words used based on common university themes. Media Magnet Keywords can be applied to Entities, Channels and content.
+[Keywords](/keywords) are a taxonomy of terms that describe and categorize the
+content in an entity, channel, or item. They are a set of [tags](#tags) whose
+meaning has been agreed to by content producers using Media Magnet. This
+ensures that, for example, content tagged with "althletics" refers to sports at
+Ohio State rather than the Department of Athletics or simply the general idea of
+participating in sports. Keywords allow editors to express the meaning of their
+content and for other users to find content relevant to their interests.
+
+### Categories
+Some keywords fall into specific categories. The categories are:
+
+  * [Audience](/keywords?by_category=audience): The intended autdience for the
+    content. These are generally cross-discipline groups who have a particular
+    affiliation with the university. For example, a content item tagged with the
+    "audience-alumni" keyword is intended to be read by alumni. It does not
+    indicate that the content is _about_ alumni
+  * [College](/keywords?by_category=college): Each college has a keyword that
+    indicates the content is related to the college's faculty, students, staff,
+    research, or other activities.
+  * [Location](/keywords?by_category=location): Implies that the content is
+    geogrphically based, or is more relevant to certain locations than others.
+  * [Format](/keywords?by_category=format): Describes the media that makes up
+    the content. For example, the "photo" keyword indicates that an item is
+    photo-heavy.
+
+### Using Keywords
+
+Keywords can be added to entities and channels from within Media Magnet. We
+recommend that they have no more than three general keywords. Using too many
+keywords will "polute" items with tags that do not necessarily describe the
+content.
+
+Items inherit the keywords of their channel and entity. Similarly, channels
+inherit their entity's keywords. To apply keywords to an individual item, the
+source system will need to contain a tag that matches a keyword. Case does not
+matter ("Alumni" and "AlUmNi" will both add the keyword "alumni") but spaces,
+dashes, and slashes must be correct.
 
 - - -
 
 Tags
 ----
-Public hashtags used within content: Like "#gobucks!"
-####Pro-tip: Tags can be mapped to Keywords
-**Example:** *The public hash-tag "#gobucks" could be mapped to the Keyword "Buckeye Pride" since they both usually connote spirit messaging*
+Tags are short words or terms used to sort and categorize [content items](#items).
+Unlike [Keywords](#keywords), Media Magnet makes no guarantees about the meaning
+of a tag. There is also no assumption that content producers use tags in the
+same way. Tags are useful for organizing content in ways that do not align with
+Media Magnet keywords.
+
+####Pro-tip: Tags can be [mapped](#mapping) to Keywords
+
+The method of tagging an item varies by channel type:
+
+  * RSS: "category" elements in the feed
+  * Twitter: Hashtags
+  * Facebook: Hashtags
+  * Youtube: Tags added to videos during creation
+  * Instagram: Hashtags
+  * Events RSS: "category" elements in the feed
+  * iCal: Not currently supported
+
+**Example:** *The Twitter hashtag "#cats" Would add the tag "cats" to the Media Magnet*
+
+- - -
+
+Mappings
+--------
+In many cases, it is not desireable to publish keywords as public-facing tags.
+So how can we use keywords at the item level? Media Magnet's got you covered!
+Entities and channels can map public tags to Media Magnet keywords. When an item
+contains a mapped tag, the corresponding keyword will also be applied. Mappings
+apply only to items from a given entity or channel, so you can use your existing
+tag vocabularies with Media Magnet.
+
+**Example:** *The hashtag "#gobucks" could be mapped to the keyword "Buckeye Pride" since they both usually connote spirit messaging*  
+**Example:** *The hashtag "#osunews" could be mapped to the keyword "News"*
+
