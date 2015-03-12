@@ -9,7 +9,7 @@ class Tag < ActiveRecord::Base
 
   class << self
     def create_from_text(text)
-      self.where(name: text.downcase).first_or_create
+      self.where(name: taggerize(text)).first_or_create
     end
 
     def help_text
@@ -18,6 +18,10 @@ class Tag < ActiveRecord::Base
       identical to Media Magnet keywords, or you may map tags from your 
       channels to MM keywords.
       EOT
+    end
+
+    def taggerize(text)
+      text.gsub('_', '-').gsub(' ', '-').gsub(/[^0-9a-z\-]/i, '').downcase
     end
   end
 
