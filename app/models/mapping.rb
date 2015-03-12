@@ -57,6 +57,7 @@ class Mapping < ActiveRecord::Base
       end
     end
   end
+  handle_asynchronously :add_keyword_to_items
 
   def remove_keyword_from_items
     mappable.items.each do |item|
