@@ -49,8 +49,12 @@ class Mapping < ActiveRecord::Base
   end
 
   def add_keyword_to_items
-    mappable.items.each do |item|
-      item.keywords << keyword if item.custom_tags.include?(tag)
+    items = mappable.items.eager
+    items.each do |item|
+      if item.custom_tags.include?(tag)
+        item.keywords << keyword
+        item.update_es_record
+      end
     end
   end
 
