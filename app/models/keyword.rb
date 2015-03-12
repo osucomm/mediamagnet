@@ -28,9 +28,9 @@ class Keyword < ActiveRecord::Base
     order('display_name ASC')
   }
 
-  scope :top, ->(n) {
-    limit(n)
-  }
+  scope :top, ->(n) { limit(n) }
+  scope :by_category, -> category { joins(:category).where('categories.name' => category) }
+
 
   class << self
     def help_text

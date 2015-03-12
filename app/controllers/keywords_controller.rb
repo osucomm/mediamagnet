@@ -4,10 +4,12 @@ class KeywordsController < ApplicationController
   before_action :find_keyword, only: [:show, :edit, :update, :destroy]
   before_action :set_categories, only: [:new, :edit]
 
+  has_scope :by_category
+
   respond_to :html, :js, :json
 
   def index
-    @keywords = Keyword.normal
+    @keywords = apply_scopes(Keyword.normal)
     respond_with @keywords
   end
 
