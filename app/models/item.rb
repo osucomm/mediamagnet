@@ -23,10 +23,9 @@ class Item < ActiveRecord::Base
   Category.all.each do |category|
     association_name = "#{category.name}_keywords".to_sym
 
-    has_many association_name,
-      -> { where(category_id: category.id).uniq },
-      through: :keywordings,
-      source: :keyword
+    define_method association_name do |*args|
+      keywords.select {|keyword| keyword.category_id == category.id}
+    end
 
     define_method "#{category.name.pluralize}" do |*args|
       send(association_name).map(&:name)
