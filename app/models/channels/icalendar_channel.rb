@@ -16,15 +16,16 @@ class IcalendarChannel < Channel
   def refresh_items
     client.events.each do |event|
       unless items.where(guid: event.uid.to_s).exists?
-        item = items.create(
+        i = items.create(
           guid: event.uid.to_s,
           title: event.summary.to_s,
           content: '',
           description: event.description.to_s,
           published_at: event.dtstamp
         )
-        item.tag_names = TagParser.new(event.description.to_s).parse
-        #i.keywords << all_keywords
+        i.tag_names = TagParser.new(event.description.to_s).parse
+        i.keywords << all_keywords
+        i.update_es_record
         starts_at = event.dtstart
         ends_at = event.dtend
         if ((client.prodid =~ /Microsoft Exchange/) == 0)

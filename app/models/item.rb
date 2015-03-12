@@ -23,10 +23,9 @@ class Item < ActiveRecord::Base
   Category.all.each do |category|
     association_name = "#{category.name}_keywords".to_sym
 
-    has_many association_name,
-      -> { where(category_id: category.id).uniq },
-      through: :keywordings,
-      source: :keyword
+    define_method association_name do |*args|
+      keywords.select {|keyword| keyword.category_id == category.id}
+    end
 
     define_method "#{category.name.pluralize}" do |*args|
       send(association_name).map(&:name)
@@ -61,7 +60,7 @@ class Item < ActiveRecord::Base
   after_create() { __elasticsearch__.index_document if entity.approved? }
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
-  after_save() { (__elasticsearch__.delete_document; __elasticsearch__.index_document) if entity.approved? }
+  after_save() { update_es_record }
   after_destroy() { __elasticsearch__.delete_document if entity.approved? }
 
   delegate :mappings, to: :channel
@@ -269,6 +268,11 @@ class Item < ActiveRecord::Base
                  include: { keywords: { only: [ :id, :name, :category_name ] },
                             links: { only: [:url] } },
                  methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
+  end
+
+
+  def update_es_record
+    (__elasticsearch__.delete_document; __elasticsearch__.index_document) if entity.approved?
   end
 
 

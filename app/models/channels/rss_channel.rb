@@ -29,6 +29,7 @@ class RssChannel < Channel
         i.assets.build(url: web_item.image) if web_item.image
         i.tag_names = (web_item.categories) if web_item.categories
         i.keywords << all_keywords
+        i.update_es_record
       end
     end
     log_refresh

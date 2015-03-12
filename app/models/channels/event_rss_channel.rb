@@ -16,7 +16,7 @@ class EventRssChannel < Channel
   def refresh_items
     client.entries.each do |entry|
       unless items.where(guid: entry.entry_id).exists?
-        item = items.create(
+        i = items.create(
           guid: entry.entry_id,
           title: entry.title,
           content: entry.content,
@@ -24,8 +24,9 @@ class EventRssChannel < Channel
           link: Link.where(url: entry.url).first_or_create,
           published_at: entry.published
         )
-        item.tag_names = (entry.categories) if entry.categories
+        i.tag_names = (entry.categories) if entry.categories
         i.keywords << all_keywords
+        i.update_es_record
         e = item.events.build(
           start_date: entry.start_date,
           end_date: entry.end_date,
