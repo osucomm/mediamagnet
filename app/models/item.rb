@@ -57,6 +57,7 @@ class Item < ActiveRecord::Base
   validates :channel_id, presence: :true
 
   before_save :links_from_text_fields
+  before_save :sanitize_plain_elements
   after_create() { __elasticsearch__.index_document if entity.approved? }
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
@@ -67,7 +68,8 @@ class Item < ActiveRecord::Base
   delegate :name, :id, to: :channel, prefix: :channel
   delegate :entity_id, to: :channel
 
-  scope :most_recent, -> { order('published_at DESC').limit(1) }
+  scope :recent, -> { order('published_at DESC') }
+  scope :most_recent, -> { recent.limit(1) }
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
   scope :with_all_keywords, -> { includes(:keywords) }
   scope :by_channels, -> channel_ids { where(channel_id: channel_ids) }
@@ -225,6 +227,12 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def to_long_string
+    [:description, :title, :guid].each do |field|
+      return self.send(field) unless self.send(field).blank?
+    end
+  end
+
   def tag_names=(new_tags)
     new_tags = [] if new_tags.nil?
     new_tags.map!(&:downcase)
@@ -276,6 +284,12 @@ class Item < ActiveRecord::Base
       end
     end
   end
+
+  def sanitize_plain_elements
+    self.title = Sanitize.fragment(title)
+    self.description = Sanitize.fragment(description)
+  end
+
 
   def all_text
     %w(title description content).map do |field|

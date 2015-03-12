@@ -5,7 +5,7 @@
 		<th class="">Item</th>
 		<th class="col-md-2"><!--Visuals--></th>
 	  </tr>
-		  <%- @channel.items.take(4).each do |item| %>
+		  <%- @channel.items.recent.take(4).each do |item| %>
 			<tr>
 			  <td>
 				<p class="nobr"><%= time_or_dash(item.published_at, :med_omit_year) %></p>

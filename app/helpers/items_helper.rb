@@ -28,7 +28,7 @@ module ItemsHelper
       when 'instagram'
         image_tag(item.assets.first.url)
       else
-        auto_link(item.to_s)
+        auto_link(item.to_long_string)
       end
     else
       item.content.html_safe
