@@ -222,6 +222,12 @@ class Item < ActiveRecord::Base
   end
 
   def to_s
+    [:title, :description, :guid].each do |field|
+      return self.send(field) unless self.send(field).blank?
+    end
+  end
+
+  def to_long_string
     [:description, :title, :guid].each do |field|
       return self.send(field) unless self.send(field).blank?
     end
