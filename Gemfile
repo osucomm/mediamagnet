@@ -7,7 +7,7 @@ gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'mysql2'
-gem 'spring',        group: :development
+gem 'sanitize'
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
@@ -19,12 +19,12 @@ gem 'turbolinks'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 #Frontend
-gem 'rails_autolink'
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'font-awesome-rails'
 gem 'highcharts-rails'
 gem 'htmlentities'
 gem 'lazy_high_charts'
+gem 'rails_autolink'
 gem 'sass-rails', '~> 4.0.3'
 gem 'simple_form', '~> 3.1.0.rc2'
 
@@ -84,6 +84,7 @@ group :development do
   gem 'quiet_assets'
   gem 'rack-livereload'
   gem 'sqlite3'
+  gem 'spring'
 end
 
 group :test do

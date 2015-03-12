@@ -5,7 +5,7 @@
     <%- end %>
   </h2>
   <ul class="media-list">
-    <%- itemable.items.take(4).each do |item| %>
+    <%- itemable.items.recent.take(4).each do |item| %>
       <li class="clearfix media"><%= render item %></li>
     <%- end %>
   </ul>
