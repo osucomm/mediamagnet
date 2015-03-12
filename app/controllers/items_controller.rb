@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  include Itemable
   respond_to :html
 
   before_action :normalize_params
@@ -32,10 +33,6 @@ class ItemsController < ApplicationController
 
   def normalize_params
     params[:channel_id] = params[:channel] if params[:channel]
-  end
-
-  def search_params(params)
-    [params[:search], params.except(:search)]
   end
 
   def api_url
