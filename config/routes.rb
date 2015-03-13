@@ -29,7 +29,7 @@ Rails.application.routes.draw do
     resources type.model_name.plural, only: [:new, :create, :destroy], controller: 'mappings', type: type.to_s
   end
 
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :destroy]
 
   namespace :admin do
     resources :users, only: [:index, :update]

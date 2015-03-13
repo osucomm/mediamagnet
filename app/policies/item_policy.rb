@@ -8,4 +8,8 @@ class ItemPolicy < ApplicationPolicy
     true
   end
 
+  def destroy?
+    record.channel.has_user?(user) || user.admin?
+  end
+
 end

@@ -1,4 +1,8 @@
-<h1><%= title excerpt_for(@item) %></h1>
+<h1><%= title excerpt_for(@item) %>
+<%= link_to_delete fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+  @item, 'btn btn-danger btn-xs action-button' if policy(@item).destroy? %>
+</h1>
+
 <p class="lead">URL: <%= link_to @item.link.to_s, @item.link.to_s %></p>
 
 <div class="row">
