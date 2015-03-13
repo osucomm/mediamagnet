@@ -28,7 +28,7 @@ class EventRssChannel < Channel
         i.tag_names = (entry.categories) if entry.categories
         i.keywords << all_keywords
         i.update_es_record
-        e = item.events.build(
+        e = i.events.build(
           start_date: entry.start_date,
           end_date: entry.end_date,
         )
