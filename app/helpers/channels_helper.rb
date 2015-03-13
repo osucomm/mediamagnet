@@ -38,4 +38,8 @@ module ChannelsHelper
     image_tag("#{channel.type_name.downcase}-box.svg", class: 'channel-type-icon')
   end
 
+  def service_url_for(channel)
+    channel.respond_to?(:service_url) ? channel.service_url : url_for(channel)
+  end
+
 end

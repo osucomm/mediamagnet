@@ -9,6 +9,7 @@
     <div class="col-sm-6">
       <%= @entity.description %>
     </div>
+    <br class="visible-xs-inline">
     <div class="col-sm-6">
       <%- if @entity.contact %>
         <%= render partial: "contacts/contact", locals: { contact: @entity.contact } %>

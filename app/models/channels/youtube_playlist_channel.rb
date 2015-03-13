@@ -92,6 +92,10 @@ class YoutubePlaylistChannel < Channel
     self.service_identifier = uploads_playlist_id if new_record?
   end
 
+  def service_url
+    "https://www.youtube.com/playlist?list=#{service_identifier}"
+  end
+
   private
 
   def youtube_api

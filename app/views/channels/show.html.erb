@@ -12,14 +12,14 @@
           </div>
 			<div class="col-md-4 col-md-offset-0">
 				<p class="small channel-desc ">			
-				"<strong><%= link_to @channel.name, @channel.url %></strong>" 
+				"<strong><%= link_to @channel.name, service_url_for(@channel) %></strong>" 
 				is a <strong><%= link_to "#{@channel.type_name.capitalize} channel", channels_path(by_type: @channel.type) %></strong><br/>
 				managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
 			</p>
 			</div>
 			<p class="col-md-8 <%= @channel.type_name.downcase.gsub(' ', '-') %>-darker-color">
 				<%= @channel.description %>
-			</p>      
+			</p>
     	</div>
 	</div>
 </div>

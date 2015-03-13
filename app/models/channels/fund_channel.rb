@@ -69,6 +69,10 @@ class FundChannel < Channel
     end
   end
 
+  def service_url
+    "http://www.osu.edu/giving/"
+  end
+
   private
 
   def client
