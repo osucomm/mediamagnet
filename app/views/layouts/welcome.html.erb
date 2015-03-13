@@ -1,9 +1,44 @@
 <%= render 'shared/head' %>
 
 <body class="welcome">
-  <%= render 'shared/osu_navbar' %>
+<%= render 'shared/osu_navbar' %>
 
-  <%= yield %>
+<header id="masthead">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-7 masthead-logo">
+          <a class="logo" href="http://www.osu.edu/">The Ohio State University</a>
+      </div><!-- /6 -->
+      <div class="col-xs-12 col-sm-5 masthead-title">
+          
+        <h1>Media Magnet</h1>
+      </div><!-- /6 -->
+    </div><!-- /row -->
+  </div><!-- /container -->
+</header>
+
+<section id="content">
+  <div class="container" id="page-content">
+    <div class="row">
+      <div class="messages"><%= render 'shared/flash' %></div>
+    </div>
+
+    <%= yield %>
+  </div>
+</section>
+
+<footer id="page-footer">
+  <div class="container">
+    <div class="row" id="footer-info">
+      <div class="col-sm-12" id="institutional-info">
+        <p><a class="wordmark" href="http://www.osu.edu/">The Ohio State University</a></p>
+            <p>&copy; <%= Time.now.year %> | Student Academic Services Building | 281 W. Lane Ave. | Columbus, Ohio 43210 | <a href="tel:614-292-OHIO">614-292-OHIO</a></p>
+            <p>Contact: <a href="mailto:askabuckeye@osu.edu">Admissions</a> | <a href="mailto:webmaster@osu.edu">Webmaster</a> | Page maintained by <a href="http://ucom.osu.edu/">University Communications</a></p>
+            <p><a href="http://www.osu.edu/webmaster.php">Request</a> an alternate format of this page</p>
+      </div>
+    </div><!-- /footer_info -->
+  </div><!-- /container -->
+</footer>
 
 </body>
 </html>

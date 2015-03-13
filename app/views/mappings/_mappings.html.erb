@@ -8,17 +8,19 @@
   <div class="panel-body mappings">
     <div id="add-mappings"></div>
     <table class="table table-striped mappings">
-      <tbody>
+      <thead>
         <tr>
           <th>Tag</th>
           <th><span class="sr-only">Maps to</span></th>
           <th>Keyword</th>
           <th><span class="sr-only">Actions</span></th>
         </tr>
+      </thead>
+      <tbody>
         <%- if mappable.all_mappings.each do |mapping| %>
           <%= render 'mappings/mapping_row', mapping: mapping, mappable: mappable %>
         <%- end.empty? %>
-          <tr class="no-mappings"><td colspan="4">No mappings have been created</td></tr>
+          <%= render 'mappings/no_mappings' %>
         <%- end %>
       </tbody>
     </table>
