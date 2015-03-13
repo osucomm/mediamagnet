@@ -76,5 +76,11 @@ Rails.application.routes.draw do
   get 'help/:category'        => 'help#category',  as: :help_category
   get 'help/:category/:file'  => 'help#show',  as: :help_page
 
+
+  # Errors
+  %w( 400 403 404 422 500 503 ).each do |code|
+    get code, :to => "errors#show", :code => code
+  end
+
   root 'welcome#show'
 end

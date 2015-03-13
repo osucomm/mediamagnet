@@ -2,7 +2,7 @@ object root: { root: 'result' } if request.format.xml?
 cache @entity
 
 child @entity, object_root: false do
-  extends 'api/v1/entities/_entity'
+  extends 'api/v1/entities/_entit'
 
   child :mappings, object_root: false do
     extends 'api/v1/mappings/_mapping'
