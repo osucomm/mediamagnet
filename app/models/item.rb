@@ -110,7 +110,8 @@ class Item < ActiveRecord::Base
       @search_definition[:facets] = search_facet_fields.each_with_object({}) do |a,hsh|
         hsh[a.to_sym] = {
           terms: {
-            field: a
+            field: a,
+            size: 50
           },
           facet_filter: {}
         }
