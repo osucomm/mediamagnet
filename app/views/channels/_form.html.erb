@@ -15,6 +15,11 @@
   <%- end %>
   <%= f.input :primary %>
 
+  <%- if policy(@channel).transfer? %>
+    <%= f.association :entity %>
+  <%- end %>
+
+
   <p>
   <%= link_to 'Override Contact Info', '#', id: 'add-contact', 
     class: "#{'hidden' if @channel.contact && @channel.contact.name}" %>
@@ -30,4 +35,3 @@
   <%- end %>
 
 <%- end %>
-

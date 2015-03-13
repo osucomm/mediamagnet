@@ -1,7 +1,7 @@
 class ChannelsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_channel, only: [:show, :edit, :update, :destroy, :refresh]
+  before_action :find_channel, only: [:show, :edit, :update, :destroy, :refresh, :transfer]
   before_action :get_token, only: [:new]
   before_action :preserve_action_redirect!, only: [:show, :edit]
 
@@ -64,6 +64,11 @@ class ChannelsController < ApplicationController
   end
 
   def update
+    if @channel.entity_id != channel_params[:entity_id]
+      entity = Entity.find(channel_params[:entity_id])
+      raise RecordNotFound if entity.nil?
+      @channel.transfer_to(entity)
+    end
     if @channel.update channel_params
       flash[:success] = "#{@channel.name} #{@channel.type_name.downcase} channel has been updated."
       respond_with @channel
@@ -76,6 +81,7 @@ class ChannelsController < ApplicationController
 
   def destroy
     @entity = @channel.entity
+    authorize @channel
     @channel.destroy
     flash[:success] = "#{@channel.name} #{@channel.type_name.downcase} channel was successfully deleted."
     respond_with @channel do |format|
@@ -89,11 +95,15 @@ class ChannelsController < ApplicationController
     redirect_to @channel
   end
 
+  def transfer
+    entity = Entity.find(params[:entity_id])
+    respond_with @channel
+  end
+
   private
 
     def channel_params
-      params.require(:channel).permit(:name, :description, :service_identifier, :url, :avatar_url, :primary,
-        :keyword_ids => [], contact_attributes: [:id, :name, :organization, :url, :phone, :email])
+      params.require(:channel).permit(*policy(@channel || Channel).permitted_attributes)
     end
 
     def channel_type
