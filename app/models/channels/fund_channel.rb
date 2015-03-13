@@ -19,6 +19,12 @@ class FundChannel < Channel
       if fund_record = items.where(source_identifier: fund['source_identifier']).first
         if Digest::SHA256.base64digest(fund.to_s) != fund_record.digest
           # Update fund
+          fund_record.title = fund['title']
+          fund_record.description = fund['description']
+          fund_record.digest = Digest::SHA256.base64digest(fund.to_s)
+          fund_record.tag_names = fund['tags']
+          fund_record.save
+          fund_record.update_es_record
         end
       else
         # Create fund
