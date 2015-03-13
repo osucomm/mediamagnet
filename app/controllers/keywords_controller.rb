@@ -9,7 +9,7 @@ class KeywordsController < ApplicationController
   respond_to :html, :js, :json
 
   def index
-    @keywords = apply_scopes(Keyword.normal)
+    @keywords = apply_scopes(Keyword).normal
     respond_with @keywords
   end
 

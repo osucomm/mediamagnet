@@ -28,6 +28,12 @@ class ItemsController < ApplicationController
     respond_with @items
   end
 
+  def destroy
+    @item = Item.find(params[:id])
+    authorize @item
+    @item.destroy
+    respond_with @item
+  end
 
   private
 

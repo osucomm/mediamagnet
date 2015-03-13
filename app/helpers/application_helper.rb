@@ -83,7 +83,7 @@ module ApplicationHelper
     link_to text, record, class: classes, method: :delete,
       data: { 
         confirm: 'Are you sure?',
-        confirm_message: "You are about to delete #{record.name}. This action cannot be undone.",
+        confirm_message: "You are about to delete #{record.to_s}. This action cannot be undone.",
         confirm_ok: 'Delete'
       }
   end

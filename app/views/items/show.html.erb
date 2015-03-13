@@ -1,4 +1,8 @@
-<h1><%= title excerpt_for(@item) %></h1>
+<h1><%= title excerpt_for(@item) %>
+<%= link_to_delete fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+  @item, 'btn btn-danger btn-xs action-button' if policy(@item).destroy? %>
+</h1>
+
 <p class="lead">URL: <%= link_to @item.link.to_s, @item.link.to_s %></p>
 
 <div class="row">
@@ -38,7 +42,11 @@
         <h2 class="panel-title">Tags <%= help_icon_for('Tag') %></h2>
       </div>
       <div class="panel-body">
-        <%= tag_labels(@item.custom_tags) %>
+        <% if @item.custom_tags.present? -%>
+          <%= tag_labels(@item.custom_tags) %>
+        <% else -%>
+          This item has no tags
+        <% end -%>
       </div>
     </div>
     <div class="panel panel-default">
@@ -46,7 +54,11 @@
         <h2 class="panel-title">Keywords <%= help_icon_for('Keyword') %></h2>
       </div>
       <div class="panel-body">
-        <%= keyword_labels(@item.keywords) %>
+        <% if @item.keywords.present? -%>
+          <%= keyword_labels(@item.keywords) %>
+        <% else -%>
+          This item has no keywords
+        <% end -%>
       </div>
     </div>
     <% if @item.events.present? -%>
