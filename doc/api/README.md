@@ -172,6 +172,26 @@ resource, it it generally displayed with less detailed information.
 
 - - -
 
+Errors
+------
+
+If Media Magnet encounters an error processing your request, the response HTTP
+status code will indidicate the error that occurred. The response body will
+contain an error object that may contain additional information about the error.
+
+### Error response example
+
+    # HTTP/1.1 404 Not Found
+    {
+        "error": {
+            "code": 404,
+            "message": "Not Found",
+            "errors": []
+        }
+    }
+
+- - -
+
 Endpoints
 ---------
 

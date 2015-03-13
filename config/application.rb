@@ -25,5 +25,8 @@ module Mediamagnet
     config.autoload_paths += Dir[
       "#{config.root}/app/models/**/",
     ]
+
+    # Custom error handling
+    config.exceptions_app = self.routes
   end
 end

@@ -32,9 +32,13 @@ h1, h2, h3 {font-family:'proximanova',Arial,sans-serif; font-weight:600;}
 h4, h5, h6 {font-family: 'proximanova',Arial,sans-serif; font-weight:600;}
 address {margin-bottom:0;}
 
+h1.bigger {font-size:72px;}
+p.bigger {font-size:24px;}
+
 .nowrap {white-space:nowrap;}
 .inline {display:inline;}
 .no-bullet {list-style-type:none; margin-left:0;}
+.bottom-space {margin-bottom:50px;}
 .url-wrap {
   -ms-word-break: break-all;
 
