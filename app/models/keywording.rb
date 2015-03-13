@@ -25,6 +25,7 @@ class Keywording < ActiveRecord::Base
       keywordable.items.each do |item| 
         item.remove_keyword(keyword)
         item.update_es_record
+      end
     end
   end
   handle_asynchronously :remove_keywords_from_items
