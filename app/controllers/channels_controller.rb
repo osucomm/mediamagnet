@@ -42,7 +42,9 @@ class ChannelsController < ApplicationController
 
   def create
     @channel = channel_type.new(channel_params)
-    @channel.token = Token.find(session[:token_id]) if session[:token_id]
+    if (channel_type == YoutubePlaylistChannel)
+      @channel.token = Token.find(session[:token_id]) if session[:token_id]
+    end
     @channel.entity = Entity.find(params[:entity_id])
     authorize @channel
 
