@@ -14,4 +14,9 @@ module EntitiesHelper
 
     links.join(' ').html_safe
   end
+
+  def link_to_entity(entity, options={})
+    icon = entity.approved? ? '' : ' '+fa_icon('exclamation-triangle')
+    "#{link_to(entity.name, entity_path(entity), options)}#{icon}".html_safe
+  end
 end

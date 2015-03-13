@@ -15,9 +15,9 @@
   </thead>
 
   <tbody>
-    <%- @channels.each do |channel| %>
+    <%- if @channels.each do |channel| %>
       <tr id="channel-<%= channel.id %>">
-        <td><%= link_to channel.name, channel %></td>
+        <td><%= link_to_channel_with_warning channel %></td>
         <td><%= channel.type_name %></td>
         <td><%= link_to channel.entity.name, channel.entity %></td>
         <td><%= time_or_dash(channel.last_polled_at, :pretty_long) %></td>
@@ -25,7 +25,9 @@
           <td class="nowrap"><%= channel_action_links channel %></td>
         <% end %>
       </tr>
-    <%- end %>
+    <%- end.empty? %>
+      <tr><td colspan="5">There are no channels</td></tr>
+    <%- end%> 
   </tbody>
 </table>
 

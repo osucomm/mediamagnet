@@ -12,9 +12,10 @@ class ChannelsController < ApplicationController
   layout 'application', except: :show
 
   def index
-    @channels = apply_scopes(channel_type).all.from_approved
-      .page(params[:page])
-      .per(params[:per_page])
+    query = apply_scopes(channel_type).all
+    query = query.from_approved unless current_user
+    @channels = query.page(params[:page]).per(params[:per_page])
+
     authorize @channels
     respond_with @channels
   end

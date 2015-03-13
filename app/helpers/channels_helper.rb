@@ -25,6 +25,11 @@ module ChannelsHelper
     link_to (fa_icon channel.icon, text: channel.name, right: true), channel_path(channel), options
   end
 
+  def link_to_channel_with_warning(channel, options={})
+    icon = channel.approved? ? '' : ' '+fa_icon('exclamation-triangle')
+    "#{link_to_channel(channel, options)}#{icon}".html_safe
+  end
+
   def with_icon(channel)
     fa_icon channel.icon, text: channel.name, right: true
   end
