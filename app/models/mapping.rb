@@ -36,6 +36,10 @@ class Mapping < ActiveRecord::Base
     end
   end
 
+  def to_s
+    "#{tag.name} -> #{keyword.name}"
+  end
+
   def policy_class
     MappingPolicy
   end
@@ -64,6 +68,7 @@ class Mapping < ActiveRecord::Base
       item.remove_keyword(keyword) if item.custom_tags.include?(tag)
     end
   end
+  handle_asynchronously :add_keyword_to_items
 
 
 end

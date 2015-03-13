@@ -4,7 +4,8 @@
   <td><%= keyword_labels(mapping.keyword) %></td>
   <td>
     <%- if (defined? mappable) && mapping.mappable == mappable %>
-      <%= link_to fa_icon(:remove), mapping, method: :delete, data: { remote: true } %>
+      <%= link_to_delete fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
+        mapping, 'btn btn-danger btn-xs action-button' %>
     <%- else %>
       <!-- <em>From <%= mapping.mappable.name %></em> -->
     <%- end %>

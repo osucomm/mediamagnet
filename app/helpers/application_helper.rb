@@ -79,11 +79,11 @@ module ApplicationHelper
     current_user && current_user.is_admin?
   end
 
-  def link_to_delete(text, record, classes='')
-    link_to text, record, class: classes, method: :delete,
+  def link_to_delete(text, record, classes='', remote = false)
+    link_to text, record, class: classes, method: :delete, remote: remote,
       data: { 
         confirm: 'Are you sure?',
-        confirm_message: "You are about to delete #{record.to_s}. This action cannot be undone.",
+        confirm_message: "You are about to delete '#{record.to_s}'. This action cannot be undone.",
         confirm_ok: 'Delete'
       }
   end

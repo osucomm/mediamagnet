@@ -7,9 +7,14 @@
   </div>
   <div class="panel-body keywordings">
     <div id="add-keywording"></div>
-    <%- if keywordable.keywords.any? %>
+    <%- if keywordable.all_keywords.any? %>
       <%- keywordable.keywordings.each do |keywording| %>
-        <%= render 'keywordings/keywording', keywording: keywording %>
+        <%= render 'keywordings/keywording', keywording: keywording, on_parent: false %>
+      <%- end %>
+      <%- if keywordable.respond_to?(:entity) %>
+        <%- keywordable.entity.keywordings.each do |keywording| %>
+          <%= render 'keywordings/keywording', keywording: keywording, on_parent: true %>
+        <%- end %>
       <%- end %>
 
     <%- else %>
