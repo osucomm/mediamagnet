@@ -1,7 +1,7 @@
 class ChannelsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :find_channel, only: [:show, :edit, :update, :destroy, :refresh, :transfer]
+  before_action :find_channel, only: [:show, :edit, :update, :destroy, :refresh]
   before_action :get_token, only: [:new]
   before_action :preserve_action_redirect!, only: [:show, :edit]
 
@@ -93,11 +93,6 @@ class ChannelsController < ApplicationController
   def refresh
     @channel.refresh_items_without_delay
     redirect_to @channel
-  end
-
-  def transfer
-    entity = Entity.find(params[:entity_id])
-    respond_with @channel
   end
 
   private
