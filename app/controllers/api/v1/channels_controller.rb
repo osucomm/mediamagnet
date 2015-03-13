@@ -1,7 +1,8 @@
 class Api::V1::ChannelsController < Api::BaseController
+  has_scope :by_type
 
   def index
-    @channels = Channel.all
+    @channels = apply_scopes(Channel).all.from_approved
       .includes(:keywords)
       .page(params[:page])
       .per(params[:per_page])

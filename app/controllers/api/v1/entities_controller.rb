@@ -1,7 +1,7 @@
 class Api::V1::EntitiesController < Api::BaseController
 
   def index
-    @entities = Entity.unscoped.all
+    @entities = Entity.unscoped.all.approved
       .includes(:keywords)
       .page(params[:page])
       .per(params[:per_page])

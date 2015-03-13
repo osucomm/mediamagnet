@@ -1,15 +1,24 @@
 <p class="lead">Help topics</p>
-<ul class="nav nav-pills nav-stacked">
-  <li role="presentation" class="<%= is_active? help_path %>">
+<ul class="help-menu">
+  <li class="<%= is_active? help_path %>">
     <a href="<%= help_path %>">Overview</a>
   </li>
-  <li role="presentation" class="<%= is_active? [help_category_path('getting_started'), help_page_path('getting_started', 'README')] %>">
-    <a href="<%= help_category_path 'getting_started' %>">Getting Started</a>
+  <%= render 'menu_category', category: :getting_started %>
+  <%= render 'menu_category', category: :key_concepts %>
+  <li class="<%= help_category_active? :developers %>">
+    <a href="<%= help_category_path :developers %>">Developers</a>
+    <ul>
+      <%= render 'menu_page', category: :developers, page: :subscription %>
+    </ul>
   </li>
-  <li role="presentation" class="<%= is_active? [help_category_path('key_concepts'), help_page_path('key_concepts', 'README')] %>">
-    <a href="<%= help_category_path 'key_concepts' %>">Key Concepts</a>
-  </li>
-  <li role="presentation" class="<%= is_active? [help_category_path('developers'), help_page_path('developers', 'README')] %>">
-    <a href="<%= help_category_path 'developers' %>">Developers</a>
+  <li class="<%= help_category_active? :api %>">
+    <a href="<%= help_category_path :api %>">API</a>
+    <ul>
+      <%= render 'menu_page', category: :api, page: :items %>
+      <%= render 'menu_page', category: :api, page: :entities %>
+      <%= render 'menu_page', category: :api, page: :channels %>
+      <%= render 'menu_page', category: :api, page: :keywords %>
+      <%= render 'menu_page', category: :api, page: :events %>
+    </ul>
   </li>
 </ul>
