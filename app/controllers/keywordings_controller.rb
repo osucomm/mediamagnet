@@ -26,7 +26,10 @@ class KeywordingsController < ApplicationController
     @keywording = Keywording.find(params[:id])
     authorize @keywording
     @keywording.destroy
-    respond_with @keywording
+    respond_with @keywording do |format|
+      format.html { redirect_to @keywording.keywordable }
+      format.js {}
+    end
   end
 
   private
