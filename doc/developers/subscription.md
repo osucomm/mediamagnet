@@ -1,5 +1,5 @@
-Subscription
-============
+Content Subscription
+====================
 
 Media Magnet is capable of consuming content from a variety of sources. These
 sources are added by creating [Channels](../key_concepts#channels) which

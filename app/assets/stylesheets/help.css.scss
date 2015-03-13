@@ -1,0 +1,13 @@
+// Place all the styles related to the help controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.help-menu li.active > a {
+  border-style: solid;
+  border-width: 0px;
+  border-color: #337ab7;
+  border-radius: 10px;
+  padding: 0 5px;
+  background-color: #337ab7;
+  color: #fff;
+}

@@ -13,9 +13,9 @@ social media services and common publication and syndication formats.
 
 [How to get content in to Media Magnet](subscription.md)
 
-[Content Comes Out](api.md)
+[Content Comes Out](../api/README.md)
 ---------------------------
 Once in Media Magnet, developers can make use of the freely available public
 api to get access to OSU content.
 
-[How to use Media Magnet's retrieval API](api.md)
+[How to use Media Magnet's retrieval API](../api/README.md)
