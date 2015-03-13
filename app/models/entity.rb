@@ -18,6 +18,8 @@ class Entity < ActiveRecord::Base
   # Validations
   validates :name, presence: true, uniqueness: true
 
+  alias_method :all_keywords, :keywords
+
   # Scopes
   default_scope -> {
     order('name ASC')
