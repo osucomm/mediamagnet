@@ -1,4 +1,4 @@
 $('#add-mappings').html ''
 $('.no-mappings').hide()
-$('.mappings > tbody').append "<%= j render 'mappings/mapping_row', 
-mappable: @mapping.mappable, mapping: @mapping %>"
+$('.mappings > tbody').append "<%= j render 'mappings/mapping_row', mappable: @mapping.mappable, mapping: @mapping %>"
+$('[data-toggle="tooltip"]').tooltip()
