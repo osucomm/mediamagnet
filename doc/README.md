@@ -14,50 +14,23 @@ OSU is big place! We produce many thousands of pieces of digital content each ye
 How does keyword tagging help coordinate content?
 -------------------------------------------------
 
-Media Magnet provides a [universal set of keywords][1] based on commonly used university themes (like "Academics" and "Buckeye Pride"). Once applied, the tags are like glue, bits of meta-data binding individual content to one another.
+Media Magnet provides a [universal set of keywords][/keywords] based on commonly used university themes (like "Academics" and "Buckeye Pride"). Once applied, the tags are like glue, bits of meta-data binding individual content to one another.
 
-###How is relating content useful? How does it benefit our audiences?
+### How is relating content useful? How does it benefit our audiences?
 
 Media Magnet makes content filterable and reusable. It provides a simple mechanism to repurpose content in new ways and contexts: Narrow-casting content based on user's preferences. Related reading. Content mash-ups. Events calendars based on specific topics. Greater visibility and awareness of communications produced across the university.
 
 What types of content can be aggregated?
 ----------------------------------------
 
-Media Magnet can consume just about any public content "channel": Web site content like news, events and blog posts, as well as feeds from popular social media platforms (the Youtubes, Twitter, etc.).
+Media Magnet can consume just about any public content "channel": Web site content like news, events and blog posts, as well as feeds from popular social media platforms (the Youtubes, Twitter, etc.). Take a look at the different [channel types](key_concepts/#channels) available.
 
-###How do I decide which content to register?
 
-TBD
+### How do I tag my content?
 
-###How do I tag social media?
+Different content sources provide different ways of tagging and catgorizing content. Read up on [tags](key_concepts/#tags) to leant more about how to tag your content items.
 
-TBD Hootsuite guide here, or some other method
+Great! So how do I get started?
+-------------------------------
 
-###How do I tag web content?
-TBD, Some guides to get you started: [Drupal][3], [Wordpress][4], [ModxCMS][4]
-
-How do I tell Media Magnet to consume my content?
--------------------------------------------------
-
-It's easy to register channels: Select an [entity](https://mediamagnet.osu.edu/entities/), click "Register new channel" and select a channel type.
-
-###Social Media channels:
-Provide the social media account name (or "handle"). 
-
-**Example:** *https://twitter.com/ohiostate*
-*The handle is 'ohiostate'* 
-
-###Web channels:
-Provide the RSS feed URL.
-
-**Notes:** *Follow the [RSS guide][2]!*
-
-###How do I publish RSS feeds for Media Magnet to consume?
-Most modern Content Mangement Systems (CMS) like Drupal and Wordpress make publishing RSS feeds simple. [RSS guide][2]
-
-What if I need technical assistance?
-------------------------------------
-
-TBD
-
-[1]: /keywords
+You're in the right place! Take a look through our help documentation to find out what Media Magnet can do for you. You might start by reading the [getting started](getting_started/README.md) or learning about [key concepts](key_concepts/README.md).
