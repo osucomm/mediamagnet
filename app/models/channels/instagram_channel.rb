@@ -49,6 +49,10 @@ class InstagramChannel < Channel
     "<img src=\"#{item.assets.first.url}\">"
   end
 
+  def service_url
+    "https://instagram.com/#{service_identifier}"
+  end
+
   private
 
   def client

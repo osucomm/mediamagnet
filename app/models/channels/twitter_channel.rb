@@ -48,6 +48,10 @@ class TwitterChannel < Channel
   end
   handle_asynchronously :refresh_items
 
+  def service_url
+    "https://twitter.com/#{service_identifier}"
+  end
+
   private
 
   def service_account

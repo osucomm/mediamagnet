@@ -46,6 +46,10 @@ class EventRssChannel < Channel
     end
   end
 
+  def service_url
+    url || service_identifier
+  end
+
   private
 
   def client

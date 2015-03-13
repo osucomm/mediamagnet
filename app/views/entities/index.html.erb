@@ -13,15 +13,18 @@
   </thead>
 
   <tbody>
-    <%- @entities.each do |entity| %>
+    <%- if @entities.each do |entity| %>
       <tr>
-        <td><%= link_to entity.name, entity %></td>
+        <td><%= link_to_entity entity %></td>
         <td><%= entity.description %></td>
         <% if current_user %>
           <td><%= entity_action_links entity %></td>
         <% end %>
       </tr>
+    <%- end.empty? %>
+      <tr><td colspan="3">There are no entities</td></tr>
     <%- end %>
   </tbody>
 </table>
 
+<%= paginate @entities %>

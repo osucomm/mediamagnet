@@ -35,6 +35,10 @@ class FacebookPageChannel < Channel
   end
   handle_asynchronously :refresh_items
 
+  def service_url
+    "https://www.facebook.com/#{service_identifier}"
+  end
+
   private
 
   def client

@@ -6,7 +6,10 @@ class EntitiesController < ApplicationController
   respond_to :html
 
   def index
-    @entities = Entity.all.approved
+    query = Entity.all
+    query = query.approved unless current_user
+    @entities = query.page(params[:page]).per(params[:per_page])
+
     authorize @entities
     respond_with @entities
   end
