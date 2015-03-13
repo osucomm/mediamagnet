@@ -44,14 +44,6 @@ class Mapping < ActiveRecord::Base
     MappingPolicy
   end
 
-  private
-
-  def get_tag_from_tag_text
-    unless tag || tag_text.nil?
-      self.tag = Tag.create_from_text(tag_text)
-    end
-  end
-
   def add_keyword_to_items
     items = mappable.items.eager
     items.each do |item|
@@ -64,11 +56,20 @@ class Mapping < ActiveRecord::Base
   handle_asynchronously :add_keyword_to_items
 
   def remove_keyword_from_items
-    mappable.items.each do |item|
+    items = mappable.items.eager
+    items.each do |item|
       item.remove_keyword(keyword) if item.custom_tags.include?(tag)
     end
   end
-  handle_asynchronously :add_keyword_to_items
+  handle_asynchronously :remove_keyword_from_items
+
+  private
+
+  def get_tag_from_tag_text
+    unless tag || tag_text.nil?
+      self.tag = Tag.create_from_text(tag_text)
+    end
+  end
 
 
 end

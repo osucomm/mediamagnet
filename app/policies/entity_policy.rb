@@ -33,6 +33,6 @@ class EntityPolicy < ApplicationPolicy
       contact_attributes: [:id, :name, :organization, :url, :phone, :email],
       user_ids: []]
 
-    approve? ? permitted << :approved : permitted
+    approve? ? (permitted << :approved) : permitted
   end
 end

@@ -117,15 +117,31 @@ class Channel < ActiveRecord::Base
     update_attribute(:last_polled_at, Time.now)
   end
 
-  def add_keyword(keyword)
-    keywords << keyword
-    items.each do |item|
-      item.keywords << keyword
+  def transfer_to(new_entity)
+    entity.keywords.each do |keyword|
+      remove_keyword_from_items(keyword)
+    end
+    entity.mappings.each do |mapping|
+      mapping.remove_keyword_from_items
+    end
+    self.entity = new_entity
+    self.save
+    self.reload
+    new_entity.keywords.each do |keyword|
+      add_keyword(keyword)
+    end
+    new_entity.mappings.each do |mapping|
+      mapping.add_keyword_to_items
     end
   end
 
+  def add_keyword(keyword)
+    keywords << keyword
+    add_keyword_to_items(keyword)
+  end
+
   def remove_keyword(keyword)
-    keywordings.where(keyword_id: keyword.id).destroy_all
+    keywordings.where(keyword_id: keyword.id).first.destroy
     remove_keyword_from_items(keyword)
   end
 
@@ -162,8 +178,13 @@ class Channel < ActiveRecord::Base
     end
   end
 
+  def add_keyword_to_items(keyword)
+    items.each {|item| item.keywords << keyword }
+  end
+
   def remove_keyword_from_items(keyword)
     items.each {|item| item.remove_keyword(keyword)}
   end
+
 
 end

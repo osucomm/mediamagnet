@@ -65,6 +65,11 @@ class ChannelsController < ApplicationController
   end
 
   def update
+    if @channel.entity_id != channel_params[:entity_id]
+      entity = Entity.find(channel_params[:entity_id])
+      raise RecordNotFound if entity.nil?
+      @channel.transfer_to(entity)
+    end
     if @channel.update channel_params
       flash[:success] = "#{@channel.name} #{@channel.type_name.downcase} channel has been updated."
       respond_with @channel
@@ -77,6 +82,7 @@ class ChannelsController < ApplicationController
 
   def destroy
     @entity = @channel.entity
+    authorize @channel
     @channel.destroy
     flash[:success] = "#{@channel.name} #{@channel.type_name.downcase} channel was successfully deleted."
     respond_with @channel do |format|
@@ -93,8 +99,7 @@ class ChannelsController < ApplicationController
   private
 
     def channel_params
-      params.require(:channel).permit(:name, :description, :service_identifier, :url, :avatar_url, :primary,
-        :keyword_ids => [], contact_attributes: [:id, :name, :organization, :url, :phone, :email])
+      params.require(:channel).permit(*policy(@channel || Channel).permitted_attributes)
     end
 
     def channel_type
