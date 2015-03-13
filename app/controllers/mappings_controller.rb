@@ -1,6 +1,6 @@
 class MappingsController < ApplicationController
 
-  respond_to :js
+  respond_to :js, :html
 
   def new
     @mapping = mapping_type.new(mappable_type: params[:mappable_type], mappable_id: params[:mappable_id])
@@ -28,7 +28,7 @@ class MappingsController < ApplicationController
     @mapping = Mapping.find(params[:id])
     authorize @mapping
     @mapping.destroy
-    respond_with @mapping
+    respond_with @mapping.mappable
   end
 
   private
