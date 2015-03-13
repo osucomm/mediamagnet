@@ -22,7 +22,8 @@ class EventRssChannel < Channel
           content: entry.content,
           description: entry.summary,
           link: Link.where(url: entry.url).first_or_create,
-          published_at: entry.published
+          published_at: entry.published,
+          digest: Digest::SHA256.base64digest(entry.title + entry.content + entry.summary)
         )
         i.tag_names = (entry.categories) if entry.categories
         i.keywords << all_keywords

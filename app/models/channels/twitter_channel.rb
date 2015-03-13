@@ -33,7 +33,8 @@ class TwitterChannel < Channel
           link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
           description: tweet.full_text,
           content: '', # Only set content for things that get special markup
-          published_at: tweet.created_at
+          published_at: tweet.created_at,
+          digest: Digest::SHA256.base64digest(tweet.full_text)
         )
         tweet.media.each do |media|
           i.assets.build(url: media.media_url_https.to_s)

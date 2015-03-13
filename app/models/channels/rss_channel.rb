@@ -24,7 +24,8 @@ class RssChannel < Channel
           content: web_item.content,
           description: web_item.summary,
           link: Link.where(url: web_item.url).first_or_create,
-          published_at: web_item.published
+          published_at: web_item.published,
+          digest: Digest::SHA256.base64digest(web_item.title + web_item.content + web_item.summary)
         )
         i.assets.build(url: web_item.image) if web_item.image
         i.tag_names = (web_item.categories) if web_item.categories

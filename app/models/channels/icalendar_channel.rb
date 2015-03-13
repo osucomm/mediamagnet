@@ -21,7 +21,8 @@ class IcalendarChannel < Channel
           title: event.summary.to_s,
           content: '',
           description: event.description.to_s,
-          published_at: event.dtstamp
+          published_at: event.dtstamp,
+          digest: Digest::SHA256.base64digest(event.summary.to_s + event.description.to_s + event.dtstart + event.dtend + event.location.to_s)
         )
         i.tag_names = TagParser.new(event.description.to_s).parse
         i.keywords << all_keywords
