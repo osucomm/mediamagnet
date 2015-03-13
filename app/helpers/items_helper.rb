@@ -24,7 +24,7 @@ module ItemsHelper
     # Channel-specific html
       case item.channel_type
       when 'youtube'
-        "<iframe width=\"640\" height=\"390\" src=\"https://www.youtube.com/embed/#{KSBKMrb-8KI}\" frameborder=\"0\" allowfullscreen></iframe>".html_safe
+        "<iframe width=\"640\" height=\"390\" src=\"https://www.youtube.com/embed/#{item.guid}\" frameborder=\"0\" allowfullscreen></iframe>".html_safe
       when 'instagram'
         image_tag(item.assets.first.url)
       else
