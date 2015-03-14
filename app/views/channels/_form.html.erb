@@ -29,9 +29,10 @@
     <%= render partial: 'contacts/form', locals: {f: f} %>
   <% end %>
 
-  <%= f.button :submit %>
+  <%= f.button :submit, 'Update' %>
   <%- unless @channel.new_record? %>
-    <%= link_to_delete 'Delete Channel', @channel, 'btn btn-danger' %>
+    <%= link_to_delete 'Delete', @channel, 'btn btn-danger' %>
   <%- end %>
+  <%= link_to 'Cancel', :back, class: 'btn btn-link' %>
 
 <%- end %>
