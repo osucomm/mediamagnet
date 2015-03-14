@@ -30,8 +30,14 @@
             <span class="sr-only">Add channel</span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <%- Channel::TYPES.each do |type| %>
-              <li><%= link_to type.type_name.titleize, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
+            <%- Channel.public_types.each do |type| %>
+              <%- if type == YoutubePlaylistChannel %>
+                <li><%= link_to_confirm type.type_name, 'Google Account Authorization',
+                  "In order to add a Youtube playlist, Media Magnet needs permission to use certain portions of a Google account that can manage the channel. If you haven't already authorized Media Magnet, you will be asked for your Google account username name password after clicking Ok.",
+                  new_entity_youtube_playlist_channel_path(@entity) %></li>
+              <%- else %>
+                <li><%= link_to type.type_name, send('new_entity_'+type.model_name.singular+'_path', @entity) %></li>
+              <%- end %>
             <%- end %>
           </ul>
         </div>

@@ -88,4 +88,13 @@ module ApplicationHelper
       }
   end
 
+  def link_to_confirm(text, title, message, url, classes='')
+    link_to text, url, class: classes,
+      data: { 
+        confirm: title,
+        confirm_message: message,
+        confirm_ok: 'Ok'
+      }
+  end
+
 end

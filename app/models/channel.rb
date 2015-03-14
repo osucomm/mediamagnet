@@ -63,6 +63,10 @@ class Channel < ActiveRecord::Base
     def icon
       'rss'
     end
+
+    def public_types
+      TYPES - [FundChannel]
+    end
   end
 
   def to_s

@@ -1,7 +1,7 @@
 class IcalendarChannel < Channel
   class << self
     def type_name
-      'icalendar'
+      'iCal'
     end
   end
 
