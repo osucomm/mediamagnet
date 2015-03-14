@@ -1,5 +1,8 @@
 <%= simple_form_for @entity, html: { class: 'form-horizontal' },
-  wrapper: :horizontal_form do |f| %>
+  wrapper: :horizontal_form,
+  wrapper_mappings: {
+    boolean: :horizontal_boolean
+  } do |f| %>
 
   <%= f.error_notification %>
 
