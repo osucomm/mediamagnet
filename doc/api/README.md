@@ -80,11 +80,20 @@ single filter are combined using an OR relationship.
 
 **Example** */api/items?tags[]=arts&tags[]=athletics&channel_type=twitter will fetch a list of all items that are from a Twitter channel and are tagged with "arts" or "alumni"*
 
+#### Pagination
+
+Index (list) API responses that return many results are generally paginated. To
+request a specific page of results, add a `page` parameter to the query string.
+You can also set the number of results returned per page with the `per_page`
+parameter. Information about paging options is provided in the response "meta"
+element.
+
 ### Request examples
 
 List of keywords: `/api/keywords`  
 List of keywords in XML: `/api/keywords.xml`  
 Item 274 in XML from API version 1: `/api/v1/items/274.xml`  
+The third page of items: `/api/v1/items.json?page=3`  
 A list of items intended for alumni: `/api/v1/items?audience=audience-alumni`  
 Items tagged with academics and news: `/api/items?tags[]=academics&tags[]=news`  
 An RSS feed of all items: `/api/items.rss`
@@ -113,8 +122,8 @@ corresponds to the type of resource requested.
         },
         "meta": {
             "links": {
-                "first_page": null,
-                "previous_page": null,
+                "first": null,
+                "previous": null,
                 "self": "https://mediamagnet.osu.edu/api/v1/keywords/alumni",
                 "next": null,
                 "last": null
@@ -122,7 +131,7 @@ corresponds to the type of resource requested.
             "current_page": 1,
             "total_pages": 1,
             "total_results": 1,
-            "response_code": 200
+            "status": 200
         }
     }
 
@@ -145,16 +154,16 @@ corresponds to the type of resource requested.
         ],
         "meta": {
             "links": {
-                "first_page": "https://mediamagnet.osu.edu/api/v1/keywords",
-                "previous_page": null,
-                "self": "http://localhost:3000/api/v1/keywords?page=1",
-                "next": "http://localhost:3000/api/v1/keywords?page=2",
-                "last": "http://localhost:3000/api/v1/keywords?page=2"
+                "first": "https://mediamagnet.osu.edu/api/v1/keywords",
+                "previous": null,
+                "self": "https://mediamagnet.osu.edu/api/v1/keywords?page=1",
+                "next": "https://mediamagnet.osu.edu/api/v1/keywords?page=2",
+                "last": "https://mediamagnet.osu.edu/api/v1/keywords?page=2"
             },
             "current_page": 1,
             "total_pages": 2,
             "total_results": 63,
-            "response_code": 200
+            "status": 200
         }
     }
 
@@ -184,7 +193,7 @@ contain an error object that may contain additional information about the error.
     # HTTP/1.1 404 Not Found
     {
         "error": {
-            "code": 404,
+            "status": 404,
             "message": "Not Found",
             "errors": []
         }

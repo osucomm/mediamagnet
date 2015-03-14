@@ -2,8 +2,8 @@ module ApiHelper
   def meta(result)
     base_meta = {
       :links => {
-        :first_page => nil,
-        :previous_page => nil,
+        :first => nil,
+        :previous => nil,
         :self => nil,
         :next => nil,
         :last => nil
@@ -11,23 +11,21 @@ module ApiHelper
       :current_page => nil,
       :total_pages => nil,
       :total_results => nil,
-      :response_code => response.code.to_i
+      :status => response.code.to_i
     }
 
     # if this is a collection...
     if result.respond_to? :count
-      current_page_num = result.current_page
-      last_page_num = result.total_pages
 
       base_meta.merge({
         :links => {
-          :first_page => first_page,
-          :previous_page => previous_page(current_page_num),
-          :self => current_page(current_page_num),
-          :next => next_page(current_page_num, last_page_num),
-          :last => last_page(last_page_num)
+          :first => first_page_url,
+          :previous => previous_page_url(result),
+          :self => self_url,
+          :next => next_page_url(result),
+          :last => last_page_url(result)
         },
-        :current_page => current_page_num,
+        :current_page => result.current_page,
         :total_pages => result.total_pages,
         :total_results => result.total_count
       })
@@ -36,7 +34,7 @@ module ApiHelper
     else
       base_meta.merge({
         :links => base_meta[:links].merge({
-          :self => url_with_format()
+          :self => self_url
         }),
         :current_page => 1,
         :total_pages => 1,
@@ -46,32 +44,36 @@ module ApiHelper
 
   end
 
+  def self_url
+    url_with_format()
+  end
+
+  def first_page_url
+    url_with_format(:page => 1)
+  end
+
+  def previous_page_url(result)
+    return nil if result.current_page <= 1
+    url_with_format(:page => result.current_page-1)
+  end
+
+  def next_page_url(result)
+    return nil if result.current_page >= result.total_pages
+    url_with_format(:page => result.current_page+1)
+  end
+
+  def last_page_url(result)
+    url_with_format(:page => result.total_pages)
+  end
+
 
   private
 
-  def first_page
-    url_with_format()
-  end
-
-  def previous_page(current_page_num)
-    return nil if current_page_num <= 1
-    url_with_format()
-  end
-
-  def current_page(current_page_num)
-    url_with_format(:page => current_page_num)
-  end
-
-  def next_page(current_page_num, last_page_num)
-    return nil if current_page_num >= last_page_num
-    url_with_format(:page => current_page_num+1)
-  end
-
-  def last_page(last_page_num)
-    url_with_format(:page => last_page_num)
-  end
-
   def url_with_format(args={})
-    url_for(args.merge({only_path: false, format: request.format.to_sym}))
+    url_for(
+      request.parameters.merge(
+        args.merge(
+          {only_path: false, format: request.format.to_sym})))
   end
+
 end

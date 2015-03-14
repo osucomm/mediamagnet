@@ -1,35 +1,6 @@
 xml.channel do
-  if @channel
-    xml.title @channel.name
-    xml.description @channel.description
-    xml.link channel_url(@channel)
-    if @channel.display_contact && @channel.display_contact.display_name.present?
-      xml.dc :publisher, @channel.display_contact.display_name
-    end
-    xml.dc :type, @channel.type
-    @channel.keywords.each do |keyword|
-      xml.category keyword.name, domain: 'mm-keyword'
-    end
-    xml.image do
-      xml.url @channel.avatar_url.present? ? @channel.avatar_url : image_url('osu-32px-stacked.png')
-      xml.title @channel.name
-      xml.link channel_url(@channel)
-    end
 
-  else
-    xml.title "Media Magnet"
-    xml.description "Aggregated content from Media Magnet"
-    xml.link items_url
-    xml.dc :publisher, "The Ohio State University"
-    xml.image do
-      xml.url image_url('osu-32px-stacked.png')
-      xml.title "Media Magnet"
-      xml.link items_url
-    end
-  end
-
-  xml.atom :link, href: request.original_url, rel: "self", type: "application/rss+xml"
-  xml.copyright "Copyright #{Time.now.year}, The Ohio State University"
+  render(:partial => 'api/v1/shared/rss_channel', :locals => {:x => xml, :result => @items, :channel => @channel })
 
   for item in @items
     xml.item do
@@ -42,7 +13,7 @@ xml.channel do
 
       if item.content.present?
         xml.content :encoded do
-          xml.cdata! item.content
+          xml.cdata! content(item)
         end
       end
 

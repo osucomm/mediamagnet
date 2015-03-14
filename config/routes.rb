@@ -78,8 +78,8 @@ Rails.application.routes.draw do
 
 
   # Errors
-  %w( 400 403 404 422 500 503 ).each do |code|
-    get code, :to => "errors#show", :code => code
+  %w( 400 403 404 422 500 503 ).each do |status|
+    get status, :to => "errors#show", :status => status
   end
 
   root 'welcome#show'

@@ -27,20 +27,20 @@ class Error
   }
 
 
-  def initialize(code, friendly=false)
-    @code = code
+  def initialize(status, friendly=false)
+    @status = status
     @friendly_message = friendly
   end
 
-  def code
-    @code
+  def status
+    @status
   end
 
   def message
     if @friendly_message
-      Error::MESSAGES[@code][1] || Error::MESSAGES[@code][0]
+      Error::MESSAGES[@status][1] || Error::MESSAGES[@status][0]
     else
-      Error::MESSAGES[@code][0]
+      Error::MESSAGES[@status][0]
     end
   end
 

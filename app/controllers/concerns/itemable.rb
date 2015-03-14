@@ -5,7 +5,7 @@ module Itemable
 
   def search_params(params)
     filters = params.except(:search)
-    filters['channel_type'] ||= ['twitter', 'instagram', 'rss', 'event rss', 'facebook page', 'youtube playlist', 'icalendar']
+    filters['channel_type'] ||= ['twitter', 'instagram', 'rss', 'events rss feed', 'facebook page', 'youtube playlist', 'icalendar']
     [params[:search], filters]
   end
 

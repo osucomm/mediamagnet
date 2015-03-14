@@ -4,13 +4,10 @@ class Event < ActiveRecord::Base
 
   delegate :title, :description, :content, :channel, :entity, :link, :excerpt, to: :item
 
-  scope :ordered, -> {
-    order('start_date ASC')
-  }
-
-  scope :upcoming, -> {
-    where('start_date > ?', Time.now)
-  }
+  scope :ordered, -> { order('start_date ASC') }
+  scope :upcoming, -> { where('start_date > ? OR end_date > ?', Time.now, Time.now) }
+  scope :after, ->(date) { where('start_date > ? OR end_date > ?', date, date) }
+  scope :before, ->(date) { where('start_date < ? OR end_date < ?', date, date) }
 
 
   class << self
