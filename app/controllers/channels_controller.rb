@@ -52,6 +52,7 @@ class ChannelsController < ApplicationController
     #@channel.contact = nil if @channel.contact.try(:empty?)
 
     if @channel.save
+      session.delete(:token_id)
       respond_with @channel do |format|
         format.html { render :edit }
       end
