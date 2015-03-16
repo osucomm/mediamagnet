@@ -9,22 +9,31 @@ class Link < ActiveRecord::Base
   end
 
   class << self
-    def resolve_uri(url)
+    def resolve_uri(url, last_url = nil)
+
+      # If it's an absolute URL, use last known host. [RFC3986], Section 4.2
+      if (url.match PATTERN).nil?
+        url = last_url.host + url.to_s
+      end
+
       uri = URI(URI.encode(url.strip))
       return_url = ''
 
       Net::HTTP.start(uri.host, uri.port,
                         :use_ssl => uri.scheme == 'https') do |http|
-          request = Net::HTTP::Get.new uri
-          response = http.request request # Net::HTTPResponse object
-          if response.code.to_s.match(/^3/)
-            return_url = resolve_uri(response['location'])
-          elsif response.code.to_s.match(/^2/)
-            return_url = response.uri.to_s
-          else
-            return_url = nil
+          begin
+            request = Net::HTTP::Get.new uri
+            response = http.request request # Net::HTTPResponse object
+            if response.code.to_s.match(/^3/)
+              return_url = resolve_uri(response['location'], uri)
+            elsif response.code.to_s.match(/^2/)
+              return_url = response.uri.to_s
+            else
+              return_url = nil
+            end
+          rescue 
           end
-
+          
       end
     return_url
     end
