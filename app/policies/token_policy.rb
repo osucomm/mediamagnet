@@ -1,7 +1,7 @@
 class TokenPolicy < ApplicationPolicy
 
   def index?
-    create?
+    user.is_admin?
   end
 
   def create?
