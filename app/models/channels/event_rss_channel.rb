@@ -25,14 +25,15 @@ class EventRssChannel < Channel
           published_at: entry.published,
           digest: Digest::SHA256.base64digest(entry.title + entry.content + entry.summary)
         )
+        i.assets.build(url: web_item.image) if entry.image
         i.tag_names = (entry.categories) if entry.categories
         i.keywords << all_keywords
-        i.update_es_record
         e = i.events.build(
           start_date: entry.start_date,
           end_date: entry.end_date,
         )
         e.location = Location.where(location: entry.location).first_or_create
+        i.update_es_record
         e.save
       end
     end
