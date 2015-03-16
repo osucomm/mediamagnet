@@ -44,6 +44,7 @@ class ChannelsController < ApplicationController
     @channel = channel_type.new(channel_params)
     if (channel_type == YoutubePlaylistChannel)
       @channel.token = Token.find(session[:token_id]) if session[:token_id]
+      session.delete(:token_id)
     end
     @channel.entity = Entity.find(params[:entity_id])
     authorize @channel
@@ -52,7 +53,6 @@ class ChannelsController < ApplicationController
     #@channel.contact = nil if @channel.contact.try(:empty?)
 
     if @channel.save
-      session.delete(:token_id)
       respond_with @channel do |format|
         format.html { render :edit }
       end
