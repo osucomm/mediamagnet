@@ -7,6 +7,11 @@
     <%- end %>
     <div class="media-body">
       <h4 class="media-heading"><%= link_to excerpt_for(item), item %></h4>
-      <small><span class="attribution"><%= link_to_channel(item.channel) %> on </span><%= time_or_dash(item.published_at, :pretty_long) %></small>
+      <small><span class="attribution"><%= link_to_channel(item.channel) %>
+        <%- if item.published_at.present? %> 
+          on </span><%= time_or_dash(item.published_at, :pretty_long) %>
+        <%- end %>
+      </small>
+
   </div>
 <% end %>
