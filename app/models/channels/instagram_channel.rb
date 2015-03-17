@@ -40,10 +40,6 @@ class InstagramChannel < Channel
     log_refresh
   end
 
-  def to_s
-    description || "Instagram from @#{service_identifier} on #{Date.strptime(created_at, '%s')}"
-  end
-
   def html_content_for(item)
     "<img src=\"#{item.assets.first.url}\">"
   end
