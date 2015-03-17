@@ -3,12 +3,16 @@ class Keywording < ActiveRecord::Base
   belongs_to :keywordable, polymorphic: true
   delegate :mappings, to: :keywordable
 
-  after_create :add_keywords_to_items
-  before_destroy :remove_keywords_from_items
+  after_create :add_keywords_to_items, if: :keywordable_not_item
+  before_destroy :remove_keywords_from_items, if: :keywordable_not_item
 
   scope :by_keywords, ->(keyword_ids) {
     where(keyword_id: keyword_ids)
   }
+
+  def keywordable_not_item
+    keywordable.respond_to?(:items)
+  end
 
   def add_keywords_to_items
     if keywordable.respond_to?(:items)
