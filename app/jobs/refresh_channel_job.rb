@@ -15,6 +15,6 @@ class RefreshChannelJob < Struct.new(:channel)
 
   def success(job)
     # Remove lock if this is really our job.
-    channel.unlock if channel.refresh_lock && channel.refresh_lock.id == job.id
+    channel.unlock if channel.refresh_lock && channel.refresh_lock.job_id == job.id
   end
 end
