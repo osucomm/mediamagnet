@@ -44,7 +44,7 @@ class ChannelsController < ApplicationController
     @channel = channel_type.new(channel_params)
     if (channel_type == YoutubePlaylistChannel)
       @channel.token = Token.find(session[:token_id]) if session[:token_id]
-      session.data.delete :token_id
+      session[:token_id] = nil
     end
     @channel.entity = Entity.find(params[:entity_id])
     authorize @channel
@@ -115,7 +115,8 @@ class ChannelsController < ApplicationController
     end
 
     def get_token
-      if (channel_type == YoutubePlaylistChannel && session[:token_id].nil?)
+      if (channel_type == YoutubePlaylistChannel && Token.where(id: session[:token_id]).empty?)
+        session[:token_id] = nil
         redirect_to auth_path(:google_oauth2)
       end
     end
