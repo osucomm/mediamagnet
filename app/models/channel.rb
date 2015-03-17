@@ -15,7 +15,7 @@ class Channel < ActiveRecord::Base
   has_many :mapped_keywords, through: :mappings, source: :keyword
   has_many :keywordings, as: :keywordable, dependent: :destroy
   has_many :keywords, through: :keywordings, before_remove: :remove_keyword_from_items
-  has_one :refresh_lock
+  has_one :refresh_lock, dependent: :destroy
 
   # Validations
   validates :name, presence: true
