@@ -33,7 +33,6 @@ class FacebookPageChannel < Channel
     end
     log_refresh
   end
-  handle_asynchronously :refresh_items
 
   def service_url
     "https://www.facebook.com/#{service_identifier}"

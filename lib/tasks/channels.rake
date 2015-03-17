@@ -3,7 +3,7 @@ namespace :channels do
   task refresh: :environment do
 
     Channel.needs_refresh.each do |channel|
-      channel.refresh_items
+      channel.refresh
     end
 
   end

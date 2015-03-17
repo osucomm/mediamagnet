@@ -22,7 +22,7 @@ class IcalendarChannel < Channel
           content: '',
           description: event.description.to_s,
           published_at: event.dtstamp,
-          digest: Digest::SHA256.base64digest(event.summary.to_s + event.description.to_s + event.dtstart + event.dtend + event.location.to_s)
+          digest: Digest::SHA256.base64digest(event.summary.to_s + event.description.to_s + event.dtstart.to_s + event.dtend.to_s + event.location.to_s)
         )
         i.tag_names = TagParser.new(event.description.to_s).parse
         i.keywords << all_keywords
@@ -45,7 +45,6 @@ class IcalendarChannel < Channel
     end
     log_refresh
   end
-  handle_asynchronously :refresh_items
 
   def service_identifier_validator
     unless service_identifier_is_valid?

@@ -95,7 +95,7 @@ class ChannelsController < ApplicationController
   end
 
   def refresh
-    @channel.refresh_items_without_delay
+    @channel.refresh
     redirect_to @channel
   end
 
