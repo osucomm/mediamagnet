@@ -61,7 +61,12 @@ class Item < ActiveRecord::Base
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
   after_save() { update_es_record }
-  after_destroy() { __elasticsearch__.delete_document if entity.approved? }
+  after_destroy() { 
+    begin
+      __elasticsearch__.delete_document if entity.approved? 
+    rescue
+    end
+  }
 
   delegate :mappings, to: :channel
   delegate :name, :id, to: :channel, prefix: :channel
@@ -273,7 +278,13 @@ class Item < ActiveRecord::Base
 
 
   def update_es_record
-    (__elasticsearch__.delete_document; __elasticsearch__.index_document) if entity.approved?
+    if entity.approved?
+      begin
+        __elasticsearch__.delete_document
+      rescue
+      end
+      __elasticsearch__.index_document
+    end
   end
 
 
