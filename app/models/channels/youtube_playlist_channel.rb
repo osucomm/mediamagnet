@@ -113,7 +113,8 @@ class YoutubePlaylistChannel < Channel
   end
 
   def service_account
-
+    # TO make valud
+    true 
   end
 
 end
