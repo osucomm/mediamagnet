@@ -15,6 +15,7 @@
   </div>
 </div>
 
+<%- if @keyword.items.present? %>
 <h2>
   Latest Content
   <%- if @keyword.item_count > 4 %>
@@ -26,3 +27,4 @@
     <li class="clearfix media"><%= render item %></li>
   <%- end %>
 </ul>
+<%- end %>

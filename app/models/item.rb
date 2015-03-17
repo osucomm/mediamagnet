@@ -78,7 +78,7 @@ class Item < ActiveRecord::Base
   scope :between, -> (starts_at, ends_at) { after(starts_at).before(ends_at) }
   scope :before, -> (datetime) { where('published_at < ?', datetime) }
   scope :after, -> (datetime) { where('published_at > ?', datetime) }
-  scope :eager, -> { eager_load(:assets, :link, :links, :custom_tags, :channel, :keywords, :taggings) }
+  scope :eager, -> { eager_load(:assets, :link, :links, :custom_tags, :channel, :taggings) }
 
   class << self
     # define search method to be used in Rails controller
