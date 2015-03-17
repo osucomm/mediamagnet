@@ -41,7 +41,7 @@ class InstagramChannel < Channel
   end
 
   def to_s
-    description || "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"
+    description || "Instagram from @#{service_identifier} on #{Date.strptime(created_at, '%s')}"
   end
 
   def html_content_for(item)
