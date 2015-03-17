@@ -14,7 +14,6 @@ class FundChannel < Channel
   end
 
   def refresh_items
-
     delete_inactive_funds
 
     client.each do |fund|
@@ -42,12 +41,10 @@ class FundChannel < Channel
         i.tag_names = fund['tags']
         i.keywords << all_keywords
         i.update_es_record
-        logger.info {"Fund #{fund_record.source_identifier} imported at #{Time.now}."}
       end
     end
     log_refresh
   end
-  handle_asynchronously :refresh_items
 
   def delete_inactive_funds
     active_fund_ids = client.map do |fund|

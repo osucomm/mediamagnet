@@ -87,7 +87,6 @@ class YoutubePlaylistChannel < Channel
     end
     log_refresh
   end
-  handle_asynchronously :refresh_items
 
   def load_service_identifier
     self.service_identifier = uploads_playlist_id if new_record?

@@ -39,7 +39,6 @@ class InstagramChannel < Channel
     end
     log_refresh
   end
-  handle_asynchronously :refresh_items
 
   def to_s
     description || "Instagram from @#{service_identifier} on #{Date.strptime(media.created_time, '%s')}"

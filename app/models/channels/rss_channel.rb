@@ -35,7 +35,6 @@ class RssChannel < Channel
     end
     log_refresh
   end
-  handle_asynchronously :refresh_items
 
   def service_identifier_validator
     unless service_identifier_is_valid?

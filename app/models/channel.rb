@@ -15,6 +15,7 @@ class Channel < ActiveRecord::Base
   has_many :mapped_keywords, through: :mappings, source: :keyword
   has_many :keywordings, as: :keywordable, dependent: :destroy
   has_many :keywords, through: :keywordings, before_remove: :remove_keyword_from_items
+  has_one :refresh_lock
 
   # Validations
   validates :name, presence: true
@@ -85,6 +86,10 @@ class Channel < ActiveRecord::Base
     ).order(:type)
   end
 
+  def refresh
+    Delayed::Job.enqueue RefreshChannelJob.new(self)
+  end
+
   def all_keywords
     entity.keywords + keywords
   end
@@ -93,11 +98,25 @@ class Channel < ActiveRecord::Base
     all_mappings
   end
 
-  def refresh_items
-  end
-
   def type_name
     self.class.type_name
+  end
+
+  def lock(options = {})
+    begin
+      binding.pry
+      create_refresh_lock(job_id: options[:job_id])
+    rescue ActiveRecord::RecordNotSaved
+      false
+    end
+  end
+
+  def unlock
+    begin
+      refresh_lock.destroy
+    rescue ActiveRecord::RecordNotSaved
+      false
+    end
   end
 
   def service_id_name

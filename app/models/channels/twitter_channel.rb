@@ -11,8 +11,6 @@ class TwitterChannel < Channel
   end
 
   def refresh_items
-    @new_count = 0
-
     options = { 
       exclude_replies: true
     }
@@ -46,7 +44,6 @@ class TwitterChannel < Channel
     end
     log_refresh
   end
-  handle_asynchronously :refresh_items
 
   def service_url
     "https://twitter.com/#{service_identifier}"

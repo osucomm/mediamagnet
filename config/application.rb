@@ -23,7 +23,7 @@ module Mediamagnet
     # config.i18n.default_locale = :de
 
     config.autoload_paths += Dir[
-      "#{config.root}/app/models/**/",
+      "#{config.root}/app/models/**/", "#{config.root}/app/jobs/**/",
     ]
 
     # Custom error handling
