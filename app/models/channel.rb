@@ -194,8 +194,7 @@ class Channel < ActiveRecord::Base
 
   def set_keywords
     initial_keywords.each do |keyword_text|
-      keyword = Keyword.where(name: keyword_text, 
-                              display_name: keyword_text).first_or_create
+      keyword = Keyword.where(name: keyword_text).first_or_create
       keywords << keyword unless keywords.include?(keyword)
     end
   end
