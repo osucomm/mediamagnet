@@ -31,7 +31,7 @@ class Channel < ActiveRecord::Base
   # Callbacks
   after_initialize :set_keywords
   after_initialize :get_info
-  after_create :refresh_items if Rails.env == 'production'
+  after_create :refresh if Rails.env == 'production'
   before_destroy :destroy_all_items
 
   # Scopes
@@ -104,7 +104,6 @@ class Channel < ActiveRecord::Base
 
   def lock(options = {})
     begin
-      binding.pry
       create_refresh_lock(job_id: options[:job_id])
     rescue ActiveRecord::RecordNotSaved
       false

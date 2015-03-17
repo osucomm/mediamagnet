@@ -32,7 +32,7 @@ class TwitterChannel < Channel
           description: tweet.full_text,
           content: '', # Only set content for things that get special markup
           published_at: tweet.created_at,
-          digest: Digest::SHA256.base64digest(tweet.full_text)
+          digest: Digest::SHA256.base64digest(tweet.full_text.to_s)
         )
         tweet.media.each do |media|
           i.assets.build(url: media.media_url_https.to_s)

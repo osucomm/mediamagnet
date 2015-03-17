@@ -77,7 +77,7 @@ class YoutubePlaylistChannel < Channel
           content: "",
           link: Link.where(url: "https://www.youtube.com/watch?v=#{youtube_video.id}").first_or_create,
           published_at: youtube_video.snippet.published_at,
-          digest: Digest::SHA256.base64digest(youtube_video.snippet.title+youtube_video.snippet.description+youtube_video.snippet.thumbnails.high.url)
+          digest: Digest::SHA256.base64digest(youtube_video.snippet.title.to_s+youtube_video.snippet.description.to_s+youtube_video.snippet.thumbnails.high.url.to_s)
         )
         i.tag_names = youtube_video.snippet.tags
         i.keywords << all_keywords

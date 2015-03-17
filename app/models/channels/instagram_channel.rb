@@ -23,7 +23,7 @@ class InstagramChannel < Channel
           content: '',
           link: Link.where(url: media.link).first_or_initialize,
           published_at: Time.strptime(media.created_time, '%s'),
-          digest: Digest::SHA256.base64digest(media.caption.text+media.images.standard_resolution.url)
+          digest: Digest::SHA256.base64digest(media.caption.text.to_s+media.images.standard_resolution.url.to_s)
         )
         if media.respond_to?(:images)
           i.assets.build(url: media.images.standard_resolution.url)
