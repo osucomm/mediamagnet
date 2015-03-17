@@ -25,7 +25,7 @@ class EventRssChannel < Channel
           published_at: entry.published,
           digest: Digest::SHA256.base64digest(entry.title.to_s + entry.content.to_s + entry.summary.to_s)
         )
-        i.assets.build(url: web_item.image) if entry.image
+        i.assets.build(url: entry.image) if entry.image
         i.tag_names = (entry.categories) if entry.categories
         i.keywords << all_keywords
         e = i.events.build(
