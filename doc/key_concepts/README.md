@@ -145,30 +145,35 @@ Keywords are the foundation of Media Magnet. These keywords define the content. 
 
 Keywords are inherited. A content item inherits keywords from its channel. And channels inherit the keywords applied to their parent. 
 
-To apply keywords to an individual item, the source system will need to contain a tag that matches a keyword. Case does not matter ("Alumni" and "AlUmNi" will both add the keyword "alumni") but spaces, dashes, and slashes must be correct.
+To apply keywords to an individual content item, see the tagging methods in the next section the source system will need to contain a tag that matches a keyword. Case does not matter ("Alumni" and "AlUmNi" will both add the keyword "alumni") but spaces, dashes, and slashes must be correct.
 
 In most cases, Keywords are intended as an internal reference. Avoid using keywords as hashtags within actual content. **Example:** *This use of the keyword "Business/Industry" would be incorrect: "MBA Leadership Conference, June 19-20, Register today! #business/industry"*
 
 - - -
 
-Tags
+Using Tags
 ----
-Tags are custom words or terms used to sort and categorize [content items](#items). Unlike [Keywords](#keywords), tags are not centrally defined and Media Magnet makes no guarantees about the meaning of a tag. With a tag there is no assumption content producers will use it in the consistent ways. Tags are useful for organizing content in ways that do not align with Media Magnet keywords.
+Tags are custom words or terms used to define [content items](#items). While fully searchable and filterable, unlike [Keywords](#keywords), tags don't have defined meanings. There is no assumption content producers will use tags in consistent ways. Tags are useful for organizing content in customized ways beyond the scope of Media Magnet's general keywords.
 
-The method of tagging an item varies by channel type:
+- - -
 
-  * RSS: "category" elements in the feed
-  * Twitter: Hashtags
-  * Facebook: Hashtags
-  * Youtube: Tags added to videos during creation
-  * Instagram: Hashtags
-  * Events RSS: "category" elements in the feed
-  * iCal: Not currently supported
+Applying Keywords and Tags to content items
+----
+Keywords and Tags can be added to Channels and Entities directly within Media Magnet. It's also possible to apply keywords and tags to *individual content items* outside of Media Magnet. The method varies by channel type:
+
+| Content channel   |      Keyword      |  Custom tag |
+|----------|-------------|------|
+| RSS |  Use "category" elements in the feed | Use "category" elements in the feed |
+| Twitter |    Not supported   |  Use hashtags |
+| Facebook |    Not supported   |  Use hashtags |
+| Youtube |    Add keyword in video edit screen   |  Add tag in video edit screen |
+| Instagram |    Not supported   |  Use hashtags |
+| Events RSS |  Use "category" elements in the feed | Use "category" elements in the feed |
+| iCal |    Not supported   |  Not supported |
 
 **Example:** *If a tweet uses the hashtag "#cats", the content will automatically be tagged "cats" within Media Magnet.*
 
-####Pro-tip: Tags can be [mapped](#mapping) to Keywords when applicable:
-**Example:** *The hashtag "#gobucks" could be mapped to the keyword "Buckeye Pride".*
+**Remember:** *Avoid placing Media Magnet keywords into publicly viewable content, like a Twitter hashtag.*
 
 - - -
 
