@@ -21,11 +21,10 @@ class Keyword < ActiveRecord::Base
   end
 
   # Validations
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :display_name, presence: true
 
   default_scope -> {
-    order('display_name ASC')
   }
 
   scope :top, ->(n) { limit(n) }
