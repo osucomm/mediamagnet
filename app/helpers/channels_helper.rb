@@ -34,6 +34,10 @@ module ChannelsHelper
     fa_icon channel.icon, text: channel.name, right: true
   end
 
+  def with_unicode_icon(channel)
+    "&#x#{channel.unicode_icon}; #{channel.name}".html_safe
+  end
+
   def channel_icon(channel)
     image_tag("#{channel.type_name.downcase}-box.svg", class: 'channel-type-icon')
   end

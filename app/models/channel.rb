@@ -64,6 +64,9 @@ class Channel < ActiveRecord::Base
     def icon
       'rss'
     end
+    def unicode_icon
+      'f09e'
+    end
 
     def public_types
       TYPES - [FundChannel]
@@ -76,6 +79,9 @@ class Channel < ActiveRecord::Base
 
   def icon
     self.class.icon
+  end
+  def unicode_icon
+    self.class.unicode_icon
   end
 
   def all_mappings

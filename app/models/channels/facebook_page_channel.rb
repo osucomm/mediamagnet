@@ -1,10 +1,16 @@
 class FacebookPageChannel < Channel
-  def service_id_name
-    'Page name'
+
+  class << self
+    def icon
+      'facebook'
+    end
+    def unicode_icon
+      'f09a'
+    end
   end
 
-  def icon
-    'facebook'
+  def service_id_name
+    'Page name'
   end
 
   def posts
