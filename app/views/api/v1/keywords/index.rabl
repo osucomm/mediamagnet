@@ -3,8 +3,8 @@ cache @keywords
 
 if @keywords.present?
   child @keywords, object_root: false do
-    attributes :name, :display_name, :description
-    node(:category) { |k| k.category.try(:name) }
+    extends 'api/v1/keywords/_keyword'
+    attributes :display_name, :description
   end
 else
   child @keywords => :keywords

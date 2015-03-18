@@ -66,8 +66,9 @@ path.
 
 Format can be one of `json`, `xml`, or `rss`. Media Magnet will render API
 results using the format specified. The response structure is similar in JSON
-and XML. RSS is only available for the items index action and conforms to the
-RSS 2.0 specification. The default format is `json`.
+and XML. RSS is only available for the item/event indexes and conforms to the
+[RSS 2.0 specification](http://cyber.law.harvard.edu/rss/rss.html). The default
+format is `json`.
 
 #### Filters
 

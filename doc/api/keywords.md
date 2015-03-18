@@ -17,7 +17,7 @@ Keywords Index
 
 ### Filters
 
-* by\_category - `/api/v1/keywords.json?by\_category=location`
+* by\_category - `/api/v1/keywords.json?by_category=location`
 
 - - -
 

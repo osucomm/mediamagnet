@@ -17,7 +17,7 @@
 				managed by <strong><%= link_to @channel.entity.name, @channel.entity %></strong>.
 			</p>
 			</div>
-			<p class="col-md-8 <%= @channel.type_name.downcase.gsub(' ', '-') %>-darker-color">
+			<p class="col-md-8 <%= @channel.type_name.downcase.gsub(' ', '-') %>-lighter-color">
 				<%= @channel.description %>
 			</p>
     	</div>
@@ -39,7 +39,7 @@
       	<div class="col-md-3 col-md-offset-3">
   			  <%- if @channel.item_count > 3 && @channel.approved? %>
   				<p class="content-list-controls">
-    					<a class="btn btn-default btn-sm" href="<%= items_path(channel_id: @channel.id) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
+    					<a class="btn btn-default btn-sm" href="<%= items_path(channel_id: @channel.id, channel_type: @channel.class.type_name.downcase) %>" role="button">View all content (<%= @channel.item_count %> items)</a>
   				</p>
     			<%- end %>
   		</div>

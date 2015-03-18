@@ -1,13 +1,18 @@
-<table class="table table-bordered">
-  <tr>
-    <th>Date</th>
-    <th>Title</th>
-    <th>Summary</th>
-  </tr>
-  <%- @channel.items.recent.take(4).each do |item| %>
+<table class="table table-bordered footable">
+  <thead>
     <tr>
-      <td><nobr><%= time_or_dash(item.published_at, :med) %></td>
-      <td><%= link_to item, item %></td>
-      <td><%= item.description %></td>
-  <%- end %>
+      <th data-toggle="true">Date</th>
+      <th>Title</th>
+      <th data-hide="phone">Summary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%- @channel.items.recent.take(4).each do |item| %>
+      <tr>
+        <td><%= time_or_dash(item.published_at, :med) %></td>
+        <td><%= link_to item, item %></td>
+        <td><%= item.description %></td>
+      </tr>
+    <%- end %>
+  </tbody>
 </table>
