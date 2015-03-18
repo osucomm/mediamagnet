@@ -4,8 +4,9 @@ class RefreshChannelJob < Struct.new(:channel)
     # skip.
     if @job.id == channel.refresh_lock.job_id
       channel.refresh_items
+    else
+      Rails.logger.info("Skipped refresh because of refresh lock")
     end
-    true
   end
 
   def before(job)
@@ -16,5 +17,9 @@ class RefreshChannelJob < Struct.new(:channel)
   def success(job)
     # Remove lock if this is really our job.
     channel.unlock if channel.refresh_lock && channel.refresh_lock.job_id == job.id
+  end
+
+  def error(job, exception)
+    Rails.logger.warn("Job: #{job.id} failed with #{exception}")
   end
 end
