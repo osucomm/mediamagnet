@@ -3,14 +3,17 @@ class RssChannel < Channel
     def type_name
       'RSS'
     end
+
+    def icon
+      'rss'
+    end
+    def unicode_icon
+      'f09e'
+    end
   end
 
   def service_id_name
     'Feed URL'
-  end
-
-  def icon
-    'rss'
   end
 
   def refresh_items

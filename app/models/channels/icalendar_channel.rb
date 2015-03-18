@@ -3,10 +3,13 @@ class IcalendarChannel < Channel
     def type_name
       'iCal'
     end
-  end
 
-  def icon
-    'calendar'
+    def icon
+      'calendar'
+    end
+    def unicode_icon
+      'f073'
+    end
   end
 
   def service_id_name

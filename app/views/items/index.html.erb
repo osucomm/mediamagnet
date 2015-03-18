@@ -26,7 +26,7 @@
 
       <div class="form-group">
       <%= label_tag "channel_id[]", 'Channel' %>
-      <%= select_tag('channel_id[]', options_for_select(@search_response.facets.channel_id.terms.map{|a| [ "#{with_icon(Channel.find(a[:term]))} (#{a[:count]})".html_safe, a[:term] ] }, selected: params[:channel_id]),
+      <%= select_tag('channel_id[]', options_for_select(@search_response.facets.channel_id.terms.map{|a| [ "#{with_unicode_icon(Channel.find(a[:term]))} (#{a[:count]})".html_safe, a[:term] ] }, selected: params[:channel_id]),
               multiple: :true, 
               class: 'chosen-select autosubmit') %>
           </div>
@@ -41,7 +41,7 @@
 
       <div class="form-group">
       <%= label_tag 'channel_type[]', 'Channel Types' %>
-      <%= select_tag('channel_type[]', options_for_select(@search_response.facets.channel_type.terms.map{|a| [ "#{a[:term]} (#{a[:count]})", a[:term] ] }, selected: params[:channel_type]),
+      <%= select_tag('channel_type[]', options_for_select(@search_response.facets.channel_type.terms.map{|a| [ "#{a[:term].titleize} (#{a[:count]})", a[:term] ] }, selected: params[:channel_type]),
             multiple: :true, 
             class: 'chosen-select autosubmit') %>
       </div>
