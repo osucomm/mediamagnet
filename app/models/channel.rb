@@ -87,6 +87,7 @@ class Channel < ActiveRecord::Base
   end
 
   def refresh
+    reload
     Delayed::Job.enqueue RefreshChannelJob.new(self)
   end
 
