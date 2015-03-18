@@ -11,11 +11,11 @@ Items Index
 **bold = required**
 
 * **id**(number) - Internal Media Magnet ID
-* **guid**(string) - Globally unique identifier as provided by source system
 * **link**(string) - Canonical URL of item from source system
 * **href**(string) - Absolute URL of item in Media Magnet (defaults to html)
 * **channel_type**(string) - Twitter, Facebook page, Instagram, etc.
 * **channel_id**(number) - ID of the channel that produced this item
+* **source_identifier**(string) - An identifier used in the source system
 * **excerpt**(string) - ~140 character title, summary, or excerpt of item
 * **content**(string) - HTML content associated  with the item
 * **tags**(array of strings) - array of strings with tags
@@ -25,7 +25,6 @@ Items Index
 * description(string) - Used for channel_types that have explicit plain-text 
   descriptions (RSS, Events, YouTube)
 * published_at(datetime) - The date this item was published
-* source_identifier(string) - An identifier used in the source system
 * assets(array of objects) - mime, url, and size for media assets (Instagram 
   Photos/Videos, twitpic, RSS enclosures). **NOTE: YouTube videos are not 
   assets as YouTube does not provide access to the source files**
@@ -35,9 +34,9 @@ Items Index
 Check out the [items page](/items) for an interactive query builder.
 
 * search - `/api/v1/items.json?search=urban%20meyer`
-* entity\_id - `/api/v1/items.json?entity\_id=1`
-* channel\_id - `/api/v1/items.json?channel\_id[]=1&channel\_id[]=2`
-* channel\_type - `/api/v1/items.xml?channel\_type=twitter`
+* entity\_id - `/api/v1/items.json?entity_id=1`
+* channel\_id - `/api/v1/items.json?channel_id[]=1&channel_id[]=2`
+* channel\_type - `/api/v1/items.xml?channel_type=twitter`
 * tags - `/api/v1/items.json?tags[]=mytag&tags[]=audience-alumni`
 * audience - `/api/v1/items.json?audience=audience-alumni`
 * location - `/api/v1/items.json?location=campus-lima`
@@ -67,6 +66,7 @@ Items Show
 * **href**(string) - Absolute URL of item in Media Magnet (defaults to html)
 * **channel_type**(string) - Twitter, Facebook page, Instagram, etc.
 * **channel_id**(number) - ID of the channel that produced this item
+* **source_identifier**(string) - An identifier used in the source system
 * **excerpt**(string) - ~140 character title, summary, or excerpt of item
 * **content**(string) - HTML content associated  with the item
 * **tags**(array of strings) - array of strings with tags
@@ -76,7 +76,6 @@ Items Show
 * description(string) - Used for channel_types that have explicit plain-text 
   descriptions (RSS, Events, YouTube)
 * published_at(datetime) - The date this item was published
-* source_identifier(string) - An identifier used in the source system
 * assets(array of objects) - mime, url, and size for media assets (Instagram 
   Photos/Videos, twitpic, RSS enclosures)
 * channel(object) - The item's channel
