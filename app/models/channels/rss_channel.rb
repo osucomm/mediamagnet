@@ -20,9 +20,11 @@ class RssChannel < Channel
     web_items = client.entries
 
     web_items.each do |web_item|
-      unless items.where(source_identifier: web_item.entry_id).exists?
+      source_identifier = web_item.entry_id
+      source_identifier ||= web_item.url
+      unless items.where(source_identifier: source_identifier).exists?
         i = items.build(
-          source_identifier: web_item.entry_id,
+          source_identifier: source_identifier,
           title: web_item.title,
           content: web_item.content,
           description: web_item.summary,
@@ -33,6 +35,14 @@ class RssChannel < Channel
         i.assets.build(url: web_item.image) if web_item.image
         i.tag_names = (web_item.categories) if web_item.categories
         i.keywords << all_keywords
+        if web_item.start_date
+          event = i.events.build(
+            start_date: web_item.start_date,
+            end_date: web_item.end_date,
+          )
+          event.location = Location.where(location: web_item.location).first_or_create
+          event.save
+        end
         i.update_es_record
       end
     end

@@ -69,7 +69,7 @@ class Channel < ActiveRecord::Base
     end
 
     def public_types
-      TYPES - [FundChannel]
+      TYPES - [FundChannel,EventRssChannel]
     end
   end
 
