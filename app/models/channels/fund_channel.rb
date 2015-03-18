@@ -3,14 +3,17 @@ class FundChannel < Channel
     def type_name
       'Funds'
     end
+
+    def icon
+      'bookmark'
+    end
+    def unicode_icon
+      'f02e'
+    end
   end
 
   def service_id_name
     'Feed Feed'
-  end
-
-  def icon
-    'rss'
   end
 
   def refresh_items

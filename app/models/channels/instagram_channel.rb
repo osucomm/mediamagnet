@@ -1,12 +1,16 @@
 class InstagramChannel < Channel
-  #
+
+  class << self
+    def icon
+      'instagram'
+    end
+    def unicode_icon
+      'f16d'
+    end
+  end
 
   def service_id_name
     'Account name'
-  end
-
-  def icon
-    'instagram'
   end
 
   def initial_keywords

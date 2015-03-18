@@ -3,10 +3,13 @@ class EventRssChannel < Channel
     def type_name
       'Events RSS feed'
     end
-  end
 
-  def icon
-    'calendar'
+    def icon
+      'calendar'
+    end
+    def unicode_icon
+      'f073'
+    end
   end
 
   def service_id_name
