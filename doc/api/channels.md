@@ -21,7 +21,7 @@ Channels Index
 
 ### Filters
 
-* by\_type - `/api/v1/channels.json?by\_type=twitter`
+* by\_type - `/api/v1/channels.json?by_type=twitter`
 
 - - -
 

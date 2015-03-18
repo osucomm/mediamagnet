@@ -289,6 +289,10 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def guid
+    Digest::MD5.hexdigest( "#{channel_id}_#{id}" )
+  end
+
 
   private
 

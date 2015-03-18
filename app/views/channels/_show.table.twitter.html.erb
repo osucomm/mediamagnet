@@ -1,32 +1,34 @@
-	<table class="table table-striped table-content">
-	  <tbody>
-		<tr>
-		<th class="col-md-1">Date</th>
-		<th class="">Tweet</th>
-		<th class="col-md-2"><!--Visuals--></th>
-	  </tr>
-		  <%- @channel.items.recent.take(4).each do |item| %>
-			<tr>
-			  <td>
-				<p class="nobr"><%= time_or_dash(item.published_at, :med_omit_year) %></p>
-			  </td>
-			  <td>
-					<%= link_to excerpt_for(item), item %>
-					<hr/>
-					<p class="small text-rightx">
+  <table class="table table-striped table-content footable">
+    <thead>
+      <tr>
+        <th data-hide="phone">Date</th>
+        <th data-toggle="true">Tweet</th>
+        <th data-hide="phone"><span class="sr-only">Image</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%- @channel.items.recent.take(4).each do |item| %>
+      <tr>
+        <td>
+        <p class="nobr"><%= time_or_dash(item.published_at, :med_omit_year) %></p>
+        </td>
+        <td>
+          <%= link_to excerpt_for(item), item %>
+          <hr/>
+          <p class="small text-rightx">
           <!--
-						Replies: <mark>item.replies???</mark> | Retweets: <mark>item.retweets???</mark> | <a href="link_to @item.link.to_s">View on Twitter</a>
+            Replies: <mark>item.replies???</mark> | Retweets: <mark>item.retweets???</mark> | <a href="link_to @item.link.to_s">View on Twitter</a>
             -->
-					</p>
-			  </td>
-			  <td>
-				<%- if item.assets.present? %>
-					<%- item.assets.each do |asset| %>
-						<%= render_asset(asset,'img-responsive table-twitter-image' ) %>
-					<%- end %>
-				<%- end %>
-			  </td>
-			</tr>
-		<%- end %>
-		</tbody>
-	</table>	
+          </p>
+        </td>
+        <td>
+        <%- if item.assets.present? %>
+          <%- item.assets.each do |asset| %>
+            <%= render_asset(asset,'img-responsive table-twitter-image' ) %>
+          <%- end %>
+        <%- end %>
+        </td>
+      </tr>
+    <%- end %>
+    </tbody>
+  </table>  
