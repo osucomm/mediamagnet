@@ -15,9 +15,9 @@ class EventRssChannel < Channel
 
   def refresh_items
     client.entries.each do |entry|
-      unless items.where(guid: entry.entry_id).exists?
+      unless items.where(source_identifier: entry.entry_id).exists?
         i = items.create(
-          guid: entry.entry_id,
+          source_identifier: entry.entry_id,
           title: entry.title,
           content: entry.content,
           description: entry.summary,

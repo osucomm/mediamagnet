@@ -15,9 +15,9 @@ class IcalendarChannel < Channel
 
   def refresh_items
     client.events.each do |event|
-      unless items.where(guid: event.uid.to_s).exists?
+      unless items.where(source_identifier: event.uid.to_s).exists?
         i = items.create(
-          guid: event.uid.to_s,
+          source_identifier: event.uid.to_s,
           title: event.summary.to_s,
           content: '',
           description: event.description.to_s,

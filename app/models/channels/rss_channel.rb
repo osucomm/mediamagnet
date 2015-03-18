@@ -17,9 +17,9 @@ class RssChannel < Channel
     web_items = client.entries
 
     web_items.each do |web_item|
-      unless items.where(guid: web_item.entry_id).exists?
+      unless items.where(source_identifier: web_item.entry_id).exists?
         i = items.build(
-          guid: web_item.entry_id,
+          source_identifier: web_item.entry_id,
           title: web_item.title,
           content: web_item.content,
           description: web_item.summary,
