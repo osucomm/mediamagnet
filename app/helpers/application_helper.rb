@@ -56,9 +56,11 @@ module ApplicationHelper
   end
 
   def bootstrap_label_with_tooltip(text, options={type: 'primary'})
-    content_tag(:span, text, class: "label label-#{options[:type]}",
-                data: { toggle: 'tooltip', placement: 'bottom'},
-                title: options[:title], id: options[:id])
+    content_tag(:span, 
+      content_tag(:span, text, 
+                  data: { toggle: 'tooltip', placement: 'bottom'},
+                  title: options[:title], id: options[:id]), 
+      class: "label label-#{options[:type]}")
   end
 
   def add_button(link, options={}) 
