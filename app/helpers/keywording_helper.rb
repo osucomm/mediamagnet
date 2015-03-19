@@ -6,7 +6,7 @@ module KeywordingHelper
     unless on_parent
       link += link_to_delete (fa_icon 'remove'), keywording, method: :delete
     end
-    bootstrap_label_with_tooltip(link, type: :primary, title: keywording.keyword.description, id: "keywording-#{keywording.id}")
+    content_tag(:span, bootstrap_label_with_tooltip(link, type: :primary, title: keywording.keyword.description, id: "keywording-#{keywording.id}"))
   end
 
 end
