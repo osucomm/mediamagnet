@@ -8,6 +8,9 @@ class TwitterChannel < Channel
     def icon
       'twitter'
     end
+    def unicode_icon
+      'f099'
+    end
   end
 
   def refresh_items

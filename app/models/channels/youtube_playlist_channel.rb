@@ -3,12 +3,17 @@ require 'google/api_client/auth/installed_app'
 
 class YoutubePlaylistChannel < Channel
 
-  def service_id_name
-    'Playlist ID'
+  class << self
+    def icon
+      'youtube-play'
+    end
+    def unicode_icon
+      'f16a'
+    end
   end
 
-  def icon
-    'youtube-play'
+  def service_id_name
+    'Playlist ID'
   end
 
   def initial_keywords
