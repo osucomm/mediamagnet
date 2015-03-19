@@ -29,8 +29,8 @@ class Channel < ActiveRecord::Base
   delegate :users, :has_user?, :entity_mappings, :approved, to: :entity
 
   # Callbacks
-  after_initialize :set_keywords
   after_initialize :get_info
+  after_create :set_keywords
   after_create :refresh if Rails.env == 'production'
   before_destroy :destroy_all_items
 
