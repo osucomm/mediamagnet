@@ -52,9 +52,11 @@ class Item < ActiveRecord::Base
     end
   end
 
-  validates :guid, presence: :true
+  # Validations
+  validates :source_identifier, presence: :true, uniqueness: { scope: :channel_id }
   validates :channel_id, presence: :true
 
+  # Callbacks
   before_save :links_from_text_fields
   before_save :sanitize_plain_elements
   after_create() { __elasticsearch__.index_document if entity.approved? }
@@ -227,13 +229,13 @@ class Item < ActiveRecord::Base
   end
 
   def to_s
-    [:title, :description, :guid].each do |field|
+    [:title, :description, :source_identifier].each do |field|
       return self.send(field) unless self.send(field).blank?
     end
   end
 
   def to_long_string
-    [:description, :title, :guid].each do |field|
+    [:description, :title, :source_identifier].each do |field|
       return self.send(field) unless self.send(field).blank?
     end
   end

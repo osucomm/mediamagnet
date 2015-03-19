@@ -34,5 +34,13 @@ namespace :items do
 
   end
 
+  desc 'Copy guid to source_identifier for everything except funds'
+  task copy_guid_to_source_identifier: :environment do
+
+    Item.all.eager_load(:channel).where("channels.type != 'FundChannel'").each do |item|
+        item.update_attribute(:source_identifier, item.guid)
+    end
+
+  end
 
 end
