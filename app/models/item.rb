@@ -247,22 +247,15 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def tag_names=(new_tags)
-    new_tags = [] if new_tags.nil?
+  def tag_names=(new_tags=[])
     new_tags.map!(&:downcase)
-    existing_tags = custom_tags.map(&:name)
+    custom_tags.destroy_all
 
-    (new_tags - existing_tags).each do |tag_text|
+    new_tags.each do |tag_text|
       taggings.build(tag_text: tag_text)
     end
 
-    binding.pry
-    save!
-
-    taggings.joins(:tag).where("tags.name IN (?)", (existing_tags - new_tags)).destroy_all
-
-    reload
-    return (new_tags - existing_tags)
+    custom_tags
   end
 
   def tags

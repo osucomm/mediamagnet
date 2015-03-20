@@ -34,7 +34,9 @@ class InstagramChannel < Channel
         end
         if media.respond_to?(:videos)
           i.assets.build(url: media.videos.standard_resolution.url)
-          i.keywords << Keyword.find_by_name('video')
+          i.keywords << Keyword.where(name: 'video').first_or_create do |k|
+            k.display_name = 'Video'
+          end
         end
         i.tag_names = media.tags
         i.keywords << all_keywords

@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320203833) do
+ActiveRecord::Schema.define(version: 20150320171953) do
 
   create_table "assets", force: :cascade do |t|
-    t.integer  "item_id",    null: false
-    t.string   "mime"
-    t.text     "url",        null: false
-    t.string   "title"
-    t.string   "alt"
+    t.integer  "item_id",                null: false
+    t.string   "mime",       limit: 255
+    t.text     "url",                    null: false
+    t.string   "title",      limit: 255
+    t.string   "alt",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "size"
