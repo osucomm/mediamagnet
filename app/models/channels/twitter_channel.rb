@@ -19,7 +19,7 @@ class TwitterChannel < Channel
     }
 
     if items.most_recent.any?
-      options[:since_id] = items.most_recent.first.guid
+      options[:since_id] = items.most_recent.first.source_identifier
     end
 
     # Get tweets from our user, starting with the one after the last one we have.
@@ -27,9 +27,9 @@ class TwitterChannel < Channel
 
     #Check tweet identifiers against 
     tweets.each do |tweet|
-      unless items.where(guid: tweet.id.to_s).exists?
+      unless items.where(source_identifier: tweet.id.to_s).exists?
         i = items.build(
-          guid: tweet.id,
+          source_identifier: tweet.id,
           title: '',
           link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
           description: tweet.full_text,

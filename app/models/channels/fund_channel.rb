@@ -35,7 +35,6 @@ class FundChannel < Channel
         # Create fund
         i = items.build(
           source_identifier: fund['source_identifier'],
-          guid: fund['guid'],
           title: fund['title'],
           link: Link.where(url: fund['url']).first_or_create,
           description: fund['description'],

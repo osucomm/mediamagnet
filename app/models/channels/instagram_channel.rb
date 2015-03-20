@@ -19,9 +19,9 @@ class InstagramChannel < Channel
 
   def refresh_items
     new_media.each do |media|
-      unless items.where(guid: media.id.to_s).exists?
+      unless items.where(source_identifier: media.id.to_s).exists?
         i = items.build(
-          guid: media.id,
+          source_identifier: media.id.to_s,
           title: '',
           description: (media.caption? ? media.caption.text : ''),
           content: '',
