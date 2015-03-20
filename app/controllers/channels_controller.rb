@@ -68,7 +68,7 @@ class ChannelsController < ApplicationController
   end
 
   def update
-    if @channel.entity_id != channel_params[:entity_id]
+    if channel_params.has_key?(:entity_id) && (@channel.entity_id != channel_params[:entity_id])
       entity = Entity.find(channel_params[:entity_id])
       raise RecordNotFound if entity.nil?
       @channel.transfer_to(entity)
