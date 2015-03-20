@@ -41,8 +41,9 @@ class Channel < ActiveRecord::Base
   class << self
     def needs_refresh
       ids = all.to_a.keep_if do |channel|
-        channel.last_polled_at.nil? || 
-          channel.last_polled_at < channel.max_refresh_interval.seconds.ago
+        (channel.last_polled_at.nil? || 
+        channel.last_polled_at < channel.max_refresh_interval.seconds.ago) &&
+        !channel.disabled
       end.map(&:id)
       find(ids)
     end
