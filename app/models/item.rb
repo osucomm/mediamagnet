@@ -49,6 +49,7 @@ class Item < ActiveRecord::Base
       indexes :entity_id, type: 'integer'
       indexes :published_at, type: 'date'
       indexes :url, analyzer: 'keyword', type: 'string'
+      indexes :events, type: 'nested'
     end
   end
 
@@ -91,10 +92,16 @@ class Item < ActiveRecord::Base
     # define search method to be used in Rails controller
     def search(query=nil, options={})
 
+      filter = {}
+
+      if options[:events_only] == true
+        filter = {nested: {path: :events, filter: { bool: { must_not: { term: { start_date: ''}}}}}}
+      end
+
       # setup empty search definition
       @search_definition = {
         query: {},
-        filter: {},
+        filter: filter,
         facets: {},
         #fields: [:id],
       }
@@ -249,6 +256,7 @@ class Item < ActiveRecord::Base
       taggings.build(tag_text: tag_text)
     end
 
+    binding.pry
     save!
 
     taggings.joins(:tag).where("tags.name IN (?)", (existing_tags - new_tags)).destroy_all
@@ -274,7 +282,11 @@ class Item < ActiveRecord::Base
     self.as_json(only:
                  %w(id title channel_id content description guid published_at),
                  include: { keywords: { only: [ :id, :name, :category_name ] },
-                            links: { only: [:url] } },
+                            links: { only: [:url] },
+                            events: { only: [:start_date, :end_date] ,
+                                      methods: :location_name
+                                    }
+                          },
                  methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
   end
 
