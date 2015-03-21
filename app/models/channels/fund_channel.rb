@@ -33,7 +33,7 @@ class FundChannel < Channel
         end
       else
         # Create fund
-        i = items.build(
+        i = items.create(
           source_identifier: fund['source_identifier'],
           title: fund['title'],
           link: Link.where(url: fund['url']).first_or_create,

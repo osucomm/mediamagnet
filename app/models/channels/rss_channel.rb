@@ -23,7 +23,7 @@ class RssChannel < Channel
       source_identifier = web_item.entry_id
       source_identifier ||= web_item.url
       unless items.where(source_identifier: source_identifier).exists?
-        i = items.build(
+        i = items.create(
           source_identifier: source_identifier,
           title: web_item.title,
           content: web_item.content,

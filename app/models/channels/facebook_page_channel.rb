@@ -22,7 +22,7 @@ class FacebookPageChannel < Channel
   def refresh_items
     posts.each do |post|
       unless items.where(source_identifier: post['id']).exists?
-        i = items.build(
+        i = items.create(
           source_identifier: post['id'],
           title: '',
           description: post['message'],
