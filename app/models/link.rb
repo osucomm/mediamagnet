@@ -19,8 +19,9 @@ class Link < ActiveRecord::Base
       uri = URI(URI.encode(url.strip))
       return_url = ''
 
-      Net::HTTP.start(uri.host, uri.port,
-                        :use_ssl => uri.scheme == 'https') do |http|
+      begin
+        Net::HTTP.start(uri.host, uri.port, open_timeout: 10,
+                          :use_ssl => uri.scheme == 'https') do |http|
           begin
             request = Net::HTTP::Get.new uri
             response = http.request request # Net::HTTPResponse object
@@ -33,7 +34,10 @@ class Link < ActiveRecord::Base
             end
           rescue 
           end
-          
+        end
+      rescue 
+        return_url = nil
+        logger.warn "Could not open #{uri.to_s}"
       end
     return_url
     end
