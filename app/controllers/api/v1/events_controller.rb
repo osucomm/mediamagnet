@@ -10,7 +10,7 @@ class Api::V1::EventsController < Api::BaseController
 
   def index
     # Paging only works with one-to-one correspondance of items to events!
-    items = Item.search( *search_params(params) )
+    items = Item.search( *search_params(params) ).page(1).per(1000000)
       .records
         .map(&:id)
     @events = apply_scopes(Event)

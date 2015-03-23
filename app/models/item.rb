@@ -95,7 +95,7 @@ class Item < ActiveRecord::Base
       filter = {}
 
       if options[:events_only] == true
-        filter = {nested: {path: :events, filter: { bool: { must_not: { term: { start_date: ''}}}}}}
+        filter[:and] = [{nested: {path: :events, filter: { bool: { must_not: { term: { start_date: ''}}}}}}]
       end
 
       # setup empty search definition
