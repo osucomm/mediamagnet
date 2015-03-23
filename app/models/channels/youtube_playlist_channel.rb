@@ -75,7 +75,7 @@ class YoutubePlaylistChannel < Channel
   def refresh_items
     uploaded_videos.each do |youtube_video|
       unless items.where(source_identifier: youtube_video.id).any?
-        i = items.build(
+        i = items.create(
           source_identifier: youtube_video.id,
           title: youtube_video.snippet.title,
           description: youtube_video.snippet.description,

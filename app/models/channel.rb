@@ -40,11 +40,13 @@ class Channel < ActiveRecord::Base
 
   class << self
     def needs_refresh
-      ids = all.to_a.keep_if do |channel|
-        channel.last_polled_at.nil? || 
-          channel.last_polled_at < channel.max_refresh_interval.seconds.ago
+      ids = all.order('last_polled_at asc').to_a.keep_if do |channel|
+        (channel.last_polled_at.nil? || 
+        channel.last_polled_at < channel.max_refresh_interval.seconds.ago) &&
+        !channel.disabled && 
+        !channel.locked?
       end.map(&:id)
-      find(ids)
+      where(id: ids)
     end
     def type_name
       self.name.sub('Channel', '').titleize
@@ -115,6 +117,10 @@ class Channel < ActiveRecord::Base
     rescue ActiveRecord::RecordNotSaved
       false
     end
+  end
+
+  def locked?
+    refresh_lock.present?
   end
 
   def unlock

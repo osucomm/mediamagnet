@@ -28,7 +28,7 @@ class TwitterChannel < Channel
     #Check tweet identifiers against 
     tweets.each do |tweet|
       unless items.where(source_identifier: tweet.id.to_s).exists?
-        i = items.build(
+        i = items.create(
           source_identifier: tweet.id,
           title: '',
           link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
