@@ -18,19 +18,25 @@
 
 
 </h1>
-<div class="well well-sm">
-  <div class="row">
-    <div class="col-sm-6">
-      <%= @entity.description %>
-    </div>
-    <br class="visible-xs-inline">
-    <div class="col-sm-6">
+
+<%- if @entity.description.present? || @entity.contact.present? %>
+  <div class="well well-sm">
+    <div class="row">
+      <%- if @entity.description.present? %>
+        <div class="col-sm-6">
+          <%= @entity.description %>
+        </div>
+        <br class="visible-xs-inline">
+      <%- end %>
+
       <%- if @entity.contact %>
-        <%= render partial: "contacts/contact", locals: { contact: @entity.contact } %>
+        <div class="col-sm-6">
+          <%= render partial: "contacts/contact", locals: { contact: @entity.contact } %>
+        </div>
       <%- end %>
     </div>
   </div>
-</div>
+<%- end %>
 
 <div class="row">
   <div class="col-sm-8">
