@@ -43,7 +43,7 @@ class RssChannel < Channel
           event.location = Location.where(location: web_item.location).first_or_create
           event.save
         end
-        i.update_es_record
+        i.save
       end
     end
     log_refresh

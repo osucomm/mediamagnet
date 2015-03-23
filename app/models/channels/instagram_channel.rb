@@ -40,7 +40,7 @@ class InstagramChannel < Channel
         end
         i.tag_names = media.tags
         i.keywords << all_keywords
-        i.update_es_record
+        i.save
       end
     end
     log_refresh

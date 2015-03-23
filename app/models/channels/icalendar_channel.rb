@@ -29,7 +29,7 @@ class IcalendarChannel < Channel
         )
         i.tag_names = TagParser.new(event.description.to_s).parse
         i.keywords << all_keywords
-        i.update_es_record
+        i.save
         starts_at = event.dtstart
         ends_at = event.dtend
         if ((client.prodid =~ /Microsoft Exchange/) == 0)
