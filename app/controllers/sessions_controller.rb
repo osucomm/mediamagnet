@@ -62,8 +62,6 @@ class SessionsController < ApplicationController
   def show_welcome_message
     if current_user.sign_in_count == 1 || (current_user.sign_in_count <= 5 && current_user.entities.count == 0)
       flash[:welcome] = render_to_string(partial: 'sessions/welcome_message', layout: false)
-    else
-      flash[:notice] = "Welcome, #{current_user.display_name}!"
     end
   end
 end
