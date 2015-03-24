@@ -48,8 +48,10 @@
   </div>
 
   <div class="col-sm-4">
-    <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
-  	<%= render 'mappings/mappings', mappable: @channel %>
+    <%- if (@channel.has_user?(current_user) || current_user.admin?) %>
+      <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
+      <%= render 'mappings/mappings', mappable: @channel %>
+    <%- end %>
 
 	  <%- if @channel.display_contact %>
       <div class="panel panel-default">

@@ -87,7 +87,7 @@ class YoutubePlaylistChannel < Channel
         i.tag_names = youtube_video.snippet.tags
         i.keywords << all_keywords
         i.assets.create(url: youtube_video.snippet.thumbnails.high.url)
-        i.update_es_record
+        i.save
       end
     end
     log_refresh

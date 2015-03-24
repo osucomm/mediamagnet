@@ -104,17 +104,7 @@ The following elements are available on items based on type:
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Events RSS Feed</td>
-      <td class="success">Title or Truncated Description</td>
-      <td class="warning">*Optional</td>
-      <td class="warning">*Optional</td>
-      <td class="success">Required</td>
-      <td class="warning">Optional</td>
-      <td class="warning">Optional</td>
-      <td class="success">Required</td>
-    </tr>
-    <tr>
+   <tr>
       <td>Web RSS Feed</td>
       <td class="success">Title or Truncated Description</td>
       <td class="warning">*Optional</td>
