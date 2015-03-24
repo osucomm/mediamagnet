@@ -1,6 +1,6 @@
 <div id="<%= "member-#{user.id}" %>">
   <%= mail_to user.email, fa_icon('envelope', text: user.display_name), class: '' %>
-  <%- unless user == current_user %>
+  <%- if user != current_user && policy(entity).update? %>
     <%= link_to fa_icon(:remove), "/memberships/destroy?entity_id=#{entity.id}&user_id=#{user.id}", method: :delete, remote: true %>
   <%- end %>
 </div>

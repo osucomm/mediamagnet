@@ -9,7 +9,7 @@ class MembershipFormPolicy < ApplicationPolicy
   end
 
   def destroy?
-    record.entity.has_user?(user) || user.admin?
+    create?
   end
 
 end
