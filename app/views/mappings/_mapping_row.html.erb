@@ -3,7 +3,7 @@
   <td><%= fa_icon('arrow-right') %></td>
   <td><%= keyword_labels(mapping.keyword) %></td>
   <td>
-    <%- if (defined? mappable) && mapping.mappable == mappable %>
+    <%- if (defined? mappable) && mapping.mappable == mappable && policy(mappable).update? %>
       <%= link_to_delete fa_icon('trash', data: {toggle: 'tooltip', placement: 'top'}, title: 'Delete'),
         mapping, 'btn btn-danger btn-xs action-button' %>
     <%- else %>

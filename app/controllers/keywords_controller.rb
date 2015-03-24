@@ -5,11 +5,26 @@ class KeywordsController < ApplicationController
   before_action :set_categories, only: [:new, :edit]
 
   has_scope :by_category
+  has_scope :sort do |controller, scope, value|
+    dir = controller.params[:sort_dir].try(:downcase) == 'desc' ? :desc : :asc
+    column = value.to_sym
+
+    case column
+    when :category
+      scope.sort_by_category(dir)
+    else
+      scope.sort(column, dir)
+    end
+  end
 
   respond_to :html, :js, :json
 
   def index
     @keywords = apply_scopes(Keyword).normal
+      .includes(:category)
+      .page(params[:page])
+      .per(params[:per_page])
+
     respond_with @keywords
   end
 
