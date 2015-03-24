@@ -30,12 +30,6 @@ class Keyword < ActiveRecord::Base
   scope :top, ->(n) { limit(n) }
   scope :by_category, -> category { joins(:category).where('categories.name' => category) }
   scope :sort, -> (column, direction = :asc) { order({ column => direction }) }
-  scope :sort_by_item_count, -> (direction = :asc) {
-    select('COUNT("items.id") AS "items_count", "keywords".*').
-    eager_load(:items).
-    group("keywords.id").
-    order("items_count #{direction}")
-  }
 
 
   class << self
