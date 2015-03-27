@@ -53,9 +53,7 @@ class ChannelsController < ApplicationController
     #@channel.contact = nil if @channel.contact.try(:empty?)
 
     if @channel.save
-      respond_with @channel do |format|
-        format.html { render :edit }
-      end
+      respond_with @channel
     else
       respond_with @channel do |format|
         format.html { render :new }
