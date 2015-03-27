@@ -1,7 +1,6 @@
 class Entity < ActiveRecord::Base
   # Associations
   has_one :contact, as: :contactable, dependent: :destroy
-  has_one :manifest, dependent: :destroy
   has_many :channels, dependent: :destroy
   has_many :items, through: :channels
   has_many :mappings, as: :mappable, dependent: :destroy
