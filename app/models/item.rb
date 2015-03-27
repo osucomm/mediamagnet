@@ -60,6 +60,7 @@ class Item < ActiveRecord::Base
   # Callbacks
   before_save :links_from_text_fields
   before_save :sanitize_plain_elements
+  after_save :add_evident_keywords
   after_create() { __elasticsearch__.index_document if entity.approved? }
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
@@ -298,6 +299,12 @@ class Item < ActiveRecord::Base
     Digest::MD5.hexdigest( "#{channel_id}_#{id}" )
   end
 
+  def add_evident_keywords
+    keyword = Keyword.create_with(display_name: 'Events').first_or_create_by(name: 'events')
+    if events.any? && !keywords.include?(keyword)
+      keywords << keyword
+    end
+  end
 
   private
 
