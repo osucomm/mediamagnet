@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$scarlet: #bb0000;
 
 
 /* #Media Queries
@@ -50,6 +51,7 @@ p.home-intro {
 a.home-login{
   margin-top: 2em;
   width: 100%;
+  background-color: $scarlet;
 }
     
     
