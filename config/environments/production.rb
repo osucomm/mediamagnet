@@ -76,4 +76,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.middleware.use Rack::Cache,
+    :verbose => true,
+    :metastore   => 'file:/tmp/cache/rack/meta',
+    :entitystore => 'file:/tmp/cache/rack/body',
+    :default_ttl => 180
+
 end

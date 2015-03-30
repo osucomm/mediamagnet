@@ -7,6 +7,7 @@ gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'mysql2'
+gem 'rack-cache'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'sanitize'
 gem 'therubyracer',  platforms: :ruby
