@@ -300,7 +300,9 @@ class Item < ActiveRecord::Base
   end
 
   def add_evident_keywords
-    keyword = Keyword.create_with(display_name: 'Events').first_or_create_by(name: 'events')
+    keyword = Keyword.where(name: 'events').first_or_create do |keyword|
+      keyword.display_name = 'Events'
+    end
     if events.any? && !keywords.include?(keyword)
       keywords << keyword
     end
