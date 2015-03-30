@@ -1,9 +1,13 @@
 module ItemsHelper
   def itemable_items_path(itemable)
     if itemable.class.name =~ /Channel$/
-      channel_items_path(channel_id: itemable.id)
+      channel_items_path(channel_id: itemable.id, channel_type: itemable.type)
     else
-      items_path(entity_id: itemable.id)
+      if itemable.channels.first.type == 'FundChannel'
+        items_path(entity_id: itemable.id, channel_type: itemable.channels.first.type_name.downcase)
+      else
+        items_path(entity_id: itemable.id)
+      end
     end
   end
 

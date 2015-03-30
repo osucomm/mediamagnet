@@ -51,7 +51,7 @@ Rails.application.routes.draw do
     resources :channels, only: [:index]
 
     Channel::TYPES.each do |type|
-      resources type.model_name.plural, only: [:new, :create], controller: 'channels', type: type.to_s
+      resources type.model_name.plural, only: [:new, :create, :update], controller: 'channels', type: type.to_s
     end
   end
 
