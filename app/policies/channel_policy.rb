@@ -33,7 +33,8 @@ class ChannelPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    permitted = [:name, :description, :service_identifier, :url, :avatar_url, :primary,
+    permitted = [:name, :description, :service_identifier, :url, :avatar_url, 
+                 :primary, :token_id,
         :keyword_ids => [], contact_attributes: [:id, :name, :organization, :url, :phone, :email]]
 
     transfer? ? (permitted << :entity_id) : permitted
