@@ -5,7 +5,7 @@ class SkipCache
 
   def call(env)
 
-    unless (env['REQUEST_URI'] =~ /^\/api\/v/).zero?
+    unless env['REQUEST_URI'].match(/^\/api\/v/)
       env["rack-cache.force-pass"] = true
     end
 
