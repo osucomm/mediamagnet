@@ -43,4 +43,9 @@ namespace :items do
 
   end
 
+  desc 'Remove items whose links result in 404s'
+  task remove_stale: :environment do
+    Item.by_link_verification.limit(100).each {|i| i.destroy_on_bad_link}
+  end
+
 end

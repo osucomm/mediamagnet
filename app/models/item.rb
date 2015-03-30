@@ -75,7 +75,9 @@ class Item < ActiveRecord::Base
   delegate :mappings, to: :channel
   delegate :name, :id, to: :channel, prefix: :channel
   delegate :entity_id, to: :channel
+  delegate :working?, to: :link
 
+  scope :by_link_verification, -> { includes(:link).order('links.last_verified_at ASC') }
   scope :recent, -> { order('published_at DESC') }
   scope :most_recent, -> { recent.limit(1) }
   scope :with_channel, -> { includes(:channel).where.not(channels: { id: nil }) }
@@ -185,6 +187,15 @@ class Item < ActiveRecord::Base
 
   def channel_type
     channel.type_name.downcase
+  end
+
+  def destroy_on_bad_link
+    if link.nil? || link.response_code == 404
+      logger.log "Removed item #{id} which had a bad link"
+      destroy
+    else
+      link.update_attribute(:last_verified_at, Time.now)
+    end
   end
 
   def url

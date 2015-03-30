@@ -16,11 +16,12 @@ class Asset < ActiveRecord::Base
 
   def set_metadata
     if url =~ /\ /
-      self.url = URI.encode(self.url)
+      self.url = URI.encode(url)
     end
-    response = open self.url
+    real_url = Link.resolve_uri(url)
+    response = Link.response(real_url)
     self.mime = response.content_type
-    self.size = response.size
+    self.size = response.content_length
   end
 
 end
