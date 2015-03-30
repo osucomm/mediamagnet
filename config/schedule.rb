@@ -12,6 +12,11 @@ every 1.minutes do
   rake 'items:remove_stale'
 end
 
+every 1.day, :at => '7:30 am' do
+  runner "AdminReportMailer.admin_report.deliver"
+end
+
 every :monday, :at => '12:01am' do
   rake 'keyword_usages:generate_weekly_totals'
+  rake 'channels:notify_stale_channels'
 end

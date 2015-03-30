@@ -16,4 +16,9 @@ namespace :channels do
 
   end
 
+  desc 'Notify stale channels'
+  task notify_stale: :environment do
+    Channel.stale_for_days(30).each {|channel| AdminReportMailer.stale_channels(channel).deliver}
+  end
+
 end

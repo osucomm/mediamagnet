@@ -39,6 +39,14 @@ class Channel < ActiveRecord::Base
   scope :by_type, -> type { where(:type => type) }
 
   class << self
+    def stale_for_days(number_of_days)
+      all.to_a.keep_if do |channel|
+        channel.items.any? &&
+        channel.items.most_recent.first.published_at.present? &&
+        channel.items.most_recent.first.published_at < number_of_days.days.ago
+      end.map(&:id)
+      where(id: ids)
+    end
     def needs_refresh
       ids = all.order('last_polled_at asc').to_a.keep_if do |channel|
         (channel.last_polled_at.nil? || 

@@ -1,0 +1,6 @@
+Unused Entities
+---------------
+Entities that were created and have no channels:
+<%- @unused_entities.each do |entity| %>
+  * <%= entity.name %> was created <%= time_ago_in_words(entity.created_at) %>.
+<%- end %>

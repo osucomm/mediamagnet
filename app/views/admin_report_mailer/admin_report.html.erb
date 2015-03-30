@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Overview</h1>
+    This is the daily report from Media Magnet. Yesterday there were <%= @active_items_count  %>
+    new items from <%= @active_channels_count %> active channels.
+    <%- if @unused_entities.any? %>
+      <h1>Unused Entities</h1>
+      <p>Here are the entities that were created and have no channels:</p>
+      <ul>
+      <%- @unused_entities.each do |entity| %>
+        <li><%= entity.name %> was created <%= time_ago_in_words(entity.created_at) %> ago</li>
+      <%- end %>
+      </ul>
+    <%- end %>
+    <%- if @stale_channels.any? %>
+      <h1>Stale Channels</h1>
+      <p>Here are the channels that have no produced any fresh or updated content in at least a week:</p>
+      <ul>
+      <%- @unused_entities.each do |entity| %>
+        <li><%= entity.name %> was created <%= time_ago_in_words(entity.created_at) %> ago</li>
+      <%- end %>
+      </ul>
+      <p>Channel owners will be notified if their channel has not been updated after 30 days.</p>
+    <%- end %>
+  </body>
+</html>

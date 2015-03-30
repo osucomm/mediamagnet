@@ -24,11 +24,12 @@ class Entity < ActiveRecord::Base
     order('name ASC')
   }
 
-  #Callbacks
-  before_save :update_elasticsearch_on_approved_change
-
+  scope :without_channels, -> { where('entities.id not in (select entity_id from channels)') }
   scope :approved, -> { where(approved: true) }
   scope :not_approved, -> { where(approved: false) }
+
+  #Callbacks
+  before_save :update_elasticsearch_on_approved_change
 
   accepts_nested_attributes_for :contact
 
