@@ -48,6 +48,7 @@ class Channel < ActiveRecord::Base
       end.map(&:id)
       where(id: ids)
     end
+
     def type_name
       self.name.sub('Channel', '').titleize
     end
