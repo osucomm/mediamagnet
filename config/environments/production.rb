@@ -81,5 +81,6 @@ Rails.application.configure do
     :metastore   => 'file:/tmp/cache/rack/meta',
     :entitystore => 'file:/tmp/cache/rack/body',
     :default_ttl => 180
+  config.middleware.insert_before "Rack::Cache", "SkipCache"
 
 end
