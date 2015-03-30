@@ -12,7 +12,7 @@
       <p>Here are the entities that were created and have no channels:</p>
       <ul>
       <%- @unused_entities.each do |entity| %>
-        <li><%= entity.name %> was created <%= time_ago_in_words(entity.created_at) %> ago</li>
+        <li><%= link_to entity.name, entity %> was created <%= time_ago_in_words(entity.created_at) %> ago</li>
       <%- end %>
       </ul>
     <%- end %>
@@ -20,8 +20,8 @@
       <h1>Stale Channels</h1>
       <p>Here are the channels that have no produced any fresh or updated content in at least a week:</p>
       <ul>
-      <%- @unused_entities.each do |entity| %>
-        <li><%= entity.name %> was created <%= time_ago_in_words(entity.created_at) %> ago</li>
+      <%- @stale_channels.each do |channel| %>
+        <li><%= link_to channel.name, channel %> ago</li>
       <%- end %>
       </ul>
       <p>Channel owners will be notified if their channel has not been updated after 30 days.</p>
