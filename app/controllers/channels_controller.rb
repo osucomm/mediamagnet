@@ -34,8 +34,8 @@ class ChannelsController < ApplicationController
       @channel.name = params[:name]
     end
 
-    @entity = Entity.find(current_user.current_entity_id)
-    @channel.entity = @entity
+    entity = Entity.find(current_user.current_entity_id)
+    @channel.entity = entity
     @channel.build_contact
     authorize @channel
   end
