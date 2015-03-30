@@ -29,11 +29,11 @@
       </div>
       <div class="panel-body url-wrap">
         <p>
-          Content type: <%= @item.channel_type.titleize %><br> 
-          Published: <%= time_or_dash(@item.published_at, :pretty_long) %><br>
-          Imported: <%= time_or_dash(@item.created_at, :pretty_long) %><br>
-          Channel: <%= link_to_channel @item.channel %><br>
-          Entity: <%= link_to @item.channel.entity, @item.channel.entity %>
+          <strong>Content type</strong>: <%= @item.channel_type.titleize %><br> 
+          <strong>Published</strong>: <%= time_or_dash(@item.published_at, :pretty_long) %><br>
+          <strong>Imported</strong>: <%= time_or_dash(@item.created_at, :pretty_long) %><br>
+          <strong>Channel</strong>: <%= link_to_channel @item.channel %><br>
+          <strong>Entity</strong>: <%= link_to @item.channel.entity, @item.channel.entity %>
         </p>
       </div>
     </div>
