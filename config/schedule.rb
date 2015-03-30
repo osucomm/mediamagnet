@@ -8,6 +8,10 @@ every 1.minutes do
   rake 'channels:refresh'
 end
 
+every 1.minutes do
+  rake 'items:remove_stale'
+end
+
 every :monday, :at => '12:01am' do
   rake 'keyword_usages:generate_weekly_totals'
 end
