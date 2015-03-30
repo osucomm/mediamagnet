@@ -38,7 +38,7 @@ class TwitterChannel < Channel
           digest: Digest::SHA256.base64digest(tweet.full_text.to_s)
         )
         tweet.media.each do |media|
-          i.assets.build(url: media.media_url_https.to_s)
+          i.assets.create(url: media.media_url_https.to_s)
         end
         i.tag_names = tweet.hashtags.map(&:text)
         i.keywords << all_keywords
