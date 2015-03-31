@@ -33,10 +33,9 @@ class ItemFactory
               )
             end
           end
-
           item.save
-
         end
+
       else
         #Create
         item = channel.items.create(
