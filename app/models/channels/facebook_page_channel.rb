@@ -14,28 +14,25 @@ class FacebookPageChannel < Channel
   end
 
   def posts
-    client.get_object("#{service_identifier}/posts").keep_if do |post|
+    client.get_object("#{service_identifier}/posts").select do |post|
       post.key? 'message'
     end
   end
 
   def refresh_items
     posts.each do |post|
-      unless items.where(source_identifier: post['id']).exists?
-        i = items.create(
-          source_identifier: post['id'],
-          title: '',
-          description: post['message'],
-          content: '',
-          link: Link.where(url: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}").first_or_create,
-          published_at: post['created_time'],
-          digest: Digest::SHA256.base64digest(post['message'])
-        )
-        i.assets.build(url: post['picture']) if post['picture']
-        i.tag_names = TagParser.new(i.title).parse
-        i.keywords << all_keywords
-        i.save
-      end
+      item = {
+        source_identifier: post['id'],
+        title: '',
+        description: post['message'],
+        content: '',
+        link: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}",
+        published_at: post['created_time'],
+        digest: Digest::SHA256.base64digest(post['message']),
+        asset_urls: (post['picture'] if post['picture']),
+        tag_names: TagParser.new(i.title).parse
+      }
+      ItemFactory.create_or_update_from_hash(item, self)
     end
     log_refresh
   end
