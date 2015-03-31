@@ -83,4 +83,6 @@ Rails.application.configure do
     :default_ttl => 180
   config.middleware.insert_before "Rack::Cache", "SkipCache"
 
+  config.action_mailer.default_url_options = { :host => "mediamagnet.osu.edu" }
+
 end
