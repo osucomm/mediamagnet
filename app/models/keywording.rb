@@ -15,7 +15,7 @@ class Keywording < ActiveRecord::Base
   end
 
   def add_keywords_to_items
-    if keywordable.respond_to?(:items)
+    if keywordable_not_item
       keywordable.items.each do |item| 
         item.keywords << keyword
         item.update_es_record
@@ -25,7 +25,7 @@ class Keywording < ActiveRecord::Base
   handle_asynchronously :add_keywords_to_items
 
   def remove_keywords_from_items
-    if keywordable.respond_to?(:items)
+    if keywordable_not_item
       keywordable.items.each do |item| 
         item.remove_keyword(keyword)
         item.update_es_record
