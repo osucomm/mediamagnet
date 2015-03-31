@@ -17,36 +17,26 @@ class RssChannel < Channel
   end
 
   def refresh_items
-    web_items = client.entries
-
-    web_items.each do |web_item|
-      source_identifier = web_item.entry_id
-      source_identifier ||= web_item.url
-      unless items.where(source_identifier: source_identifier).exists?
-        i = items.create(
-          source_identifier: source_identifier,
-          title: web_item.title,
-          content: web_item.content,
-          description: web_item.summary,
-          link: Link.where(url: web_item.url).first_or_create,
-          published_at: web_item.published,
-          digest: Digest::SHA256.base64digest(web_item.title.to_s + web_item.content.to_s + web_item.summary.to_s)
-        )
-        i.assets.build(url: web_item.image) if web_item.image
-        i.tag_names = (web_item.categories) if web_item.categories
-        i.keywords << all_keywords
-        if web_item.start_date
-          event = i.events.build(
-            start_date: web_item.start_date,
-            end_date: web_item.end_date,
-          )
-          event.location = Location.where(location: web_item.location).first_or_create
-          event.save
-        end
-        i.save
-      end
+    client.entries.each do |wi|
+      item = {
+        content: wi.content,
+        description: wi.summary,
+        digest: Digest::SHA256.base64digest(%w(title, content, summary, start_date, end_date, location)
+          .map {|el| wi.try(el).to_s}.reduce(:+)),
+        published_at: wi.published,
+        source_identifier: [wi.entry_id, wi.url].find(&:present?),
+        title: wi.title,
+        link: [wi.url, wi.entry_id].find(&:present?),
+        asset_urls: [:image, :enclosure_url].map {|element| wi.try(element)}.reject(&:nil?),
+        tag_names: (wi.categories if wi.respond_to?(:categories)),
+        events: [{
+          start_date: (wi.start_date if wi.respond_to?(:start_date)).to_s,
+          end_date: (wi.end_date if wi.respond_to?(:end_date)).to_s,
+          location: (wi.location if wi.respond_to?(:location)).to_s
+        }]
+      }
+      ItemFactory.create_or_update_from_hash(item, self)
     end
-    log_refresh
   end
 
   def service_identifier_validator
