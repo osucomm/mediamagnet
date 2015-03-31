@@ -18,32 +18,23 @@ class TwitterChannel < Channel
       exclude_replies: true
     }
 
-    if items.most_recent.any?
-      options[:since_id] = items.most_recent.first.source_identifier
-    end
-
     # Get tweets from our user, starting with the one after the last one we have.
     tweets = client.user_timeline(service_identifier, options)
 
     #Check tweet identifiers against 
     tweets.each do |tweet|
-      unless items.where(source_identifier: tweet.id.to_s).exists?
-        i = items.create(
-          source_identifier: tweet.id,
-          title: '',
-          link: Link.where(url: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}").first_or_create,
-          description: tweet.full_text,
-          content: '', # Only set content for things that get special markup
-          published_at: tweet.created_at,
-          digest: Digest::SHA256.base64digest(tweet.full_text.to_s)
-        )
-        tweet.media.each do |media|
-          i.assets.create(url: media.media_url_https.to_s)
-        end
-        i.tag_names = tweet.hashtags.map(&:text)
-        i.keywords << all_keywords
-        i.save
-      end
+      item = {
+        source_identifier: tweet.id,
+        title: '',
+        link: "https://twitter.com/#{service_identifier}/status/#{tweet.id.to_s}",
+        description: tweet.full_text,
+        content: '', # Only set content for things that get special markup
+        published_at: tweet.created_at,
+        digest: Digest::SHA256.base64digest(tweet.full_text.to_s),
+        asset_urls: tweet.media.map {|m| m.media_url_https.to_s},
+        tag_names: tweet.hashtags.map(&:text)
+      }
+      ItemFactory.create_or_update_from_hash(item, self)
     end
     log_refresh
   end
