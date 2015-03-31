@@ -7,6 +7,35 @@ class ItemFactory
         #Item needs update
         if item.digest != item_hash[:digest]
           #Update
+          item.update(
+            item_hash.slice(
+              :title, :source_identifier, :content, :description, :digest, :published_at
+            )
+          )
+
+          if item_hash[:tag_names]
+            item.tag_names = item_hash[:tag_names]
+          end
+
+          item.assets.destroy_all
+
+          item_hash[:asset_urls].each do |url|
+            item.assets.where(url: url).first_or_create
+          end
+
+          if item_hash[:events]
+            item_hash[:events].each do |ev|
+              event = item.events.first
+              event.update(
+                start_date: ev[:start_date],
+                end_date: ev[:end_date],
+                location_id: Location.where(location: ev[:location]).first_or_create
+              )
+            end
+          end
+
+          item.save
+
         end
       else
         #Create
