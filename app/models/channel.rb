@@ -4,7 +4,7 @@ class Channel < ActiveRecord::Base
   has_one :token, dependent: :destroy
 
   # STI types
-  TYPES = [TwitterChannel,InstagramChannel,RssChannel,EventRssChannel,FacebookPageChannel,YoutubePlaylistChannel,IcalendarChannel,FundChannel]
+  TYPES = [TwitterChannel,InstagramChannel,RssChannel,FacebookPageChannel,YoutubePlaylistChannel,IcalendarChannel,FundChannel]
 
   # Associations
   belongs_to :entity
@@ -80,7 +80,7 @@ class Channel < ActiveRecord::Base
     end
 
     def public_types
-      TYPES - [FundChannel,EventRssChannel]
+      TYPES - [FundChannel]
     end
   end
 
