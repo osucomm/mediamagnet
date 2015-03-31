@@ -13,6 +13,8 @@ class ItemFactory
             )
           )
 
+          item.link = Link.where(url: item_hash[:link]).first_or_create
+
           if item_hash[:tag_names]
             item.tag_names = item_hash[:tag_names]
           end
@@ -43,14 +45,19 @@ class ItemFactory
             :title, :source_identifier, :content, :description, :digest, :published_at
           )
         )
+
+        item.link = Link.where(url: item_hash[:link]).first_or_create
+
         if item_hash[:tag_names]
           item.tag_names = item_hash[:tag_names]
         end
-        item_hash[:asset_urls].each do |url|
-          item.assets.create(url: url)
+        if item_hash[:asset_urls]
+          item_hash[:asset_urls].each do |url|
+            item.assets.create(url: url)
+          end
         end
 
-        item.keywords << channel.keywords
+        item.keywords << channel.all_keywords
 
         if item_hash[:events]
           item_hash[:events].each do |ev|
