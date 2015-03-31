@@ -28,13 +28,15 @@ class RssChannel < Channel
         title: wi.title,
         link: [wi.url, wi.entry_id].find(&:present?),
         asset_urls: [:image, :enclosure_url].map {|element| wi.try(element)}.reject(&:nil?),
-        tag_names: (wi.categories if wi.respond_to?(:categories)),
-        events: [{
+        tag_names: (wi.categories if wi.respond_to?(:categories))
+      }
+      if wi.start_date.present?
+        item[:events] = [{
           start_date: (wi.start_date if wi.respond_to?(:start_date)).to_s,
           end_date: (wi.end_date if wi.respond_to?(:end_date)).to_s,
           location: (wi.location if wi.respond_to?(:location)).to_s
         }]
-      }
+      end
       ItemFactory.create_or_update_from_hash(item, self)
     end
   end
