@@ -128,7 +128,7 @@ class Item < ActiveRecord::Base
         hsh[a.to_sym] = {
           terms: {
             field: a,
-            size: 50
+            size: 500
           },
           facet_filter: {}
         }
