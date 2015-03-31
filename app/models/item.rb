@@ -248,19 +248,15 @@ class Item < ActiveRecord::Base
   end
 
   def to_s
-    [:title, :description, :source_identifier].each do |field|
-      return self.send(field) unless self.send(field).blank?
-    end
+    [title, description, source_identifier].find(&:present?)
   end
 
   def to_long_string
-    [:description, :title, :source_identifier].each do |field|
-      return self.send(field) unless self.send(field).blank?
-    end
+    [description, title, source_identifier].find(&:present?)
   end
 
   def tag_names=(new_tags=[])
-    new_tags.map!(&:downcase)
+    new_tags.map!(&:downcase) unless new_tags.nil?
     custom_tags.destroy_all
 
     new_tags.each do |tag_text|
@@ -339,9 +335,7 @@ class Item < ActiveRecord::Base
 
 
   def all_text
-    %w(title description content).map do |field|
-      send(field).to_s
-    end.join(' ')
+    [title, description, content].join(' ')
   end
 
   def mapped_keywords
