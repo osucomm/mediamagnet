@@ -18,7 +18,6 @@ class IcalendarChannel < Channel
 
   def refresh_items
     client.events.each do |event|
-        binding.pry
       item = {
         source_identifier: event.uid.to_s,
         title: event.summary.to_s,
