@@ -26,7 +26,7 @@ class ItemFactory
               event.update(
                 start_date: ev[:start_date],
                 end_date: ev[:end_date],
-                location_id: Location.where(location: ev[:location]).first_or_create
+                location_id: Location.where(location: ev[:location]).first_or_create.id
               )
             end
           end
@@ -52,12 +52,11 @@ class ItemFactory
 
         if item_hash[:events]
           item_hash[:events].each do |ev|
-            event = item.events.create(
+            item.events.create(
               start_date: ev[:start_date],
               end_date: ev[:end_date],
+              location_id: Location.where(location: ev[:location]).first_or_create.id
             )
-            event.location = Location.where(location: ev[:location]).first_or_create
-            event.save
           end
         end
 
