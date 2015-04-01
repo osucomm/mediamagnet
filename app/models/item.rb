@@ -315,7 +315,7 @@ class Item < ActiveRecord::Base
     video_keyword = Keyword.where(name: 'events').first_or_create do |keyword|
       keyword.display_name = 'Events'
     end
-    keywords << events_keyword if events.any? && !keywords.include?(photo_keyword)
+    keywords << events_keyword if events.any? && !keywords.include?(events_keyword)
     keywords << video_keyword if assets.videos.any? && !keywords.include?(video_keyword)
   end
 
