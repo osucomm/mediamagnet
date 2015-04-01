@@ -82,7 +82,7 @@ class YoutubePlaylistChannel < Channel
         published_at: youtube_video.snippet.published_at,
         digest: Digest::SHA256.base64digest(youtube_video.snippet.title.to_s+youtube_video.snippet.description.to_s+youtube_video.snippet.thumbnails.high.url.to_s),
         tag_names: youtube_video.snippet.tags,
-        asset_urls: youtube_video.snippet.thumbnails.high.url
+        asset_urls: [youtube_video.snippet.thumbnails.high.url]
       }
       ItemFactory.create_or_update_from_hash(item, self)
     end
