@@ -18,36 +18,24 @@ class InstagramChannel < Channel
   end
 
   def refresh_items
-    new_media.each do |media|
-      unless items.where(source_identifier: media.id.to_s).exists?
-        i = items.create(
-          source_identifier: media.id.to_s,
-          title: '',
-          description: (media.caption? ? media.caption.text : ''),
-          content: '',
-          link: Link.where(url: media.link).first_or_initialize,
-          published_at: Time.strptime(media.created_time, '%s'),
-          digest: Digest::SHA256.base64digest(media.to_s)
-        )
-        if media.respond_to?(:images)
-          i.assets.build(url: media.images.standard_resolution.url)
-        end
-        if media.respond_to?(:videos)
-          i.assets.build(url: media.videos.standard_resolution.url)
-          i.keywords << Keyword.where(name: 'video').first_or_create do |k|
-            k.display_name = 'Video'
-          end
-        end
-        i.tag_names = media.tags
-        i.keywords << all_keywords
-        i.save
-      end
+    recent_media.each do |media|
+      item = {
+        source_identifier: media.id.to_s,
+        title: '',
+        description: (media.caption? ? media.caption.text : ''),
+        content: '',
+        link: media.link,
+        published_at: Time.strptime(media.created_time, '%s'),
+        digest: Digest::SHA256.base64digest(media.to_s),
+        tag_names: media.tags,
+        asset_urls: [
+          media.images ? media.images.standard_resolution.url : nil, 
+          media.videos ? media.videos.standard_resolution.url : nil
+        ].compact
+      }
+      ItemFactory.create_or_update_from_hash(item, self)
     end
     log_refresh
-  end
-
-  def html_content_for(item)
-    "<img src=\"#{item.assets.first.url}\">"
   end
 
   def service_url
@@ -67,9 +55,8 @@ class InstagramChannel < Channel
       end
   end
 
-  def new_media
-    client.user_recent_media(service_identifier_id,
-                             min_id: (most_recent_item_id.to_i + 1))
+  def recent_media
+    client.user_recent_media(service_identifier_id)
   end
 
   def get_info

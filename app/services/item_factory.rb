@@ -12,16 +12,13 @@ class ItemFactory
               :title, :source_identifier, :content, :description, :digest, :published_at
             )
           )
-
-          if item_hash[:tag_names]
-            item.tag_names = item_hash[:tag_names]
-          end
-
           item.assets.destroy_all
-
           item_hash[:asset_urls].each do |url|
             item.assets.where(url: url).first_or_create
           end
+
+          item.link = Link.where(url: item_hash[:link]).first_or_create
+          item.tag_names = item_hash[:tag_names]
 
           if item_hash[:events]
             item_hash[:events].each do |ev|
@@ -34,6 +31,7 @@ class ItemFactory
             end
           end
           item.save
+          item.update_es_record
         end
 
       else
@@ -43,14 +41,14 @@ class ItemFactory
             :title, :source_identifier, :content, :description, :digest, :published_at
           )
         )
-        if item_hash[:tag_names]
-          item.tag_names = item_hash[:tag_names]
-        end
+
         item_hash[:asset_urls].each do |url|
           item.assets.create(url: url)
         end
 
-        item.keywords << channel.keywords
+        item.link = Link.where(url: item_hash[:link]).first_or_create
+        item.tag_names = item_hash[:tag_names]
+        item.keywords << channel.all_keywords
 
         if item_hash[:events]
           item_hash[:events].each do |ev|
@@ -65,6 +63,7 @@ class ItemFactory
       end
 
       item.save
+      item.update_es_record
     end
   end
 
