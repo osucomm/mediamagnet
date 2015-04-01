@@ -17,7 +17,7 @@ class ItemFactory
             item.assets.where(url: url).first_or_create
           end
 
-          item.link = Link.where(url: item_hash[:link]).first_or_create
+          item.link = Link.where(url: item_hash[:link] ? item_hash[:link] : item.url).first_or_create
           item.tag_names = item_hash[:tag_names]
 
           if item_hash[:events]
@@ -46,7 +46,7 @@ class ItemFactory
           item.assets.create(url: url)
         end
 
-        item.link = Link.where(url: item_hash[:link]).first_or_create
+        item.link = Link.where(url: item_hash[:link] ? item_hash[:link] : item.url).first_or_create
         item.tag_names = item_hash[:tag_names]
         item.keywords << channel.all_keywords
 
@@ -57,6 +57,7 @@ class ItemFactory
               end_date: ev[:end_date],
             )
             event.location = Location.where(location: ev[:location]).first_or_create
+            event.save
           end
         end
 
