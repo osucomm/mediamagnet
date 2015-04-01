@@ -20,30 +20,15 @@ class FundChannel < Channel
     delete_inactive_funds
 
     client.each do |fund|
-      if fund_record = items.where(source_identifier: fund['source_identifier']).first
-        if Digest::SHA256.base64digest(fund.to_s) != fund_record.digest
-          # Update fund
-          fund_record.title = fund['title']
-          fund_record.description = fund['description']
-          fund_record.digest = Digest::SHA256.base64digest(fund.to_s)
-          fund_record.tag_names = fund['tags']
-          fund_record.save
-          fund_record.update_es_record
-          logger.info {"Fund #{fund_record.source_identifier} updated at #{Time.now}."}
-        end
-      else
-        # Create fund
-        i = items.create(
-          source_identifier: fund['source_identifier'],
-          title: fund['title'],
-          link: Link.where(url: fund['url']).first_or_create,
-          description: fund['description'],
-          digest: Digest::SHA256.base64digest(fund.to_s)
-        )
-        i.tag_names = fund['tags']
-        i.keywords << all_keywords
-        i.save
-      end
+      item = {
+        title: fund['title'],
+        description: fund['description'],
+        source_identifier: fund['source_identifier'],
+        digest: Digest::SHA256.base64digest(fund.to_s),
+        link: fund['url'],
+        tag_names: fund['tags'],
+      }
+      ItemFactory.create_or_update_from_hash(item, self)
     end
     log_refresh
   end

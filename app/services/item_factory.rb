@@ -12,18 +12,13 @@ class ItemFactory
               :title, :source_identifier, :content, :description, :digest, :published_at
             )
           )
-
-          item.link = Link.where(url: item_hash[:link]).first_or_create
-
-          if item_hash[:tag_names]
-            item.tag_names = item_hash[:tag_names]
-          end
-
           item.assets.destroy_all
-
           item_hash[:asset_urls].each do |url|
             item.assets.where(url: url).first_or_create
           end
+
+          item.link = Link.where(url: item_hash[:link] ? item_hash[:link] : item.url).first_or_create
+          item.tag_names = item_hash[:tag_names]
 
           if item_hash[:events]
             item_hash[:events].each do |ev|
@@ -36,6 +31,7 @@ class ItemFactory
             end
           end
           item.save
+          item.update_es_record
         end
 
       else
@@ -46,17 +42,12 @@ class ItemFactory
           )
         )
 
-        item.link = Link.where(url: item_hash[:link]).first_or_create
-
-        if item_hash[:tag_names]
-          item.tag_names = item_hash[:tag_names]
-        end
-        if item_hash[:asset_urls]
-          item_hash[:asset_urls].each do |url|
-            item.assets.create(url: url)
-          end
+        item_hash[:asset_urls].each do |url|
+          item.assets.create(url: url)
         end
 
+        item.link = Link.where(url: item_hash[:link] ? item_hash[:link] : item.url).first_or_create
+        item.tag_names = item_hash[:tag_names]
         item.keywords << channel.all_keywords
 
         if item_hash[:events]
@@ -66,6 +57,7 @@ class ItemFactory
               end_date: ev[:end_date],
             )
             event.location = Location.where(location: ev[:location]).first_or_create
+            event.save
           end
         end
 

@@ -3,6 +3,8 @@ class Asset < ActiveRecord::Base
 
   before_validation :set_metadata
 
+  scope :videos, -> { where("mime like 'video%'") }
+
   class << self
     def help_text
       <<-EOT

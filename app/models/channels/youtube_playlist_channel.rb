@@ -74,21 +74,17 @@ class YoutubePlaylistChannel < Channel
 
   def refresh_items
     uploaded_videos.each do |youtube_video|
-      unless items.where(source_identifier: youtube_video.id).any?
-        i = items.create(
-          source_identifier: youtube_video.id,
-          title: youtube_video.snippet.title,
-          description: youtube_video.snippet.description,
-          content: "",
-          link: Link.where(url: "https://www.youtube.com/watch?v=#{youtube_video.id}").first_or_create,
-          published_at: youtube_video.snippet.published_at,
-          digest: Digest::SHA256.base64digest(youtube_video.snippet.title.to_s+youtube_video.snippet.description.to_s+youtube_video.snippet.thumbnails.high.url.to_s)
-        )
-        i.tag_names = youtube_video.snippet.tags
-        i.keywords << all_keywords
-        i.assets.create(url: youtube_video.snippet.thumbnails.high.url)
-        i.save
-      end
+      item = {
+        source_identifier: youtube_video.id,
+        title: youtube_video.snippet.title,
+        description: youtube_video.snippet.description,
+        link: "https://www.youtube.com/watch?v=#{youtube_video.id}",
+        published_at: youtube_video.snippet.published_at,
+        digest: Digest::SHA256.base64digest(youtube_video.snippet.title.to_s+youtube_video.snippet.description.to_s+youtube_video.snippet.thumbnails.high.url.to_s),
+        tag_names: youtube_video.snippet.tags,
+        asset_urls: youtube_video.snippet.thumbnails.high.url
+      }
+      ItemFactory.create_or_update_from_hash(item, self)
     end
     log_refresh
   end

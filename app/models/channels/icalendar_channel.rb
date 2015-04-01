@@ -18,33 +18,23 @@ class IcalendarChannel < Channel
 
   def refresh_items
     client.events.each do |event|
-      unless items.where(source_identifier: event.uid.to_s).exists?
-        i = items.create(
-          source_identifier: event.uid.to_s,
-          title: event.summary.to_s,
-          content: '',
-          description: event.description.to_s,
-          published_at: event.dtstamp,
-          digest: Digest::SHA256.base64digest(event.summary.to_s + event.description.to_s + event.dtstart.to_s + event.dtend.to_s + event.location.to_s)
-        )
-        i.tag_names = TagParser.new(event.description.to_s).parse
-        i.keywords << all_keywords
-        i.save
-        starts_at = event.dtstart
-        ends_at = event.dtend
-        if ((client.prodid =~ /Microsoft Exchange/) == 0)
-          starts_at = ExchangeTimeParser.new(event.dtstart).parse
-          ends_at = ExchangeTimeParser.new(event.dtend).parse
-        end
-        e = item.events.build(
-          start_date: starts_at,
-          end_date: ends_at
-        )
-        e.location = Location.where(location: event.location.to_s).first_or_create
-        e.save
-        e.link = Link.where(url: e.url).first_or_create
-        e.save
-      end
+        binding.pry
+      item = {
+        source_identifier: event.uid.to_s,
+        title: event.summary.to_s,
+        content: '',
+        description: event.description.to_s,
+        published_at: event.dtstamp,
+        asset_urls: [],
+        digest: Digest::SHA256.base64digest(event.summary.to_s + event.description.to_s + event.dtstart.to_s + event.dtend.to_s + event.location.to_s),
+        tag_names: TagParser.new(event.description.to_s).parse,
+        events: [{
+          start_date: ((client.prodid =~ /Microsoft Exchange/) == 0) ? ExchangeTimeParser.new(event.dtstart).parse : event.dtstart,
+          end_date: ((client.prodid =~ /Microsoft Exchange/) == 0) ? ExchangeTimeParser.new(event.dtend).parse : event.dtend,
+          location: event.location.to_s
+        }]
+      }
+      ItemFactory.create_or_update_from_hash(item, self)
     end
     log_refresh
   end
