@@ -256,14 +256,16 @@ class Item < ActiveRecord::Base
   end
 
   def tag_names=(new_tags=[])
-    new_tags.map!(&:downcase) unless new_tags.nil?
-    custom_tags.destroy_all
+    if new_tags.any?
+      new_tags.map!(&:downcase)
+      custom_tags.destroy_all
 
-    new_tags.each do |tag_text|
-      taggings.build(tag_text: tag_text)
+      new_tags.each do |tag_text|
+        taggings.build(tag_text: tag_text)
+      end
+
+      custom_tags
     end
-
-    custom_tags
   end
 
   def tags
@@ -307,12 +309,14 @@ class Item < ActiveRecord::Base
   end
 
   def add_evident_keywords
-    keyword = Keyword.where(name: 'events').first_or_create do |keyword|
+    events_keyword = Keyword.where(name: 'events').first_or_create do |keyword|
       keyword.display_name = 'Events'
     end
-    if events.any? && !keywords.include?(keyword)
-      keywords << keyword
+    video_keyword = Keyword.where(name: 'events').first_or_create do |keyword|
+      keyword.display_name = 'Events'
     end
+    keywords << events_keyword if events.any? && !keywords.include?(photo_keyword)
+    keywords << video_keyword if assets.videos.any? && !keywords.include?(video_keyword)
   end
 
   private
