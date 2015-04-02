@@ -4,11 +4,11 @@
 # http://en.wikipedia.org/wiki/Cron
 env :PATH, '/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/aws/bin:/opt/aws/bin'
 
-every 1.minutes do
+every 2.minutes do
   rake 'channels:refresh'
 end
 
-every 1.minutes do
+every 5.minutes do
   rake 'items:remove_stale'
 end
 
