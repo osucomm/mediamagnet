@@ -29,12 +29,5 @@ module Mediamagnet
     # Custom error handling
     config.exceptions_app = self.routes
 
-    config.middleware.insert_before 0, "Rack::Cors" do
-      allow do
-        origins '*'
-        resource '/api/*', :headers => :any, :methods => :get
-      end
-    end
-
   end
 end
