@@ -11,7 +11,6 @@ child :channel => :channel do
   extends 'api/v1/channels/_channel'
 end
 
-
 child :keywords, object_root: false do
   extends 'api/v1/keywords/_keyword'
 end
