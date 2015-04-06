@@ -11,4 +11,12 @@ module AssetsHelper
     end
   end
 
+  def media_attributes(asset)
+    attr = {}
+    attr['url'] = asset.url
+    attr['fileSize'] = asset.size unless asset.size.blank?
+    attr['type'] = asset.mime
+    attr
+  end
+
 end

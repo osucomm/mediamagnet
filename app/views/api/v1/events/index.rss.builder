@@ -23,7 +23,7 @@ xml.channel do
       xml.pubDate event.item.published_at.to_s(:rfc822)
       xml.link event.link
       xml.guid event.item.guid, isPermaLink: 'false'
-      xml.source event.item.channel_name, url: event.item.channel.url
+      xml.source event.item.channel_name, url: event.item.channel.service_url
       xml.dc :type, event.item.channel_type
       if event.item.channel.display_contact && event.item.channel.display_contact.display_name.present?
         xml.dc :publisher, event.item.channel.display_contact.display_name
@@ -37,11 +37,7 @@ xml.channel do
       end
 
       event.item.assets.each do |asset|
-        if asset.size.present?
-          xml.enclosure url: asset.url, length: asset.size, type: asset.mime
-        else
-          xml.enclosure url: asset.url, type: asset.mime
-        end
+        xml.media :content, media_attributes(asset)
       end
 
     end
