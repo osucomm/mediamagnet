@@ -48,4 +48,5 @@ module ItemsHelper
       "<a href=\"https://twitter.com/#{user.gsub('@','')}\" title=\"#{user} on twitter\">#{user}</a>"
     end.html_safe
   end
+
 end
