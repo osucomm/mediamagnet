@@ -18,10 +18,10 @@
     <%- end %>
     <%- if @stale_channels.any? %>
       <h1>Stale Channels</h1>
-      <p>Here are the channels that have no produced any fresh or updated content in at least a week:</p>
+      <p>Here are the channels that have no produced any fresh or updated content in at least 10 days:</p>
       <ul>
       <%- @stale_channels.each do |channel| %>
-        <li><%= link_to channel.name, channel %> ago</li>
+        <li><%= link_to channel.name, channel %></li>
       <%- end %>
       </ul>
       <p>Channel owners will be notified if their channel has not been updated after 30 days.</p>

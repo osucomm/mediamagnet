@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323155019) do
+ActiveRecord::Schema.define(version: 20150330162438) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "item_id",                null: false
@@ -196,10 +196,11 @@ ActiveRecord::Schema.define(version: 20150323155019) do
   add_index "keywords", ["name"], name: "index_keywords_on_name"
 
   create_table "links", force: :cascade do |t|
-    t.text     "url",        null: false
+    t.text     "url",              null: false
     t.integer  "item_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "last_verified_at"
   end
 
   add_index "links", ["item_id"], name: "index_links_on_item_id"

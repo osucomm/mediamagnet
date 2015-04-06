@@ -61,6 +61,11 @@ class Channel < ActiveRecord::Base
       self.name.sub('Channel', '').titleize
     end
 
+    def machine_type_name
+      self.name.sub('Channel', '').titleize.parameterize
+    end
+
+
     def policy_class
       ChannelPolicy
     end
@@ -118,6 +123,10 @@ class Channel < ActiveRecord::Base
 
   def type_name
     self.class.type_name
+  end
+
+  def machine_type_name
+    self.class.machine_type_name
   end
 
   def lock(options = {})

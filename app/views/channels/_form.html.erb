@@ -13,7 +13,7 @@
   <%- if @channel.instance_of? RssChannel %>
     <%= f.input :url, label: 'Home page' %>
   <%- end %>
-  <%= f.input :primary %>
+  <!--  <%= f.input :primary %> -->
 
   <%- if policy(@channel).transfer? %>
     <%= f.association :entity %>
