@@ -153,6 +153,14 @@ class Channel < ActiveRecord::Base
     'Service Identifier'
   end
 
+  def url
+    service_url
+  end
+
+  def service_url
+    read_attribute(:url)
+  end
+
   def display_contact
     contact || entity.contact
   end

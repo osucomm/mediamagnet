@@ -49,7 +49,7 @@ class RssChannel < Channel
   end
 
   def service_url
-    url || service_identifier
+    read_attribute(:url) || service_identifier
   end
 
   private
