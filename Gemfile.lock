@@ -353,8 +353,6 @@ GEM
     rabl (0.11.6)
       activesupport (>= 2.3.14)
     rack (1.6.0)
-    rack-cache (1.2)
-      rack (>= 0.4)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
     rack-cors (0.3.1)
@@ -597,7 +595,6 @@ DEPENDENCIES
   pundit (~> 0.3)
   quiet_assets
   rabl
-  rack-cache
   rack-cors
   rack-livereload
   railroady!
