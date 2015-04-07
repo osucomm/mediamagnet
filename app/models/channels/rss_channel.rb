@@ -39,6 +39,7 @@ class RssChannel < Channel
       end
       ItemFactory.create_or_update_from_hash(item, self)
     end
+    log_refresh
   end
 
   def service_identifier_validator

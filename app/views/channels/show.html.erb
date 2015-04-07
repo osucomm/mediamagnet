@@ -48,7 +48,7 @@
   </div>
 
   <div class="col-sm-4">
-    <%- if (@channel.has_user?(current_user) || current_user.admin?) %>
+    <%- if current_user %>
       <%= render 'keywordings/keywordings', keywordable: @channel, keywordable_type: 'Channel' %>
       <%= render 'mappings/mappings', mappable: @channel %>
     <%- end %>
