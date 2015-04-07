@@ -29,6 +29,7 @@ class SessionsController < ApplicationController
       unless @identity.user.present?
         # No user associated with the identity so we need to create a new one
         @identity.user = User.create_with_omniauth(auth['info'])
+        @identity.save
       end
 
       # Log in the user
