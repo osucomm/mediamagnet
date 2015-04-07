@@ -37,7 +37,11 @@ module ItemsHelper
         auto_link(item.to_long_string)
       end
     else
-      item.content.html_safe
+      Rails::Html::WhiteListSanitizer.new
+        .sanitize(item.content.html_safe,
+                 tags: %w(p a b strong i em ul ol li blockquote dd dl dt hr br h1 h2 h3 h4 h5 h6), 
+                 attributes: %w(title type start href) )
+        .html_safe
     end
   end
 

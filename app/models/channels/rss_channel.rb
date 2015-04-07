@@ -23,7 +23,7 @@ class RssChannel < Channel
         description: wi.summary,
         digest: Digest::SHA256.base64digest(%w(title, content, summary, start_date, end_date, location)
           .map {|el| wi.try(el).to_s}.reduce(:+)),
-        published_at: wi.published,
+        published_at: wi.published.present? ? wi.published : Time.now,
         source_identifier: [wi.entry_id, wi.url].find(&:present?),
         title: wi.title,
         link: [wi.url, wi.entry_id].find(&:present?),
