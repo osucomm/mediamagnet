@@ -1,3 +1,5 @@
+cache
+
 attributes :id, :source_identifier, :title, :tags, :description, :link, :published_at, :channel_id
 node(:href) { |i| item_url(i) }
 node(:excerpt) { |i| excerpt_for(i) }

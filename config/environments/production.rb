@@ -76,20 +76,12 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.middleware.use Rack::Cache,
-    :verbose => true,
-    :metastore   => 'file:/tmp/cache/rack/meta',
-    :entitystore => 'file:/tmp/cache/rack/body',
-    :default_ttl => 180
-
-  config.middleware.insert_before "Rack::Cache", "Rack::Cors" do
+  config.middleware.use "Rack::Cors" do
     allow do
       origins '*'
       resource '/api/*', :headers => :any, :methods => :get
     end
   end
-
-  config.middleware.insert_before "Rack::Cache", "SkipCache"
 
   config.action_mailer.default_url_options = { :host => "mediamagnet.osu.edu" }
 

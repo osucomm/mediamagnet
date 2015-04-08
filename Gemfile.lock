@@ -218,9 +218,6 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    guard-spring (0.0.4)
-      guard
-      spring
     haml (4.0.6)
       tilt
     has_scope (0.5.1)
@@ -353,8 +350,6 @@ GEM
     rabl (0.11.6)
       activesupport (>= 2.3.14)
     rack (1.6.0)
-    rack-cache (1.2)
-      rack (>= 0.4)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
     rack-cors (0.3.1)
@@ -571,7 +566,6 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-rspec
-  guard-spring
   has_scope
   highcharts-rails
   htmlentities
@@ -597,7 +591,6 @@ DEPENDENCIES
   pundit (~> 0.3)
   quiet_assets
   rabl
-  rack-cache
   rack-cors
   rack-livereload
   railroady!
