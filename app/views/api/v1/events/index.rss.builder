@@ -20,8 +20,8 @@ xml.channel do
       xml.ev :startdate, event.start_date.to_s(:rfc822)
       xml.ev :enddate, event.start_date.to_s(:rfc822)
       xml.ev :location, event.location_name
-      xml.pubDate event.item.published_at.to_s(:rfc822)
-      xml.link event.link
+      xml.pubDate event.item.published_at.to_s(:rfc822) unless event.item.published_at.blank?
+      xml.link event.link unless event.link.blank?
       xml.guid event.item.guid, isPermaLink: 'false'
       xml.source event.item.channel_name, url: event.item.channel.service_url
       xml.dc :type, event.item.channel_type

@@ -107,7 +107,6 @@ group :development, :test do
   gem 'faker'
   gem 'guard'
   gem 'guard-rspec'
-  gem 'guard-spring'
   gem 'pry'
   gem 'railroady', git: 'https://github.com/preston/railroady.git'
   gem 'spring-commands-rspec'
