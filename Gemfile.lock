@@ -218,9 +218,6 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
-    guard-spring (0.0.4)
-      guard
-      spring
     haml (4.0.6)
       tilt
     has_scope (0.5.1)
@@ -569,7 +566,6 @@ DEPENDENCIES
   guard
   guard-livereload
   guard-rspec
-  guard-spring
   has_scope
   highcharts-rails
   htmlentities

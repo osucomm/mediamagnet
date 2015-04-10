@@ -17,8 +17,8 @@ xml.channel do
         end
       end
 
-      xml.pubDate item.published_at.to_s(:rfc822)
-      xml.link item.link
+      xml.pubDate item.published_at.to_s(:rfc822) unless item.published_at.blank?
+      xml.link item.link unless item.link.blank?
       xml.guid item.guid, isPermaLink: 'false'
       xml.source item.channel_name, url: item.channel.service_url
       xml.dc :type, item.channel_type
