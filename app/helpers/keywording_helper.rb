@@ -4,10 +4,9 @@ module KeywordingHelper
     link = link_to keywording.keyword.name, keywording.keyword
 
     if ! on_parent && policy(keywording).destroy?
-      link += ' '
-      link += link_to_delete (fa_icon 'remove'), keywording, method: :delete
+      link += link_to_delete (fa_icon 'remove'), keywording, :delete
     end
-    content_tag(:span, bootstrap_label_with_tooltip(link, type: :primary, title: keywording.keyword.description, id: "keywording-#{keywording.id}"))
+    bootstrap_label_with_tooltip(content_tag(:span, link, class: 'nowrap'), type: :primary, title: keywording.keyword.description, id: "keywording-#{keywording.id}")
   end
 
 end
