@@ -57,7 +57,7 @@ class YoutubePlaylistChannel < Channel
   def uploaded_videos
     request = {
       api_method: youtube_api.videos.list,
-      parameters: {part: 'snippet', id: uploaded_video_ids.join(',') }
+      parameters: {part: 'snippet,status', id: uploaded_video_ids.join(',') }
     }
 
     videos = []
@@ -74,17 +74,20 @@ class YoutubePlaylistChannel < Channel
 
   def refresh_items
     uploaded_videos.each do |youtube_video|
-      item = {
-        source_identifier: youtube_video.id,
-        title: youtube_video.snippet.title,
-        description: youtube_video.snippet.description,
-        link: "https://www.youtube.com/watch?v=#{youtube_video.id}",
-        published_at: youtube_video.snippet.published_at,
-        digest: Digest::SHA256.base64digest(youtube_video.snippet.title.to_s+youtube_video.snippet.description.to_s+youtube_video.snippet.thumbnails.high.url.to_s),
-        tag_names: youtube_video.snippet.tags,
-        asset_urls: [youtube_video.snippet.thumbnails.high.url]
-      }
-      ItemFactory.create_or_update_from_hash(item, self)
+      # Don't create the video if youtube isn't done creating thumbnails.
+      if youtube_video.status.upload_status == 'processed'
+        item = {
+          source_identifier: youtube_video.id,
+          title: youtube_video.snippet.title,
+          description: youtube_video.snippet.description,
+          link: "https://www.youtube.com/watch?v=#{youtube_video.id}",
+          published_at: youtube_video.snippet.published_at,
+          digest: Digest::SHA256.base64digest(youtube_video.snippet.title.to_s+youtube_video.snippet.description.to_s+youtube_video.snippet.thumbnails.high.url.to_s),
+          tag_names: youtube_video.snippet.tags,
+          asset_urls: [youtube_video.snippet.thumbnails.high.url]
+        }
+        ItemFactory.create_or_update_from_hash(item, self)
+      end
     end
     log_refresh
   end

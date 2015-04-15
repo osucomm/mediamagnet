@@ -112,7 +112,7 @@ The following elements are available on items based on type:
       <td class="success">Required</td>
       <td class="warning">Optional</td>
       <td class="warning">Optional</td>
-      <td class="danger">Blank</td>
+      <td class="warning">Optional</td>
     </tr>
     <tr>
       <td>Twitter</td>
@@ -163,6 +163,16 @@ The following elements are available on items based on type:
       <td class="danger">Blank</td>
       <td class="danger">Blank</td>
       <td class="danger">Blank</td>
+    </tr>
+   <tr>
+      <td>iCalendar</td>
+      <td class="success">Title</td>
+      <td class="warning">*Optional</td>
+      <td class="warning">*Optional</td>
+      <td class="success">Required</td>
+      <td class="warning">Blank</td>
+      <td class="warning">Optional</td>
+      <td class="success">Required</td>
     </tr>
   </tbody>
 </table>

@@ -37,6 +37,15 @@ p.bigger {font-size:24px;}
 
 .label {
   line-height: 26px;
+  white-space: normal;
+}
+
+.label a {
+  white-space: nowrap;
+}
+
+.label .delete {
+  margin-left: 0.4em;
 }
 
 .nowrap {white-space:nowrap;}
