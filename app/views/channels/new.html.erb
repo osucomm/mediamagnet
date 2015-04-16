@@ -1,4 +1,4 @@
-<div class="<%= @channel.class.type_name.downcase %> jumbotron"
+<div class="<%= @channel.class.type_name.downcase %> jumbotron">
 <h1><%= title "Add #{@channel.class.type_name} Channel" %></h1>
 
 <%- unless @channel.service_identifier_is_valid? %>
