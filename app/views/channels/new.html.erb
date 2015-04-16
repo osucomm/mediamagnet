@@ -1,15 +1,16 @@
 <div class="<%= @channel.class.type_name.downcase %> jumbotron">
-<h1><%= title "Add #{@channel.class.type_name} Channel" %></h1>
+  <h1><%= title "Add #{@channel.class.type_name} Channel" %></h1>
 
-<%- unless @channel.service_identifier_is_valid? %>
-  <%= simple_form_for [@channel.entity, @channel], as: :channel, html: { class: 'form-horizontal' },
-    wrapper: :horizontal_form,
-    wrapper_mappings: {
-      boolean: :horizontal_boolean
-    } do |f| %>
-    <%= f.input :service_identifier, label: @channel.service_id_name %>
-    <%= f.button :submit %>
+  <%- unless @channel.service_identifier_is_valid? %>
+    <%= simple_form_for [@channel.entity, @channel], as: :channel, html: { class: 'form-horizontal' },
+      wrapper: :horizontal_form,
+      wrapper_mappings: {
+        boolean: :horizontal_boolean
+      } do |f| %>
+      <%= f.input :service_identifier, label: @channel.service_id_name %>
+      <%= f.button :submit %>
+    <%- end %>
+  <%- else %>
+    <%= render 'form', channel: @channel %>
   <%- end %>
-<%- else %>
-  <%= render 'form', channel: @channel %>
-<%- end %>
+</div>
