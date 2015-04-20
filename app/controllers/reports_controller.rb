@@ -6,14 +6,10 @@ class ReportsController < ApplicationController
                 else
                   Channel.all
                 end
-    @keyword = Keyword.find(params[:keyword_id])
+    @keyword = Keyword.find_by_name(params[:keyword])
     # @channel = Channel.find(params[:channel_id])
-    series = @keyword.keyword_usages.
-      by_channels(@channels.map(&:id)).
-      group_by(&:starts_at).
-      values.map do |set_of_keywords|
-        set_of_keywords.map(&:count).reduce(:+)
-      end
+    series = @keyword.keywordings.
+      group("concat(year(created_at),'/',week(created_at))").count
     @chart = LazyHighCharts::HighChart.new('graph') do |f|
       f.title(:text => "Keyword Usage Over Time")
       f.xAxis(
