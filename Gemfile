@@ -55,6 +55,7 @@ gem 'elasticsearch-rails', git: 'https://github.com/elasticsearch/elasticsearch-
 
 # Channel Clients
 gem 'feedjira', git: 'https://github.com/feedjira/feedjira', branch: :faraday, tag: 'v2.0.0.rc1'
+gem 'httparty'
 gem 'google-api-client'
 gem 'instagram'
 gem 'koala', '~> 1.10.1' # Facebook
