@@ -2,7 +2,7 @@ class Api::V1::KeywordsController < Api::BaseController
   has_scope :by_category
 
   def index
-    @keywords = apply_scopes(Keyword).all
+    @keywords = apply_scopes(Keyword).normal
       .includes(:category)
       .page(params[:page])
       .per(params[:per_page])

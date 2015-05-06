@@ -30,7 +30,7 @@ namespace :keywords do
 
     http = Net::HTTP.new("mediamagnet.osu.edu", 443)
     http.use_ssl = true
-    response = http.get("/api/keywords.json")
+    response = http.get("/api/keywords.json?per_page=1000")
     raise 'Invalid response' unless response.code == "200"
 
     data = JSON.parse(response.body)
