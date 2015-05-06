@@ -27,6 +27,7 @@ class FundChannel < Channel
         digest: Digest::SHA256.base64digest(fund.to_s),
         link: fund['url'],
         tag_names: fund['tags'],
+        asset_urls: []
       }
       ItemFactory.create_or_update_from_hash(item, self)
     end
