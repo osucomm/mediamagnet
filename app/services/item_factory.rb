@@ -60,10 +60,10 @@ class ItemFactory
           end
         end
 
+        item.save
+        item.update_es_record
       end
 
-      item.save
-      item.update_es_record
     end
   end
 
