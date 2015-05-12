@@ -2,6 +2,8 @@ class Link < ActiveRecord::Base
   belongs_to :item
   has_and_belongs_to_many :items
 
+  validates :url, presence: true
+
   PATTERN = /https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w\.-]*\/?/
 
   def to_s
