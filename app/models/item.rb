@@ -56,6 +56,7 @@ class Item < ActiveRecord::Base
   # Validations
   validates :source_identifier, presence: :true, uniqueness: { scope: :channel_id }
   validates :channel_id, presence: :true
+  validates :link, presence: true
 
   # Callbacks
   before_save :links_from_text_fields
@@ -190,7 +191,7 @@ class Item < ActiveRecord::Base
   end
 
   def destroy_on_bad_link
-    if link.nil? || link.response_code == 404
+    if link.nil? || link.url.blank? || link.response_code == 404
       logger.log "Removed item #{id} which had a bad link"
       destroy
     else
@@ -272,6 +273,10 @@ class Item < ActiveRecord::Base
     (custom_tags.map(&:name) + keywords.map(&:name)).uniq
   end
 
+  def has_assets?
+    assets.any?
+  end
+
   def remove_keyword(keyword)
     item_keywordings = keywordings.where(keyword_id: keyword.id)
     item_keywordings.first.destroy if item_keywordings.first
@@ -290,7 +295,7 @@ class Item < ActiveRecord::Base
                                       methods: :location_name
                                     }
                           },
-                 methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
+                          methods: [:channel_type, :tags, :entity_id, :url, :has_assets?].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
   end
 
 
