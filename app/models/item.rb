@@ -64,7 +64,7 @@ class Item < ActiveRecord::Base
   after_create() { __elasticsearch__.index_document if entity.approved? }
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
-  after_commit() { update_es_record }
+  after_commit :update_es_record
   after_destroy() { 
     begin
       __elasticsearch__.delete_document if entity.approved? 
@@ -301,6 +301,7 @@ class Item < ActiveRecord::Base
       rescue
       end
       __elasticsearch__.index_document
+      logger.log "Updated item #{id} in elasticsearch"
     end
   end
 
