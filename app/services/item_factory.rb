@@ -35,7 +35,7 @@ class ItemFactory
 
       else
         #Create
-        item = channel.items.build(
+        item = channel.items.create(
           item_hash.slice(
             :title, :source_identifier, :content, :description, :digest, :published_at
           )
@@ -58,6 +58,9 @@ class ItemFactory
             )
           end
         end
+
+        item.save
+        item.update_es_record
       end
 
     end
