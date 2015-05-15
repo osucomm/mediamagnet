@@ -12,7 +12,7 @@ class Item < ActiveRecord::Base
   has_many :custom_tags, source: :tag, through: :taggings
 
   has_many :keywordings, as: :keywordable, dependent: :destroy
-  has_many :keywords, -> { uniq }, through: :keywordings
+  has_many :keywords, through: :keywordings
 
   has_and_belongs_to_many :links
 
@@ -61,10 +61,9 @@ class Item < ActiveRecord::Base
   before_save :links_from_text_fields
   before_save :sanitize_plain_elements
   after_save :add_evident_keywords
-  after_create() { __elasticsearch__.index_document if entity.approved? }
+  after_save :update_es_record
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
-  after_commit :update_es_record
   after_destroy() { 
     begin
       __elasticsearch__.delete_document if entity.approved? 
@@ -191,7 +190,7 @@ class Item < ActiveRecord::Base
 
   def destroy_on_bad_link
     if link.nil? || link.response_code == 404
-      logger.log "Removed item #{id} which had a bad link"
+      logger.info "Removed item #{id} which had a bad link"
       destroy
     else
       link.update_attribute(:last_verified_at, Time.now)
@@ -295,15 +294,17 @@ class Item < ActiveRecord::Base
 
 
   def update_es_record
+    logger.info "THIS WAS CALLED"
     if entity.approved?
       begin
         __elasticsearch__.delete_document
       rescue
       end
       __elasticsearch__.index_document
-      logger.log "Updated item #{id} in elasticsearch"
+      logger.info "Updated item #{id} in elasticsearch"
     end
   end
+  handle_asynchronously :update_es_record
 
   def guid
     Digest::MD5.hexdigest( "#{channel_id}_#{id}" )
