@@ -37,6 +37,7 @@ class Channel < ActiveRecord::Base
   # Scopes
 
   scope :by_type, -> type { where(:type => type) }
+  scope :refresh_order, -> { order('last_polled_at asc') }
 
   class << self
     def stale_for_days(number_of_days)
@@ -48,13 +49,13 @@ class Channel < ActiveRecord::Base
       where(id: ids)
     end
     def needs_refresh
-      ids = all.order('last_polled_at asc').to_a.keep_if do |channel|
+      ids = all.to_a.keep_if do |channel|
         (channel.last_polled_at.nil? || 
         channel.last_polled_at < channel.max_refresh_interval.seconds.ago) &&
         !channel.disabled && 
         !channel.locked?
       end.map(&:id)
-      where(id: ids)
+      where(id: ids).refresh_order
     end
 
     def type_name
@@ -114,7 +115,7 @@ class Channel < ActiveRecord::Base
   end
 
   def all_keywords
-    entity.keywords + keywords
+    Keyword.where(id: (entity.keywords + keywords).map(&:id))
   end
 
   def all_mappings_distinct
