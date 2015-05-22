@@ -190,7 +190,7 @@ class Item < ActiveRecord::Base
 
   def destroy_on_bad_link
     if link.nil? || link.response_code == 404
-      logger.info "Removed item #{id} which had a bad link"
+      logger.info "Removed item #{id.to_s} which had a bad link"
       destroy
     else
       link.update_attribute(:last_verified_at, Time.now)
@@ -294,14 +294,13 @@ class Item < ActiveRecord::Base
 
 
   def update_es_record
-    logger.info "THIS WAS CALLED"
     if entity.approved?
       begin
         __elasticsearch__.delete_document
       rescue
       end
       __elasticsearch__.index_document
-      logger.info "Updated item #{id} in elasticsearch"
+      logger.info "Updated item #{id.to_s} in elasticsearch"
     end
   end
   handle_asynchronously :update_es_record
@@ -314,8 +313,8 @@ class Item < ActiveRecord::Base
     events_keyword = Keyword.where(name: 'events').first_or_create do |keyword|
       keyword.display_name = 'Events'
     end
-    video_keyword = Keyword.where(name: 'events').first_or_create do |keyword|
-      keyword.display_name = 'Events'
+    video_keyword = Keyword.where(name: 'video').first_or_create do |keyword|
+      keyword.display_name = 'Video'
     end
     keywords << events_keyword if events.any? && !keywords.include?(events_keyword)
     keywords << video_keyword if assets.videos.any? && !keywords.include?(video_keyword)
