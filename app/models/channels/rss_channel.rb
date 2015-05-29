@@ -20,7 +20,7 @@ class RssChannel < Channel
     client.entries.each do |wi|
       item = {
         content: wi.content,
-        description: wi.summary.strip,
+        description: wi.summary.to_s.strip,
         digest: Digest::SHA256.base64digest(%w(title, content, summary, start_date, end_date, location)
           .map {|el| wi.try(el).to_s}.reduce(:+)),
         published_at: wi.published.present? ? wi.published : Time.now,
