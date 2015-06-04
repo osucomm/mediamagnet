@@ -17,7 +17,7 @@ class ItemFactory
 
           if item_hash[:events]
             item_hash[:events].each do |ev|
-              event = item.events.first
+              event = item.events.first_or_initialize
               event.update(
                 start_date: ev[:start_date],
                 end_date: ev[:end_date],
@@ -42,11 +42,13 @@ class ItemFactory
         )
 
         item_hash[:asset_urls].each do |url|
+          puts 'Item asset: ' + url
           item.assets.build(url: url)
         end
 
         item.link = Link.where(url: item_hash[:link] ? item_hash[:link] : item.url).first_or_initialize
         item.keywords = channel.all_keywords
+        binding.pry
         item.tag_names = item_hash[:tag_names]
 
         if item_hash[:events]
