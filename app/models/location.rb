@@ -10,7 +10,6 @@ class Location < ActiveRecord::Base
     unless loc.empty?
       self.latitude = loc['latitude']
       self.longitude = loc['longitude']
-      binding.pry
       save
     end
   end
