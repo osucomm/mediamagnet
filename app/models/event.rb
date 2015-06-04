@@ -9,7 +9,6 @@ class Event < ActiveRecord::Base
   scope :after, ->(date) { where('start_date > ? OR end_date > ?', date, date) }
   scope :before, ->(date) { where('start_date < ? OR end_date < ?', date, date) }
 
-
   class << self
     def help_text
       <<-EOT
@@ -22,4 +21,9 @@ class Event < ActiveRecord::Base
   def location_name
     location.location if location
   end
+
+  def all_day
+    start_date == start_date.midnight
+  end
+
 end

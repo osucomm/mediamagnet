@@ -1,4 +1,4 @@
-attributes :id, :start_date, :end_date
+attributes :id, :start_date, :end_date, :all_day
 
 glue :item do
   attributes :id => :item_id
