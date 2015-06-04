@@ -255,7 +255,7 @@ class Item < ActiveRecord::Base
   end
 
   def tag_names=(new_tags=[])
-    if new_tags.any?
+    if !new_tags.nil? && new_tags.any? 
       new_tags.map!(&:downcase)
       custom_tags.destroy_all
 
