@@ -16,11 +16,7 @@ class Link < ActiveRecord::Base
         url = last_url.host + url.to_s
       end
 
-      uri = if url =~ /\ /
-        URI(URI.encode(self.decode(url)))
-      else
-        URI(self.decode(url.strip))
-      end
+      uri = URI(URI.enocde(self.decode(url.strip))
 
       return_url = ''
 
