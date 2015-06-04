@@ -48,7 +48,6 @@ class ItemFactory
 
         item.link = Link.where(url: item_hash[:link] ? item_hash[:link] : item.url).first_or_initialize
         item.keywords = channel.all_keywords
-        binding.pry
         item.tag_names = item_hash[:tag_names]
 
         if item_hash[:events]
