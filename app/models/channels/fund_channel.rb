@@ -63,7 +63,12 @@ class FundChannel < Channel
   def client
     @client ||= (
       uri = URI(service_identifier)
-      response = Net::HTTP.get(uri)
+      begin
+        response = Net::HTTP.get(uri)
+      rescue Net::ReadTimeout
+        logger.warn "Could not connect to channel #{self.to_s}"
+        exit
+      end
       JSON.parse(response)
     )
   end
