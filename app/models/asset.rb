@@ -18,7 +18,7 @@ class Asset < ActiveRecord::Base
 
   def set_metadata
     if url =~ /\ |\[/
-      self.url = URI.encode(url)
+      self.url = URI.encode(url,/\[\]/)
     end
     real_url = Link.resolve_uri(url)
     response = Link.response(real_url)
