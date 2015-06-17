@@ -269,7 +269,7 @@ class Item < ActiveRecord::Base
   end
 
   def tags
-    (custom_tags.map(&:name) + keywords.map(&:name)).uniq
+    custom_tags.map(&:name).uniq
   end
 
   def remove_keyword(keyword)
