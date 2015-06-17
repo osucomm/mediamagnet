@@ -40,6 +40,7 @@ class Item < ActiveRecord::Base
       indexes :formats, analyzer: 'keyword', type: 'string'
       indexes :colleges, analyzer: 'keyword', type: 'string'
       indexes :locations, analyzer: 'keyword', type: 'string'
+      indexes :topics, analyzer: 'keyword', type: 'string'
       indexes :channel_type, analyzer: 'keyword', type: 'string'
       indexes :tags, analyzer: 'keyword', type: 'string'
       indexes :title, type: 'string'
