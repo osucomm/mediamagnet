@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :update]
     resources :entities, only: [:index, :update]
     resources :delayed_jobs, only: [:index, :destroy]
+    get 'flush_refresh_queue', to: 'delayed_jobs#flush_refresh_queue'
   end
 
   get 'channels/:id/refresh' => 'channels#refresh'
