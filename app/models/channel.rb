@@ -111,7 +111,7 @@ class Channel < ActiveRecord::Base
 
   def refresh
     reload
-    Delayed::Job.enqueue RefreshChannelJob.new(self)
+    Delayed::Job.enqueue RefreshChannelJob.new(self), queue: 'refresh'
   end
 
   def all_keywords

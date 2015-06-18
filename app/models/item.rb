@@ -304,7 +304,7 @@ class Item < ActiveRecord::Base
       logger.info "Updated item #{id.to_s} in elasticsearch"
     end
   end
-  handle_asynchronously :update_es_record
+  handle_asynchronously :update_es_record, queue: 'itemupdates'
 
   def guid
     Digest::MD5.hexdigest( "#{channel_id}_#{id}" )
