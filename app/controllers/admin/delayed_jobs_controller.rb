@@ -1,7 +1,7 @@
 class Admin::DelayedJobsController < Admin::BaseController
   def index
     authorize :delayed_job, :index?
-    @delayed_jobs = Delayed::Job.all
+    @delayed_jobs = Delayed::Job.all.page(params[:page]).per(params[:per])
   end
   def flush_refresh_queue
     authorize :delayed_job, :destroy?
