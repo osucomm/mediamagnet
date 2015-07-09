@@ -190,7 +190,7 @@ outside of Media Magnet. The method varies by channel type:
     </tr>
     <tr>
       <td>Twitter</td>
-      <td class="success">Hastags</td>
+      <td class="success">Hashtags</td>
     </tr>
     <tr>
       <td>Facebook</td>
