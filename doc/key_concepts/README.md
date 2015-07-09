@@ -45,7 +45,7 @@ out of the box or by using popular plugins.
 ### Twitter
 
 [Twitter](https://twitter.com) is a popular micro-blogging platform used to post
-short status upadtes and messages. Media Magnet will pull in any tweets from
+short status updates and messages. Media Magnet will pull in any tweets from
 your timeline and any linked images. To add a Twitter channel, you'll need the
 account name or handle.
 
@@ -74,7 +74,7 @@ Google account associated with the playlist.
 ### Instagram
 
 Upload your photos to [Instagram](https://instagram.com), pop on a Kelvin filter,
-and boom! Instant Media Magnet selfie sensation. An Instagram channel wiill
+and boom! Instant Media Magnet selfie sensation. An Instagram channel will
 pull in the image/video and caption from a post. Adding an Instagram channel
 just requires the account name.
 
@@ -106,7 +106,7 @@ Items
 single piece of content published in a [channel](#channels). An item could be a
 tweet, post, photo, web page, or event. Media Magnet imports items from channels
 on a regular basis and stores their normalized content. This allows you to
-retrieve items without needing to know their original content.
+retrieve items without needing to know their original channel.
 
 When items are imported, they are also given [tags](#tags) and
 [keywords](#keywords) using tags from the items themselves and from their
@@ -117,8 +117,8 @@ channels and entities.
 Keywords
 --------
 [Keywords](/keywords) are a taxonomy of terms that describe and categorize the
-content in an entity, channel, or item. They are a set of [tags](#tags) whose
-meaning has been agreed to by content producers using Media Magnet. This
+content in an entity, channel, or item. They are a set of [tags](#using-tags)
+whose meaning has been agreed to by content producers using Media Magnet. This
 ensures that, for example, content tagged with "althletics" refers to sports at
 Ohio State rather than the Department of Athletics or simply the general idea of
 participating in sports. Keywords allow editors to express the meaning of their
@@ -141,35 +141,79 @@ Some keywords are grouped into specific categories:
 
 ### Using Keywords
 
-Keywords are the foundation of Media Magnet. These keywords define the content. Keywords can be added to entities and channels from directly within Media Magnet. Always apply keywords to content, but apply the tags appropriately and sparingly. Using too many keywords may dilute or inaccurately reflect the content's meaning. 
+Keywords are the foundation of Media Magnet. These keywords define the content.
+Keywords can be added to entities and channels from directly within Media
+Magnet. Always apply keywords to content, but apply the tags appropriately and
+sparingly. Using too many keywords may dilute or inaccurately reflect the
+content's meaning. 
 
-Keywords are inherited. A content item inherits keywords from its channel. And channels inherit the keywords applied to their parent. 
+Keywords are inherited. A content item inherits keywords from its channel. And
+channels inherit the keywords applied to their parent. 
 
-To apply keywords to an individual content item, see the tagging methods in the next section the source system will need to contain a tag that matches a keyword. Case does not matter ("Alumni" and "AlUmNi" will both add the keyword "alumni") but spaces, dashes, and slashes must be correct.
+To apply keywords to an individual content item, see the tagging methods in the
+next section. The source system will need to contain a tag that matches the *machine_name*
+of a keyword. Case does not matter ("Alumni" and "AlUmNi" will both add the
+keyword "alumni") but spaces, dashes, and slashes must be correct.
 
-In most cases, Keywords are intended as an internal reference. Avoid using keywords as hashtags within actual content. **Example:** *This use of the keyword "Business/Industry" would be incorrect: "MBA Leadership Conference, June 19-20, Register today! #business/industry"*
+In most cases, keywords are intended as an internal reference. Avoid using
+keywords as hashtags within actual content. **Example:** *This use of the keyword "Business/Industry" would be incorrect: "MBA Leadership Conference, June 19-20, Register today! #business/industry"*
 
 - - -
 
 Using Tags
-----
-Tags are custom words or terms used to define [content items](#items). While fully searchable and filterable, unlike [Keywords](#keywords), tags don't have defined meanings. There is no assumption content producers will use tags in consistent ways. Tags are useful for organizing content in customized ways beyond the scope of Media Magnet's general keywords.
+----------
+Tags are custom words or terms used to define [content items](#items). While
+fully searchable and filterable, unlike [Keywords](#keywords), tags don't have
+defined meanings. There is no assumption that content producers will use tags in
+consistent ways. Tags are useful for organizing content in customized ways
+beyond the scope of Media Magnet's general keywords.
 
 - - -
 
 Applying Keywords and Tags to content items
-----
-Keywords and Tags can be added to Channels and Entities directly within Media Magnet. It's also possible to apply keywords and tags to *individual content items* outside of Media Magnet. The method varies by channel type:
+-------------------------------------------
+Keywords and tags can be added to channels and entities directly within Media
+Magnet. It's also possible to apply keywords and tags to *individual content items*
+outside of Media Magnet. The method varies by channel type:
 
-| Content channel   |      Keyword      |  Custom tag |
-|----------|-------------|------|
-| RSS |  Use "category" elements in the feed | Use "category" elements in the feed |
-| Twitter |    Not supported   |  Use hashtags |
-| Facebook |    Not supported   |  Use hashtags |
-| Youtube |    Add keyword in video edit screen   |  Add tag in video edit screen |
-| Instagram |    Not supported   |  Use hashtags |
-| Events RSS |  Use "category" elements in the feed | Use "category" elements in the feed |
-| iCal |    Not supported   |  Not supported |
+<table class="table table-condensed">
+  <thead>
+    <tr>
+        <th>Channel type</th>
+        <th>Tagging method</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RSS</td>
+      <td class="success">Use "category" elements in the feed</td>
+    </tr>
+    <tr>
+      <td>Twitter</td>
+      <td class="success">Hastags</td>
+    </tr>
+    <tr>
+      <td>Facebook</td>
+      <td class="success">Hashtags</td>
+    </tr>
+    <tr>
+      <td>Youtube</td>
+      <td class="success">Add tag in video edit screen</td>
+    </tr>
+    <tr>
+      <td>Instagram</td>
+      <td class="success">Hashtags</td>
+    </tr>
+    <tr>
+      <td>Events RSS</td>
+      <td class="success">Use "category" elements in the feed</td>
+    </tr>
+    <tr>
+      <td>iCal</td>
+      <td class="danger">Not supported</td>
+    </tr>
+  </tbody>
+</table>
 
 **Example:** *If a tweet uses the hashtag "#cats", the content will automatically be tagged "cats" within Media Magnet.*
 
@@ -179,8 +223,12 @@ Keywords and Tags can be added to Channels and Entities directly within Media Ma
 
 Mappings
 --------
-Generally it is not desirable to publish keywords within the content itself. Mappings can help keywords be applied to individual content items. Entities and channels can have public tags mapped to Media Magnet keywords. When an item uses a mapped hashtag, the corresponding keyword will also be applied. Mappings apply only to items within a given entity or channel. You can use your existing
-tags as custom vocabularies within Media Magnet.
+Generally it is not desirable to publish keywords within the content itself.
+Mappings can help keywords be applied to individual content items. Entities and
+channels can have public tags mapped to Media Magnet keywords. When an item uses
+a mapped hashtag, the corresponding keyword will also be applied. Mappings apply
+only to items within a given entity or channel. You can use your existing tags
+as custom vocabularies within Media Magnet.
 
 **Example:** *The hashtag "#gobucks" could be mapped to the keyword "Buckeye Pride" since they both usually connote spirit messaging*  
 **Example:** *The hashtag "#osunews" could be mapped to the keyword "News"*
