@@ -12,7 +12,7 @@ class Item < ActiveRecord::Base
   has_many :custom_tags, source: :tag, through: :taggings
 
   has_many :keywordings, as: :keywordable, dependent: :destroy
-  has_many :keywords, -> { uniq }, through: :keywordings
+  has_many :keywords, through: :keywordings
 
   has_and_belongs_to_many :links
 
@@ -40,6 +40,7 @@ class Item < ActiveRecord::Base
       indexes :formats, analyzer: 'keyword', type: 'string'
       indexes :colleges, analyzer: 'keyword', type: 'string'
       indexes :locations, analyzer: 'keyword', type: 'string'
+      indexes :topics, analyzer: 'keyword', type: 'string'
       indexes :channel_type, analyzer: 'keyword', type: 'string'
       indexes :tags, analyzer: 'keyword', type: 'string'
       indexes :title, type: 'string'
@@ -61,10 +62,9 @@ class Item < ActiveRecord::Base
   before_save :links_from_text_fields
   before_save :sanitize_plain_elements
   after_save :add_evident_keywords
-  after_create() { __elasticsearch__.index_document if entity.approved? }
+  after_save :update_es_record
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
-  after_save() { update_es_record }
   after_destroy() { 
     begin
       __elasticsearch__.delete_document if entity.approved? 
@@ -191,7 +191,7 @@ class Item < ActiveRecord::Base
 
   def destroy_on_bad_link
     if link.nil? || link.response_code == 404
-      logger.log "Removed item #{id} which had a bad link"
+      logger.info "Removed item #{id.to_s} which had a bad link"
       destroy
     else
       link.update_attribute(:last_verified_at, Time.now)
@@ -256,7 +256,7 @@ class Item < ActiveRecord::Base
   end
 
   def tag_names=(new_tags=[])
-    if new_tags.any?
+    if !new_tags.nil? && new_tags.any? 
       new_tags.map!(&:downcase)
       custom_tags.destroy_all
 
@@ -269,7 +269,7 @@ class Item < ActiveRecord::Base
   end
 
   def tags
-    (custom_tags.map(&:name) + keywords.map(&:name)).uniq
+    custom_tags.map(&:name).uniq
   end
 
   def remove_keyword(keyword)
@@ -301,8 +301,10 @@ class Item < ActiveRecord::Base
       rescue
       end
       __elasticsearch__.index_document
+      logger.info "Updated item #{id.to_s} in elasticsearch"
     end
   end
+  handle_asynchronously :update_es_record, queue: 'itemupdates'
 
   def guid
     Digest::MD5.hexdigest( "#{channel_id}_#{id}" )
@@ -312,8 +314,8 @@ class Item < ActiveRecord::Base
     events_keyword = Keyword.where(name: 'events').first_or_create do |keyword|
       keyword.display_name = 'Events'
     end
-    video_keyword = Keyword.where(name: 'events').first_or_create do |keyword|
-      keyword.display_name = 'Events'
+    video_keyword = Keyword.where(name: 'video').first_or_create do |keyword|
+      keyword.display_name = 'Video'
     end
     keywords << events_keyword if events.any? && !keywords.include?(events_keyword)
     keywords << video_keyword if assets.videos.any? && !keywords.include?(video_keyword)

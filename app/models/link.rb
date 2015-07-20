@@ -9,18 +9,14 @@ class Link < ActiveRecord::Base
   end
 
   class << self
-    def resolve_uri(url, last_url = nil)
+    def resolve_uri(url, last_url = nil, followed_redirects = 0)
 
-      # If it's an absolute URL, use last known host. [RFC3986], Section 4.2
+      # If it's an absolute URL, use last known host. [RFC3987], Section 4.2
       if (url.match PATTERN).nil? && last_url.present?
         url = last_url.host + url.to_s
       end
 
-      uri = if url =~ /\ /
-        URI(URI.encode(self.decode(url)))
-      else
-        URI(self.decode(url.strip))
-      end
+      uri = URI(URI.encode(self.decode(url.strip), /\[|\]|\ /))
 
       return_url = ''
 
@@ -31,7 +27,11 @@ class Link < ActiveRecord::Base
             request = Net::HTTP::Head.new uri
             response = http.request request # Net::HTTPResponse object
             if response.code.to_s.match(/^3/)
-              return_url = resolve_uri(response['location'], uri)
+              if followed_redirects > 10
+                return_url = uri.to_s
+              else
+                return_url = resolve_uri(response['location'], uri, followed_redirects+1)
+              end
             elsif response.code.to_s.match(/^2/)
               return_url = response.uri.to_s
             else

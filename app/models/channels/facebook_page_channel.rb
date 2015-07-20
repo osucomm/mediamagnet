@@ -29,7 +29,7 @@ class FacebookPageChannel < Channel
         link: "https://www.facebook.com/#{service_identifier}/posts/#{post['id'].split('_').last}",
         published_at: post['created_time'],
         digest: Digest::SHA256.base64digest(post['message']),
-        asset_urls: ([post['picture']] if post['picture']),
+        asset_urls: [post['picture']].compact,
         tag_names: TagParser.new(post['message']).parse
       }
       ItemFactory.create_or_update_from_hash(item, self)

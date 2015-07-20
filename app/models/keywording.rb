@@ -22,7 +22,6 @@ class Keywording < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :add_keywords_to_items
 
   def remove_keywords_from_items
     if keywordable_not_item
@@ -32,7 +31,6 @@ class Keywording < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :remove_keywords_from_items
 
   def to_s
     "#{keyword.name} from #{keywordable.name}"

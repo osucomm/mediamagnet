@@ -17,6 +17,7 @@
 
   <div class="col-sm-4">
   <%= form_tag items_path, method: :get, class: 'facets' do %>
+    <h2>Filter Items</h2>
       <div class="form-group">
       <%= label_tag "entity_id[]", 'Entity' %>
       <%= select_tag('entity_id[]', options_for_select(@search_response.facets.entity_id.terms.map{|a| [ "#{Entity.find(a[:term]).name} (#{a[:count]})", a[:term] ] }, selected: params[:entity_id]),
@@ -29,8 +30,24 @@
       <%= select_tag('channel_id[]', options_for_select(@search_response.facets.channel_id.terms.map{|a| [ "#{with_unicode_icon(Channel.find(a[:term]))} (#{a[:count]})".html_safe, a[:term] ] }, selected: params[:channel_id]),
               multiple: :true, 
               class: 'chosen-select autosubmit') %>
-          </div>
+      </div>
 
+
+
+      <div class="well well-sm">
+        <h3>Media Magnet Keywords</h3>
+        <%- Category.all.map{|c| c.name.pluralize}.each do |category| %>
+          <%- if @search_response.facets[category].terms.any? %>
+            <div class="form-group">
+            <%= label_tag "#{category}[]", category.titleize %>
+            <%= select_tag("#{category}[]",
+                  options_for_select(@search_response.facets[category].terms.map{|a| [ "#{a[:term]} (#{a[:count]})", a[:term] ] }, selected: params[category]),
+                  multiple: :true, 
+                  class: 'chosen-select autosubmit') %>
+              </div>
+          <% end %>
+        <% end %>
+      </div>
 
       <div class="form-group">
       <%= label_tag 'tags[]', 'Tags' %>
@@ -46,17 +63,7 @@
             class: 'chosen-select autosubmit') %>
       </div>
 
-        <%- Category.all.map{|c| c.name.pluralize}.each do |category| %>
-          <%- if @search_response.facets[category].terms.any? %>
-            <div class="form-group">
-            <%= label_tag "#{category}[]", category.titleize %>
-            <%= select_tag("#{category}[]",
-                  options_for_select(@search_response.facets[category].terms.map{|a| [ "#{a[:term]} (#{a[:count]})", a[:term] ] }, selected: params[category]),
-                  multiple: :true, 
-                  class: 'chosen-select autosubmit') %>
-              </div>
-          <% end %>
-        <% end %>
+
 
       <div class="form-group">
         <%= label_tag :search %>

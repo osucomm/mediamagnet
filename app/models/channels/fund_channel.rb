@@ -27,6 +27,7 @@ class FundChannel < Channel
         digest: Digest::SHA256.base64digest(fund.to_s),
         link: fund['url'],
         tag_names: fund['tags'],
+        asset_urls: []
       }
       ItemFactory.create_or_update_from_hash(item, self)
     end
@@ -62,7 +63,12 @@ class FundChannel < Channel
   def client
     @client ||= (
       uri = URI(service_identifier)
-      response = Net::HTTP.get(uri)
+      begin
+        response = Net::HTTP.get(uri)
+      rescue Net::ReadTimeout
+        logger.warn "Could not connect to channel #{self.to_s}"
+        exit
+      end
       JSON.parse(response)
     )
   end

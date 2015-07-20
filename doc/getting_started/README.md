@@ -30,9 +30,9 @@ Getting Help
 Great! You've looked for an entity in and are ready to get started. But get
 started with what? What else can you do here?
 
-Take a few momenents for browse our [documentation](../README.md). It's a
-work in progress, but chances are it will point you in the right direction. As a
-new user, you might be interested in familiarizing yourself with some
+Take a few moments to browse our [documentation](../README.md). It's a work in
+progress, but chances are it will point you in the right direction. As a new
+user, you might be interested in familiarizing yourself with some
 [key concepts](../key_concepts/README.md)
 
 You can also contact [University Communications](http://ucom.osu.edu) with
