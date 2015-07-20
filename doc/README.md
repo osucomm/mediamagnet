@@ -14,7 +14,7 @@ OSU is big place! We produce many thousands of pieces of digital content each ye
 How does keyword tagging help coordinate content?
 -------------------------------------------------
 
-Media Magnet provides a [universal set of keywords][/keywords] based on commonly used university themes (like "Academics" and "Buckeye Pride"). Once applied, the tags are like glue, bits of meta-data binding individual content to one another.
+Media Magnet provides a [universal set of keywords](/keywords) based on commonly used university themes (like "Academics" and "Buckeye Pride"). Once applied, the tags are like glue, bits of meta-data binding individual content to one another.
 
 ### How is relating content useful? How does it benefit our audiences?
 

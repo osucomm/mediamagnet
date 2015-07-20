@@ -3,9 +3,10 @@ Content Subscription
 
 Media Magnet is capable of consuming content from a variety of sources. These
 sources are added by creating [Channels](../key_concepts#channels) which
-subscribe to an individual account or feed. Currently, MM supports the following
-formats and services. When a channel is created, content is automatically pulled 
-in from that feed on a regular interval (currently no more than 10 minutes).
+subscribe to an individual account or feed. Currently, Media Magnet supports the
+following formats and services. When a channel is created, content is
+automatically pulled in from that feed on a regular interval (currently no more
+than 10 minutes).
 
 - - -
 
@@ -35,9 +36,7 @@ To work with Media Magnet, the feed must conform to the
   * `<guid>` contains a unique identifier for the item that _will not change_
     over time.
   * Each `<category>` element contains a single tag and/or Media Magnet keyword
-    describing the item.
-  * Each `<enclosure>` contains a media URL associated with the item. Media
-    Magnet will store them as assets.
+    machine name describing the item.
 
 Note that the base RSS specification does not permit HTML content within any
 element. So, markup must not be included in either the `<description>` or
@@ -53,6 +52,10 @@ this:
   * `<description>` contains a brief summary or excerpt
   * `<content:encoded>` contains the full text, which can including markup. If
     possible this text should omit the title and any styling information.
+
+Media Magnet supports attaching images and other media to an item via the
+[Media RSS](http://www.rssboard.org/media-rss) specification. Any valid
+`<media:content>` elements will be stored as an asset.
 
 - - -
 
@@ -88,10 +91,11 @@ calendar is an easy alternative.
 ### Caveats ###
 
   * Repeating rules are currently ignored for iCalendar.
-  * iCalendar format itself does support [URLs in objects](https://www.ietf.org/rfc/rfc2445.txt)
+  * The iCalendar format itself does support [URLs in objects](https://www.ietf.org/rfc/rfc2445.txt)
     (see 4.8.4.6), however neither Google nor UES supports enabling users to
     add/change those URLs. Effectively, this means users can't provide a URL
     associated with their events.
+  * iCalendar channels do not support item tagging
 
 - - -
 
