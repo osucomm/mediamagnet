@@ -6,7 +6,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'daemons'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
-gem 'mysql2'
+gem 'pg'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'sanitize'
 gem 'therubyracer',  platforms: :ruby
@@ -54,7 +54,7 @@ gem 'elasticsearch-rails', git: 'https://github.com/elasticsearch/elasticsearch-
 # gem 'bcrypt', '~> 3.1.7'
 
 # Channel Clients
-gem 'feedjira' #, git: 'https://github.com/feedjira/feedjira', branch: :faraday, tag: 'v2.0.0.rc1'
+gem 'feedjira'
 gem 'httparty'
 gem 'google-api-client'
 gem 'instagram'
@@ -68,13 +68,6 @@ gem 'icalendar'
 #
 #
 group :development do
-  #gem 'capistrano', '~> 3.2.0'
-  #gem 'capistrano-bundler'
-  #gem 'capistrano-rails'
-  #gem 'capistrano-rvm'
-  #gem 'capistrano-sidekiq'
-  #gem 'pry-doc'
-  #gem 'pry-rescue'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet', '~> 4.13.2'
