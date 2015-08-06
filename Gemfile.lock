@@ -17,17 +17,6 @@ GIT
     elasticsearch-rails (0.1.6)
 
 GIT
-  remote: https://github.com/feedjira/feedjira
-  revision: d427a090b21fb7ee452f0bd0cd75875391add473
-  branch: faraday
-  specs:
-    feedjira (2.0.0.rc1)
-      faraday (~> 0.9)
-      faraday_middleware (~> 0.9)
-      loofah (~> 2.0)
-      sax-machine (~> 1.0)
-
-GIT
   remote: https://github.com/preston/railroady.git
   revision: 1ae5f3a94b0ba26e757d73048b0da33911b9609d
   specs:
@@ -179,6 +168,11 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
+    feedjira (2.0.0)
+      faraday (~> 0.9)
+      faraday_middleware (~> 0.9)
+      loofah (~> 2.0)
+      sax-machine (~> 1.0)
     ffi (1.9.6)
     figaro (1.0.0)
       thor (~> 0.14)
@@ -440,7 +434,7 @@ GEM
       sass (~> 3.2.2)
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
-    sax-machine (1.3.1)
+    sax-machine (1.3.2)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
@@ -562,7 +556,7 @@ DEPENDENCIES
   elasticsearch-rails!
   factory_girl_rails
   faker
-  feedjira!
+  feedjira
   figaro
   font-awesome-rails
   google-api-client

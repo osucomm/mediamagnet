@@ -54,7 +54,7 @@ gem 'elasticsearch-rails', git: 'https://github.com/elasticsearch/elasticsearch-
 # gem 'bcrypt', '~> 3.1.7'
 
 # Channel Clients
-gem 'feedjira', git: 'https://github.com/feedjira/feedjira', branch: :faraday, tag: 'v2.0.0.rc1'
+gem 'feedjira' #, git: 'https://github.com/feedjira/feedjira', branch: :faraday, tag: 'v2.0.0.rc1'
 gem 'httparty'
 gem 'google-api-client'
 gem 'instagram'
