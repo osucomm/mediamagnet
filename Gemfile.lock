@@ -7,14 +7,14 @@ GIT
       pry (~> 0.10)
 
 GIT
-  remote: https://github.com/elasticsearch/elasticsearch-rails
-  revision: b40479d371836f303dd8aaabed33a75d5de2898f
+  remote: https://github.com/elastic/elasticsearch-rails
+  revision: ded20356920802c35d258756113acfd95b25ade6
   specs:
-    elasticsearch-model (0.1.6)
+    elasticsearch-model (0.1.7)
       activesupport (> 3)
       elasticsearch (> 0.4)
       hashie
-    elasticsearch-rails (0.1.6)
+    elasticsearch-rails (0.1.7)
 
 GIT
   remote: https://github.com/preston/railroady.git
@@ -140,12 +140,12 @@ GEM
     dotenv (1.0.2)
     dotenv-rails (1.0.2)
       dotenv (= 1.0.2)
-    elasticsearch (1.0.8)
-      elasticsearch-api (= 1.0.7)
-      elasticsearch-transport (= 1.0.7)
-    elasticsearch-api (1.0.7)
+    elasticsearch (1.0.12)
+      elasticsearch-api (= 1.0.12)
+      elasticsearch-transport (= 1.0.12)
+    elasticsearch-api (1.0.12)
       multi_json
-    elasticsearch-transport (1.0.7)
+    elasticsearch-transport (1.0.12)
       faraday
       multi_json
     em-websocket (0.5.1)
