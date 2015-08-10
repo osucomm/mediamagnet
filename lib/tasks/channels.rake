@@ -1,7 +1,6 @@
 namespace :channels do
   desc 'Retrieve items from stale channels'
   task refresh: :environment do
-
     Channel.needs_refresh.limit(40).each do |channel|
       channel.refresh
     end
