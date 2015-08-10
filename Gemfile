@@ -4,15 +4,14 @@ gem 'rails', '4.2.0'
 
 gem 'coffee-rails', '~> 4.0.0'
 gem 'daemons'
-gem 'delayed_job'
-gem 'delayed_job_active_record'
 gem 'pg'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'responders'
 gem 'sanitize'
+gem 'sidekiq'
 gem 'therubyracer',  platforms: :ruby
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
-gem 'responders'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
