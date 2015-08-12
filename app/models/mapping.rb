@@ -53,15 +53,14 @@ class Mapping < ActiveRecord::Base
       end
     end
   end
-  handle_asynchronously :add_keyword_to_items
 
   def remove_keyword_from_items
     items = mappable.items.eager
     items.each do |item|
       item.remove_keyword(keyword) if item.custom_tags.include?(tag)
+      item.update_es_record
     end
   end
-  handle_asynchronously :remove_keyword_from_items
 
   private
 
