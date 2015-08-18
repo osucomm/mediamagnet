@@ -109,6 +109,7 @@ end
 
 group :production do
   gem 'figaro'
+  gem 'redis-rails'
 end
 
 # Use debugger
