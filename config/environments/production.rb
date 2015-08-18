@@ -53,7 +53,7 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  config.cache_store = :file_store, "/tmp/cache", { size: 10000000 }
+  # config.cache_store = :file_store, "/tmp/cache", { size: 10000000 }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -74,6 +74,16 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  #Redis for cache
+  REDIS_URL_BASE = "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}"
+  config.cache_store = :redis_store, "#{REDIS_URL_BASE}/0/cache", { expires_in: 90.minutes }
+
+  config.action_mailer.smtp_settings = {
+    address: ENV['SMTP_HOST'],
+    user_name: ENV['SMTP_USER'],
+    password: ENV['SMTP_PASSWORD']
+  }
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
