@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
+
   get 'dashboard' => 'dashboard#show', as: :dashboard
 
   # OAuth
@@ -34,8 +36,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, only: [:index, :update]
     resources :entities, only: [:index, :update]
-    resources :delayed_jobs, only: [:index, :destroy]
-    get 'flush_refresh_queue', to: 'delayed_jobs#flush_refresh_queue'
+    mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
   end
 
   get 'channels/:id/refresh' => 'channels#refresh'
