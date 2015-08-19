@@ -60,6 +60,7 @@ gem 'koala', '~> 1.10.1' # Facebook
 gem 'twitter', '~> 5.14'
 gem 'youtube_it'
 gem 'icalendar'
+gem 'sinatra', :require => nil
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
