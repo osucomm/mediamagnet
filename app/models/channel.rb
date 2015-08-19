@@ -110,7 +110,7 @@ class Channel < ActiveRecord::Base
   end
 
   def refresh
-    RefreshChannelJob.perform_later self, queue: 'refresh'
+    RefreshChannelJob.perform_later self
   end
 
   def all_keywords
