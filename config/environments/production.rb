@@ -77,7 +77,7 @@ Rails.application.configure do
 
   #Redis for cache
   REDIS_URL_BASE = "redis://#{ENV['REDIS_HOST']}:#{ENV['REDIS_PORT']}"
-  config.cache_store = :redis_store, "#{REDIS_URL_BASE}/0/cache", { expires_in: 90.minutes }
+  config.cache_store = :redis_store, "#{REDIS_URL_BASE}/0/mm", { expires_in: 90.minutes }
 
   config.action_mailer.smtp_settings = {
     address: ENV['SMTP_HOST'],
