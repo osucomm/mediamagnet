@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 
+gem 'figaro'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'daemons'
 gem 'pg'
@@ -109,7 +110,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'figaro'
   gem 'redis-rails'
 end
 
