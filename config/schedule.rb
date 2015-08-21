@@ -13,5 +13,5 @@ every 5.minutes do
 end
 
 every 1.day, :at => '7:30am' do
-  runner "AdminReportMailer.admin_report.deliver"
+  rake 'mail:send_admin_report'
 end
