@@ -300,6 +300,7 @@ class Item < ActiveRecord::Base
         __elasticsearch__.delete_document
       rescue
       end
+      reload
       __elasticsearch__.index_document
       logger.info "Updated item #{id.to_s} in elasticsearch"
     end
