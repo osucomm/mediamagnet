@@ -9,7 +9,6 @@ gem 'pg'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'responders'
 gem 'sanitize'
-gem 'sidekiq'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
 
@@ -111,6 +110,7 @@ end
 
 group :production do
   gem 'redis-rails'
+gem 'sidekiq'
 end
 
 # Use debugger
