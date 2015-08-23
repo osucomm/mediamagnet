@@ -48,4 +48,9 @@ namespace :items do
     Item.by_link_verification.limit(100).each {|i| i.destroy_on_bad_link}
   end
 
+  desc 'Reindex recent items to workaround tag issue'
+  task reindex_recent: :environment do
+    Item.where('created_at > ?', 3.minutes.ago).each {|i| i.update_es_record}
+  end
+
 end
