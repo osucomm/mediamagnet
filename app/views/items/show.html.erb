@@ -3,7 +3,7 @@
   @item, 'btn btn-danger btn-xs action-button' if policy(@item).destroy? %>
 </h1>
 
-<p class="lead">URL: <%= link_to @item.link.to_s, @item.link.to_s %></p>
+<p class="lead">URL: <%= link_to @item.url, @item.url %></p>
 
 <div class="row">
   <div class="col-sm-8">
