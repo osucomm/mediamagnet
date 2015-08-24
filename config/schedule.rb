@@ -5,10 +5,6 @@
 env :PATH, '/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/opt/aws/bin:/opt/aws/bin'
 
 every 2.minutes do
-  rake 'items:reindex_recent'
-end
-
-every 2.minutes do
   rake 'channels:refresh'
 end
 
