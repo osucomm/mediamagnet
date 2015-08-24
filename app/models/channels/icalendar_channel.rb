@@ -61,7 +61,7 @@ class IcalendarChannel < Channel
   end
 
   def get_info
-    if new_record? && service_identifier_is_valid?
+    if service_identifier_is_valid?
       self.name = 'My Calendar' # client.title
     #  self.description = client.description
       self.url = service_identifier.sub('.ics', '.html')

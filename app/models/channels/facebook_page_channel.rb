@@ -56,7 +56,7 @@ class FacebookPageChannel < Channel
   end
 
   def get_info
-    if new_record? && service_account
+    if service_account
       self.name = service_account['name']
       self.description = service_account['description']
       self.url = service_account['link']

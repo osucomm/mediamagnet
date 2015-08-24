@@ -60,7 +60,7 @@ class InstagramChannel < Channel
   end
 
   def get_info
-    if new_record? && service_identifier_is_valid?
+    if service_identifier_is_valid?
       self.name = service_account.full_name
       self.description = service_account.bio
       self.service_identifier_id = service_account.id 
