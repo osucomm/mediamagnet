@@ -62,7 +62,7 @@ class Item < ActiveRecord::Base
   before_save :links_from_text_fields
   before_save :sanitize_plain_elements
   after_save :add_evident_keywords
-  after_save :update_es_record
+  after_commit :update_es_record, if: 'entity.approved?'
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
   after_destroy() { 
@@ -295,15 +295,12 @@ class Item < ActiveRecord::Base
 
 
   def update_es_record
-    if entity.approved?
-      begin
-        __elasticsearch__.delete_document
-      rescue
-      end
-      reload
-      __elasticsearch__.index_document
-      logger.info "Updated item #{id.to_s} in elasticsearch"
+    begin
+      __elasticsearch__.delete_document
+    rescue
     end
+    __elasticsearch__.index_document
+    logger.info "Updated item #{id.to_s} in elasticsearch"
   end
 
   def guid
