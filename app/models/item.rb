@@ -62,7 +62,7 @@ class Item < ActiveRecord::Base
   before_save :links_from_text_fields
   before_save :sanitize_plain_elements
   after_save :add_evident_keywords
-  after_commit :schedule_update_es_record
+  after_save :schedule_update_es_record
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
   after_destroy() { 
