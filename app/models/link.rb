@@ -50,7 +50,7 @@ class Link < ActiveRecord::Base
     def response(url)
       uri = URI(URI.encode(url.strip))
 
-      @response ||= Net::HTTP.start(uri.host, uri.port, open_timeout: 10,
+      Net::HTTP.start(uri.host, uri.port, open_timeout: 10,
                         :use_ssl => uri.scheme == 'https') do |http|
           request = Net::HTTP::Head.new uri
           response = http.request request # Net::HTTPResponse object
@@ -74,6 +74,10 @@ class Link < ActiveRecord::Base
 
   end
 
+  def response
+    @response ||= self.class.response(self.url)
+  end
+
   def response_code
     response.code
   end
@@ -84,12 +88,6 @@ class Link < ActiveRecord::Base
 
   def response_content_type
     response.length
-  end
-
-  private
-
-  def response
-    self.class.response(self.url)
   end
 
 end
