@@ -12,6 +12,19 @@ class YoutubePlaylistChannel < Channel
     end
   end
 
+  def destroy_missing_items
+    items.each do |item|
+      request = {
+        api_method: youtube_api.videos.list,
+        parameters: { part: 'snippet', id: item.source_identifier }
+      }
+      result = client.execute(request)
+      if result.data.items.count < 1
+        item.destroy
+      end
+    end
+  end
+
   def service_id_name
     'Playlist ID'
   end

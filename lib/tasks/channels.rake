@@ -20,4 +20,9 @@ namespace :channels do
     Channel.stale_for_days(30).each {|channel| AdminReportMailer.stale_channels(channel).deliver}
   end
 
+  desc 'Destroy missing youtube videos'
+  task destroy_missing_youtube_items: :environment do
+    YoutubePlaylistChannel.all.each {|channel| channel.destroy_missing_items}
+  end
+
 end
