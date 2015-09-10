@@ -16,10 +16,10 @@ class YoutubePlaylistChannel < Channel
     items.each do |item|
       request = {
         api_method: youtube_api.videos.list,
-        parameters: { part: 'snippet', id: item.source_identifier }
+        parameters: { part: 'status', id: item.source_identifier }
       }
       result = client.execute(request)
-      if result.data.items.count < 1
+      if result.data.items.count < 1 || result.data.items.first.status.privacyStatus == 'private'
         item.destroy
       end
     end
