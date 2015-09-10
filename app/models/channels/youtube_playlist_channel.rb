@@ -46,7 +46,7 @@ class YoutubePlaylistChannel < Channel
   def uploaded_video_ids
     request = {
       api_method: youtube_api.playlist_items.list,
-      parameters: {part: 'snippet', 
+      parameters: {part: 'snippet,status', 
                    playlistId: uploads_playlist_id,
                    maxResults: 10},
     }
@@ -57,7 +57,9 @@ class YoutubePlaylistChannel < Channel
       result = client.execute(request)
 
       result.data.items.each do |item|
-        video_ids << item.snippet.resourceId.videoId
+        unless item.status.privacyStatus == 'private' || item.status.uploadStatus != 'processed'
+          video_ids << item.snippet.resourceId.videoId
+        end
       end
 
       #break unless result.next_page_token
