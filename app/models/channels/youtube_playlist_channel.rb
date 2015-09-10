@@ -57,7 +57,7 @@ class YoutubePlaylistChannel < Channel
       result = client.execute(request)
 
       result.data.items.each do |item|
-        unless item.status.privacyStatus == 'private' || item.status.uploadStatus != 'processed'
+        unless item.status.privacyStatus == 'private' # || item.status.uploadStatus != 'processed'
           video_ids << item.snippet.resourceId.videoId
         end
       end
