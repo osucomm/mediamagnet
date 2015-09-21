@@ -64,7 +64,8 @@ class RssChannel < Channel
   def client
     @client ||= (
         f = Feedjira::Feed
-        f.add_common_feed_entry_element('dc:modified', :as => :modified)
+        f.add_common_feed_entry_element('dc:modified', as: :modified)
+        f.add_common_feed_entry_elements('dc:subject', as: :categories)
         f.fetch_and_parse(service_identifier)
     )
   end
