@@ -37,6 +37,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :update]
     resources :entities, only: [:index, :update]
     mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
+    get 'jobs' => 'jobs#show'
   end
 
   get 'channels/:id/refresh' => 'channels#refresh'
