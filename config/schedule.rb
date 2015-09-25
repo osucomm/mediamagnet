@@ -16,6 +16,6 @@ every 1.day, :at => '7:30am' do
   rake 'mail:send_admin_report'
 end
 
-every 7.days :at => '5:30am' do
+every 7.days, :at => '5:30am' do
   rake 'channels:destroy_missing_youtube_items'
 end
