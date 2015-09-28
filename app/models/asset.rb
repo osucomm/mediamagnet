@@ -21,9 +21,11 @@ class Asset < ActiveRecord::Base
       self.url = URI.encode(url, /\[|\]|\ /)
     end
     real_url = Link.resolve_uri(url)
-    response = Link.response(real_url)
-    self.mime = response.content_type
-    self.size = response.content_length
+    if real_url
+      response = Link.response(real_url) 
+      self.mime = response.content_type
+      self.size = response.content_length
+    end
   end
 
 end
