@@ -9,6 +9,7 @@ gem 'pg'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'responders'
 gem 'sanitize'
+gem 'slack-notifier'
 gem 'uglifier', '>= 1.3.0'
 gem 'whenever'
 
