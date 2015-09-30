@@ -12,7 +12,8 @@ class Api::V1::EventsController < Api::BaseController
     # Paging only works with one-to-one correspondance of items to events!
     items = Item.search( *search_params(params) ).page(1).per(1000000)
       .records
-        .map(&:id)
+        .pluck(:id)
+
     @events = apply_scopes(Event)
       .where(item_id: items)
       .includes(:location, item: [:keywords, :custom_tags, :links, :link, :assets, :channel])
