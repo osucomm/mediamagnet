@@ -4,7 +4,7 @@ class AdminReportMailer < ApplicationMailer
     active_items = Item.between(2.days.ago.at_midnight, 1.day.ago.at_midnight)
     @active_items_count = active_items.count
     @active_channels_count = active_items.map(&:channel).uniq.count
-    @stale_channels = Channel.stale_for_days(10)
+    @stale_channels = Channel.stale_for_days(30)
     mail(to: User.admin.pluck(:email), subject: '[Media Magnet] Daily Report')
   end
 
