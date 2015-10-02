@@ -190,7 +190,7 @@ class Item < ActiveRecord::Base
   end
 
   def destroy_on_bad_link
-    if link.nil? || link.response_code == 404
+    if link.nil? || link.response_code == '404'
       logger.info "Removed item #{id.to_s} which had a bad link"
       destroy
     else

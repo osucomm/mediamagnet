@@ -12,6 +12,10 @@ every 5.minutes do
   rake 'items:remove_stale'
 end
 
+every 10.minutes do
+  rake 'admin:job_status'
+end
+
 every 1.day, :at => '7:30am' do
   rake 'mail:send_admin_report'
 end
