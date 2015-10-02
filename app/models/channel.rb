@@ -131,25 +131,9 @@ class Channel < ActiveRecord::Base
     self.class.machine_type_name
   end
 
-  # def lock(options = {})
-  #   begin
-  #     create_refresh_lock(job_id: options[:job_id])
-  #   rescue ActiveRecord::RecordNotSaved
-  #     false
-  #   end
-  # end
-
   def locked?
     Sidekiq::Queue.new.find_job(job_id).present?
   end
-
-  # def unlock
-  #   begin
-  #     refresh_lock.destroy
-  #   rescue ActiveRecord::RecordNotSaved
-  #     false
-  #   end
-  # end
 
   def service_id_name
     'Service Identifier'
