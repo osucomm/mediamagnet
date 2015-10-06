@@ -6,9 +6,9 @@ namespace :admin do
       total_jobs = Sidekiq::Queue.all.map(&:size).reduce(:+)
       total_workers = Sidekiq::ProcessSet.new.size
       if total_jobs > 50
-        notifier = Slack::Notifier.new "https://hooks.slack.com/services/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", 
-          channel: '#dev',
-          username: 'notifier'
+        notifier = Slack::Notifier.new ENV['SLACK_URL'], 
+          channel: ENV['SLACK_CHANNEL'],
+          username: ENV['SLACK_USERNAME']
 
         notifier.ping "There are #{total_jobs} in the [sidekiq queue for media magnet](https://mediamagnet.osu.edu/admin/sidekiq). Currently there are #{total_workers} worker processes."
       end
