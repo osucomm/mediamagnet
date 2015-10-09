@@ -15,7 +15,6 @@ class Channel < ActiveRecord::Base
   has_many :mapped_keywords, through: :mappings, source: :keyword
   has_many :keywordings, as: :keywordable, dependent: :destroy
   has_many :keywords, through: :keywordings, before_remove: :remove_keyword_from_items
-  has_one :refresh_lock, dependent: :destroy
 
   # Validations
   validates :name, presence: true
@@ -110,7 +109,10 @@ class Channel < ActiveRecord::Base
   end
 
   def refresh
-    RefreshChannelJob.perform_later self
+    unless locked?
+      job = RefreshChannelJob.perform_later self
+      update(job_id: job.provider_job_id)
+    end
   end
 
   def all_keywords
@@ -129,24 +131,8 @@ class Channel < ActiveRecord::Base
     self.class.machine_type_name
   end
 
-  def lock(options = {})
-    begin
-      create_refresh_lock(job_id: options[:job_id])
-    rescue ActiveRecord::RecordNotSaved
-      false
-    end
-  end
-
   def locked?
-    refresh_lock.present?
-  end
-
-  def unlock
-    begin
-      refresh_lock.destroy
-    rescue ActiveRecord::RecordNotSaved
-      false
-    end
+    Sidekiq::Queue.new.find_job(job_id).present?
   end
 
   def service_id_name
