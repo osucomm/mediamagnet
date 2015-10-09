@@ -1,6 +1,11 @@
 # Patch ActiveJob Sidekiq adapter to Rails 5 behavior
 # THIS IS BAD. REMOVE WHEN UPDATING TO RAILS 5!
 
+ActiveJob::Base.class_eval do
+  attr_accessor :provider_job_id
+end
+
+
 ActiveJob::QueueAdapters::SidekiqAdapter.class_eval do
   class << self
 
