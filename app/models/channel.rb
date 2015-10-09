@@ -111,7 +111,7 @@ class Channel < ActiveRecord::Base
   def refresh
     unless locked?
       job = RefreshChannelJob.perform_later self
-      self.job_id = job.provider_job_id
+      update job_id, provider_job_id
     end
   end
 
