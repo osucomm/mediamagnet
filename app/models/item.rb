@@ -62,7 +62,7 @@ class Item < ActiveRecord::Base
   before_save :links_from_text_fields
   before_save :sanitize_plain_elements
   after_save :add_evident_keywords
-  after_save :schedule_update_es_record
+  after_save :update_es_record
   #Partial updates are unaware of changes in has_many through relationships, so
   #avoid update_document on save.
   after_destroy() { 
@@ -255,13 +255,12 @@ class Item < ActiveRecord::Base
     [description, title, source_identifier].find(&:present?)
   end
 
-  def tag_names=(new_tags=[])
-    if !new_tags.nil? && new_tags.any? 
-      new_tags.map!(&:downcase)
-      custom_tags.destroy_all
+  def tag_names=(new_tags)
+    if !new_tags.nil? && new_tags.any?
+      custom_tags = []
 
       new_tags.each do |tag_text|
-        taggings.build(tag_text: tag_text)
+        custom_tags << Tag.create_from_text(tag_text)
       end
 
       custom_tags
@@ -291,10 +290,6 @@ class Item < ActiveRecord::Base
                                     }
                           },
                  methods: [:channel_type, :tags, :entity_id, :url].concat(Category.all.map{|c| c.name.pluralize.to_sym}))
-  end
-
-  def schedule_update_es_record
-    UpdateItemEsRecordJob.perform_later(self)
   end
 
   def update_es_record
