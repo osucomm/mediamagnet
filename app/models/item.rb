@@ -257,10 +257,10 @@ class Item < ActiveRecord::Base
 
   def tag_names=(new_tags)
     if !new_tags.nil? && new_tags.any?
-      custom_tags = []
+      self.custom_tags = []
 
       new_tags.each do |tag_text|
-        custom_tags << Tag.create_from_text(tag_text)
+        self.custom_tags << Tag.create_from_text(tag_text)
       end
 
       custom_tags
