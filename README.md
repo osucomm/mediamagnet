@@ -49,7 +49,7 @@ Then open your browser to `http://localhost:3000`.
 Copyright and License
 ---------------------
 
-Media Magnet - Co-ordinating digital media
+Media Magnet - Co-ordinating digital media  
 Copyright (C) 2015 The Ohio State University
 
 This program is free software: you can redistribute it and/or modify
